@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace NetStd.DataTransferObjects.Mar2024;
 

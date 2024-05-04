@@ -473,7 +473,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService02
 
                 var route = new MvcRouteSegmentItem(ThisControllerRoute, Routes.PopulateSingleEventWithResults, null);
 
-                HttpRequestService.MustProcessResponseContentUsingReadAsStringAsync = false;
+                HttpRequestService.MustProcessResponseContentUsingReadAsStringAsync = true;
 
                 var jsonOut = JghSerialisation.ToJsonFromObject(eventProfileDto);
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Azure.Storage.Blobs;
 using Jgh.ConnectionStrings.Mar2024;
 using NetStd.AzureStorageAccess.July2018;
@@ -14,32 +15,36 @@ using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles;
 
-namespace RezultzSvc.Library01.Mar2024.SvcHelpers
+namespace RezultzSvc.Library01.Mar2024.SvcHelpers;
+
+public class LeaderboardResultsServiceMethodsHelper
 {
-    public class LeaderboardResultsServiceMethodsHelper
+    private const string Locus2 = nameof(LeaderboardResultsServiceMethodsHelper);
+    private const string Locus3 = "[RezultzSvc.Library01.Mar2024]";
+
+    #region fields
+
+    private readonly AzureStorageServiceMethodsHelper _azureStorageServiceMethodsHelperInstance;
+
+    #endregion
+
+    #region ctor
+
+    public LeaderboardResultsServiceMethodsHelper()
     {
-        private const string Locus2 = nameof(LeaderboardResultsServiceMethodsHelper);
-        private const string Locus3 = "[RezultzSvc.Library01.Mar2024]";
+        _azureStorageServiceMethodsHelperInstance = new AzureStorageServiceMethodsHelper(new AzureStorageAccessor());
+    }
 
-        #region ctor
+    #endregion
 
-        public LeaderboardResultsServiceMethodsHelper()
-        {
-            _azureStorageServiceMethodsHelperInstance = new AzureStorageServiceMethodsHelper(new AzureStorageAccessor());
+    #region svc methods
 
-        }
+    public async Task<bool> GetIfSeasonIdIsRecognisedAsync(string profileFileNameFragment)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(GetIfSeasonIdIsRecognisedAsync);
 
-        #endregion
-
-        #region fields
-
-        private readonly AzureStorageServiceMethodsHelper _azureStorageServiceMethodsHelperInstance;
-
-        #endregion
-
-        #region svc methods
-
-        public async Task<bool> GetIfSeasonIdIsRecognisedAsync(string profileFileNameFragment)
+        try
         {
             if (string.IsNullOrEmpty(profileFileNameFragment))
                 return false;
@@ -50,20 +55,31 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
             var answer = await _azureStorageServiceMethodsHelperInstance.GetIfBlobExistsAsync(entryPoint.AzureStorageAccountName, entryPoint.AzureStorageContainerName, seasonIdBlobName);
 
-
             return answer;
         }
 
-        /// <summary>
-        ///     Returns deep copy of SeasonProfileItem document, inclusive of constituent Series data
-        /// </summary>
-        /// <param name="profileFileNameFragment"></param>
-        /// <returns></returns>
-        public async Task<SeasonProfileDto> GetSeasonProfileAsync(string profileFileNameFragment)
-        {
-            const string failure = "Unable to do what this method does.";
-            const string locus = "[GetSeasonProfileAsync]";
+        #region try catch handling
 
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    ///     Returns deep copy of SeasonProfileItem document, inclusive of constituent Series data
+    /// </summary>
+    /// <param name="profileFileNameFragment"></param>
+    /// <returns></returns>
+    public async Task<SeasonProfileDto> GetSeasonProfileAsync(string profileFileNameFragment)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(GetSeasonProfileAsync);
+
+        try
+        {
             if (string.IsNullOrEmpty(profileFileNameFragment))
                 throw new JghSeasonDataFile404Exception("Unable proceed. FragmentInFileNameOfAssociatedProfileFile is null or empty.");
 
@@ -85,18 +101,15 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
             var seasonItem = JghSerialisation.ToObjectFromJson<SeasonProfileDto>(seasonIdDocumentAsJson);
 
-
             #endregion
 
             #region get one or more targeted series settings Season documents and load up the seasonData with them
 
             if (IsManifestlyInvalidSeasonItemDocument(seasonItem, out var errorMessage))
-            {
                 throw new
                     Jgh404Exception(
                         JghString.ConcatAsParagraphs($"FragmentInFileNameOfAssociatedProfileFile document is deficient. Unable to proceed. <{profileFileNameFragment}>",
                             errorMessage));
-            }
 
             var populatedTargetItems = await PopulateSeasonItemWithSeriesItemDataTransferObjects(seasonItem, failure, locus);
 
@@ -108,18 +121,30 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             return seasonItem;
         }
 
+        #region try catch handling
 
-        /// <summary>
-        ///     Returns shallow copies of all SeasonProfileItem documents in
-        ///     the StorageHierarchyEntryPoint container, each of them
-        ///     exclusive of constituent Series Season
-        /// </summary>
-        /// <returns></returns>
-        public async Task<SeasonProfileDto[]> GetAllSeasonProfilesAsync(CancellationToken ct)
+        catch (Exception ex)
         {
-            //const string failure = "Unable to do what this method does.";
-            //const string locus = "[GetAllSeasonProfilesAsync]";
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
 
+        #endregion
+    }
+
+
+    /// <summary>
+    ///     Returns shallow copies of all SeasonProfileItem documents in
+    ///     the StorageHierarchyEntryPoint container, each of them
+    ///     exclusive of constituent Series Season
+    /// </summary>
+    /// <returns></returns>
+    public async Task<SeasonProfileDto[]> GetAllSeasonProfilesAsync(CancellationToken ct)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(GetAllSeasonProfilesAsync);
+
+        try
+        {
             var entryPoint = ConnectionStringRepository.GetStorageHierarchyEntryPoint();
 
             if (entryPoint == null || string.IsNullOrWhiteSpace(entryPoint.AzureStorageAccountName))
@@ -156,12 +181,27 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             return listOfDataTransferObjects.ToArray();
         }
 
-        /// <summary>
-        ///     Returns serialised EventItem inclusive of constituent ArrayOfResultItemForEvent[]
-        /// </summary>
-        /// <param name="eventProfileDto"></param>
-        /// <returns></returns>
-        public async Task<EventProfileDto> PopulateSingleEventWithResultsAsync(EventProfileDto eventProfileDto)
+        #region try catch handling
+
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    ///     Returns serialised EventItem inclusive of constituent ArrayOfResultItemForEvent[]
+    /// </summary>
+    /// <param name="eventProfileDto"></param>
+    /// <returns></returns>
+    public async Task<EventProfileDto> PopulateSingleEventWithResultsAsync(EventProfileDto eventProfileDto)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(PopulateSingleEventWithResultsAsync);
+
+        try
         {
             if (eventProfileDto == null)
                 throw new JghSeasonDataFile404Exception("Unable proceed. EventItem is null.");
@@ -171,13 +211,28 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             return populatedEventItem;
         }
 
-        /// <summary>
-        ///     Returns serialised SeriesItem inclusive of all constituent results for all events.
-        ///     This version of the method does the remote I/O concurrently.
-        /// </summary>
-        /// <param name="seriesProfileDto"></param>
-        /// <returns></returns>
-        public async Task<SeriesProfileDto> PopulateAllEventsInSingleSeriesWithAllResultsAsync(SeriesProfileDto seriesProfileDto)
+        #region try catch handling
+
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    ///     Returns serialised SeriesItem inclusive of all constituent results for all events.
+    ///     This version of the method does the remote I/O concurrently.
+    /// </summary>
+    /// <param name="seriesProfileDto"></param>
+    /// <returns></returns>
+    public async Task<SeriesProfileDto> PopulateAllEventsInSingleSeriesWithAllResultsAsync(SeriesProfileDto seriesProfileDto)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(PopulateAllEventsInSingleSeriesWithAllResultsAsync);
+
+        try
         {
             if (seriesProfileDto == null)
                 throw new JghSeasonDataFile404Exception("Unable proceed. SeriesItem is null.");
@@ -188,7 +243,6 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             foreach (var thisEventItem in seriesProfileDto.EventProfileCollection
                          .Where(z => z != null))
             {
-
                 var advertisedDateOfEvent = DateTime.TryParse(thisEventItem.AdvertisedDateAsString, out var dateTime) ? dateTime.Date : DateTime.Today;
 
                 if (advertisedDateOfEvent <= DateTime.Now)
@@ -217,84 +271,103 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             return seriesProfileDto;
         }
 
+        #region try catch handling
+
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
 
         #endregion
+    }
 
-        #region helpers
+    #endregion
 
-        private async Task<SeriesProfileDto[]> PopulateSeasonItemWithSeriesItemDataTransferObjects(SeasonProfileDto seasonData, string failure, string locus)
+    #region helpers
+
+    private async Task<SeriesProfileDto[]> PopulateSeasonItemWithSeriesItemDataTransferObjects(SeasonProfileDto seasonData, string failure, string locus)
+    {
+        try
         {
             List<SeriesProfileDto> populatedTargetItemsAsList = new();
 
             foreach (var seriesSeasonDocumentTarget in seasonData.SeriesProfileFileLocationCollection)
-            {
                 try
                 {
                     var xx = await GetSeriesItemAsync(seriesSeasonDocumentTarget, failure, locus);
 
-                    if (xx != null)
-                    {
-                        populatedTargetItemsAsList.Add(xx);
-                    }
+                    if (xx != null) populatedTargetItemsAsList.Add(xx);
                 }
-                catch 
+                catch
                 {
-
                     // do nothing
                 }
-            }
 
             return populatedTargetItemsAsList.ToArray();
         }
 
-        private async Task<SeriesProfileDto> GetSeriesItemAsync(EntityLocationDto databaseOfSeriesItemDocument, string failure, string locus)
+        #region try catch handling
+
+        catch (Exception ex)
         {
-            if (databaseOfSeriesItemDocument == null) throw new ArgumentNullException(nameof(databaseOfSeriesItemDocument));
-
-            try
-            {
-                //     Throws JghCommunicationFailureException as an inner exception if request fails and/or
-                //     resource not obtained for any reason whatsoever including an invalidly formatted uri.
-
-                var seriesSettingsDocumentAsBytesAsBinary = await _azureStorageServiceMethodsHelperInstance.DownloadBlockBlobAsBytesAsync(
-                    databaseOfSeriesItemDocument.AccountName,
-                    databaseOfSeriesItemDocument.ContainerName,
-                    databaseOfSeriesItemDocument.EntityName);
-
-                var seriesSettingsDocumentAsBytes = seriesSettingsDocumentAsBytesAsBinary.ToArray();
-
-                var json = JghConvert.ToStringFromUtf8Bytes(seriesSettingsDocumentAsBytes);
-
-                var answer = JghSerialisation.ToObjectFromJson<SeriesProfileDto>(json);
-
-                return answer;
-            }
-            catch (Exception ex)
-            {
-                if (JghExceptionHelpers.InnermostExceptionIsOfSpecifiedType<Jgh404Exception>(ex: ex) || JghExceptionHelpers.InnermostExceptionIsOfSpecifiedType<JghCommunicationFailureException>(ex: ex))
-                {
-                    var e = JghExceptionHelpers.FindInnermostException(ex: ex);
-
-                    ex = new JghSettingsData404Exception(
-                        message: JghString.ConcatAsParagraphs(
-                            $"Unable to find expected series settings document named <{databaseOfSeriesItemDocument.EntityName}>.",
-                            e.Message));
-
-                    throw JghExceptionHelpers.ConvertToCarrier(failureDescription: failure, locusDescription: locus, locus2Description: Locus2, locus3Description: Locus3, ex: ex);
-                }
-
-                throw JghExceptionHelpers.ConvertToCarrier(failureDescription: failure, locusDescription: locus, locus2Description: Locus2, locus3Description: Locus3, ex: ex);
-            }
-
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
         }
 
-        private async Task<EventProfileDto> InsertPreprocessedResultsIntoEventItemAsync(EventProfileDto eventDataTransferObject)
+        #endregion
+    }
+
+    private async Task<SeriesProfileDto> GetSeriesItemAsync(EntityLocationDto databaseOfSeriesItemDocument, string failure, string locus)
+    {
+        if (databaseOfSeriesItemDocument == null) throw new ArgumentNullException(nameof(databaseOfSeriesItemDocument));
+
+        try
+        {
+            //     Throws JghCommunicationFailureException as an inner exception if request fails and/or
+            //     resource not obtained for any reason whatsoever including an invalidly formatted uri.
+
+            var seriesSettingsDocumentAsBytesAsBinary = await _azureStorageServiceMethodsHelperInstance.DownloadBlockBlobAsBytesAsync(
+                databaseOfSeriesItemDocument.AccountName,
+                databaseOfSeriesItemDocument.ContainerName,
+                databaseOfSeriesItemDocument.EntityName);
+
+            var seriesSettingsDocumentAsBytes = seriesSettingsDocumentAsBytesAsBinary.ToArray();
+
+            var json = JghConvert.ToStringFromUtf8Bytes(seriesSettingsDocumentAsBytes);
+
+            var answer = JghSerialisation.ToObjectFromJson<SeriesProfileDto>(json);
+
+            return answer;
+        }
+        catch (Exception ex)
+        {
+            if (JghExceptionHelpers.InnermostExceptionIsOfSpecifiedType<Jgh404Exception>(ex) || JghExceptionHelpers.InnermostExceptionIsOfSpecifiedType<JghCommunicationFailureException>(ex))
+            {
+                var e = JghExceptionHelpers.FindInnermostException(ex);
+
+                ex = new JghSettingsData404Exception(
+                    JghString.ConcatAsParagraphs(
+                        $"Unable to find expected series settings document named <{databaseOfSeriesItemDocument.EntityName}>.",
+                        e.Message));
+
+                throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+            }
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+    }
+
+    private async Task<EventProfileDto> InsertPreprocessedResultsIntoEventItemAsync(EventProfileDto eventDataTransferObject)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(InsertPreprocessedResultsIntoEventItemAsync);
+
+        try
         {
             var resultsForThisEvent = new List<ResultDto>();
 
             var arrayOfPreprocessedResultsDataItemNames = eventDataTransferObject.XmlFileNamesForPublishedResults.Split(',');
 
-            foreach (string dataItemName in arrayOfPreprocessedResultsDataItemNames.Where(z =>  !string.IsNullOrWhiteSpace(z)))
+            foreach (var dataItemName in arrayOfPreprocessedResultsDataItemNames.Where(z => !string.IsNullOrWhiteSpace(z)))
             {
                 var blobDoesExist = await _azureStorageServiceMethodsHelperInstance.GetIfBlobExistsAsync(
                     eventDataTransferObject.DatabaseAccountName,
@@ -313,18 +386,25 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
                 var resultsDocumentInUnknownFormat = resultsDocumentInUnknownFormatAsBinary.ToArray();
 
 
-                ResultDto[] arrayOfResultInThisBlob;
+                ResultDto[] arrayOfResultInThisBlob = Array.Empty<ResultDto>();
 
                 if (dataItemName.EndsWith(".xml"))
                 {
-                    arrayOfResultInThisBlob =
-                        JghSerialisation.ToObjectFromXml<ResultDto[]>(JghConvert.ToStringFromUtf8Bytes(resultsDocumentInUnknownFormat),
-                            new[] { typeof(ResultDto[]) });
+                    var text = JghConvert.ToStringFromUtf8Bytes(resultsDocumentInUnknownFormat);
+
+                    var xx = XDocument.Parse(text);
+
+                    var zz = xx.Element(ResultDto.XeArrayOfResult)?.Elements(ResultDto.XeResult);
+
+                    if(zz!=null)
+                        arrayOfResultInThisBlob = zz.Select(z => JghSerialisation.ToObjectFromXml<ResultDto>(z.ToString(), new[] { typeof(ResultDto) })).ToArray();
                 }
                 else
                 {
-                    arrayOfResultInThisBlob =
-                        JghSerialisation.ToObjectFromJson<ResultDto[]>(JghConvert.ToStringFromUtf8Bytes(resultsDocumentInUnknownFormat));
+                    var text = JghConvert.ToStringFromUtf8Bytes(resultsDocumentInUnknownFormat);
+
+                    // todo - add json handling here
+
                 }
 
                 resultsForThisEvent.AddRange(arrayOfResultInThisBlob);
@@ -336,9 +416,23 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             return eventDataTransferObject;
         }
 
-        private bool IsManifestlyInvalidSeasonItemDocument(SeasonProfileDto thisSeasonData, out string errorMessage)
-        {
+        #region try catch handling
 
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+
+        #endregion
+    }
+
+    private bool IsManifestlyInvalidSeasonItemDocument(SeasonProfileDto thisSeasonData, out string errorMessage)
+    {
+        var failure = "Unable to do what this method does";
+        const string locus = nameof(PopulateSingleEventWithResultsAsync);
+
+        try
+        {
             var sb = new StringBuilder();
 
             if (thisSeasonData == null)
@@ -347,39 +441,24 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(thisSeasonData.Title))
-                {
-                    sb.AppendLine("SeasonProfileItem.Title is null. This property is mandatory.");
-                }
+                if (string.IsNullOrWhiteSpace(thisSeasonData.Title)) sb.AppendLine("SeasonProfileItem.Title is null. This property is mandatory.");
 
-                if (string.IsNullOrWhiteSpace(thisSeasonData.Label))
-                {
-                    sb.AppendLine("SeasonProfileItem.Label is null. This property is mandatory.");
-                }
+                if (string.IsNullOrWhiteSpace(thisSeasonData.Label)) sb.AppendLine("SeasonProfileItem.Label is null. This property is mandatory.");
 
-                if (string.IsNullOrWhiteSpace(thisSeasonData.Organizer?.Title))
-                {
-                    sb.AppendLine("Organizer.Title is null. This property is mandatory.");
-                }
+                if (string.IsNullOrWhiteSpace(thisSeasonData.Organizer?.Title)) sb.AppendLine("Organizer.Title is null. This property is mandatory.");
 
-                if (string.IsNullOrWhiteSpace(thisSeasonData.Organizer?.Label))
-                {
-                    sb.AppendLine("Organizer.Label is null. This property is mandatory.");
-                }
+                if (string.IsNullOrWhiteSpace(thisSeasonData.Organizer?.Label)) sb.AppendLine("Organizer.Label is null. This property is mandatory.");
 
                 foreach (var item in thisSeasonData.SeriesProfileFileLocationCollection)
-                {
                     if (!JghFilePathValidator.IsValidBlobLocationSpecification(
                             item.AccountName,
                             item.ContainerName,
                             item.EntityName,
                             out var errorDescription))
                     {
-
                         sb.AppendLine("Specification of EntityLocation in SeriesProfileFileLocationCollection is deficient." + " ");
                         sb.Append(errorDescription);
                     }
-                }
             }
 
 
@@ -392,10 +471,17 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             errorMessage = sb.ToString();
 
             return true;
+        }
 
+        #region try catch handling
+
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
         }
 
         #endregion
-
     }
+
+    #endregion
 }

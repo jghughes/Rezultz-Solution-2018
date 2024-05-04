@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using Jgh.SymbolsStringsConstants.Mar2022;
 
 namespace Rezultz.DataTransferObjects.Nov2023.Results;
 
@@ -8,44 +7,45 @@ public class ResultDto
 {
     #region Names
 
-    public const string XeResult = "Result";
-    public const string XeArrayOfResult = "ArrayOfResult";
+    public const string XeResult = "result";
+    public const string XeArrayOfResult = "arrayofresult";
 
-    public const string XeFirst = "First";
-    public const string XeMiddle = "Middle";
-    public const string XeLast = "Last";
-    public const string XeSex = "Sex"; // NB
-    public const string XeAge = "Age";
-    public const string XeIsSeries = "IsSeries";
+    public const string XeBib = "bib";
+    public const string XeFirst = "first";
+    public const string XeMiddle = "middle";
+    public const string XeLast = "last";
+    public const string XeSex = "sex"; // NB
+    public const string XeAge = "age";
+    public const string XeIsSeries = "isseries";
 
-    public const string XeRace = "Race";
-    public const string XeAgeGroup = "AgeGroup";
-    public const string XeTeam = "Team";
-    public const string XeCity = "City";
+    public const string XeRace = "race";
+    public const string XeAgeGroup = "agegroup";
+    public const string XeTeam = "team";
+    public const string XeCity = "city";
 
-    public const string XeT01 = "T01";
-    public const string XeT02 = "T02";
-    public const string XeT03 = "T03";
-    public const string XeT04 = "T04";
-    public const string XeT05 = "T05";
-    public const string XeT06 = "T06";
-    public const string XeT07 = "T07";
-    public const string XeT08 = "T08";
-    public const string XeT09 = "T09";
-    public const string XeT10 = "T10";
-    public const string XeT11 = "T11";
-    public const string XeT12 = "T12";
-    public const string XeT13 = "T13";
-    public const string XeT14 = "T14";
-    public const string XeT15 = "T15";
+    public const string XeT01 = "t01";
+    public const string XeT02 = "t02";
+    public const string XeT03 = "t03";
+    public const string XeT04 = "t04";
+    public const string XeT05 = "t05";
+    public const string XeT06 = "t06";
+    public const string XeT07 = "t07";
+    public const string XeT08 = "t08";
+    public const string XeT09 = "t09";
+    public const string XeT10 = "t10";
+    public const string XeT11 = "t11";
+    public const string XeT12 = "t12";
+    public const string XeT13 = "t13";
+    public const string XeT14 = "t14";
+    public const string XeT15 = "t15";
 
-    public const string XeDnxString = "Dnx";
+    public const string XeDnxString = "dnx";
 
     #endregion
 
     #region DataMembers
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = UbiquitousFieldNames.XeBib)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = XeBib)]
     public string Bib { get; set; } = string.Empty;
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = XeFirst)]
