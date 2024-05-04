@@ -1,0 +1,6 @@
+@RezultzSvc.WebApp02_HostAddress = http://localhost:5196
+
+GET {{RezultzSvc.WebApp02_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

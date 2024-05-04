@@ -1,0 +1,181 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="LibraryHyperlinkButtonStyle" 
+           TargetType="HyperlinkButton" />
+
+    <Style x:Key="LibraryImageButtonStyle" 
+           TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template" Value="{StaticResource LibraryImageButtonTemplate}" />
+    </Style>
+
+    <Style x:Key="LibraryImageHyperlinkButtonStyle" 
+           TargetType="HyperlinkButton">
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template" Value="{StaticResource LibraryImageHyperlinkButtonTemplate}" />
+    </Style>
+
+    <ControlTemplate x:Key="LibraryImageButtonTemplate" 
+                     TargetType="Button">
+        <Border x:Name="RootElement">
+            <Border.Background>
+                <SolidColorBrush x:Name="BorderBrush" Color="Transparent" />
+            </Border.Background>
+
+            <Grid Margin="0" Background="{TemplateBinding Background}">
+                <ContentPresenter
+                    Margin="0"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+            </Grid>
+
+            <VisualStateManager.VisualStateGroups>
+
+                <!--
+                    Define the states for the common states.
+                    The states in the VisualStateGroup are mutually exclusive to
+                    each other.
+                -->
+                <VisualStateGroup x:Name="CommonStates">
+
+                    <!--
+                        The Normal state is the state the button is in
+                        when it is not in another state from this VisualStateGroup.
+                    -->
+                    <VisualState x:Name="Normal" />
+
+                    <!--
+                        Change the Color of the BorderBrush to SystemChromeMediumLowColor over 0.05 seconds when the
+                        Pointer is over the button.
+                    -->
+                    <VisualState x:Name="PointerOver">
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetName="BorderBrush"
+                                Storyboard.TargetProperty="Color"
+                                To="{ThemeResource SystemChromeMediumLowColor}"
+                                Duration="0:0:0.05" />
+
+                        </Storyboard>
+
+                    </VisualState>
+
+                    <!--
+                        Change the Color of BorderBrush to SystemBaseHighColor over 0.01 seconds when the
+                        button is pressed.
+                    -->
+                    <VisualState x:Name="Pressed">
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetName="BorderBrush"
+                                Storyboard.TargetProperty="Color"
+                                To="{ThemeResource SystemBaseHighColor}"
+                                Duration="0:0:0.01" />
+                        </Storyboard>
+                    </VisualState>
+                    <!--  The Disabled state is omitted for brevity.  -->
+                </VisualStateGroup>
+
+            </VisualStateManager.VisualStateGroups>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="LibraryImageHyperlinkButtonTemplate" 
+                     TargetType="HyperlinkButton">
+        <Border x:Name="RootElement">
+            <Border.Background>
+                <SolidColorBrush x:Name="BorderBrush" Color="Transparent" />
+            </Border.Background>
+
+            <Grid Margin="0" Background="{TemplateBinding Background}">
+                <ContentPresenter
+                    Margin="0"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+            </Grid>
+
+            <VisualStateManager.VisualStateGroups>
+
+                <!--
+                    Define the states for the common states.
+                    The states in the VisualStateGroup are mutually exclusive to
+                    each other.
+                -->
+                <VisualStateGroup x:Name="CommonStates">
+
+                    <!--
+                        The Normal state is the state the button is in
+                        when it is not in another state from this VisualStateGroup.
+                    -->
+                    <VisualState x:Name="Normal" />
+
+                    <!--
+                        Change the Color of the BorderBrush to SystemChromeMediumLowColor over 0.05 seconds when the
+                        Pointer is over the button.
+                    -->
+                    <VisualState x:Name="PointerOver">
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetName="BorderBrush"
+                                Storyboard.TargetProperty="Color"
+                                To="{ThemeResource SystemChromeMediumLowColor}"
+                                Duration="0:0:0.05" />
+
+                        </Storyboard>
+
+                    </VisualState>
+
+                    <!--
+                        Change the Color of BorderBrush to SystemBaseHighColor over 0.01 seconds when the
+                        button is pressed.
+                    -->
+                    <VisualState x:Name="Pressed">
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetName="BorderBrush"
+                                Storyboard.TargetProperty="Color"
+                                To="{ThemeResource SystemBaseHighColor}"
+                                Duration="0:0:0.01" />
+                        </Storyboard>
+                    </VisualState>
+                    <!--  The Disabled state is omitted for brevity.  -->
+                </VisualStateGroup>
+
+            </VisualStateManager.VisualStateGroups>
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="LibraryOrdinaryButtonStyle" 
+           TargetType="Button">
+        <Setter Property="MinWidth" Value="150" />
+    </Style>
+
+    <Style x:Key="LibraryCancellationTokenButtonStyle" 
+           TargetType="Button">
+        <Setter Property="MinWidth" Value="50" />
+        <Setter Property="Content" Value="x" />
+    </Style>
+
+    <Style x:Key="LibraryRadioButtonStyle" 
+           TargetType="RadioButton" />
+
+    <Style x:Key="LibraryCheckBoxStyle" 
+           TargetType="CheckBox">
+        <Setter Property="VerticalAlignment"  Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="11"/>
+    </Style>
+
+    <Style x:Key="LibraryToggleSwitchStyle" 
+           TargetType="ToggleSwitch">
+        <Setter Property="VerticalAlignment"  Value="Bottom"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}"/>
+    </Style>
+
+
+</ResourceDictionary>

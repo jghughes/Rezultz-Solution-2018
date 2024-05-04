@@ -1,0 +1,642 @@
+﻿<pagebase:UwpPageBase
+    x:Class="RezultzPortal.Uwp.Pages.PublishSingleEventResultsLaunchPage"
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls1="using:RezultzPortal.Uwp.UserControls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    d:DesignHeight="790"
+    d:DesignWidth="1280"
+    mc:Ignorable="d"
+    Style="{StaticResource LibraryPageStyle}"
+    DataContext="{Binding Path=PublishSingleEventResultsVm, Source={StaticResource DependencyInjectionLocator}}">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HereBodyTextBlockStyle"
+                   BasedOn="{StaticResource AppBodyTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="MinWidth" Value="100" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+            <Style x:Key="HereCheckBoxBodyTextBlockStyle"
+                   BasedOn="{StaticResource AppBodyTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="HereCaptionBlurbStyle2"
+                   BasedOn="{StaticResource LibraryCaptionTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+            <Style x:Key="ThisHereCaptionBlurbStyle2"
+                   BasedOn="{StaticResource LibraryCaptionTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+                <Setter Property="Margin" Value="12,0,0,0" />
+            </Style>
+
+            <Style x:Key="HereOrdinaryButtonStyle"
+                   BasedOn="{StaticResource AppOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="Width" Value="300" />
+            </Style>
+
+            <Style x:Key="HereImportDataButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="276" />
+            </Style>
+
+            <Style x:Key="HereConnectionTestButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="MinWidth" Value="200" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+
+            <Style x:Key="HereComboBoxStyle"
+                   TargetType="ComboBox">
+                <Setter Property="MinWidth" Value="350" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource AppPageContentAsGridStyle}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="{StaticResource LibraryTwelveLeftMargin}">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition />
+                <RowDefinition Height="48" />
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+
+            <TextBlock Tag="PageTitle"
+                       Text="Leaderboard publishing :   launch work session"
+                       Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+            <TextBlock Grid.Row="2"
+                       DataContext="{Binding Path=GlobalProgressIndicatorVm, Source={StaticResource DependencyInjectionLocator}}"
+                       Text="{Binding Path=ProgressMessage, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                       Style="{StaticResource LibraryGlobalProgressIndicatorTextBlockStyle}"
+                       Foreground="Red" />
+
+        </Grid>
+
+        <userControls1:HeaderStyleContentsUserControl Grid.Row="2" Tag="Header"
+                                                      x:Name="XamlElementHeaderUserControl"
+                                                      DataContext="{Binding Path=HeadersVm}"
+                                                      Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" Margin="{StaticResource LibraryTwelveLeftMargin}"/>
+
+        <Rectangle Grid.Row="3" Tag="Spacer"
+                   Visibility="{Binding ElementName=XamlElementHeaderUserControl, Path=Visibility}"
+                   Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+        <Grid Grid.Row="4" Tag="PageContents">
+
+            <ScrollViewer Style="{StaticResource LibraryPageScrollViewerStyle}">
+
+                <StackPanel>
+
+                    <Button
+                        Command="{Binding Path=OnClickCommand}"
+                        Content="Test connection to hub"
+                        DataContext="{Binding Path=CheckConnectionToRezultzHubButtonVm}"
+                        Style="{StaticResource HereConnectionTestButtonStyle}" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                    <Button
+                        Command="{Binding Path=OnClickCommand}"
+                        Content="Test publishing service"
+                        DataContext="{Binding Path=CheckAvailabilityOfPublishingServiceButtonVm}"
+                        Style="{StaticResource HereConnectionTestButtonStyle}" />
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                    <userControls1:SeasonProfileValidationUserControlForPortal
+                        DataContext="{Binding Path=SeasonProfileAndIdentityValidationVm}"
+                        Visibility="{Binding Path=SeasonProfileValidationIsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                    <userControls1:IdentityValidationUserControlForPortal
+                        DataContext="{Binding Path=SeasonProfileAndIdentityValidationVm}"
+                        Visibility="{Binding Path=IdentityValidationIsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                    <userControls1:PublishingModuleValidationUserControl
+                        Visibility="{Binding Path=PublishingModuleValidationUserControlIsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                    <StackPanel
+                        Visibility="{Binding ElementName=XamlElementLaunchWorkSessionButton, Path=Visibility}">
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX3}" />
+
+                        <userControls1:SeasonSeriesAndEventSelectorsUserControlForPortal
+                            DataContext="{Binding Path=SeasonProfileAndIdentityValidationVm}"
+                            Visibility="{Binding Path=SeasonProfileValidationIsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                        <TextBlock
+                            Text="Warning : you must launch the work session to start work. You must re-launch the session if you change any ingredient of the work target."
+                            Style="{StaticResource HereCaptionBlurbStyle2}" />
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock
+                                Text="Begin : "
+                                Style="{StaticResource HereBodyTextBlockStyle}"
+                                VerticalAlignment="Top"
+                                Margin="0,6,0,0" />
+
+                            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                            <StackPanel>
+
+                                <Button
+                                    x:Name="XamlElementLaunchWorkSessionButton"
+                                    Command="{Binding Path=OnClickCommand}"
+                                    Content="Launch work session"
+                                    DataContext="{Binding Path=LaunchWorkSessionButtonVm}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Style="{StaticResource HereOrdinaryButtonStyle}"
+                                    ToolTipService.ToolTip="load data to start or resume work on the selected target event" />
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel
+                            Visibility="{Binding ElementName=XamlElementCleanAndRefreshPublishingSequenceButton, Path=Visibility}">
+
+                            <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                            <StackPanel Orientation="Vertical" Margin="124,0,0,0">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock Text="Show optional steps in publishing sequence?"
+                                               Style="{StaticResource HereCheckBoxBodyTextBlockStyle}" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <CheckBox x:Name="XamlElementCheckBoxShowOptionalSteps" />
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock
+                                    Text="Step 1 of 4 : "
+                                    Style="{StaticResource HereBodyTextBlockStyle}"
+                                    VerticalAlignment="Top"
+                                    Margin="0,6,0,0" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <StackPanel>
+
+                                    <Button x:Name="XamlElementCleanAndRefreshPublishingSequenceButton"
+                                            Content="Purge these four steps to begin"
+                                            ToolTipService.ToolTip="clear all input data to begin or restart publishing steps"
+                                            Command="{Binding Path=OnClickCommand}"
+                                            DataContext="{Binding Path=CleanAndRefreshPublishingSequenceButtonVm}"
+                                            Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                            Style="{StaticResource HereOrdinaryButtonStyle}" />
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock
+                                    Text="Step 2 of 4 : "
+                                    Style="{StaticResource HereBodyTextBlockStyle}"
+                                    VerticalAlignment="Top"
+                                    Margin="0,12,0,0" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <userControls1:PublishingModuleFetchSomethingFromRezultzHubButtonUserControl
+                                        DataContext="{Binding Path=PullTimestampsFromRezultzHubAndUploadButtonVm}"
+                                        Visibility="{Binding Path=IsVisible}" />
+
+                                    <userControls1:PublishingModuleFetchSomethingFromRezultzHubButtonUserControl
+                                        DataContext="{Binding Path=PullParticipantsFromRezultzHubAndUploadButtonVm}"
+                                        Visibility="{Binding Path=IsVisible}" />
+
+                                    <userControls1:PublishingModuleFetchSomethingFromRezultzHubButtonUserControl
+                                        DataContext="{Binding Path=PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm}"
+                                        Visibility="{Binding Path=IsVisible}" />
+
+                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm01"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm01}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button Content="{Binding Path=Content}"
+                                                ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                                Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                                Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                                IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                                Style="{StaticResource HereImportDataButtonStyle}"
+                                                TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
+                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm02"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm02}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button
+                                            Content="{Binding Path=Content}"
+                                            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereImportDataButtonStyle}"
+                                            TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
+                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm03"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm03}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button
+                                            Content="{Binding Path=Content}"
+                                            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereImportDataButtonStyle}"
+                                            TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
+                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm04"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm04}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button
+                                            Content="{Binding Path=Content}"
+                                            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereImportDataButtonStyle}"
+                                            TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
+                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm05"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm05}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button
+                                            Content="{Binding Path=Content}"
+                                            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereImportDataButtonStyle}"
+                                            TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock
+                                    Text="Step 3 of 4 : "
+                                    Style="{StaticResource HereBodyTextBlockStyle}"
+                                    VerticalAlignment="Top"
+                                    Margin="0,6,0,0" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <StackPanel>
+
+                                    <Button Content="Compute results"
+                                            Command="{Binding Path=OnClickCommand}"
+                                            DataContext="{Binding Path=PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm}"
+                                            Style="{StaticResource HereOrdinaryButtonStyle}"
+                                            TabIndex="20"
+                                            ToolTipService.ToolTip="Consolidate all collected data into a file containing a finalised set of Results" />
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               Visibility="{Binding ElementName=XamlElementOutcomeOfComputeOperationTextVm, Path=Visibility}" />
+
+                                    <TextBlock x:Name="XamlElementOutcomeOfComputeOperationTextVm"
+                                               DataContext="{Binding Path=OutcomeOfComputeOperationTextVm}"
+                                               Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                                               Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
+                                               Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
+
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                            <StackPanel
+                                Visibility="{Binding ElementName=XamlElementCheckBoxShowOptionalSteps, Path=IsChecked}">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock
+                                        Text="      option : "
+                                        Style="{StaticResource HereBodyTextBlockStyle}"
+                                        MinWidth="0"
+                                        VerticalAlignment="Top"
+                                        Margin="0,6,0,0" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <StackPanel Margin="29,0,0,0">
+
+                                        <Button Content="Export work"
+                                                Click="BtnSavePreprocessedDataToHardDrive_OnClick"
+                                                DataContext="{Binding Path=ExportLeaderboardToHardDriveButtonVm}"
+                                                IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                                Style="{StaticResource HereOrdinaryButtonStyle}"
+                                                TabIndex="30"
+                                                ToolTipService.ToolTip="save a personal copy of your publishable data to your file system"
+                                                VerticalAlignment="Top" />
+
+                                        <Rectangle
+                                            Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                            Visibility="{Binding ElementName=XamlElementSavedFileNameOfProcessedDataTextVm, Path=Visibility}" />
+
+                                        <TextBlock x:Name="XamlElementSavedFileNameOfProcessedDataTextVm"
+                                                   DataContext="{Binding Path=SavedFileNameOfProcessedDataTextVm}"
+                                                   Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull }"
+                                                   Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
+                                                   Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
+
+                                        <Rectangle
+                                            Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                            Visibility="{Binding ElementName=XamlElementSavedFileNameOfProcessedDataTextVm, Path=Visibility}" />
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock
+                                        Text="      option : "
+                                        Style="{StaticResource HereBodyTextBlockStyle}"
+                                        MinWidth="0"
+                                        VerticalAlignment="Top"
+                                        Margin="0,6,0,0" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <StackPanel Margin="29,0,0,0">
+
+                                        <Button
+                                            Content="Upload work to preview"
+                                            DataContext="{Binding Path=UploadLeaderboardToPreviewStorageButtonVm}"
+                                            Command="{Binding Path=OnClickCommand}"
+                                            CommandParameter="StagingStorage"
+                                            Style="{StaticResource HereOrdinaryButtonStyle}"
+                                            TabIndex="50"
+                                            ToolTipService.ToolTip="upload your publishable data to a staging storage location used for previewing provisional leaderboard data privately"
+                                            VerticalAlignment="Top" />
+
+                                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                                   Visibility="{Binding ElementName=XamlElementRanToCompletionMessageForPreviewDataTextVm, Path=Visibility}" />
+
+                                        <TextBlock
+                                            x:Name="XamlElementRanToCompletionMessageForPreviewDataTextVm"
+                                            DataContext="{Binding Path=RanToCompletionMessageForPreviewDataTextVm}"
+                                            Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                                            Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
+                                            Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
+
+                                        <Rectangle
+                                            Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                            Visibility="{Binding ElementName=XamlElementRanToCompletionMessageForPreviewDataTextVm, Path=Visibility}" />
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock
+                                    Text="Step 4 of 4 : "
+                                    Style="{StaticResource HereBodyTextBlockStyle}"
+                                    VerticalAlignment="Top"
+                                    Margin="0,6,0,0" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <Button
+                                        Content="Publish results"
+                                        DataContext="{Binding Path=UploadLeaderboardToPublishedStorageButtonVm}"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        CommandParameter="ProductionStorage"
+                                        Style="{StaticResource HereOrdinaryButtonStyle}"
+                                        TabIndex="60"
+                                        ToolTipService.ToolTip="upload your data to publish results (.xml)"
+                                        VerticalAlignment="Top" />
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               Visibility="{Binding ElementName=XamlElementRanToCompletionMessageForPublishedDataTextVm, Path=Visibility}" />
+
+                                    <TextBlock x:Name="XamlElementRanToCompletionMessageForPublishedDataTextVm"
+                                               DataContext="{Binding Path=RanToCompletionMessageForPublishedDataTextVm}"
+                                               Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                                               Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
+                                               Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Visibility="{Binding ElementName=XamlElementRanToCompletionMessageForPublishedDataTextVm, Path=Visibility}">
+
+                                <TextBlock
+                                    Text="Final : "
+                                    Style="{StaticResource HereBodyTextBlockStyle}"
+                                    VerticalAlignment="Top"
+                                    Margin="0,0,0,0" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <TextBlock
+                                    Text="Publishing sequence complete"
+                                    Style="{StaticResource HereBodyTextBlockStyle}"
+                                    Margin="12,0,0,0" />
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+
+                        <StackPanel Orientation="Horizontal" Margin="124,0,0,0"
+                                    Visibility="{Binding ElementName=XamlElementCleanAndRefreshPublishingSequenceButton, Path=Visibility}">
+
+                            <TextBlock Text="Show workings in publishing sequence?"
+                                       Style="{StaticResource HereCheckBoxBodyTextBlockStyle}" />
+
+                            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                            <CheckBox x:Name="XamlElementCheckBoxShowAllWorkings" />
+
+                        </StackPanel>
+
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding ElementName=XamlElementCheckBoxShowAllWorkings, Path=IsChecked}">
+
+                        <TextBlock
+                            Text="Workings : "
+                            Style="{StaticResource HereBodyTextBlockStyle}"
+                            VerticalAlignment="Top"
+                            Margin="0,6,0,0"
+                            />
+
+                        <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                        <StackPanel
+                            Visibility="{Binding ElementName=XamlElementCboLookupItemOfWorkingsForDisplay, Path=Visibility}"
+                            DataContext="{Binding Path=CboLookupItemOfWorkingsForDisplayVm}"
+                            Orientation="Vertical">
+
+                            <ComboBox
+                                x:Name="XamlElementCboLookupItemOfWorkingsForDisplay"
+                                DisplayMemberPath="Label"
+                                PlaceholderText="Choose an item"
+                                ToolTipService.ToolTip="Choose an item to see the data that was imported from somewhere and/or how the imported data was processed."
+                                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, Converter={StaticResource CboLookupItemDisplayObjectDoNotGuardAgainstNull}}"
+                                Style="{StaticResource HereComboBoxStyle}">
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                                        <core:InvokeCommandAction
+                                            Command="{Binding Path=OnSelectionChangedCommand}" />
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </ComboBox>
+
+
+                            <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                            <!--Note to self: don't put FallbackValue=BindingIsNull in the TextBlock.Text binding below like we routinely do. The DataContext (SelectedItem) will be null much of the time. This is normal. Don't flag it.-->
+
+                            <TextBlock
+                                DataContext="{Binding Path=SelectedItem}"
+                                Margin="12,0,0,0"
+                                Text="{Binding Path=Blurb, Converter={StaticResource TextGuardAgainstNull}}"
+                                Style="{StaticResource HereCaptionBlurbStyle2}"
+                                MaxWidth="1000"
+                                ToolTipService.ToolTip="Displays the datasets associated with each button in the publishing sequence. Displays feedback on the processing." />
+
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX3}" />
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+        </Grid>
+
+        <userControls1:FooterStyleContentsUserControl Grid.Row="5" Tag="Footer"
+                                                     DataContext="{Binding Path=FootersVm}" />
+
+    </Grid>
+
+</pagebase:UwpPageBase>

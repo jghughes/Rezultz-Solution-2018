@@ -1,0 +1,585 @@
+﻿<UserControl
+    x:Class="Rezultz.Uwp.UserControls.PageContentsForLeaderboardStylePageUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Rezultz.Uwp.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:userControlsDataGrid="using:Rezultz.Uwp.UserControls_DataGrid"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <!--  only for static debugging of your binding declarations - be sure to comment this out in dynamic debugging/production  -->
+    <!--<UserControl.DataContext>
+        <Binding Source="{StaticResource DependencyLocator}" Path="SingleEventLeaderboardPageVm" Mode="OneWay" />
+        <Binding Source="{StaticResource DependencyLocator}" Path="SeriesStandingsPageVm" Mode="OneWay" />
+        <Binding Source="{StaticResource DependencyLocator}" Path="SingleEventAverageSplitTimesPageVm" Mode="OneWay" />
+    </UserControl.DataContext>-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="HereCaptionBlurbStyle2"
+                   BasedOn="{StaticResource LibraryCaptionTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+
+            <Style x:Key="HereOrdinaryButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="MinWidth" Value="212" />
+            </Style>
+
+            <Style x:Key="HerePostButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+
+            <Style x:Key="HereSuggestBoxStyle"
+                   TargetType="AutoSuggestBox">
+                <Setter Property="Width" Value="Auto" />
+                <Setter Property="MinWidth" Value="300" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="HereComboBoxStyle"
+                   TargetType="ComboBox">
+                <Setter Property="MinWidth" Value="212" />
+                <Setter Property="FontSize" Value="11" />
+            </Style>
+
+            <DataTemplate x:Name="HereDataTemplateForListViewItem">
+
+                <TextBlock HorizontalAlignment="Stretch"
+                           MinWidth="183"
+                           Width="auto"
+                           FontSize="12"
+                           Text="{Binding Path=Label}" />
+
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="2" Tag="All the menu buttons" Orientation="Horizontal">
+
+            <Button
+                Command="{Binding Path=OnClickCommand}"
+                Content="Restore"
+                ToolTipService.ToolTip="fetch all relevant information and results"
+                DataContext="{Binding Path=LoadSourceDataButtonVm}"
+                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                Style="{StaticResource HereOrdinaryButtonStyle}"
+                Width="140" MinWidth="0" HorizontalContentAlignment="Center" FontSize="12" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button Tag="BtnToggleVisibilityOfSplitViewPane"
+                    Content="Menu"
+                    Style="{StaticResource HereOrdinaryButtonStyle}"
+                    Width="120" MinWidth="0" HorizontalContentAlignment="Center" FontSize="12"
+                    Click="BtnToggleVisibilityOfSplitViewPane_OnClick" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button
+                Command="{Binding Path=OnClickCommand}"
+                Content="Apply filters"
+                ToolTipService.ToolTip="filter rows according to chosen criteria"
+                DataContext="{Binding Path=RefreshScreenButtonVm}"
+                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                Style="{StaticResource HereOrdinaryButtonStyle}"
+                Width="120" MinWidth="0" HorizontalContentAlignment="Center" FontSize="12" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button Content="Favorites"
+                    x:Uid="BtnToggleFavoritesListVisibility"
+                    ToolTipService.ToolTip="show/hide your favorites"
+                    Command="{Binding Path=OnClickCommand}"
+                    DataContext="{Binding ToggleFavoritesGridVisibilityButtonVm}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                    Style="{StaticResource HereOrdinaryButtonStyle}" Width="120" MinWidth="0"
+                    HorizontalContentAlignment="Center" FontSize="12" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button Content="Add favorite"
+                    x:Uid="BtnAddSelectedPersonToFavorites"
+                    ToolTipService.ToolTip="add selected person to favorites"
+                    Command="{Binding Path=OnClickCommand}"
+                    DataContext="{Binding Path=AddPersonToFavoritesButtonVm}"
+                    IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                    Style="{StaticResource HereOrdinaryButtonStyle}" Width="120" MinWidth="0"
+                    HorizontalContentAlignment="Center" FontSize="12" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button Content="Delete favorite"
+                    x:Uid="BtnRemoveSelectedPersonFromFavorites"
+                    ToolTipService.ToolTip="remove selected favorite"
+                    Command="{Binding Path=OnClickCommand}"
+                    DataContext="{Binding Path=DeletePersonFromFavoritesButtonVm}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                    Style="{StaticResource HereOrdinaryButtonStyle}" Width="120" MinWidth="0"
+                    HorizontalContentAlignment="Center" FontSize="12" />
+
+            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+            <AutoSuggestBox
+                IsEnabled="{Binding Path=SearchFunctionVm.IsAuthorisedToOperate}"
+                QueryIcon="Find"
+                QuerySubmitted="MyAutoSuggestBox_OnQuerySubmitted"
+                Style="{StaticResource HereSuggestBoxStyle}"
+                HorizontalContentAlignment="Left"
+                SuggestionChosen="MyAutoSuggestBox_OnSuggestionChosen"
+                TextChanged="MyAutoSuggestBox_OnTextChanged"
+                ToolTipService.ToolTip="Type in the search box until targets materialise. Your selected target will materialise second on the datagrid." />
+
+            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+            <TextBlock
+                DataContext="{Binding Path=GlobalProgressIndicatorVm, Source={StaticResource DependencyInjectionLocator}}"
+                Text="{Binding Path=ProgressMessage, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                Style="{StaticResource LibraryCaptionTextBlockStyle}" VerticalAlignment="Center" Foreground="Red" />
+
+        </StackPanel>
+
+
+        <local:HeaderStyleContentsUserControl Grid.Row="4"
+                                                     DataContext="{Binding Path=HeadersVm}"
+                                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                                     Foreground="{StaticResource LibraryOnBackgroundMuted2Color}"
+                                                     Margin="{StaticResource LibraryMediumLeftRightMargin}" />
+
+        <SplitView Grid.Row="6" Tag="The favorites and leaderboard dataGrids"
+                   x:Name="XamlElementSplitView"
+                   DisplayMode="Overlay"
+                   OpenPaneLength="400"
+                   PanePlacement="Left"
+                   Margin="{StaticResource LibraryMediumLeftRightMargin}">
+
+            <SplitView.Pane>
+
+                <ScrollViewer VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" MaxHeight="630" Margin="24">
+
+                    <StackPanel>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <controls:Expander Tag="PanelForCategoryFilters"
+                                           Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                            <controls:Expander.Header>
+
+                                <TextBlock Text="Filters"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            </controls:Expander.Header>
+
+                            <StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <ComboBox
+                                        DisplayMemberPath="Label"
+                                        PlaceholderText="Choose race"
+                                        ToolTipService.ToolTip="Where there are multiple races in an event, this is where you choose the race you want if you wish to change the default."
+                                        DataContext="{Binding Path=CboLookupRaceCategoryFilterVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ComboBox>
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               DataContext="{Binding Path=CboLookupRaceCategoryFilterVm}"
+                                               Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                                    <ComboBox
+                                        DisplayMemberPath="Label"
+                                        PlaceholderText="Choose gender"
+                                        ToolTipService.ToolTip="Where there are multiple genders in a race, this is where you choose the gender you want if you wish to change the default."
+                                        DataContext="{Binding Path=CboLookupGenderCategoryFilterVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ComboBox>
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               DataContext="{Binding Path=CboLookupGenderCategoryFilterVm}"
+                                               Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                                    <ComboBox
+                                        DisplayMemberPath="Label"
+                                        PlaceholderText="Choose age-group"
+                                        ToolTipService.ToolTip="Where there are multiple age-groups in a race, this is where you choose the age-group you want if you wish to change the default."
+                                        DataContext="{Binding Path=CboLookupAgeGroupCategoryFilterVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ComboBox>
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               DataContext="{Binding Path=CboLookupAgeGroupCategoryFilterVm}"
+                                               Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                                    <ComboBox
+                                        DisplayMemberPath="Label"
+                                        PlaceholderText="Choose team"
+                                        ToolTipService.ToolTip="Where there are teams cities in a race, this is where you choose the team you want if you wish to change the default."
+                                        DataContext="{Binding Path=CboLookupTeamCategoryFilterVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ComboBox>
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               DataContext="{Binding Path=CboLookupTeamCategoryFilterVm}"
+                                               Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                                    <ComboBox
+                                        DisplayMemberPath="Label"
+                                        PlaceholderText="Choose city"
+                                        ToolTipService.ToolTip="Where there are multiple cities in a race, this is where you choose the city you want if you wish to change the default."
+                                        DataContext="{Binding Path=CboLookupCityCategoryFilterVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ComboBox>
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                                               DataContext="{Binding Path=CboLookupCityCategoryFilterVm}"
+                                               Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                                    <ComboBox
+                                        DisplayMemberPath="Label"
+                                        PlaceholderText="Choose option"
+                                        ToolTipService.ToolTip="Where there are multiple options here, this is where you choose the option you want if you wish to change the default."
+                                        DataContext="{Binding Path=CboLookupUtilityClassificationCategoryFilterVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ComboBox>
+
+                                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                               DataContext="{Binding Path=CboLookupUtilityClassificationCategoryFilterVm}"
+                                               Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                                    <StackPanel Orientation="Horizontal"
+                                                DataContext="{Binding Path=DisplayPodiumResultsOnlyToggleButtonVm}"
+                                                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+
+                                                Margin="13,0,0,0">
+
+                                        <TextBlock Text="Podium only?"
+                                                   Style="{StaticResource AppBodyTextBlockStyle}"
+                                                   VerticalAlignment="Center" FontSize="11" />
+
+                                        <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                        <ToggleSwitch
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            IsOn="{Binding Path=IsChecked, Mode=TwoWay}"
+                                            ToolTipService.ToolTip="show the top three in each category only"
+                                            OffContent="No"
+                                            OnContent="Yes" FontSize="11" />
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                        </controls:Expander>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <controls:Expander Tag="PanelForMore"
+                                           Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                            <controls:Expander.Header>
+
+                                <TextBlock Text="More"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            </controls:Expander.Header>
+
+                            <StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                                <ListView
+                                    DataContext="{Binding Path=CboLookupMoreInfoItemVm}"
+                                    IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource MoreInformationItemDisplayObjectsGuardAgainstNull}}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                    ItemTemplate="{StaticResource HereDataTemplateForListViewItem}">
+
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                                            <core:InvokeCommandAction
+                                                Command="{Binding Path=OnSelectionChangedCommand}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+
+                                </ListView>
+
+                            </StackPanel>
+
+                        </controls:Expander>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <controls:Expander Tag="PanelForExporting"
+                                           Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                            <controls:Expander.Header>
+
+                                <TextBlock Text="Export"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            </controls:Expander.Header>
+
+                            <StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                                <StackPanel>
+
+                                    <StackPanel
+                                        DataContext="{Binding Path=CboLookUpFileFormatsVm}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Orientation="Vertical">
+
+                                        <TextBlock Text="Choose format..."
+                                                   Style="{StaticResource HereCaptionBlurbStyle2}" />
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <ComboBox
+                                            DisplayMemberPath="Label"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                            SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                            Style="{StaticResource HereComboBoxStyle}">
+                                            <interactivity:Interaction.Behaviors>
+                                                <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                    <core:InvokeCommandAction
+                                                        Command="{Binding Path=OnSelectionChangedCommand, Mode=OneWay}" />
+                                                </core:EventTriggerBehavior>
+                                            </interactivity:Interaction.Behaviors>
+                                        </ComboBox>
+
+                                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                                    </StackPanel>
+
+                                    <Button
+                                        Content="Export favorites shown"
+                                        CommandParameter="Favorites"
+                                        Click="BtnExportChosenData_OnClick"
+                                        DataContext="{Binding Path=ExportFavoritesButtonVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereOrdinaryButtonStyle}" 
+                                        ToolTipService.ToolTip="save your favorites to a file in your chosen file format" />
+
+                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                                    <Button
+                                        Content="Export leaderboard shown"
+                                        CommandParameter="Leaderboard"
+                                        Click="BtnExportChosenData_OnClick"
+                                        DataContext="{Binding ExportSingleEventLeaderboardButtonVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereOrdinaryButtonStyle}" 
+                                        ToolTipService.ToolTip="save the leaderboard to a file in your chosen file format" />
+
+
+                                </StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                            </StackPanel>
+
+                        </controls:Expander>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <controls:Expander Tag="PanelForPosting"
+                                           Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                            <controls:Expander.Header>
+
+                                <TextBlock Text="Post"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            </controls:Expander.Header>
+
+                            <StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                                <HyperlinkButton
+                                    Content="See posted results"
+                                    DataContext="{Binding Path=NavigateToPostedLeaderboardHyperlinkButtonVm}"
+                                    NavigateUri="{Binding Path=NavigateUri}"
+                                    IsEnabled="{Binding Path=IsAuthorisedToOperate }"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    ToolTipService.ToolTip="Open posted results in web browser"
+                                    Style="{StaticResource LibraryHyperlinkButtonStyle}"
+                                    FontSize="12"
+                                    Margin="13,0,0,0" />
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                <TextBlock
+                                    DataContext="{Binding Path=NavigateToPostedLeaderboardHyperlinkButtonVm}"
+                                    Text="{Binding Path=AbsoluteUriAsString, FallbackValue=TxtBlockForDisplayingAbsoluteUriAsString}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    TextWrapping="Wrap"
+                                    IsTextSelectionEnabled="True"
+                                    Foreground="{StaticResource LibraryOnBackgroundMuted2Color}"
+                                    FontSize="12"
+                                    Margin="15,0,0,0" MaxWidth="250" HorizontalAlignment="Left" />
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                                <Button
+                                    Content="Post results"
+                                    Command="{Binding Path=OnClickCommand}"
+                                    DataContext="{Binding Path=PostLeaderboardAsHtmlToPublicDataStorageButtonVm}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Style="{StaticResource HerePostButtonStyle}" FontSize="12"
+                                    HorizontalContentAlignment="Center"
+                                    TabIndex="60"
+                                    ToolTipService.ToolTip="Generate web document of displayed results and post to storage location accessible by the general public" />
+
+
+                            </StackPanel>
+                        </controls:Expander>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <local:SocialMediaConnectionsUserControl Tag="MySocialMediaUserControl"
+                                                                 DataContext="{Binding Path=SocialMediaConnectionsVm}" Margin="30,0,0,0"/>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    </StackPanel>
+
+                </ScrollViewer>
+
+            </SplitView.Pane>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="6" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <userControlsDataGrid:FavoritesDataGridPresentationServiceUserControl Grid.Row="0"
+                    x:Name="XamlElementFavoritesDataGridPresentationServiceUserControl"
+                    DataContext="{Binding Path=DataGridOfFavoritesVm}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+                <userControlsDataGrid:LeaderboardDataGridPresentationServiceUserControl Grid.Row="2"
+                    x:Name="XamlElementLeaderboardDataGridPresentationServiceUserControl"
+                    DataContext="{Binding Path=DataGridOfLeaderboardVm}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+            </Grid>
+
+        </SplitView>
+
+        <local:FooterStyleContentsUserControl Grid.Row="8"
+                                                     DataContext="{Binding Path=FootersVm}"
+                                                     Margin="{StaticResource LibraryMediumLeftRightMargin}" />
+
+        <local:ImagesInBannerUserControl Grid.Row="10"
+                                         DataContext="{Binding Path=PageImagesInSkyscraperRightVm}" />
+
+    </Grid>
+
+</UserControl>

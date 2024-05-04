@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-RezultzSvc.Mvc-17409CD1-77DE-44CE-AD9E-B8F127A60BED</UserSecretsId>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.9" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jgh.MvcParameters.Mar2024\Jgh.MvcParameters.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.AzureStorageAccess.July2018\NetStd.AzureStorageAccess.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTypes.Nov2023\Rezultz.DataTypes.Nov2023.csproj" />
+    <ProjectReference Include="..\Rezultz.Library01.Mar2024\Rezultz.Library01.Mar2024.csproj" />
+    <ProjectReference Include="..\Rezultz.Library02.Mar2024\Rezultz.Library02.Mar2024.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Library01.Mar2024\RezultzSvc.Library01.Mar2024.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Library02.Mar2024\RezultzSvc.Library02.Mar2024.csproj" />
+  </ItemGroup>
+
+</Project>

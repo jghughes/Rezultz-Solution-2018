@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="PublisherModuleItems\CompositeDataItem.cs - to deleted" />
+    <None Remove="PublisherModuleItems\PublisherImportedFileItem.cs - to be deleted" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="PublisherModuleItems\CompositeDataItem.cs - to deleted" />
+    <Compile Include="PublisherModuleItems\PublisherImportedFileItem.cs - to be deleted" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetStd.DataTypes.Mar2024\NetStd.DataTypes.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces01.July2018\NetStd.Interfaces01.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Prism.July2018\NetStd.Prism.July2018.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
+  </ItemGroup>
+
+</Project>

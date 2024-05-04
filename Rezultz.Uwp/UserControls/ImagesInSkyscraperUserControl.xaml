@@ -1,0 +1,60 @@
+﻿<UserControl
+    x:Class="Rezultz.Uwp.UserControls.ImagesInSkyscraperUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:seasonProfileViewModels="using:Rezultz.DataTypes.Nov2023.SeasonProfileViewModels"
+    d:DesignHeight="400"
+    d:DesignWidth="132"
+    mc:Ignorable="d">
+
+    <!--  only for static debugging of your binding declarations - be sure to comment this out in dynamic debugging/production  -->
+    <!--<UserControl.DataContext>
+        <Binding Source="{StaticResource DependencyLocator}" Path="RezultzSingleEventLeaderboardPageVm.PageImagesInSkyscraperRightPresenter" Mode="OneWay" />
+	</UserControl.DataContext>-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="HereHyperlinkButtonStyle" TargetType="HyperlinkButton">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Padding" Value="7,0,7,20" />
+            </Style>
+
+            <Style x:Key="HereOrdinaryListViewStyle" TargetType="ListView">
+                <Setter Property="SelectionMode" Value="None" />
+                <Setter Property="IsItemClickEnabled" Value="True" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="MinHeight" Value="0" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+            </Style>
+
+            <DataTemplate x:Name="XamlElementDataTemplateForHyperlinkButtonWithPicture"
+                          x:DataType="seasonProfileViewModels:UriItemDisplayObject">
+
+                <HyperlinkButton NavigateUri="{Binding Path=ReferenceUriString}"
+                                 Style="{StaticResource HereHyperlinkButtonStyle}">
+
+                    <Image Source="{Binding Path=SourceUriString}" Style="{StaticResource LibrarySkyscraperImageStyle}" />
+
+                </HyperlinkButton>
+
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}">
+
+        <ListView
+            ItemTemplate="{StaticResource XamlElementDataTemplateForHyperlinkButtonWithPicture}"
+            ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource UriItemDisplayObjectsGuardAgainstNull}}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+            Style="{StaticResource HereOrdinaryListViewStyle}" />
+
+    </Grid>
+</UserControl>

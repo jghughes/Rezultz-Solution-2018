@@ -1,0 +1,71 @@
+﻿<Page
+    x:Class="Rezultz.Uwp.Pages.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:Rezultz.Uwp.Helpers"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding ShellVm, Source={StaticResource DependencyInjectionLocator}}"
+    mc:Ignorable="d">
+
+    <!-- Each time you add a page, you need to register it with the shell navigation service
+                i.e. call NavigationServiceEx.Configure(pagename...). We do this in the ctor of DependencyLocator which calls ConfigureNavigationServiceExSingleton()
+                (see the section configure navigation service). If, on some rare occasion, you need a capability to invoke a page navigation event
+                from a within a viewmodel, you also must add the page to the ViewModel navigation service. Add the method in NetStd.Rezultz02.July2018.PageNavigation.INavigationServiceForRezultz
+                and then implement in three places, NetStd.Rezultz02.July2018.PageNavigation.NavigationServiceForRezultzDummy and RezultzPortal.Uwp.NavigationServiceJgh.NavigationServiceExForRezultzPortalViewModels
+                and Rezultz.Uwp.NavigationServiceJgh.NavigationServiceExForRezultzViewModels
+            -->
+
+    <NavigationView
+        x:Name="XamlElementNavigationView"
+        IsSettingsVisible="False"
+        PaneDisplayMode="Top"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
+
+        <NavigationView.AlwaysShowHeader>False</NavigationView.AlwaysShowHeader>
+
+        <NavigationView.HeaderTemplate>
+            <DataTemplate>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    
+                    Text="{Binding}" />
+            </DataTemplate>
+        </NavigationView.HeaderTemplate>
+
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+
+        <Grid>
+            <Frame x:Name="XamlElementShellFrame" />
+        </Grid>
+
+        <NavigationView.MenuItems>
+
+            <NavigationViewItem
+                Content="Home"
+                helpers:NavHelper.NavigateTo="Rezultz.Uwp.Pages.HomePage"/>
+
+            <NavigationViewItem
+                Content="Leaderboard"
+                helpers:NavHelper.NavigateTo="Rezultz.Uwp.Pages.SingleEventLeaderboardPage"/>
+
+            <NavigationViewItem
+                Content="Preferences"
+                helpers:NavHelper.NavigateTo="Rezultz.Uwp.Pages.PreferencesPage"/>
+
+            <NavigationViewItem
+                Content="About"
+                helpers:NavHelper.NavigateTo="Rezultz.Uwp.Pages.AboutPage"/>
+
+        </NavigationView.MenuItems>
+
+    </NavigationView>
+
+</Page>

@@ -1,0 +1,144 @@
+﻿<UserControl
+    x:Class="Rezultz.Uwp.UserControls.IdentityValidationUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+
+            <Style x:Key="HereCaptionBlurbStyle2"
+                   BasedOn="{StaticResource LibraryCaptionTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+            <Style x:Key="HereEntryStyle"
+                   BasedOn="{StaticResource LibraryEntryStyle}"
+                   TargetType="TextBox">
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+                <Setter Property="Width" Value="200" />
+            </Style>
+
+            <Style x:Key="HerePasswordEntryStyle"
+                   BasedOn="{StaticResource LibraryPasswordEntryStyle}"
+                   TargetType="PasswordBox">
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+            <Style x:Key="HereLhsValidationButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Width" Value="94" />
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+            <Style x:Key="HereRhsValidationButtonStyle"
+                   BasedOn="{StaticResource HereLhsValidationButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+            </Style>
+
+
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal">
+
+            <TextBox
+                PlaceholderText="username"
+                DataContext="{Binding Path=TextBoxForEnteringIdentityUserNameVm}"
+                Text="{Binding Path=Text, FallbackValue=BindingIsNull, Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay}"
+                IsEnabled="{Binding IsAuthorisedToOperate}"
+                Style="{StaticResource HereEntryStyle}"
+                TabIndex="1">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="KeyUp">
+                        <core:InvokeCommandAction Command="{Binding Path=OnTextChangedCommand}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </TextBox>
+
+            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+            <TextBlock Text=": " Style="{StaticResource HereCaptionBlurbStyle2}" />
+
+            <TextBlock
+                DataContext="{Binding Path=TextBoxForEnteringIdentityUserNameVm}"
+                Text="{Binding Path=Label, FallbackValue=BindingIsNull, Converter={StaticResource TextGuardAgainstNull}}"
+                Style="{StaticResource HereCaptionBlurbStyle2}"
+                ToolTipService.ToolTip="Current user name" Margin="3,0,0,0" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="4"
+                    Orientation="Horizontal">
+
+            <PasswordBox
+                PlaceholderText="password"
+                PasswordRevealMode="Peek"
+                DataContext="{Binding Path=TextBoxForEnteringIdentityPasswordVm}"
+                Password="{Binding Path=Text, FallbackValue=BindingIsNull, Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay}"
+                IsEnabled="{Binding IsAuthorisedToOperate}"
+                Style="{StaticResource HerePasswordEntryStyle}"
+                TabIndex="2">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="PasswordChanged">
+                        <core:InvokeCommandAction Command="{Binding Path=OnTextChangedCommand}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </PasswordBox>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="6"
+                    Orientation="Horizontal">
+
+            <Button
+                DataContext="{Binding Path=SubmitIdentityButtonVm}"
+                Command="{Binding Path=OnClickCommand}"
+                Content="Submit"
+                Style="{StaticResource HereLhsValidationButtonStyle}"
+                TabIndex="3"
+                ToolTipService.ToolTip="Submit username and password for authentication" />
+
+            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+            <Button
+                DataContext="{Binding Path=ClearIdentityButtonVm}"
+                Content="Clear"
+                Command="{Binding Path=OnClickCommand}"
+                Style="{StaticResource HereRhsValidationButtonStyle}"
+                TabIndex="4"
+                ToolTipService.ToolTip="Clear credentials" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

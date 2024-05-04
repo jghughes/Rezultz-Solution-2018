@@ -1,0 +1,130 @@
+﻿<Application
+    x:Class="Rezultz.Uwp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Jgh.Uwp.Common.July2018.Converters"
+    xmlns:converters1="using:Jgh.Uwp.Rezultz.July2018.Converters"
+    xmlns:dependencyInjection="using:Rezultz.Uwp.DependencyInjection"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid">
+
+    <Application.Resources>
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Borders.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Buttons.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Colors.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_ComboBoxes.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Dimensions.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Expanders.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Grids.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Images.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Pages.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_Rectangles.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_ScrollViewers.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_SegoeMDL2icons.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_StackPanels.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_TextBlocks.xaml" />
+                <ResourceDictionary Source="Rezultz.Library04.Mar2024/Styles/_TextBoxes.xaml" />
+
+                <!--<ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Borders.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Buttons.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Colors.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_ComboBoxes.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Dimensions.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Expanders.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Grids.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Images.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Pages.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_Rectangles.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_ScrollViewers.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_SegoeMDL2icons.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_StackPanels.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_TextBlocks.xaml" />
+                <ResourceDictionary Source="Rezultz.Uwp.Library.July2018/Styles/_TextBoxes.xaml" />-->
+
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <dependencyInjection:DependencyInjectionLocator x:Key="DependencyInjectionLocator" />
+
+            <!--  Converters  -->
+
+            <converters:DebugStringNullConverter x:Key="DebugString" />
+            <converters:DebugBreakpointConverter x:Key="DebugBreakpoint" />
+            <converters:DebugWriteLineConverter x:Key="DebugWriteLine" />
+
+            <converters:TextGuardAgainstNullConverter x:Key="TextGuardAgainstNull" />
+
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+
+            <converters1:SeasonItemDisplayObjectCollectionNullConverter x:Key="SeasonItemDisplayObjectsGuardAgainstNull" />
+            <converters1:SeriesItemDisplayObjectCollectionNullConverter x:Key="SeriesItemDisplayObjectsGuardAgainstNull" />
+            <converters1:EventItemDisplayObjectCollectionNullConverter x:Key="EventItemDisplayObjectsGuardAgainstNull" />
+            <converters1:MoreInformationItemDisplayObjectCollectionNullConverter x:Key="MoreInformationItemDisplayObjectsGuardAgainstNull" />
+            <converters1:CboLookupItemDisplayObjectCollectionNullConverter x:Key="CboLookupItemDisplayObjectsGuardAgainstNull" />
+
+            <converters1:ResultItemDisplayObjectDoNotGuardAgainstNullConverter x:Key="ResultItemDisplayObjectDoNotGuardAgainstNull" />
+            <converters1:ResultItemDisplayObjectCollectionNullConverter x:Key="ResultItemDisplayObjectsGuardAgainstNull" />
+
+            <converters1:CohortAnalysisDisplayObjectNullConverter x:Key="CohortAnalysisItemDisplayObjectGuardAgainstNull" />
+            <converters1:CohortAnalysisItemDisplayObjectCollectionNullConverter x:Key="CohortAnalysisItemDisplayObjectsGuardAgainstNull" />
+
+            <converters1:UriItemDisplayObjectCollectionNullConverter x:Key="UriItemDisplayObjectsGuardAgainstNull" />
+
+            <!--  styles  -->
+
+            <Style x:Key="AppTitleTextBlockStyle"
+                BasedOn="{StaticResource LibrarySubtitleTextBlockStyle}"
+                TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundColor}" />
+            </Style>
+
+            <Style x:Key="AppBodyTextBlockStyle"
+                   BasedOn="{StaticResource LibraryBodyTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="MaxWidth" Value="800" />
+            </Style>
+
+            <Style x:Key="AppSectionHeaderTextBlockStyle"
+                   BasedOn="{StaticResource LibrarySubtitleTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+            <Style x:Key="AppBodyBlurbStyle"
+                   BasedOn="{StaticResource LibraryBodyTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="MaxWidth" Value="350" />
+
+            </Style>
+
+            <Style x:Key="AppBlurbStyle2"
+                   BasedOn="{StaticResource LibraryBodyTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+            </Style>
+
+            <Style x:Key="AppImageHyperlinkButtonStyle"
+                   BasedOn="{StaticResource LibraryImageHyperlinkButtonStyle}"
+                   TargetType="HyperlinkButton" />
+
+            <Style x:Key="AppRadDataGridStyle" TargetType="grid:RadDataGrid">
+                <Setter Property="RowHeight" Value="39" />
+                <Setter Property="GridLinesThickness" Value="1" />
+                <Setter Property="CanDrag" Value="False" />
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HighContrastAdjustment" Value="Application"/>
+            </Style>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+
+</Application>

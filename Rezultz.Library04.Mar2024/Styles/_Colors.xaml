@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  created by JGH FROM https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/xaml-theme-resources  -->
+
+    <SolidColorBrush x:Key="LibraryOnBackgroundColor" Color="{ThemeResource SystemBaseHighColor}" />
+    <SolidColorBrush x:Key="LibraryOnBackgroundMuted2Color" Color="{ThemeResource SystemChromeHighColor}" />
+
+    <SolidColorBrush x:Key="LibraryPrimaryColor">#BB86FC</SolidColorBrush>
+    <SolidColorBrush x:Key="LibraryPrimaryVariantColor">#3700B3</SolidColorBrush>
+    <SolidColorBrush x:Key="LibrarySecondaryColor">#03DAC6</SolidColorBrush>
+    <SolidColorBrush x:Key="LibraryErrorColor">#B00020</SolidColorBrush>
+    <SolidColorBrush x:Key="LibraryOnPrimaryColor">#000000</SolidColorBrush>
+
+
+</ResourceDictionary>

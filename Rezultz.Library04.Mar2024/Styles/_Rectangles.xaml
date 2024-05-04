@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Style x:Key="LibrarySkinnyVerticalSpacerStyle" TargetType="Rectangle">
+        <Setter Property="Height" Value="6" />
+    </Style>
+
+    <Style x:Key="LibrarySmallVerticalSpacerStyle" TargetType="Rectangle">
+        <Setter Property="Height" Value="12" />
+    </Style>
+
+    <Style x:Key="LibraryRegularVerticalSpacerStyle" TargetType="Rectangle">
+        <Setter Property="Height" Value="24" />
+    </Style>
+
+    <Style x:Key="LibraryRegularVerticalSpacerStyleX1Pt5" TargetType="Rectangle">
+        <Setter Property="Height" Value="36" />
+    </Style>
+
+    <Style x:Key="LibraryRegularVerticalSpacerStyleX2" TargetType="Rectangle">
+        <Setter Property="Height" Value="48" />
+    </Style>
+
+    <Style x:Key="LibraryRegularVerticalSpacerStyleX3" TargetType="Rectangle">
+        <Setter Property="Height" Value="72" />
+    </Style>
+
+    <Style x:Key="LibraryRegularVerticalSpacerStyleX4" TargetType="Rectangle">
+        <Setter Property="Height" Value="96" />
+    </Style>
+
+    <Style x:Key="LibraryRegularVerticalSpacerStyleX5" TargetType="Rectangle">
+        <Setter Property="Height" Value="120" />
+    </Style>
+
+    <Style x:Key="LibrarySkinnyHorizontalSpacerStyle" TargetType="Rectangle">
+        <Setter Property="Width" Value="6" />
+    </Style>
+
+    <Style x:Key="LibraryWideHorizontalSpacerStyle" TargetType="Rectangle">
+        <Setter Property="Width" Value="12" />
+    </Style>
+
+    <Style x:Key="LibraryWideHorizontalSpacerStyleX2" TargetType="Rectangle">
+        <Setter Property="Width" Value="24" />
+    </Style>
+
+    <Style x:Key="LibraryWideHorizontalSpacerStyleX3" TargetType="Rectangle">
+        <Setter Property="Width" Value="36" />
+    </Style>
+
+</ResourceDictionary>

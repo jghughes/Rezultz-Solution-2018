@@ -1,0 +1,16 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "https://rezultzsvccorewcf.azurewebsites.net/ILeaderboardResultsSvc/HttpsText?wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, ServiceReference3"
+    ],
+    "targetFramework": "netstandard2.0",
+    "typeReuseMode": "None"
+  }
+}

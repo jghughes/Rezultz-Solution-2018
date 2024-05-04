@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jgh.SymbolsStringsConstants.Mar2022\Jgh.SymbolsStringsConstants.Mar2022.csproj" />
+    <ProjectReference Include="..\NetStd.DataTransferObjects.Mar2024\NetStd.DataTransferObjects.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces01.July2018\NetStd.Interfaces01.July2018.csproj" />
+  </ItemGroup>
+
+</Project>

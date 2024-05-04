@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  For fascinating details of how the textbox styles are defined see https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/xaml-theme-resources  -->
+
+
+    <Style
+        x:Key="LibraryTitleTextBlockStyle"
+        BasedOn="{StaticResource TitleTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style
+        x:Key="LibrarySubtitleTextBlockStyle"
+        BasedOn="{StaticResource SubtitleTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style
+        x:Key="LibraryBodyTextBlockStyle"
+        BasedOn="{StaticResource BodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="MaxWidth" Value="500" />
+        <Setter Property="TextTrimming" Value="WordEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style
+        x:Key="LibraryCaptionTextBlockStyle"
+        BasedOn="{StaticResource CaptionTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="MaxWidth" Value="650" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style
+        x:Key="LibraryGlobalProgressIndicatorTextBlockStyle"
+        BasedOn="{StaticResource LibraryCaptionTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,0,3" />
+        <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+    </Style>
+
+
+
+</ResourceDictionary>

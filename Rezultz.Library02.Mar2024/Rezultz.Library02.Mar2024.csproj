@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jgh.SymbolsStringsConstants.Mar2022\Jgh.SymbolsStringsConstants.Mar2022.csproj" />
+    <ProjectReference Include="..\Jgh.Xamarin.Common.Jan2019\Jgh.Xamarin.Common.Jan2019.csproj" />
+    <ProjectReference Include="..\NetStd.DataTypes.Mar2024\NetStd.DataTypes.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces01.July2018\NetStd.Interfaces01.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces02.July2018\NetStd.Interfaces02.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.OnBoardServices02.July2018\NetStd.OnBoardServices02.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Prism.July2018\NetStd.Prism.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.ServiceLocation.Aug2022\NetStd.ServiceLocation.Aug2022.csproj" />
+    <ProjectReference Include="..\NetStd.ViewModels01.April2022\NetStd.ViewModels01.April2022.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTypes.Nov2023\Rezultz.DataTypes.Nov2023.csproj" />
+    <ProjectReference Include="..\Rezultz.Library01.Mar2024\Rezultz.Library01.Mar2024.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Strings\Strings2016.Designer.cs">
+      <DependentUpon>Strings2016.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Strings\Strings2017.Designer.cs">
+      <DependentUpon>Strings2017.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Strings\Strings2016.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Strings2016.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings\Strings2017.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Strings2017.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

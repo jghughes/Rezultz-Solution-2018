@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetStd.AzureStorageAccess.July2018\NetStd.AzureStorageAccess.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj" />
+  </ItemGroup>
+
+</Project>

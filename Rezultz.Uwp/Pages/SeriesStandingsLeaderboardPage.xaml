@@ -1,0 +1,20 @@
+﻿<pagebase:UwpPageBase
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    x:Class="Rezultz.Uwp.Pages.SeriesStandingsLeaderboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="using:Rezultz.Uwp.UserControls"
+    d:DesignHeight="790"
+    d:DesignWidth="1280"
+    DataContext="{Binding Path=SeriesStandingsLeaderboardPageVm, Source={StaticResource DependencyInjectionLocator}}"
+    Style="{StaticResource LibraryPageStyle}"
+    mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance Type=july20182:RezultzSeriesStandingsPageViewModelDesignTime, IsDesignTimeCreatable=True}">  -->
+
+    <Grid Style="{StaticResource LibraryContentAsGridStyle}">
+        <userControls:PageContentsForLeaderboardStylePageUserControl x:Name="XamlElementLeaderboardFormatPageUserControl" />
+    </Grid>
+</pagebase:UwpPageBase>
+

@@ -1,0 +1,836 @@
+﻿<pagebase:UwpPageBase
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    x:Class="RezultzPortal.Uwp.Pages.KeepTimeWorkingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls1="using:RezultzPortal.Uwp.UserControls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:nov2023="using:Rezultz.DataTypes.Nov2023"
+    xmlns:userControlsDataGrid="using:RezultzPortal.Uwp.UserControls_DataGrid"
+    mc:Ignorable="d"
+    Style="{StaticResource LibraryPageStyle}"
+    DataContext="{Binding Path=KeepTimeVm, Source={StaticResource DependencyInjectionLocator}}">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HereOrdinaryGridStyle"
+                   TargetType="Grid">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style
+                x:Key="HereExportButtonStyle"
+                BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="200" />
+            </Style>
+
+            <Style x:Key="HereOrdinaryButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="Width" Value="200" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+            </Style>
+
+            <Style x:Key="HereCaptionBlurbStyle3"
+                   BasedOn="{StaticResource LibraryCaptionTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Width" Value="120" />
+            </Style>
+
+            <Style x:Key="HereEntryStyle"
+                   BasedOn="{StaticResource LibraryEntryStyle}"
+                   TargetType="TextBox">
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="Width" Value="200" />
+            </Style>
+
+            <Style x:Key="HereWiderEntryStyle"
+                   BasedOn="{StaticResource HereEntryStyle}"
+                   TargetType="TextBox">
+                <Setter Property="Width" Value="260" />
+            </Style>
+
+            <Style x:Key="HereComboBoxStyle"
+                   TargetType="ComboBox">
+                <Setter Property="Width" Value="80" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="HereWiderComboBoxStyle"
+                   TargetType="ComboBox">
+                <Setter Property="Width" Value="260" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+            <DataTemplate x:Key="HereComboBoxItemDataTemplate"
+                          x:DataType="nov2023:CboLookupItem">
+                <StackPanel>
+                    <TextBlock Text="{Binding Label}" FontSize="11" />
+                </StackPanel>
+            </DataTemplate>
+
+            <Style x:Key="HereBigActionButtonStyle"
+                   BasedOn="{StaticResource AppBigActionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Height" Value="35" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="200" />
+            </Style>
+
+            <Style x:Key="HereBigActionButtonStyleV2"
+                   BasedOn="{StaticResource AppBigActionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Height" Value="35" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="100" />
+            </Style>
+
+            <Style x:Key="HereWiderBigActionButtonStyleV2"
+                   BasedOn="{StaticResource AppBigActionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Height" Value="35" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="260" />
+            </Style>
+
+            <Style x:Key="HereBodyTextBlockStyle"
+                   BasedOn="{StaticResource AppBodyTextBlockStyle}"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{StaticResource LibraryOnBackgroundMuted2Color}" />
+
+            </Style>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource AppPageContentAsGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition />
+                <RowDefinition Height="12" />
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Tag="PageTitle"
+                       Text="Timekeeping :   create timestamps"
+                       Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+            <TextBlock Grid.Row="2"
+                       DataContext="{Binding Path=GlobalProgressIndicatorVm, Source={StaticResource DependencyInjectionLocator}}"
+                       Text="{Binding Path=ProgressMessage, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                       Style="{StaticResource LibraryGlobalProgressIndicatorTextBlockStyle}"
+                       Foreground="Red" />
+
+        </Grid>
+
+        <userControls1:HeaderStyleContentsUserControl Grid.Row="2" Tag="Header"
+                                                      DataContext="{Binding Path=HeadersVm}"
+                                                      Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+        <SplitView Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
+                   DisplayMode="Overlay"
+                   OpenPaneLength="600"
+                   PanePlacement="Right"
+                   IsPaneOpen="{Binding Path=MustDisplayEditTemplateForRepositoryItemBeingEdited, Mode=TwoWay}">
+
+            <SplitView.Pane>
+                <ScrollViewer>
+                    <Grid Padding="48,36,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="36" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Tag="EditTemplate">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="12" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="6" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Text="Timekeeping :   edit timestamp"
+                                       Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+                            <userControls1:TimeStampEditTemplateUserControl Grid.Row="2"
+                                                                            DataContext="{Binding Path=EditTemplateForRepositoryItemBeingEdited}" />
+
+                            <Grid Grid.Row="4" Tag="AcceptCancelCopyPasteUserControl">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                                    <Button
+                                        Content="Accept edit"
+                                        DataContext="{Binding Path=AcceptRepositoryItemBeingEditedButtonVm}"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        Style="{StaticResource HereBigActionButtonStyleV2}"
+                                        Background="{StaticResource LibrarySecondaryColor}" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <Button
+                                        Content="Cancel edit"
+                                        DataContext="{Binding Path=RejectRepositoryItemBeingEditedButtonVm}"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        Style="{StaticResource HereBigActionButtonStyleV2}"
+                                        Background="{StaticResource LibrarySecondaryColor}" />
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="2" Orientation="Horizontal"
+                                            DataContext="{Binding Path=EditTemplateForRepositoryItemBeingEdited}">
+
+                                    <Button
+                                        Content="Copy time"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        DataContext="{Binding Path=CopyHubItemButtonVm}"
+                                        Style="{StaticResource HereBigActionButtonStyleV2}" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <Button
+                                        Content="Paste time"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        DataContext="{Binding Path=PasteHubItemButtonVm}"
+                                        Style="{StaticResource HereBigActionButtonStyleV2}" />
+
+                                </StackPanel>
+
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="12" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="12" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       Text="Timekeeping :  clone timestamp to another Identifier"
+                                       Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+                            <Grid Grid.Row="2" Grid.Column="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="24" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Other Identifier :"
+                                           Style="{StaticResource HereBodyTextBlockStyle}" />
+
+                                <TextBox Grid.Row="0" Grid.Column="2"
+                                         PlaceholderText="participantID..."
+                                         ToolTipService.ToolTip="Enter participant ID for the timestamp being cloned"
+                                         DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampCloneVm}"
+                                         Text="{Binding Path=Text, FallbackValue=BindingIsNull, Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay}"
+                                         IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                         Style="{StaticResource HereEntryStyle}">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="KeyUp">
+                                            <core:InvokeCommandAction Command="{Binding Path=OnTextChangedCommand}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </TextBox>
+
+
+                            </Grid>
+
+                            <Grid Grid.Row="4" Grid.Column="0">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Button
+                                        Content="Accept clone"
+                                        ToolTipService.ToolTip="Create new timestamp with different ID on timing mat"
+                                        DataContext="{Binding Path=CreateTimeStampCloneButtonVm}"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        Style="{StaticResource HereBigActionButtonStyleV2}"
+                                        Background="{StaticResource LibrarySecondaryColor}" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <Button
+                                        Content="Cancel clone"
+                                        DataContext="{Binding Path=RejectTimeStampCloneButtonVm}"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        Style="{StaticResource HereBigActionButtonStyleV2}"
+                                        Background="{StaticResource LibrarySecondaryColor}" />
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </SplitView.Pane>
+
+            <Grid Style="{StaticResource HereOrdinaryGridStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" Tag="Grid header stuff"
+                              Visibility="{Binding ElementName=XamlElementGridOfAllPageContents, Path=Visibility}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="36" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="36" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Tag="Main buttons"
+                                    Orientation="Vertical">
+
+                            <Button
+                                Content="Refresh screen"
+                                ToolTipService.ToolTip="Refresh the display of timestamps according to the chosen filters and options."
+                                TabIndex="20"
+                                DataContext="{Binding Path=RefreshRepositoryDataGridButtonVm}"
+                                Command="{Binding Path=OnClickCommand}"
+                                Style="{StaticResource HereExportButtonStyle}" HorizontalContentAlignment="Center" />
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Button
+                                    Content="Pull timestamps from hub"
+                                    ToolTipService.ToolTip="Pull copies of timestamps residing on the remote hub that have been pushed up there by this and all other machines. Pulled data does not overwrite pre-existing data on this machine, nor does it proliferate duplicates.  The data is merged."
+                                    Command="{Binding Path=OnClickCommand}"
+                                    DataContext="{Binding Path=PullAllItemsFromHubButtonVm}"
+                                    Style="{StaticResource HereExportButtonStyle}" />
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                                <Button
+                                    Content="x"
+                                    ToolTipService.ToolTip="Cancel"
+                                    Command="{Binding Path=OnClickCommand}"
+                                    DataContext="{Binding Path=PullAllItemsFromHubCancelButtonVm}" />
+
+                            </StackPanel>
+
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        Visibility="{Binding ElementName=XamlElementPushDataIncrementallyFromMemoryToRemoteHubButton , Path=Visibility}">
+
+                                <Button
+                                    x:Name="XamlElementPushDataIncrementallyFromMemoryToRemoteHubButton"
+                                    Content="{Binding Path=Label, Converter={StaticResource TextGuardAgainstNull}}"
+                                    ToolTipService.ToolTip="Push copies of un-pushed timestamps on this machine to the remote hub where they will be preserved and available to other machines."
+                                    Command="{Binding Path=OnClickCommand}"
+                                    DataContext="{Binding Path=PushDataIncrementallyFromMemoryToRemoteHubButtonVm}"
+                                    Style="{StaticResource HereOrdinaryButtonStyle}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Background="DarkRed" />
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                                <Button
+                                    Content="x"
+                                    ToolTipService.ToolTip="Cancel"
+                                    Command="{Binding Path=OnClickCommand}"
+                                    DataContext="{Binding Path=PushDataIncrementallyFromMemoryToRemoteHubCancelButtonVm}" />
+
+                            </StackPanel>
+
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Tag="All the panel visibility radio buttons"
+                                    Orientation="Vertical">
+
+                            <StackPanel Tag="Add timestamp radio buttons" Orientation="Vertical"
+                                        BorderBrush="{StaticResource LibrarySecondaryColor}"
+                                        BorderThickness="1"
+                                        Padding="10,3,10,3">
+
+                                <RadioButton Name="RadioBtnShowPanelForGunStarts"
+                                             GroupName="AllRadioButtons"
+                                             Content="Generate a timestamp to fire a starter's gun"
+                                             Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                <RadioButton Name="RadioBtnShowPanelForTimingMatSignals"
+                                             GroupName="AllRadioButtons"
+                                             Content="Generate a timestamp to trigger a timing mat"
+                                             Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
+
+                            </StackPanel>
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                            <Grid Tag="All the panel visibility radio buttons"
+                                  BorderThickness="1"
+                                  Padding="10,3,10,3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="12" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <RadioButton Name="RadioBtnCloseAllPanels"
+                                             Grid.Row="0" Grid.Column="0"
+                                             GroupName="AllRadioButtons"
+                                             Content="Menu closed"
+                                             Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
+
+                                <RadioButton Name="RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid"
+                                             Grid.Row="0" Grid.Column="2"
+                                             GroupName="AllRadioButtons"
+                                             Content="Menu opened"
+                                             Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
+
+                                <RadioButton Name="RadioBtnShowPanelForDisplayingParticipantInfo"
+                                             Grid.Row="2" Grid.Column="0"
+                                             GroupName="AllRadioButtons"
+                                             Content="Get participant info"
+                                             Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
+
+                                <RadioButton Name="RadioBtnShowPanelForSearchBoxUserControl"
+                                             Grid.Row="2" Grid.Column="2"
+                                             GroupName="AllRadioButtons"
+                                             Content="Search"
+                                             Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
+
+
+                            </Grid>
+
+                        </StackPanel>
+
+                        <Grid Grid.Column="4" Tag="All the panels rendered visible/collapsed by radio buttons"
+                              Width="Auto">
+
+                            <Grid Name="PanelForEnteringGunStartTimeStamps">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="24" />
+                                    <ColumnDefinition Width="Auto" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="12" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="Auto" />
+
+                                </Grid.RowDefinitions>
+
+                                <ComboBox Grid.Column="0" Grid.Row="0"
+                                          Tag="ComboBoxLookupKindOfGunStart"
+                                          PlaceholderText="Choose kind of GunStart ..."
+                                          DataContext="{Binding Path=CboLookupKindOfGunStartVm}"
+                                          IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                          ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                          SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                          Style="{StaticResource HereWiderComboBoxStyle}">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                                            <core:InvokeCommandAction
+                                                Command="{Binding Path=OnSelectionChangedCommand}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                    <ComboBox.ItemTemplate>
+
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Style="{StaticResource AppCollectionViewItemLabelStyle}"
+                                                Text="{Binding Path=Label, Converter={StaticResource NullTextToWhiteSpace}, FallbackValue=BindingIsNull}" />
+                                        </DataTemplate>
+
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+
+                                <StackPanel Grid.Column="0" Grid.Row="2">
+
+                                    <ComboBox Tag="ComboBoxLookupRaceGroup"
+                                              PlaceholderText="Choose RaceGroup to start..."
+                                              DataContext="{Binding Path=CboLookupGroupLabelForGroupStartVm}"
+                                              IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                              Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                              ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                                              SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                              Style="{StaticResource HereWiderComboBoxStyle}">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                                <core:InvokeCommandAction
+                                                    Command="{Binding Path=OnSelectionChangedCommand}" />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                        <ComboBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource AppCollectionViewItemLabelStyle}"
+                                                    Text="{Binding Path=Label, Converter={StaticResource NullTextToWhiteSpace}, FallbackValue=BindingIsNull}" />
+                                            </DataTemplate>
+
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
+                                    <TextBox x:Name="XamlElementTextBoxForEnteringGunStartIndividualId"
+                                             PlaceholderText="participantID..."
+                                             DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampOfGunStartVm}"
+                                             IsEnabled="{Binding IsAuthorisedToOperate}"
+                                             Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                             Text="{Binding Path=Text, Mode=TwoWay, Converter={StaticResource TextGuardAgainstNull}}"
+                                             TextChanged="TextBoxForEnteringGunStartIndividualId_OnTextChanged"
+                                             Style="{StaticResource HereWiderEntryStyle}" />
+
+                                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                               Visibility="{Binding ElementName=XamlElementButtonForCreatingGunStartTimestamp, Path=Visibility}" />
+
+                                    <Button
+                                        x:Name="XamlElementButtonForCreatingGunStartTimestamp"
+                                        DataContext="{Binding Path=CreateTimeStampForGunStartButtonVm}"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        Content="{Binding Path=Label, Mode=TwoWay, Converter={StaticResource TextGuardAgainstNull}}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereWiderBigActionButtonStyleV2}"
+                                        Background="{StaticResource LibrarySecondaryColor}" />
+
+                                </StackPanel>
+
+                            </Grid>
+
+                            <Grid Name="PanelForEnteringTimingMatTimeStamps">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="24" />
+                                    <ColumnDefinition Width="Auto" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="Auto" />
+
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Column="0" Grid.Row="0">
+
+                                    <TextBox Name="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat01"
+                                             PlaceholderText="participantID..."
+                                             TabIndex="2"
+                                             DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampOfTimingMatVm01}"
+                                             IsEnabled="{Binding IsAuthorisedToOperate}"
+                                             Text="{Binding Path=Text, Mode=TwoWay, Converter={StaticResource TextGuardAgainstNull}}"
+                                             TextChanged="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat01_OnTextChanged"
+                                             Style="{StaticResource HereEntryStyle}" />
+
+                                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                    <!-- NB we use Prism's  OnClickCommandWithParameter for CreateTimeStampForTimingMatSignalButtonVm.OnClickCommandWithParameter here because it's how to go about reusing the button multiple times  -->
+
+                                    <Button Name="ButtonForEnteringIndividualIdForTimeStampOfTimingMat01"
+                                            Content="Click timing mat now!"
+                                            CommandParameter="ForEnteringIndividualIdForTimeStampOfTimingMatBeepCreateTextVm01"
+                                            Command="{Binding Path=CreateTimeStampForTimingMatSignalButtonVm.OnClickCommandWithParameter}"
+                                            IsEnabled="{Binding Path=CreateTimeStampForTimingMatSignalButtonVm.IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereBigActionButtonStyle}"
+                                            Background="{StaticResource LibrarySecondaryColor}" />
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="0" Grid.Row="2">
+
+                                    <TextBox Name="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat02"
+                                             PlaceholderText="participantID..."
+                                             TabIndex="3"
+                                             DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampOfTimingMatVm02}"
+                                             IsEnabled="{Binding IsAuthorisedToOperate}"
+                                             Text="{Binding Path=Text, Mode=TwoWay, Converter={StaticResource TextGuardAgainstNull}}"
+                                             TextChanged="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat02_OnTextChanged"
+                                             Style="{StaticResource HereEntryStyle}" />
+
+                                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                    <!-- NB we use Prism's  OnClickCommandWithParameter for CreateTimeStampForTimingMatSignalButtonVm.OnClickCommandWithParameter here because it's how to go about reusing the button multiple times  -->
+
+                                    <Button Name="ButtonForEnteringIndividualIdForTimeStampOfTimingMat02"
+                                            Content="Click timing mat now!"
+                                            CommandParameter="ForEnteringIndividualIdForTimeStampOfTimingMatBeepCreateTextVm02"
+                                            Command="{Binding Path=CreateTimeStampForTimingMatSignalButtonVm.OnClickCommandWithParameter}"
+                                            IsEnabled="{Binding Path=CreateTimeStampForTimingMatSignalButtonVm.IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereBigActionButtonStyle}"
+                                            Background="{StaticResource LibrarySecondaryColor}" />
+
+                                </StackPanel>
+
+                            </Grid>
+
+                            <Grid Name="PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition />
+
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Vertical">
+
+                                    <CheckBox
+                                        Content="Show abridged columns (faster)"
+                                        IsChecked="{Binding Path=MustDisplayAbridgedColumnsOnly, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+                                    <CheckBox
+                                        Content="Show gun starts only"
+                                        IsChecked="{Binding Path=MustDisplayGunStartsOnly, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+
+                                    <CheckBox
+                                        Content="Show commented rows only"
+                                        IsChecked="{Binding Path=MustDisplayCommentedRowsOnly, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+
+                                    <CheckBox
+                                        Content="Include participant info (slower)"
+                                        IsChecked="{Binding Path=MustDisplayParticipantProfileInfoInTimeStamps, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+                                    <CheckBox
+                                        Content="Include hidden rows"
+                                        IsChecked="{Binding Path=MustDisplayModifiedEntriesAsWell, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Vertical">
+
+                                    <CheckBox
+                                        Content="Show earliest first"
+                                        IsChecked="{Binding Path=MustDisplayEarliestFirst, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+                                    <CheckBox
+                                        Content="Include photos"
+                                        IsChecked="{Binding Path=MustIncludePhotos, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+                                    <CheckBox
+                                        Content="Include photo ID"
+                                        IsChecked="{Binding Path=MustIncludePhotoIdentification, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+                                    <CheckBox
+                                        x:Name="XamlElementCheckBoxForHighlightingTimingMatEntriesThatOccurInClusters"
+                                        Content="Identify clusters"
+                                        IsChecked="{Binding Path=MustHighlightTimingMatEntriesThatOccurInClusters, Mode=TwoWay}"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+                                    <CheckBox
+                                        Content="Show clusters only"
+                                        IsChecked="{Binding Path=MustOnlyShowTimingMatEntriesThatOccurInClusters, Mode=TwoWay}"
+                                        Visibility="{Binding ElementName=XamlElementCheckBoxForHighlightingTimingMatEntriesThatOccurInClusters, Path=IsChecked, Converter={StaticResource BooleanToVisibility} }"
+                                        Style="{StaticResource LibraryCheckBoxStyle}" />
+
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="4" Orientation="Vertical">
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+
+                                        <TextBlock Text="Cluster size threshold  :"
+                                                   Style="{StaticResource HereCaptionBlurbStyle3}" />
+
+                                        <ComboBox
+                                            DataContext="{Binding Path=CboLookupClusterSizeThresholdForCalculatingClusteredTimingMatEntriesVm}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                            ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                            SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                            ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
+                                            Style="{StaticResource HereComboBoxStyle}" VerticalAlignment="Bottom" />
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <TextBlock Text="Cluster time gap (sec)  :"
+                                                   Style="{StaticResource HereCaptionBlurbStyle3}" />
+
+                                        <ComboBox
+                                            DataContext="{Binding Path=CboLookupDeltaForCalculatingClusteredTimingMatEntriesVm}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                            ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                            SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                            ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
+                                            Style="{StaticResource HereComboBoxStyle}" VerticalAlignment="Bottom" />
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <TextBlock Text="Display by race  :"
+                                                   Style="{StaticResource HereCaptionBlurbStyle3}" />
+
+                                        <ComboBox
+                                            DataContext="{Binding Path=CboLookupOnlySubGroupOfSingleRaceInTimeStampsDataGrid}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                            ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                            SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                            ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
+                                            Style="{StaticResource HereComboBoxStyle}" VerticalAlignment="Bottom" />
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
+
+                                        <TextBlock Text="Display by participant  :"
+                                                   Style="{StaticResource HereCaptionBlurbStyle3}" />
+
+
+                                        <TextBox PlaceholderText="ID1, ID2 ..."
+                                                 TabIndex="3"
+                                                 DataContext="{Binding Path=ForEnteringMultipleIdentifiersForDataGridRowFilter}"
+                                                 IsEnabled="{Binding IsAuthorisedToOperate}"
+                                                 Text="{Binding Path=Text, Mode=TwoWay, Converter={StaticResource TextGuardAgainstNull}}"
+                                                 Style="{StaticResource HereEntryStyle}" Width="80" />
+
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
+
+                                        <TextBlock Text="Display by author  :"
+                                                   Style="{StaticResource HereCaptionBlurbStyle3}" />
+
+
+                                        <TextBox PlaceholderText="author1,  ...  "
+                                                 TabIndex="3"
+                                                 DataContext="{Binding Path=ForEnteringMultipleUserNamesOfPeopleWhoDidTheDataEntriesForDataGridRowFilter}"
+                                                 IsEnabled="{Binding IsAuthorisedToOperate}"
+                                                 Text="{Binding Path=Text, Mode=TwoWay, Converter={StaticResource TextGuardAgainstNull}}"
+                                                 Style="{StaticResource HereEntryStyle}" Width="80" />
+
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                            <Grid Name="PanelContainingSearchUserControl">
+                                <userControls1:SearchForTimeStampHubItemsUserControl />
+                            </Grid>
+
+                            <Grid Name="PanelContainingButtonToPullParticipants">
+
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+
+                                    <Button
+                                        Content="Pull participants from hub"
+                                        ToolTipService.ToolTip="Pull copies of participants residing on the remote hub that have been pushed up there by this and all other machines.  Pulled data does not overwrite pre-existing data on this machine, nor does it proliferate duplicates.  The data is merged."
+                                        Command="{Binding Path=OnClickCommand}"
+                                        DataContext="{Binding Path=PullParticipantProfilesFromHubButtonVm}"
+                                        Style="{StaticResource HereExportButtonStyle}" />
+
+
+                                    <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                                    <Button
+                                        Content="x"
+                                        ToolTipService.ToolTip="Cancel"
+                                        Command="{Binding Path=OnClickCommand}"
+                                        DataContext="{Binding Path=PullParticipantProfilesFromHubCancelButtonVm}" />
+
+                                </StackPanel>
+
+
+                            </Grid>
+
+
+                        </Grid>
+
+                    </Grid>
+
+                </ScrollViewer>
+
+                <userControlsDataGrid:TimeStampEntriesInMemoryCacheDataGridPresentationServiceUserControl Grid.Row="2"
+                    x:Name="XamlElementRawDataDataGridUserControl"
+                    DataContext="{Binding Path=DataGridOfItemsInRepository}" />
+
+            </Grid>
+
+        </SplitView>
+
+        <userControls1:FooterStyleContentsUserControl Grid.Row="6" Tag="Footer"
+                                                     DataContext="{Binding Path=FootersVm}" />
+
+    </Grid>
+
+</pagebase:UwpPageBase>

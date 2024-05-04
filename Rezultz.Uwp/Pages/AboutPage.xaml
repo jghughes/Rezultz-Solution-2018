@@ -1,0 +1,98 @@
+﻿<pageBase:UwpPageBase
+    x:Class="Rezultz.Uwp.Pages.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pageBase="using:Jgh.Uwp.Common.July2018.PageBase"
+    mc:Ignorable="d"
+    d:DesignHeight="790"
+    d:DesignWidth="1280"
+    DataContext="{Binding AboutPageVm, Source={StaticResource DependencyInjectionLocator}}"
+    Style="{StaticResource LibraryPageStyle}">
+
+
+    <Grid  Style="{StaticResource LibraryContentAsGridStyle}" Margin="24,0,24,0">
+
+        <ScrollViewer>
+
+            <StackPanel >
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                            Text="{Binding AppDisplayName}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="15,0,0,0"
+                            Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                            Text="Version :" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="7,0,0,0"
+                            Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                            Text="{Binding VersionDescription}" />
+
+                    </Grid>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="This app displays the results of one or more race events spanning one or more seasons for organisers who use Rezultz as a channel (or supplementary channel) for publishing their race results."
+                               Style="{StaticResource AppBlurbStyle2}"/>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="The app computes finishing times of participants in one or more races, calculating all the usual metrics for timed events. Race results can be filtered and sorted in a variety of subcategories."
+                               Style="{StaticResource AppBlurbStyle2}"/>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="The app supports all versions of Windows 10 and 11."
+                        Style="{StaticResource AppBlurbStyle2}" />
+
+                </StackPanel>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel >
+
+                    <HyperlinkButton Content="Privacy Statement"
+                                     NavigateUri="https://systemrezultzlevel1.blob.core.windows.net/privacystatement/RezultzPrivacyStatement.pdf"
+                                     Style="{StaticResource LibraryHyperlinkButtonStyle}" />
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="© John Hughes 2018 - 2023"
+                               Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </Grid>
+
+</pageBase:UwpPageBase>

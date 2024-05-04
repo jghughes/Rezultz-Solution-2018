@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LaunchWorkRoles_info_1.Text" xml:space="preserve">
+    <value>You need to enter a metadataID to identify the sporting event you are working on. If you enter an incorrect ID, or if the ID is valid but the metadata for the event has not yet been created in the system, you will receive an error message to the effect that the ID cannot be verified. Having entered your metadataID you need to download the corresponding metadata.  If you change the metadataID during a working session, you must download the different metadata right away. </value>
+    <comment>PublishSingleEventResultsLaunchPage</comment>
+  </data>
+  <data name="Intro_DataExportPage.Text" xml:space="preserve">
+    <value>This export screen is where you obtain a personal copy of already-published data. Data intended for local use is best transferred into a database program like Microsoft Access. If you wish to get data into Microsoft Excel, the recommended route is to get it into Access and export it from there choosing 'Excel' as the selected export format. Because of the quirks of Excel, it is not recommended to import data directly into Excel. If you want to take a chance, your best bet is to add the 'Developer' tab to your command ribbon in Excel and click 'Import' from there. Data exported in object format (.xml or .json) is for advanced users and developers.</value>
+    <comment>Top level introduction to ExportingPage</comment>
+  </data>
+  <data name="Intro_DataPostPage.Text" xml:space="preserve">
+    <value>This posting screen is where information is posted in the form of HTML documents on the web. Once posted, the documents can be accessed by the general public using their web browser via hyperlinks  advertised by the event organiser. Before posting, always double-check that you are pointing at your intended target event. When this app is initialised, the app defaults to the most recent event, but you might be posting results for an older event. Go to the Change target event tab on the Home screen if you wish to change the target. You can click See document to view posted information without having done a posting. This way you can see what was posted previously. After viewing a document in your browser, be sure to close your browser before viewing a subsequent posting. Your browser uses a caching algorithm internally, which means it might not display subsequent postings - it will keep displaying an old posting even though the posting has changed. You might need to open and close your browser several times.  You might need to clear your browser's cache manually.</value>
+    <comment>Top level introduction to PublishingPostPage</comment>
+  </data>
+  <data name="LaunchWorkRoles_info_2.Text" xml:space="preserve">
+    <value>After completing this screen, you must initialise your applicable work role. If your role is Timekeeping, you must also initialise the Participant admin role. If your role is Participant admin, you only need launch that role. If your role is Leaderboard publishing, you don't need to initialise either Timekeeping or Participant admin. The system will check if you are authorised for the role.  You can change your current working target event any number of times during the course of a working session. Each time you change your target, you must re-initialise the work roles. You would typically change targets during a session if you were editing timestamp data for multiple past events. </value>
+    <comment>PublishSingleEventResultsLaunchPage</comment>
+  </data>
+  <data name="Intro_DataProcessingInitialisePage_Warning.Text" xml:space="preserve">
+    <value>WARNING : If you have just opened this app, or are arriving at this work role for the first time in this working session, be sure that you have launched the role on the Home screen. When you have done that, be satisfied that you are using the correct pre-processorID and you are good to go. No further initialisation is required.</value>
+  </data>
+  <data name="Intro_TimekeepingInitialisePage_Warning.Text" xml:space="preserve">
+    <value>WARNING : If you have just opened this app, or are arriving at this work role for the first time in this working session, be sure that you have launched the role on the Launch screen.  If you are working on historical data, and perhaps switching back and forth between previous events, you need to redo this intitialisation each time you change your target event.</value>
+  </data>
+  <data name="SplitIntervalAnomalies_description_0.Text" xml:space="preserve">
+    <value>There are various ways in which anomalies can arise. Before publishing and posting any results, you must fix the anomalies one by one until they are all gone. This check list will help root out obvious anomalies. In rare instances, anomalies are outright mysterious and require ingenious detective work. The more diligent you are with this checklist the more experience you gain, and the cleverer you will become. you need to initialise the Participant admin work role to troubleshoot properly.</value>
+    <comment>ParticipantAnomalyPage</comment>
+  </data>
+  <data name="SplitIntervalAnomalies_description_1.Text" xml:space="preserve">
+    <value>Step 1. Sort the Rank column to bring unranked results to the top. Here you will see the rows that are indeterminate, incomplete, or Dnx.  There will be some rows that shouldn't be here. There will be some rows that should be here, but aren't showing up.  For example, sometimes a participant is missing from the results. Sort and doublecheck the ID column for unspecified IDs. With luck, an unspecified ID belongs to a missing person and can be easily corrected</value>
+    <comment>ParticipantAnomalyPage</comment>
+  </data>
+  <data name="SplitIntervalAnomalies_description_2.Text" xml:space="preserve">
+    <value>Step 2.  Troubleshoot the Start columns. Are there any obvious errors, like people who don't have start entry. Maybe they don't have a start entry because no start was recorded for them. Or maybe the system is correctly showing that they didn't in fact start. What about the recorded starting times. Are they correct? </value>
+    <comment>ParticipantAnomalyPage</comment>
+  </data>
+  <data name="SplitIntervalAnomalies_description_3.Text" xml:space="preserve">
+    <value>Step 3. Sort and review the Timing Mats column. Root out rows where there are too many or too few mat signals for a given race.</value>
+    <comment>ParticipantAnomalyPage</comment>
+  </data>
+  <data name="SplitIntervalAnomalies_description_4.Text" xml:space="preserve">
+    <value>Step 4. Analyse the Splits column. Root out rows with too many splits for a given race, or too few, or which contain a split that is suspiciously short.  Splits that are very short sometimes reveal an duplicate timestamp. If the duplicate is an erroneous double-entry, ditch it.  Rows with too many splits sometimes reveal that one or more timestamps have been awarded to the wrong person. Another possibilty is that a surplus entry was made to record a DNF, but was entered incompletely. </value>
+    <comment>ParticipantAnomalyPage</comment>
+  </data>
+  <data name="ParticipantProfileAnomalies_description_0.Text" xml:space="preserve">
+    <value>There are many ways in which errors can arise in participant profiles. The same ID can be assigned to more than one person. The same person can be entered more than once in the database with the same ID or a different ID. A person can be entered with a blank ID. A person can be added with an improbable year of birth. If this list is empty, the master list is in reasonably decent shape, however it may still contain hard-to-spot errors that can only be unearthed by laborious visual inspection of the master list. It is important, in certain circumstances critically important, to ensure that the participant master list is in perfect shape before publishing any results. </value>
+  </data>
+  <data name="HubPageInitialise_info_1.Text" xml:space="preserve">
+    <value>Pulling all previously pushed data down from the hub is normally the best way to begin a session of participant admin. If for any reason there is no participant data on the hub, no data will be returned from the Pull, as to be expected. In this case, the proper way to  resume is to initialise your machine from scratch. Initialising your machine from scratch has no implications for the hub. Any data on the hub will remain there and any new data you generate will go there to join it when you do a push subsequently.</value>
+    <comment>KeepTimeLaunchPage</comment>
+  </data>
+  <data name="HubPageInitialise_info_2.Text" xml:space="preserve">
+    <value>Data that has been saved in local storage in a previous session (without necessarily being pushed) can be used to initialise the machine in a subsequent session. Use this route as a last resort - for example if data could only be stored offline previously. In such circumstances, the hub is behind your machine and needs to be synced right away. To ensure this, do a push to the hub immediately following any initialisation from local storage. </value>
+    <comment>KeepTimeLaunchPage</comment>
+  </data>
+  <data name="HubPageInitialise_info_3.Text" xml:space="preserve">
+    <value>Pulling from the hub is equivalent to syncing your machine with the hub. If multiple machines have been in action in a previous session, or in a current ongoing session, initialising from the hub will sync your machine with all the data pushed by everyone. </value>
+    <comment>KeepTimeLaunchPage</comment>
+  </data>
+  <data name="TimeStampCreateNew_info_1.Text" xml:space="preserve">
+    <value>It is important to Push and Save new data regularly. Data that has been saved will survive if the machine is switched off or the app is closed. Data that has been pushed to the hub will survive if the app crashes or your machine goes on the fritz.</value>
+    <comment>KeepTimeWorkingPage</comment>
+  </data>
+  <data name="TimeStampCreateNew_info_2.Text" xml:space="preserve">
+    <value>If multiple machines are working in tandem, pushing everything up to the hub and then re-initialising is how to keep them all in sync. Use the buttons on the Initialisation screen. To avoid losing data inadvertantly, ensure that all your data has been pushed before you re-initialise. You can use the button on the initiialisation screen for that if you want to. You can tap that button whenever you like.   </value>
+    <comment>KeepTimeWorkingPage</comment>
+  </data>
+  <data name="PublishingInitialise_info_1.Text" xml:space="preserve">
+    <value>You can change your current working target event any number of times during the course of a working session. Each time you change your target, you must re-initialise the work roles. You would typically change targets during a session if you were editing timestamp data for multiple past events.</value>
+    <comment>PublishSingleEventResultsLaunchPage</comment>
+  </data>
+  <data name="SplitIntervalAnomalies_description_5.Text" xml:space="preserve">
+    <value>Step 5. Analyse the duration column. Root out rows with suspiciously fast performances Performers on the podium who are relative unknowns among elite particpants probably shouldn't be there. The recommendation is to to DNF them. </value>
+  </data>
+  <data name="SplitIntervalAnomalies_description_6.Text" xml:space="preserve">
+    <value>Step 6. Analyse the ID column and the coressponding participant particulars. If a rider is unidentified this could be because the participant master list is incomplete or it could be because the ID recorded for the timestamp is erroneous. Errors also creep in where participant particulars in the data are inaccurate or incomplete. For a timestamp to be valid, its participant particulars must include a mandatory RaceGroup, Gender, and AgeGroup.</value>
+  </data>
+  <data name="SplitIntervalAnomalies_description_7.Text" xml:space="preserve">
+    <value>Step 7.  When you have completed everything on this checklist, use the Rezultz 2018 app to take your trouble shooting to the next level. Publish these draft results and analyse them for reasonableness and for missing persons. When a missing person knows their finishing time approximately, or maybe who was nearby them when they crossed the finishing line, you can use the Rezultz 2018 app to deduce a fair finishing time and then use that to circle back and create the necessary timestamps.  </value>
+  </data>
+</root>

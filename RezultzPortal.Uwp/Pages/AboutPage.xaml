@@ -1,0 +1,119 @@
+﻿<pagebase:UwpPageBase
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    x:Class="RezultzPortal.Uwp.Pages.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="790"
+    d:DesignWidth="1280"
+    DataContext="{Binding AboutPageVm, Source={StaticResource DependencyInjectionLocator}}"
+    Style="{StaticResource LibraryPageStyle}"
+    mc:Ignorable="d">
+
+
+    <Grid Style="{StaticResource AppPageContentAsGridStyle}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition  />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"  Tag="PageTitle"
+                   Text="About"
+                   Style="{StaticResource LibraryCaptionTextBlockStyle}"
+                   Margin="{StaticResource LibraryParagraphBottomAndTopMargin}" />
+
+        <ScrollViewer Grid.Row="1" Style="{StaticResource LibraryPageScrollViewerStyle}">
+
+            <StackPanel>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                            Text="{Binding AppDisplayName}" />
+                        <!--Text="{x:Bind ViewModel.AppDisplayName}" />-->
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="15,0,0,0"
+                            Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                            Text="Version :" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="7,0,0,0"
+                            Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                            Text="{Binding VersionDescription}" />
+                        <!--Text="{x:Bind ViewModel.VersionDescription}" />-->
+
+                    </Grid>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="This portal is a registration and timekeeping system for organisers of sporting events."
+                               Style="{StaticResource AppBlurbStyle2}"/>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="The portal comprises three modules. The participant admin module is for creating and and registering participants in the system. The timekeeping module is for recording gun starts and timing mat signals."
+                               Style="{StaticResource AppBlurbStyle2}"/>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="The publishing module is for pre-processing and uploading leaderboard data. The module is customizable to handle data from external third-party timing systems."
+                               Style="{StaticResource AppBlurbStyle2}"/>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="The Rezultz user-facing apps display race results in a variety of views and formats."
+                               Style="{StaticResource AppBlurbStyle2}"/>
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="This portal supports all versions of Windows 10 and 11."
+                               Style="{StaticResource AppBlurbStyle2}" />
+
+                </StackPanel>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel>
+
+                    <HyperlinkButton Content="Privacy Statement"
+                                     NavigateUri="https://systemrezultzlevel1.blob.core.windows.net/privacystatement/RezultzPortalPrivacyStatement.pdf"
+                                     Style="{StaticResource LibraryHyperlinkButtonStyle}" />
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="© John Hughes 2018 - 23"
+                               Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+    </Grid>
+
+</pagebase:UwpPageBase>

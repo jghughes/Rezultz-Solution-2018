@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="TimingSystemDataPreprocessingSvc" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="MyHttpsTextBinding_ITimingSystemDataPreprocessingSvc_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="MyHttpsCustomBinaryBinding_ITimingSystemDataPreprocessingSvc_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" />
+      <xsd:import schemaLocation="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetIfServiceIsAnswering_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIfServiceIsAnswering" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetIfServiceIsAnswering_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIfServiceIsAnsweringResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetIfServiceIsAnswering_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q1:JghFault" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetServiceEndpointsInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetServiceEndpointsInfo" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetServiceEndpointsInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetServiceEndpointsInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetServiceEndpointsInfo_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q2:JghFault" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetListOfPreprocessors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListOfPreprocessors" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetListOfPreprocessors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListOfPreprocessorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetListOfPreprocessors_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q3:JghFault" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetIfPreprocessorIdIsRecognised_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIfPreprocessorIdIsRecognised" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetIfPreprocessorIdIsRecognised_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIfPreprocessorIdIsRecognisedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetIfPreprocessorIdIsRecognised_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q4:JghFault" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetInfoAboutPreprocessor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoAboutPreprocessor" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetInfoAboutPreprocessor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoAboutPreprocessorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetInfoAboutPreprocessor_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q5:JghFault" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetInstructionsFromPreprocessor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInstructionsFromPreprocessor" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetInstructionsFromPreprocessor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInstructionsFromPreprocessorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_GetInstructionsFromPreprocessor_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q6:JghFault" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_PreprocessTimingData_InputMessage">
+    <wsdl:part name="parameters" element="tns:PreprocessTimingData" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_PreprocessTimingData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PreprocessTimingDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITimingSystemDataPreprocessingSvc_PreprocessTimingData_JghFaultFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/RezultzSvc.CoreWcf._11.May2023" name="detail" element="q7:JghFault" />
+  </wsdl:message>
+  <wsdl:portType name="ITimingSystemDataPreprocessingSvc">
+    <wsdl:operation name="GetIfServiceIsAnswering">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfServiceIsAnswering" message="tns:ITimingSystemDataPreprocessingSvc_GetIfServiceIsAnswering_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfServiceIsAnsweringResponse" message="tns:ITimingSystemDataPreprocessingSvc_GetIfServiceIsAnswering_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfServiceIsAnsweringJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_GetIfServiceIsAnswering_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceEndpointsInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetServiceEndpointsInfo" message="tns:ITimingSystemDataPreprocessingSvc_GetServiceEndpointsInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetServiceEndpointsInfoResponse" message="tns:ITimingSystemDataPreprocessingSvc_GetServiceEndpointsInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetServiceEndpointsInfoJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_GetServiceEndpointsInfo_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfPreprocessors">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetListOfPreprocessors" message="tns:ITimingSystemDataPreprocessingSvc_GetListOfPreprocessors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetListOfPreprocessorsResponse" message="tns:ITimingSystemDataPreprocessingSvc_GetListOfPreprocessors_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetListOfPreprocessorsJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_GetListOfPreprocessors_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIfPreprocessorIdIsRecognised">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfPreprocessorIdIsRecognised" message="tns:ITimingSystemDataPreprocessingSvc_GetIfPreprocessorIdIsRecognised_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfPreprocessorIdIsRecognisedResponse" message="tns:ITimingSystemDataPreprocessingSvc_GetIfPreprocessorIdIsRecognised_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfPreprocessorIdIsRecognisedJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_GetIfPreprocessorIdIsRecognised_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAboutPreprocessor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInfoAboutPreprocessor" message="tns:ITimingSystemDataPreprocessingSvc_GetInfoAboutPreprocessor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInfoAboutPreprocessorResponse" message="tns:ITimingSystemDataPreprocessingSvc_GetInfoAboutPreprocessor_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInfoAboutPreprocessorJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_GetInfoAboutPreprocessor_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInstructionsFromPreprocessor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInstructionsFromPreprocessor" message="tns:ITimingSystemDataPreprocessingSvc_GetInstructionsFromPreprocessor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInstructionsFromPreprocessorResponse" message="tns:ITimingSystemDataPreprocessingSvc_GetInstructionsFromPreprocessor_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInstructionsFromPreprocessorJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_GetInstructionsFromPreprocessor_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PreprocessTimingData">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/PreprocessTimingData" message="tns:ITimingSystemDataPreprocessingSvc_PreprocessTimingData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/PreprocessTimingDataResponse" message="tns:ITimingSystemDataPreprocessingSvc_PreprocessTimingData_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/ITimingSystemDataPreprocessingSvc/PreprocessTimingDataJghFaultFault" name="JghFaultFault" message="tns:ITimingSystemDataPreprocessingSvc_PreprocessTimingData_JghFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MyHttpTextBinding_ITimingSystemDataPreprocessingSvc" type="tns:ITimingSystemDataPreprocessingSvc">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetIfServiceIsAnswering">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfServiceIsAnswering" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceEndpointsInfo">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetServiceEndpointsInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfPreprocessors">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetListOfPreprocessors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetIfPreprocessorIdIsRecognised">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfPreprocessorIdIsRecognised" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAboutPreprocessor">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInfoAboutPreprocessor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstructionsFromPreprocessor">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInstructionsFromPreprocessor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="PreprocessTimingData">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/PreprocessTimingData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MyHttpsTextBinding_ITimingSystemDataPreprocessingSvc" type="tns:ITimingSystemDataPreprocessingSvc">
+    <wsp:PolicyReference URI="#MyHttpsTextBinding_ITimingSystemDataPreprocessingSvc_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetIfServiceIsAnswering">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfServiceIsAnswering" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceEndpointsInfo">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetServiceEndpointsInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfPreprocessors">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetListOfPreprocessors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetIfPreprocessorIdIsRecognised">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfPreprocessorIdIsRecognised" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAboutPreprocessor">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInfoAboutPreprocessor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstructionsFromPreprocessor">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInstructionsFromPreprocessor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="PreprocessTimingData">
+      <soap:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/PreprocessTimingData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MyHttpsCustomBinaryBinding_ITimingSystemDataPreprocessingSvc" type="tns:ITimingSystemDataPreprocessingSvc">
+    <wsp:PolicyReference URI="#MyHttpsCustomBinaryBinding_ITimingSystemDataPreprocessingSvc_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetIfServiceIsAnswering">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfServiceIsAnswering" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceEndpointsInfo">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetServiceEndpointsInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetListOfPreprocessors">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetListOfPreprocessors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetIfPreprocessorIdIsRecognised">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetIfPreprocessorIdIsRecognised" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAboutPreprocessor">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInfoAboutPreprocessor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstructionsFromPreprocessor">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/GetInstructionsFromPreprocessor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="PreprocessTimingData">
+      <soap12:operation soapAction="http://tempuri.org/ITimingSystemDataPreprocessingSvc/PreprocessTimingData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="JghFaultFault">
+        <soap12:fault use="literal" name="JghFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TimingSystemDataPreprocessingSvc">
+    <wsdl:port name="MyHttpTextBinding_ITimingSystemDataPreprocessingSvc" binding="tns:MyHttpTextBinding_ITimingSystemDataPreprocessingSvc">
+      <soap:address location="http://localhost:5000/ITimingSystemDataPreprocessingSvc/HttpText" />
+    </wsdl:port>
+    <wsdl:port name="MyHttpsTextBinding_ITimingSystemDataPreprocessingSvc" binding="tns:MyHttpsTextBinding_ITimingSystemDataPreprocessingSvc">
+      <soap:address location="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText" />
+    </wsdl:port>
+    <wsdl:port name="MyHttpsCustomBinaryBinding_ITimingSystemDataPreprocessingSvc" binding="tns:MyHttpsCustomBinaryBinding_ITimingSystemDataPreprocessingSvc">
+      <soap12:address location="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsBinary" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsBinary</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

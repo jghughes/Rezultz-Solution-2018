@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetStd.HttpRequestService.Feb2019\NetStd.HttpRequestService.Feb2019.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces02.July2018\NetStd.Interfaces02.July2018.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Clients.Interfaces.Mar2024\RezultzSvc.Clients.Interfaces.Mar2024.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Mvc.Parameters.Feb2022\RezultzSvc.Mvc.Parameters.Feb2022.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Bases\" />
+    <Folder Include="Clients\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,263 @@
+﻿<pagebase:UwpPageBase
+    x:Class="Rezultz.Uwp.Pages.PreferencesPage"
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:userControls1="using:Rezultz.Uwp.UserControls"
+    d:DesignHeight="790"
+    d:DesignWidth="1280"
+    DataContext="{Binding Path=PreferencesPageVm, Source={StaticResource DependencyInjectionLocator}}"
+    Style="{StaticResource LibraryPageStyle}"
+    mc:Ignorable="d">
+
+    <Grid Style="{StaticResource LibraryContentAsGridStyle}" Margin="24,0,24,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1"
+                   DataContext="{Binding Path=GlobalProgressIndicatorVm, Source={StaticResource DependencyInjectionLocator}}"
+                   Text="{Binding Path=ProgressMessage, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                   Style="{StaticResource LibraryCaptionTextBlockStyle}" Foreground="Red"
+                   Margin="6,0,0,0" />
+
+        <ScrollViewer Grid.Row="3">
+
+            <StackPanel>
+
+                <controls:Expander Tag="PanelForLaunchPreferences"
+                                   Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                    <controls:Expander.Header>
+
+                        <TextBlock Text="Choose optional subcategory to be displayed on launch"
+                                   Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                    </controls:Expander.Header>
+
+                    <StackPanel
+                        DataContext="{Binding Path=GlobalUserSettingsServiceVm, Source={StaticResource DependencyInjectionLocator}}"
+                        Margin="{StaticResource LibraryStackPanelLeftAndBottomMargin}">
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Show a preferred subcategory on launch?"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                            <ToggleSwitch
+                                Width="90"
+                                DataContext="{Binding Path=MustShowOnlySingleCategoryOfResultsOnLaunchButtonVm}"
+                                IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                IsOn="{Binding Path=IsChecked, Mode=TwoWay}"
+                                OffContent="No"
+                                OnContent="Yes"
+                                ToolTipService.ToolTip="Upon launch, initially display the subcategory of results containing a specific race number - like your own number for example (assuming that the race number is present)">
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="Toggled">
+                                        <core:InvokeCommandAction Command="{Binding Path=OnClickCommand}" />
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </ToggleSwitch>
+
+                        </StackPanel>
+
+                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                        <TextBox
+                            DataContext="{Binding Path=TextBoxForEnteringTargetParticipantIdVm}"
+                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                            Style="{StaticResource LibraryEntryStyle}"
+                            Text="{Binding Path=Text, FallbackValue=targetBibNumberFallbackValuey, Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay}"
+                            PlaceholderText="participant ID"
+                            ToolTipService.ToolTip="Enter participant ID number">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="KeyUp">
+                                    <core:InvokeCommandAction Command="{Binding Path=OnTextChangedCommand}" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </TextBox>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <Button
+                                Content="Save"
+                                Command="{Binding Path=OnClickCommand}"
+                                DataContext="{Binding Path=SaveTargetParticipantIdInStorageButtonVm}"
+                                Style="{StaticResource LibraryOrdinaryButtonStyle}"
+                                ToolTipService.ToolTip="Save ID number" />
+
+                            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                            <Button
+                                Content="Clear"
+                                Command="{Binding Path=OnClickCommand}"
+                                DataContext="{Binding Path=ClearTargetParticipantIdSavedInStorageButtonVm}"
+                                Style="{StaticResource LibraryOrdinaryButtonStyle}"
+                                ToolTipService.ToolTip="Display saved race number" />
+
+                        </StackPanel>
+
+                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <TextBlock
+                            Text="This is where you choose if you want to feature a category of participants containing a specific participant ID on launch (such as your own ID, for example).  If the specified ID is not evident in a particular set of race results, which can be normal, this setting will be ignored."
+                            Style="{StaticResource AppBlurbStyle2}" />
+
+                    </StackPanel>
+
+                </controls:Expander>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <controls:Expander Tag="PanelForColumnDisplayPreferences"
+                                   Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                    <controls:Expander.Header>
+
+                        <TextBlock Text="Choose optional compact column format"
+                                   Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                    </controls:Expander.Header>
+
+                    <StackPanel
+                        DataContext="{Binding Path=GlobalUserSettingsServiceVm, Source={StaticResource DependencyInjectionLocator}}"
+                        Margin="{StaticResource LibraryStackPanelLeftAndBottomMargin}">
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Show a concise leaderboard column format?"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                            <ToggleSwitch
+                                Width="90"
+                                DataContext="{Binding Path=MustDisplayConciseLeaderboardColumnsOnlyButtonVm}"
+                                IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                IsOn="{Binding Path=IsChecked, Mode=TwoWay}"
+                                OffContent="No"
+                                OnContent="Yes"
+                                ToolTipService.ToolTip="Only show a subset of columns on the leaderboard to save space on the screen.">
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="Toggled">
+                                        <core:InvokeCommandAction Command="{Binding Path=OnClickCommand}" />
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </ToggleSwitch>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </controls:Expander>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <controls:Expander Tag="PanelForSeasonDataVm"
+                                   Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                    <controls:Expander.Header>
+
+                        <TextBlock Text="Sign in (system operators only)"
+                                   Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                    </controls:Expander.Header>
+
+                    <StackPanel Margin="{StaticResource LibraryStackPanelLeftAndBottomMargin}">
+
+                        <userControls1:SeasonProfileValidationUserControl
+                            DataContext="{Binding Path=GlobalSeasonProfileAndIdentityValidationVm, Source={StaticResource DependencyInjectionLocator}}" />
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <userControls1:IdentityValidationUserControl
+                            DataContext="{Binding Path=GlobalSeasonProfileAndIdentityValidationVm, Source={StaticResource DependencyInjectionLocator}}" />
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <StackPanel
+                            DataContext="{Binding Path=GlobalUserSettingsServiceVm, Source={StaticResource DependencyInjectionLocator}}">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="Use preview data on launch?"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <ToggleSwitch
+                                    DataContext="{Binding Path=MustUsePreviewNotPublishedDataOnLaunchButtonVm}"
+                                    IsOn="{Binding Path=IsChecked, Mode=TwoWay}"
+                                    OffContent="No"
+                                    OnContent="Yes"
+                                    ToolTipService.ToolTip="use provisional data, not published data">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="Toggled">
+                                            <core:InvokeCommandAction Command="{Binding Path=OnClickCommand}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </ToggleSwitch>
+
+                            </StackPanel>
+
+                            <TextBlock
+                                Text="This preference is for system operators only.  It is used to troubleshoot results created by operators that are still in preview.  These would normally be results that have been prepared, but not yet reviewed, and not yet published for general consumption."
+                                Style="{StaticResource AppBlurbStyle2}" />
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </controls:Expander>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel>
+
+                    <TextBlock Style="{StaticResource AppSectionHeaderTextBlockStyle}" Text="INFO" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                    <TextBlock
+                        Text="This screen is for optionally choosing a preferred subcategory of race results to be displayed on launch. The leaderboard can optionally be displayed in a compact column format."
+                        Style="{StaticResource AppBlurbStyle2}" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                    <TextBlock
+                        Text="For system operators, it is for taking the leaderboard and converting it into the format of a printed web page that can be accessed by a corresponding hyperlink. The event organisers can put the link on their website. Posting is done from the menu on the Leaderboard page."
+                        Style="{StaticResource AppBlurbStyle2}" />
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <userControls1:FooterStyleContentsUserControl Grid.Row="5"
+                                                     DataContext="{Binding Path=FootersVm}" />
+
+    </Grid>
+
+</pagebase:UwpPageBase>

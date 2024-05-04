@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="45b3ce5b-a32b-4104-861a-c697d917eb1d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HttpsText.xsd" MetadataType="Schema" ID="5448b4b0-ddcc-469c-adee-80383a84a8c0" SourceId="1" SourceUrl="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd0" />
+    <MetadataFile FileName="HttpsText1.xsd" MetadataType="Schema" ID="362949f5-7b83-4403-886c-e91fd1f1b973" SourceId="1" SourceUrl="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd1" />
+    <MetadataFile FileName="HttpsText2.xsd" MetadataType="Schema" ID="b2cdf15d-6aab-48d5-83ce-8e556c738d3b" SourceId="1" SourceUrl="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd2" />
+    <MetadataFile FileName="HttpsText3.xsd" MetadataType="Schema" ID="12f8fa46-cab3-436a-9b12-b2f2f757c122" SourceId="1" SourceUrl="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?xsd=xsd3" />
+    <MetadataFile FileName="TimingSystemDataPreprocessingSvc.wsdl" MetadataType="Wsdl" ID="d88ecb9a-0e2e-4714-81ad-a8a8506b7ea1" SourceId="1" SourceUrl="https://localhost:5001/ITimingSystemDataPreprocessingSvc/HttpsText?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

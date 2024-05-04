@@ -1,0 +1,144 @@
+﻿namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems;
+
+//public class PublisherImportedFileItem
+//{
+
+//    #region ctor
+
+
+//    public PublisherImportedFileItem(string identifierOfDataset, string nameOfDatasetFile, string datasetContents)
+//    {
+//        IdentifierOfDataset = identifierOfDataset ?? string.Empty;
+//        FileName = nameOfDatasetFile ?? string.Empty;
+//        ContentsOfFile = datasetContents ?? string.Empty;
+//    }
+
+//    public PublisherImportedFileItem()
+//    {
+//    }
+
+
+//    #endregion
+
+//    #region props
+
+//    public string IdentifierOfDataset { get; set; } = string.Empty;
+
+//    public string FileName { get; set; } = string.Empty;
+
+//    public string ContentsOfFile { get; set; } = string.Empty;
+
+//    #endregion
+
+//    //#region methods
+
+//    //public static PublisherImportedFileItem FromDataTransferObject(PublisherImportedFileDto dto)
+//    //{
+//    //    const string failure = "Populating PublisherImportedFileItem.";
+//    //    const string locus = "[FromDataTransferObject]";
+
+//    //    try
+//    //    {
+//    //        var x = dto ?? new PublisherImportedFileDto();
+
+//    //        var answer = new PublisherImportedFileItem
+//    //        {
+//    //            IdentifierOfDataset = x.DatasetIdentifier,
+//    //            FileName = x.DatasetEntityName,
+//    //            ContentsOfFile = x.DatasetContents,
+//    //        };
+
+//    //        return answer;
+//    //    }
+
+//    //    #region trycatch
+
+//    //    catch (Exception ex)
+//    //    {
+//    //        throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+//    //    }
+
+//    //    #endregion
+//    //}
+
+//    //public static PublisherImportedFileItem[] FromDataTransferObject(PublisherImportedFileDto[] dto)
+//    //{
+//    //    const string failure = "Populating PublisherImportedFileItem[].";
+//    //    const string locus = "[FromDataTransferObject]";
+
+//    //    try
+//    //    {
+//    //        if (dto == null)
+//    //            return Array.Empty<PublisherImportedFileItem>();
+
+//    //        var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+
+//    //        return answer;
+//    //    }
+
+//    //    #region trycatch
+
+//    //    catch (Exception ex)
+//    //    {
+//    //        throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+//    //    }
+
+//    //    #endregion
+//    //}
+
+//    //public static PublisherImportedFileDto ToDataTransferObject(PublisherImportedFileItem item)
+//    //{
+//    //    const string failure = "Populating PublisherImportedFileDto.";
+//    //    const string locus = "[ToDataTransferObject]";
+
+//    //    try
+//    //    {
+//    //        var x = item ?? new PublisherImportedFileItem();
+
+//    //        var answer = new PublisherImportedFileDto
+//    //        {
+//    //            DatasetIdentifier = x.IdentifierOfDataset,
+//    //            DatasetEntityName = x.FileName,
+//    //            DatasetContents = x.ContentsOfFile,
+//    //        };
+
+//    //        return answer;
+//    //    }
+
+//    //    #region trycatch
+
+//    //    catch (Exception ex)
+//    //    {
+//    //        throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+//    //    }
+
+//    //    #endregion
+//    //}
+
+//    //public static PublisherImportedFileDto[] ToDataTransferObject(PublisherImportedFileItem[] item)
+//    //{
+//    //    const string failure = "Populating PublisherImportedFileDto[].";
+//    //    const string locus = "[ToDataTransferObject]";
+
+//    //    try
+//    //    {
+//    //        if (item == null)
+//    //            return Array.Empty<PublisherImportedFileDto>();
+
+//    //        var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+
+//    //        return answer;
+//    //    }
+
+//    //    #region trycatch
+
+//    //    catch (Exception ex)
+//    //    {
+//    //        throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+//    //    }
+
+//    //    #endregion
+//    //}
+
+//    //#endregion
+//}

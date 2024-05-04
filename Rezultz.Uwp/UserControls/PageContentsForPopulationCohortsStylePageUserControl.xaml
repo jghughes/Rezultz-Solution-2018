@@ -1,0 +1,201 @@
+﻿<UserControl
+    x:Class="Rezultz.Uwp.UserControls.PageContentsForPopulationCohortsStylePageUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Rezultz.Uwp.UserControls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:userControlsDataGrid="using:Rezultz.Uwp.UserControls_DataGrid"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HereRefreshOrFilterButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Width" Value="140" />
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="11" />
+            </Style>
+
+            <Style x:Key="HereComboBoxStyle"
+                   TargetType="ComboBox">
+                <Setter Property="MinWidth" Value="212" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="2" Tag="All the menu buttons"
+                    Orientation="Horizontal">
+
+            <Button Tag="BtnToggleVisibilityOfSplitViewPane"
+                    Content="Menu"
+                    Click="BtnToggleVisibilityOfSplitViewPane_OnClick" FontSize="12" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button
+                Tag="BtnRefreshPopulationCohorts"
+                Content="Restore"
+                ToolTipService.ToolTip="fetch all the data"
+                DataContext="{Binding Path=LoadSourceDataButtonVm}"
+                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                Command="{Binding Path=OnClickCommand}"
+                Style="{StaticResource HereRefreshOrFilterButtonStyle}" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding ElementName=XamlElementShowPopulationCohortsBtn, Path=Visibility}">
+
+                <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                <Button
+                    x:Name="XamlElementShowPopulationCohortsBtn"
+                    Content="Apply filters"
+                    ToolTipService.ToolTip="display your selected table of cohorts"
+                    DataContext="{Binding Path=RefreshScreenButtonVm}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                    Command="{Binding Path=OnClickCommand}"
+                    Style="{StaticResource HereRefreshOrFilterButtonStyle}" />
+
+            </StackPanel>
+
+            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+            <TextBlock
+                DataContext="{Binding Path=GlobalProgressIndicatorVm, Source={StaticResource DependencyInjectionLocator}}"
+                Text="{Binding Path=ProgressMessage, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                Style="{StaticResource LibraryCaptionTextBlockStyle}" VerticalAlignment="Center" Foreground="Red" />
+
+
+        </StackPanel>
+
+        <local:HeaderStyleContentsUserControl Grid.Row="4"
+                                                     DataContext="{Binding Path=HeadersVm}"
+                                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                                     Foreground="{StaticResource LibraryOnBackgroundMuted2Color}"
+                                                     Margin="{StaticResource LibraryMediumLeftRightMargin}" />
+
+        <SplitView Grid.Row="6" Tag="The favorites and leaderboard dataGrids"
+                   x:Name="XamlElementSplitView"
+                   DisplayMode="Overlay"
+                   OpenPaneLength="400"
+                   PanePlacement="Left"
+                   Margin="{StaticResource LibraryMediumLeftRightMargin}">
+
+            <SplitView.Pane>
+
+                <ScrollViewer VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" MaxHeight="630" Margin="24">
+
+                    <StackPanel>
+
+                        <controls:Expander Tag="PanelForCategoryFilters"
+                                           Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                            <controls:Expander.Header>
+
+                                <TextBlock Text="Filters"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            </controls:Expander.Header>
+
+                            <StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                                <ComboBox
+                                    DisplayMemberPath="Label"
+                                    PlaceholderText="Choose cohort"
+                                    ToolTipService.ToolTip="Where there are multiple kinds of cohorts, this is where you choose the one you want."
+                                    DataContext="{Binding Path=CboLookupKindOfCohortVm}"
+                                    IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource MoreInformationItemDisplayObjectsGuardAgainstNull}}"
+                                    SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Style="{StaticResource HereComboBoxStyle}">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                                            <core:InvokeCommandAction Command="{Binding OnSelectionChangedCommand}" />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </ComboBox>
+
+                            </StackPanel>
+                        </controls:Expander>
+
+                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                        <controls:Expander Tag="PanelForExporting"
+                                           Style="{StaticResource LibraryRegularExpanderStyle}">
+
+                            <controls:Expander.Header>
+
+                                <TextBlock Text="Export"
+                                           Style="{StaticResource AppBodyTextBlockStyle}" />
+
+                            </controls:Expander.Header>
+
+                            <StackPanel>
+
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                                <Button
+                                    Click="BtnSaveCohortAnalysisAsHtmlWebpage_OnClick"
+                                    Content="Export this table"
+                                    DataContext="{Binding SavePopulationCohortsToDocumentsAsHtmlWebpageButtonVm}"
+                                    IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Style="{StaticResource LibraryOrdinaryButtonStyle}"
+                                    ToolTipService.ToolTip="save cohorts to your documents (.htm)" />
+
+                            </StackPanel>
+                        </controls:Expander>
+                    </StackPanel>
+
+                </ScrollViewer>
+
+            </SplitView.Pane>
+
+            <userControlsDataGrid:PopulationCohortsDataGridPresentationServiceUserControl
+                x:Name="XamlElementPopulationCohortsDataGridPresentationServiceUserControl"
+                DataContext="{Binding Path=PopulationCohortsDataGridVm}"
+                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+        </SplitView>
+
+        <local:FooterStyleContentsUserControl Grid.Row="8"
+                                                     DataContext="{Binding Path=FootersVm}"
+                                                     Margin="{StaticResource LibraryMediumLeftRightMargin}" />
+
+        <local:ImagesInBannerUserControl Grid.Row="10"
+                                         DataContext="{Binding Path=PageImagesInSkyscraperRightVm}" />
+
+    </Grid>
+</UserControl>

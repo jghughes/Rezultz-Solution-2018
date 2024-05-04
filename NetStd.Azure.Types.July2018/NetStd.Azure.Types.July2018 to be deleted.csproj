@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetStd.Exceptions.July2018\NetStd.Exceptions.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Goodies.Xml.July2018\NetStd.Goodies.Xml.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces01.July2018\NetStd.Interfaces01.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.Prism.July2018\NetStd.Prism.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.SymbolsStringsConstants.July2018\NetStd.SymbolsStringsConstants.July2018.csproj" />
+  </ItemGroup>
+
+</Project>

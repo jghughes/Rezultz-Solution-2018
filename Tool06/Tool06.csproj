@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RezultzSvc.Agents.Mar2024\RezultzSvc.Agents.Mar2024.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Clients.Mvc.Mar2023\RezultzSvc.Clients.Mvc.Mar2023.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Clients.Wcf.Mar2023\RezultzSvc.Clients.Wcf.Mar2023.csproj" />
+  </ItemGroup>
+
+</Project>

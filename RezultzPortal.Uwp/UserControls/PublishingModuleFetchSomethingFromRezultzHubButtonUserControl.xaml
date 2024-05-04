@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="RezultzPortal.Uwp.UserControls.PublishingModuleFetchSomethingFromRezultzHubButtonUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HereImportDataButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="276" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+            </Style>
+
+            <Style x:Key="HereCaptionBlurbStyle2"
+                   BasedOn="{StaticResource AppCaptionBlurbStyle2}"
+                   TargetType="TextBlock">
+                <Setter Property="Margin" Value="12,0,0,0" />
+                <Setter Property="MaxWidth" Value="600" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+        <Button
+            Content="{Binding Path=Content}"
+            Command="{Binding Path=OnClickCommand}"
+            CommandParameter="{Binding Path=DatasetIdentifyingEnum}"
+            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+            Style="{StaticResource HereImportDataButtonStyle}"
+            TabIndex="10"
+            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}" />
+
+        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
+                   Visibility="{Binding ElementName=XamlElementDatasetFileUploadOutcomeReport, Path=Visibility}" />
+
+        <TextBlock
+            x:Name="XamlElementDatasetFileUploadOutcomeReport"
+            Text="{Binding Path=DatasetFileUploadOutcomeReport, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+            Visibility="{Binding Path=DatasetFileUploadOutcomeReport, Converter={StaticResource TextToVisibility}}"
+            Style="{StaticResource HereCaptionBlurbStyle2}" />
+
+    </StackPanel>
+</UserControl>

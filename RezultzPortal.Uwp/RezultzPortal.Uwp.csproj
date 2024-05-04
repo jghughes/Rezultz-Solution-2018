@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{694E44C8-5D40-400A-B1C0-B3EB36096768}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RezultzPortal.Uwp</RootNamespace>
+    <AssemblyName>RezultzPortal.Uwp</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <!-- BEGIN : changes by jgh-->
+    <!--<PackageCertificateKeyFile>RezultzPortal.Uwp_StoreKey.pfx</PackageCertificateKeyFile>-->
+    <PackageCertificateKeyFile>
+    </PackageCertificateKeyFile>
+    <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
+    <!-- END : changes by jgh-->
+    <PackageCertificateThumbprint>3B173AD9FE0308C23963ED998998077405F59251</PackageCertificateThumbprint>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>NU1603;2008;</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>NU1603;2008;</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>NU1603;2008;</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>NU1603;2008;</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>NU1603;2008;</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>NU1603;2008;</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Services.Store.Engagement">
+      <Version>10.1901.28001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <!-- Nuget package references -->
+    <PackageReference Include="Microsoft.Services.Store.SDK">
+      <Version>10.1705.16001</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
+      <Version>1.0.2.9</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.7.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.2578</Version>
+    </PackageReference>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+    <PackageReference Include="WindowsAzure.Messaging.Managed">
+      <Version>0.1.7.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>7.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-us\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="EditTemplateViewModels\HubItemEditTemplateViewModelBase.cs" />
+    <Compile Include="EditTemplateViewModels\ParticipantHubItemEditTemplateViewModel.cs" />
+    <Compile Include="EditTemplateViewModels\TimeStampHubItemEditTemplateViewModel.cs" />
+    <Compile Include="PageViewModels\HomePageViewModel.cs" />
+    <Compile Include="PageViewModels\PublishSingleEventResultsViewModel.cs" />
+    <Compile Include="PageViewModels\RegisterParticipantsViewModel.cs" />
+    <Compile Include="PageViewModelBases\HubItemPagesViewModelBase.cs" />
+    <Compile Include="PageViewModels\KeepTimeViewModel.cs" />
+    <Compile Include="UserControls-DataGrid\TelerikRadDataGridUserControlHelpers.cs" />
+    <Compile Include="UserControls\FooterStyleContentsUserControl.xaml.cs">
+      <DependentUpon>FooterStyleContentsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HeaderStyleContentsUserControl.xaml.cs">
+      <DependentUpon>HeaderStyleContentsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\InitialisationOfHubItemPagesUserControl.xaml.cs">
+      <DependentUpon>InitialisationOfHubItemPagesUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BlurbInfoForHubPages.xaml.cs">
+      <DependentUpon>BlurbInfoForHubPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PublishingModuleFetchSomethingFromRezultzHubButtonUserControl.xaml.cs">
+      <DependentUpon>PublishingModuleFetchSomethingFromRezultzHubButtonUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PublishingModuleImportFileFromHardDriveButtonUserControl.xaml.cs">
+      <DependentUpon>PublishingModuleImportFileFromHardDriveButtonUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SeasonSeriesAndEventSelectorsUserControlForPortal.xaml.cs">
+      <DependentUpon>SeasonSeriesAndEventSelectorsUserControlForPortal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SeasonProfileValidationUserControlForPortal.xaml.cs">
+      <DependentUpon>SeasonProfileValidationUserControlForPortal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchForSplitIntervalsUserControl.xaml.cs">
+      <DependentUpon>SearchForSplitIntervalsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchForTimeStampHubItemsUserControl.xaml.cs">
+      <DependentUpon>SearchForTimeStampHubItemsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchForParticipantHubItemsUserControl.xaml.cs">
+      <DependentUpon>SearchForParticipantHubItemsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls-DataGrid\SplitIntervalsPerPersonDataGridPresentationServiceUserControl.xaml.cs">
+      <DependentUpon>SplitIntervalsPerPersonDataGridPresentationServiceUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls-DataGrid\TimeStampEntriesInLocalStorageDataGridPresentationServiceUserControl.xaml.cs">
+      <DependentUpon>TimeStampEntriesInLocalStorageDataGridPresentationServiceUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls-DataGrid\TimeStampEntriesInMemoryCacheDataGridPresentationServiceUserControl.xaml.cs">
+      <DependentUpon>TimeStampEntriesInMemoryCacheDataGridPresentationServiceUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls-DataGrid\ParticipantEntriesInLocalStorageDataGridPresentationServiceUserControl.xaml.cs">
+      <DependentUpon>ParticipantEntriesInLocalStorageDataGridPresentationServiceUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls-DataGrid\ParticipantEntriesInMemoryCacheDataGridPresentationServiceUserControl.xaml.cs">
+      <DependentUpon>ParticipantEntriesInMemoryCacheDataGridPresentationServiceUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Strings\StringsPortal.cs" />
+    <Compile Include="UserControls\PublishingModuleValidationUserControl.xaml.cs">
+      <DependentUpon>PublishingModuleValidationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeStampEditTemplateUserControl.xaml.cs">
+      <DependentUpon>TimeStampEditTemplateUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ParticipantEditTemplateUserControl.xaml.cs">
+      <DependentUpon>ParticipantEditTemplateUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Helpers\NavHelper.cs" />
+    <Compile Include="Local storage\SettingsStorageExtensions.cs" />
+    <Compile Include="Local storage\IsolatedStoragePaths.cs" />
+    <Compile Include="NavigationServiceJgh\NavigationServiceExForRezultzPortalViewModels.cs" />
+    <Compile Include="In-app services\ActivationService.cs" />
+    <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
+    <Compile Include="In-app services\AzureNotificationsService.cs" />
+    <Compile Include="In-app services\DevCenterNotificationsService.cs" />
+    <Compile Include="In-app services\NavigationServiceEx.cs" />
+    <Compile Include="In-app services\OnBackgroundEnteringEventArgs.cs" />
+    <Compile Include="In-app services\SuspendAndResumeService.cs" />
+    <Compile Include="In-app services\SuspensionState.cs" />
+    <Compile Include="In-app services\ThemeSelectorService.cs" />
+    <Compile Include="In-app services\ToastNotificationsService.cs" />
+    <Compile Include="In-app services\ToastNotificationsService.Samples.cs" />
+    <Compile Include="PageViewModels\AboutPageViewModel.cs" />
+    <Compile Include="PageViewModels\ShellViewModel.cs" />
+    <Compile Include="DependencyInjection\DependencyInjectionLocator.cs" />
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PublishSingleEventResultsLaunchPage.xaml.cs">
+      <DependentUpon>PublishSingleEventResultsLaunchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegisterParticipantsWorkingPage.xaml.cs">
+      <DependentUpon>RegisterParticipantsWorkingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegisterParticipantsToolsPage.xaml.cs">
+      <DependentUpon>RegisterParticipantsToolsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegisterParticipantsLaunchPage.xaml.cs">
+      <DependentUpon>RegisterParticipantsLaunchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\KeepTimeLaunchPage.xaml.cs">
+      <DependentUpon>KeepTimeLaunchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\KeepTimeWorkingPage.xaml.cs">
+      <DependentUpon>KeepTimeWorkingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\KeepTimeToolsPage.xaml.cs">
+      <DependentUpon>KeepTimeToolsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\KeepTimeFindAnomaliesPage.xaml.cs">
+      <DependentUpon>KeepTimeFindAnomaliesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IdentityValidationUserControlForPortal.xaml.cs">
+      <DependentUpon>IdentityValidationUserControlForPortal.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UserControls\FooterStyleContentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HeaderStyleContentsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\InitialisationOfHubItemPagesUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BlurbInfoForHubPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PublishingModuleFetchSomethingFromRezultzHubButtonUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PublishingModuleImportFileFromHardDriveButtonUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SeasonSeriesAndEventSelectorsUserControlForPortal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SeasonProfileValidationUserControlForPortal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SearchForSplitIntervalsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SearchForTimeStampHubItemsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SearchForParticipantHubItemsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls-DataGrid\SplitIntervalsPerPersonDataGridPresentationServiceUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls-DataGrid\TimeStampEntriesInLocalStorageDataGridPresentationServiceUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls-DataGrid\TimeStampEntriesInMemoryCacheDataGridPresentationServiceUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls-DataGrid\ParticipantEntriesInLocalStorageDataGridPresentationServiceUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls-DataGrid\ParticipantEntriesInMemoryCacheDataGridPresentationServiceUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PublishingModuleValidationUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\TimeStampEditTemplateUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ParticipantEditTemplateUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PublishSingleEventResultsLaunchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RegisterParticipantsWorkingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RegisterParticipantsToolsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\RegisterParticipantsLaunchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Shell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\KeepTimeLaunchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\KeepTimeWorkingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\KeepTimeToolsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\KeepTimeFindAnomaliesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\IdentityValidationUserControlForPortal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\ResourceExtensions.cs" />
+    <Compile Include="Helpers\Singleton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AssetsJgh\AppList\AppList.scale-100.png" />
+    <Content Include="AssetsJgh\AppList\AppList.scale-125.png" />
+    <Content Include="AssetsJgh\AppList\AppList.scale-150.png" />
+    <Content Include="AssetsJgh\AppList\AppList.scale-200.png" />
+    <Content Include="AssetsJgh\AppList\AppList.scale-400.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-16.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-16_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-20.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-20_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-24.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-24_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-256.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-256_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-30.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-30_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-32.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-32_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-36.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-36_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-40.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-40_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-48.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-48_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-60.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-60_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-64.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-64_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-72.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-72_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-80.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-80_altform-unplated.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-96.png" />
+    <Content Include="AssetsJgh\AppList\AppList.targetsize-96_altform-unplated.png" />
+    <Content Include="AssetsJgh\Badge\Badge.scale-100.png" />
+    <Content Include="AssetsJgh\Badge\Badge.scale-125.png" />
+    <Content Include="AssetsJgh\Badge\Badge.scale-150.png" />
+    <Content Include="AssetsJgh\Badge\Badge.scale-200.png" />
+    <Content Include="AssetsJgh\Badge\Badge.scale-400.png" />
+    <Content Include="AssetsJgh\Images\DeleteIcon.scale-180.png" />
+    <Content Include="AssetsJgh\Images\Favorites.scale-180.png" />
+    <Content Include="AssetsJgh\Images\SearchIcon.scale-180.png" />
+    <Content Include="AssetsJgh\Large\Large310x310Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Large\Large310x310Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Large\Large310x310Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Large\Large310x310Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Large\Large310x310Logo.scale-400.png" />
+    <Content Include="AssetsJgh\Medium\Medium150x150Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Medium\Medium150x150Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Medium\Medium150x150Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Medium\Medium150x150Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Medium\Medium150x150Logo.scale-400.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-lightunplated_targetsize-16.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-lightunplated_targetsize-24.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-lightunplated_targetsize-256.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-lightunplated_targetsize-32.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-lightunplated_targetsize-48.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-unplated_targetsize-16.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-unplated_targetsize-24.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-unplated_targetsize-256.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-unplated_targetsize-32.png" />
+    <Content Include="AssetsJgh\Small\AppList.altform-unplated_targetsize-48.png" />
+    <Content Include="AssetsJgh\Small\AppList.scale-100.png" />
+    <Content Include="AssetsJgh\Small\AppList.scale-125.png" />
+    <Content Include="AssetsJgh\Small\AppList.scale-150.png" />
+    <Content Include="AssetsJgh\Small\AppList.scale-200.png" />
+    <Content Include="AssetsJgh\Small\AppList.scale-400.png" />
+    <Content Include="AssetsJgh\Small\AppList.targetsize-16.png" />
+    <Content Include="AssetsJgh\Small\AppList.targetsize-24.png" />
+    <Content Include="AssetsJgh\Small\AppList.targetsize-256.png" />
+    <Content Include="AssetsJgh\Small\AppList.targetsize-32.png" />
+    <Content Include="AssetsJgh\Small\AppList.targetsize-48.png" />
+    <Content Include="AssetsJgh\Small\Badge.scale-100.png" />
+    <Content Include="AssetsJgh\Small\Badge.scale-125.png" />
+    <Content Include="AssetsJgh\Small\Badge.scale-150.png" />
+    <Content Include="AssetsJgh\Small\Badge.scale-200.png" />
+    <Content Include="AssetsJgh\Small\Badge.scale-400.png" />
+    <Content Include="AssetsJgh\Small\Large310x310Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Small\Large310x310Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Small\Large310x310Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Small\Large310x310Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Small\Large310x310Logo.scale-400.png" />
+    <Content Include="AssetsJgh\Small\Medium150x150Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Small\Medium150x150Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Small\Medium150x150Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Small\Medium150x150Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Small\Medium150x150Logo.scale-400.png" />
+    <Content Include="AssetsJgh\Small\Small71x71Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Small\Small71x71Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Small\Small71x71Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Small\Small71x71Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Small\Small71x71Logo.scale-400.png" />
+    <Content Include="AssetsJgh\Small\SplashScreen.scale-100.png" />
+    <Content Include="AssetsJgh\Small\SplashScreen.scale-125.png" />
+    <Content Include="AssetsJgh\Small\SplashScreen.scale-150.png" />
+    <Content Include="AssetsJgh\Small\SplashScreen.scale-200.png" />
+    <Content Include="AssetsJgh\Small\SplashScreen.scale-400.png" />
+    <Content Include="AssetsJgh\Small\StoreLogo.scale-100.png" />
+    <Content Include="AssetsJgh\Small\StoreLogo.scale-125.png" />
+    <Content Include="AssetsJgh\Small\StoreLogo.scale-150.png" />
+    <Content Include="AssetsJgh\Small\StoreLogo.scale-200.png" />
+    <Content Include="AssetsJgh\Small\StoreLogo.scale-400.png" />
+    <Content Include="AssetsJgh\Small\Wide310x150Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Small\Wide310x150Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Small\Wide310x150Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Small\Wide310x150Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Small\Wide310x150Logo.scale-400.png" />
+    <Content Include="AssetsJgh\South African-Rand2.svg" />
+    <Content Include="AssetsJgh\SplashScreen\SplashScreen.scale-100.png" />
+    <Content Include="AssetsJgh\SplashScreen\SplashScreen.scale-125.png" />
+    <Content Include="AssetsJgh\SplashScreen\SplashScreen.scale-150.png" />
+    <Content Include="AssetsJgh\SplashScreen\SplashScreen.scale-200.png" />
+    <Content Include="AssetsJgh\SplashScreen\SplashScreen.scale-400.png" />
+    <Content Include="AssetsJgh\Store\StoreLogo.scale-100.png" />
+    <Content Include="AssetsJgh\Store\StoreLogo.scale-125.png" />
+    <Content Include="AssetsJgh\Store\StoreLogo.scale-150.png" />
+    <Content Include="AssetsJgh\Store\StoreLogo.scale-200.png" />
+    <Content Include="AssetsJgh\Store\StoreLogo.scale-400.png" />
+    <Content Include="AssetsJgh\Wide\Wide310x150Logo.scale-100.png" />
+    <Content Include="AssetsJgh\Wide\Wide310x150Logo.scale-125.png" />
+    <Content Include="AssetsJgh\Wide\Wide310x150Logo.scale-150.png" />
+    <Content Include="AssetsJgh\Wide\Wide310x150Logo.scale-200.png" />
+    <Content Include="AssetsJgh\Wide\Wide310x150Logo.scale-400.png" />
+    <Content Include="Images\jgh_powerpoint_featuregraphicforrezultz.targetsize-120.png" />
+    <Content Include="Images\jgh_powerpoint_featuregraphicforrezultz.targetsize-1280.png" />
+    <Content Include="Images\jgh_powerpoint_featuregraphicforrezultz.targetsize-240.png" />
+    <Content Include="Images\jgh_powerpoint_featuregraphicforrezultz.targetsize-512.png" />
+    <Content Include="Images\jgh_powerpoint_featuregraphicforrezultz.targetsize-60.png" />
+    <Content Include="README3.txt" />
+    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="AssetsJgh\South African-Rand.metrop" />
+    <None Include="RezultzPortal.Uwp_StoreKey.pfx" />
+    <None Include="RezultzPortal.Uwp_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jgh.SymbolsStringsConstants.Mar2022\Jgh.SymbolsStringsConstants.Mar2022.csproj">
+      <Project>{4ce3f17a-3444-4556-9299-7b648e2fb0f6}</Project>
+      <Name>Jgh.SymbolsStringsConstants.Mar2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jgh.Uwp.Common.July2018\Jgh.Uwp.Common.July2018.csproj">
+      <Project>{69E94498-E116-4993-BFF8-EAADA894BFA3}</Project>
+      <Name>Jgh.Uwp.Common.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jgh.Uwp.Rezultz.July2018\Jgh.Uwp.Rezultz.July2018.csproj">
+      <Project>{7c8aec49-2c53-4c5e-b5db-7c3f637177f2}</Project>
+      <Name>Jgh.Uwp.Rezultz.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jgh.Xamarin.Common.Jan2019\Jgh.Xamarin.Common.Jan2019.csproj">
+      <Project>{5a7eff9c-983b-40a6-80e8-6c402af8ad3d}</Project>
+      <Name>Jgh.Xamarin.Common.Jan2019</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.DataTypes.Mar2024\NetStd.DataTypes.Mar2024.csproj">
+      <Project>{2078b109-9100-4ffb-89e9-ad37299d45ab}</Project>
+      <Name>NetStd.DataTypes.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.DependencyInjection.Mar2024\NetStd.DependencyInjection.Mar2024.csproj">
+      <Project>{80cfdd54-309d-4289-9929-9982b4b8cb02}</Project>
+      <Name>NetStd.DependencyInjection.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj">
+      <Project>{7de67ecb-4b01-41fd-a99d-9ec181a40cdd}</Project>
+      <Name>NetStd.Exceptions.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj">
+      <Project>{731b3b3d-5c2e-420e-98ad-64292e36ca1b}</Project>
+      <Name>NetStd.Goodies.Mar2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Goodies.Xml.July2018\NetStd.Goodies.Xml.July2018.csproj">
+      <Project>{ACF34522-4A35-44CC-928C-ECA8F708A120}</Project>
+      <Name>NetStd.Goodies.Xml.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Interfaces01.July2018\NetStd.Interfaces01.July2018.csproj">
+      <Project>{82fbb2ea-a6d2-4dc1-8937-3dd008cba037}</Project>
+      <Name>NetStd.Interfaces01.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Interfaces02.July2018\NetStd.Interfaces02.July2018.csproj">
+      <Project>{ba7873d6-dc06-4744-9b75-2a17ba9c1ccc}</Project>
+      <Name>NetStd.Interfaces02.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Interfaces03.Apr2022\NetStd.Interfaces03.Apr2022.csproj">
+      <Project>{e588c6b9-ffcb-46cd-adf0-17dc289c8bf9}</Project>
+      <Name>NetStd.Interfaces03.Apr2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.OnBoardServices01.July2018\NetStd.OnBoardServices01.July2018.csproj">
+      <Project>{2998E978-6DD0-4871-9040-A0543AAAC9A2}</Project>
+      <Name>NetStd.OnBoardServices01.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.OnBoardServices02.July2018\NetStd.OnBoardServices02.July2018.csproj">
+      <Project>{caba0e6d-5c62-4bc3-96d6-5d43cc3f32d0}</Project>
+      <Name>NetStd.OnBoardServices02.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Prism.July2018\NetStd.Prism.July2018.csproj">
+      <Project>{3065070C-73E3-473D-94B6-97F723A844EE}</Project>
+      <Name>NetStd.Prism.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.ServiceLocation.Aug2022\NetStd.ServiceLocation.Aug2022.csproj">
+      <Project>{6341df2f-8d37-40dd-974e-a44db480f8e9}</Project>
+      <Name>NetStd.ServiceLocation.Aug2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.ViewModels01.April2022\NetStd.ViewModels01.April2022.csproj">
+      <Project>{5814cc06-225e-40ce-a15a-18cdbd188105}</Project>
+      <Name>NetStd.ViewModels01.April2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj">
+      <Project>{768f62b2-18c4-430a-8fb2-16af449d954f}</Project>
+      <Name>Rezultz.DataTransferObjects.Nov2023</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rezultz.DataTypes.Nov2023\Rezultz.DataTypes.Nov2023.csproj">
+      <Project>{67a097a4-b248-4b11-84a7-050ae642f30b}</Project>
+      <Name>Rezultz.DataTypes.Nov2023</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rezultz.Library01.Mar2024\Rezultz.Library01.Mar2024.csproj">
+      <Project>{15048015-f857-4d69-b020-64c3c6cddbe2}</Project>
+      <Name>Rezultz.Library01.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rezultz.Library02.Mar2024\Rezultz.Library02.Mar2024.csproj">
+      <Project>{5d112f19-b146-4984-84c7-2a3b27350a29}</Project>
+      <Name>Rezultz.Library02.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rezultz.Library04.Mar2024\Rezultz.Library04.Mar2024.csproj">
+      <Project>{7d4925d7-e63f-465e-8a10-e3ab6f60e111}</Project>
+      <Name>Rezultz.Library04.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RezultzSvc.Agents.Mar2024\RezultzSvc.Agents.Mar2024.csproj">
+      <Project>{97929dc0-f856-4e23-874c-4f1a390c7aca}</Project>
+      <Name>RezultzSvc.Agents.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RezultzSvc.ClientInterfaces.Mar2024\RezultzSvc.ClientInterfaces.Mar2024.csproj">
+      <Project>{e793e9d1-28f0-4a22-b144-dd3230619a83}</Project>
+      <Name>RezultzSvc.ClientInterfaces.Mar2024</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RezultzSvc.Clients.Mvc.Mar2023\RezultzSvc.Clients.Mvc.Mar2023.csproj">
+      <Project>{d64e0d51-a6aa-4cf9-96e2-b6e3c63457ab}</Project>
+      <Name>RezultzSvc.Clients.Mvc.Mar2023</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RezultzSvc.Clients.Wcf.Mar2023\RezultzSvc.Clients.Wcf.Mar2023.csproj">
+      <Project>{df1d38a8-b9a0-49ca-be46-10f686f4236c}</Project>
+      <Name>RezultzSvc.Clients.Wcf.Mar2023</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

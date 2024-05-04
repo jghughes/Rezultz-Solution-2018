@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetStd.DataTypes.Mar2024\NetStd.DataTypes.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj" />
+    <ProjectReference Include="..\NetStd.Interfaces03.Apr2022\NetStd.Interfaces03.Apr2022.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
+    <ProjectReference Include="..\Rezultz.DataTypes.Nov2023\Rezultz.DataTypes.Nov2023.csproj" />
+    <ProjectReference Include="..\RezultzSvc.ClientInterfaces.Mar2024\RezultzSvc.ClientInterfaces.Mar2024.csproj" />
+  </ItemGroup>
+
+</Project>

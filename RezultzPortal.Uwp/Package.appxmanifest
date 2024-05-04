@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" IgnorableNamespaces="uap mp genTemplate">
+  <Identity Name="29710JohnHughesPlaceholde.RezultzPortal" Publisher="CN=681D2FEB-BF61-43DA-993A-4AD30C9B1BCF" Version="2.0.30.0" />
+  <mp:PhoneIdentity PhoneProductId="05cc6480-1619-499d-9be4-94f60694fd75" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Rezultz Portal</DisplayName>
+    <PublisherDisplayName>John Gerald Hughes</PublisherDisplayName>
+    <Logo>AssetsJgh\Small\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="RezultzPortal.Uwp.App">
+      <uap:VisualElements DisplayName="Rezultz Portal" Square150x150Logo="AssetsJgh\Small\Medium150x150Logo.png" Square44x44Logo="AssetsJgh\Small\AppList.png" Description="A utility for administrators of the Rezultz family of websites and apps." BackgroundColor="transparent">
+        <uap:LockScreen Notification="badge" BadgeLogo="AssetsJgh\Small\Badge.png" />
+        <uap:DefaultTile Wide310x150Logo="AssetsJgh\Small\Wide310x150Logo.png" ShortName="Rezultz Portal" Square310x310Logo="AssetsJgh\Small\Large310x310Logo.png" Square71x71Logo="AssetsJgh\Small\Small71x71Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="AssetsJgh\Small\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait" />
+          <uap:Rotation Preference="landscape" />
+        </uap:InitialRotationPreference>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+  <genTemplate:Metadata>
+    <genTemplate:Item Name="generator" Value="Windows Template Studio" />
+    <genTemplate:Item Name="wizardVersion" Version="v2.4.18260.1" />
+    <genTemplate:Item Name="templatesVersion" Version="v2.4.18260.1" />
+    <genTemplate:Item Name="projectType" Value="SplitView" />
+    <genTemplate:Item Name="framework" Value="MVVMLight" />
+    <genTemplate:Item Name="platform" Value="Uwp" />
+  </genTemplate:Metadata>
+</Package>

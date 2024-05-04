@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8E3EFA5-288F-452B-A67E-634BF7D3A1E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jgh.Wpf.Common.July2018</RootNamespace>
+    <AssemblyName>Jgh.Wpf.Common.July2018</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Page - bases\PageBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strings -\WpfCommonStrings.cs" />
+    <Compile Include="Converters -\XamlConverters.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jgh.SymbolsStringsConstants.Mar2022\Jgh.SymbolsStringsConstants.Mar2022.csproj">
+      <Project>{4ce3f17a-3444-4556-9299-7b648e2fb0f6}</Project>
+      <Name>Jgh.SymbolsStringsConstants.Mar2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj">
+      <Project>{731b3b3d-5c2e-420e-98ad-64292e36ca1b}</Project>
+      <Name>NetStd.Goodies.Mar2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Objects03.Oct2022\NetStd.Objects03.Oct2022.csproj">
+      <Project>{c39236ee-805a-4b16-95a6-9c44b1b2b462}</Project>
+      <Name>NetStd.Objects03.Oct2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.OnBoardServices01.July2018\NetStd.OnBoardServices01.July2018.csproj">
+      <Project>{2998e978-6dd0-4871-9040-a0543aaac9a2}</Project>
+      <Name>NetStd.OnBoardServices01.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.Prism.July2018\NetStd.Prism.July2018.csproj">
+      <Project>{3065070c-73e3-473d-94b6-97f723a844ee}</Project>
+      <Name>NetStd.Prism.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.SimpleIntervalRecorder.July2018\NetStd.SimpleIntervalRecorder.July2018.csproj">
+      <Project>{7271a80d-9803-4fe0-a75b-abb9495007f7}</Project>
+      <Name>NetStd.SimpleIntervalRecorder.July2018</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetStd.ViewModels01.April2022\NetStd.ViewModels01.April2022.csproj">
+      <Project>{5814cc06-225e-40ce-a15a-18cdbd188105}</Project>
+      <Name>NetStd.ViewModels01.April2022</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,195 @@
+﻿using System;
+using System.Linq;
+using NetStd.Exceptions.Mar2024.Helpers;
+using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
+
+namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
+{
+    //public class CompositeDataItem
+    //{
+    //    #region ctor
+
+    //    public CompositeDataItem()
+    //    {
+    //        ReturnedOutcome = string.Empty;
+    //        String1 = string.Empty;
+    //        String2 = string.Empty;
+    //        String3 = string.Empty;
+    //        String4 = string.Empty;
+    //        String5 = string.Empty;
+    //        String6 = string.Empty;
+    //    }
+
+    //    public CompositeDataItem(string string1, string string2, string string3 = "", string string4 = "", string string5 = "", string string6 = "")
+    //    {
+    //        ReturnedOutcome = string1 ?? string.Empty;
+
+    //        String1 = string1 ?? string.Empty;
+    //        String2 = string2 ?? string.Empty;
+    //        String3 = string3 ?? string.Empty;
+    //        String4 = string4 ?? string.Empty;
+    //        String5 = string5 ?? string.Empty;
+    //        String6 = string6 ?? string.Empty;
+    //    }
+
+    //    #endregion
+
+    //    #region properties
+
+    //    public string ReturnedOutcome { get; set; }
+
+    //    public string String1 { get; set; }
+
+    //    public string String2 { get; set; }
+
+    //    public string String3 { get; set; }
+
+    //    public string String4 { get; set; }
+
+    //    public string String5 { get; set; }
+
+    //    public string String6 { get; set; }
+
+    //    public bool Boolean1 { get; set; }
+
+    //    public bool Boolean2 { get; set; }
+
+    //    public bool Boolean3 { get; set; }
+
+    //    public bool Boolean4 { get; set; }
+
+    //    #endregion
+
+    //    #region methods
+
+    //    public static CompositeDataItem FromDataTransferObject(CompositeDataItemDto dto)
+    //    {
+    //        const string failure = "Populating CompositeData.";
+    //        const string locus = "[FromDataTransferObject]";
+
+    //        try
+    //        {
+    //            var x = dto ?? new CompositeDataItemDto();
+
+    //            var answer = new CompositeDataItem
+    //            {
+    //                ReturnedOutcome = x.ReturnedOutcome,
+    //                String1 = x.String1,
+    //                String2 = x.String2,
+    //                String3 = x.String3,
+    //                String4 = x.String4,
+    //                String5 = x.String5,
+    //                String6 = x.String6,
+    //                Boolean1 = x.Boolean1,
+    //                Boolean2 = x.Boolean2,
+    //                Boolean3 = x.Boolean3,
+    //                Boolean4 = x.Boolean4,
+
+    //            };
+
+    //            return answer;
+    //        }
+
+    //        #region trycatch
+
+    //        catch (Exception ex)
+    //        {
+    //            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+    //        }
+
+    //        #endregion
+    //    }
+
+    //    public static CompositeDataItem[] FromDataTransferObject(CompositeDataItemDto[] dto)
+    //    {
+    //        const string failure = "Populating CompositeData.";
+    //        const string locus = "[FromDataTransferObject]";
+
+    //        try
+    //        {
+    //            if (dto == null)
+    //                return Array.Empty<CompositeDataItem>();
+
+    //            var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+
+    //            return answer;
+    //        }
+
+    //        #region trycatch
+
+    //        catch (Exception ex)
+    //        {
+    //            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+    //        }
+
+    //        #endregion
+    //    }
+
+    //    public static CompositeDataItemDto ToDataTransferObject(CompositeDataItem item)
+    //    {
+    //        const string failure = "Populating CompositeDataItemDto.";
+    //        const string locus = "[ToDataTransferObject]";
+
+
+    //        try
+    //        {
+    //            var x = item ?? new CompositeDataItem();
+
+    //            var answer = new CompositeDataItemDto
+    //            {
+    //                ReturnedOutcome = x.ReturnedOutcome,
+    //                String1 = x.String1,
+    //                String2 = x.String2,
+    //                String3 = x.String3,
+    //                String4 = x.String4,
+    //                String5 = x.String5,
+    //                String6 = x.String6,
+    //                Boolean1 = x.Boolean1,
+    //                Boolean2 = x.Boolean2,
+    //                Boolean3 = x.Boolean3,
+    //                Boolean4 = x.Boolean4,
+    //            };
+
+    //            return answer;
+    //        }
+
+    //        #region trycatch
+
+    //        catch (Exception ex)
+    //        {
+    //            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+    //        }
+
+    //        #endregion
+    //    }
+
+    //    public static CompositeDataItemDto[] ToDataTransferObject(CompositeDataItem[] item)
+    //    {
+    //        const string failure = "Populating CompositeDataItemDataTransferObject[].";
+    //        const string locus = "[ToDataTransferObject]";
+
+
+    //        try
+    //        {
+    //            if (item == null)
+    //                return Array.Empty<CompositeDataItemDto>();
+
+    //            var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+
+    //            return answer;
+    //        }
+
+    //        #region trycatch
+
+    //        catch (Exception ex)
+    //        {
+    //            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+    //        }
+
+    //        #endregion
+
+    //    }
+
+    //    #endregion
+    //}
+}

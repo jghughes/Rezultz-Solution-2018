@@ -1,0 +1,139 @@
+﻿<Page
+    x:Class="RezultzPortal.Uwp.Pages.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:RezultzPortal.Uwp.Helpers"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding ShellVm, Source={StaticResource DependencyInjectionLocator}}"
+    mc:Ignorable="d">
+
+
+    <NavigationView
+        x:Name="XamlElementNavigationView"
+        Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+        Header="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
+        IsSettingsVisible="false"
+        PaneDisplayMode="Left"
+        OpenPaneLength="250"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
+
+        <NavigationView.AlwaysShowHeader>False</NavigationView.AlwaysShowHeader>
+
+        <NavigationView.PaneCustomContent>
+            <Image
+                Width="120"
+                HorizontalAlignment="Left"
+                Source="/Images/jgh_powerpoint_featuregraphicforrezultz.png" />
+
+        </NavigationView.PaneCustomContent>
+
+        <NavigationView.HeaderTemplate>
+            <DataTemplate>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource LibrarySubtitleTextBlockStyle}"
+                    Text="{Binding}" />
+            </DataTemplate>
+        </NavigationView.HeaderTemplate>
+
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+
+        <Grid>
+            <Frame x:Name="ShellFrame" />
+        </Grid>
+
+        <!-- Each time you add a page, you need to register it with the shell navigation service
+                i.e. call NavigationServiceEx.Configure(pagename...). We do this in the ctor of DependencyLocator which calls ConfigureNavigationServiceExSingleton()
+                (see the section configure navigation service). If, on some rare occasion, you need a capability to invoke a page navigation event
+                from a within a viewmodel, you also must add the page to the ViewModel navigation service. Add the method in NetStd.Rezultz02.July2018.PageNavigation.INavigationServiceForRezultz
+                and then implement in three places, NetStd.Rezultz02.July2018.PageNavigation.NavigationServiceForRezultzDummy and RezultzPortal.Uwp.NavigationServiceJgh.NavigationServiceExForRezultzPortalViewModels
+                and Rezultz.Uwp.NavigationServiceJgh.NavigationServiceExForRezultzViewModels
+            -->
+
+        <NavigationView.MenuItems>
+
+            <!--<TextBlock>Begin</TextBlock>-->
+
+            <NavigationViewItem
+                Content="Home"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.HomePage"
+                Icon="Home" />
+
+            <NavigationViewItemSeparator />
+
+            <TextBlock>Timekeeping</TextBlock>
+
+            <NavigationViewItem
+                Content="launch timekeeping"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.KeepTimeLaunchPage"
+                Icon="Document" />
+
+            <NavigationViewItem
+                Content="create timestamps"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.KeepTimeWorkingPage"
+                Icon="Document" />
+
+            <NavigationViewItem
+                Content="find anomalies"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.KeepTimeFindAnomaliesPage"
+                Icon="Document" />
+
+            <NavigationViewItem
+                Content="timing data tools"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.KeepTimeToolsPage"
+                Icon="Document" />
+
+            <NavigationViewItemSeparator />
+
+            <TextBlock>Participant registration</TextBlock>
+
+            <NavigationViewItem
+                Content="launch registration"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.RegisterParticipantsLaunchPage"
+                Icon="Document" />
+
+            <NavigationViewItem
+                Content="register participants"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.RegisterParticipantsWorkingPage"
+                Icon="Document" />
+
+            <NavigationViewItem
+                Content="registration tools"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.RegisterParticipantsToolsPage"
+                Icon="Document" />
+
+            <NavigationViewItemSeparator />
+
+            <TextBlock>Leaderboard publishing</TextBlock>
+
+            <NavigationViewItem
+                Content="launch and publish"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.PublishSingleEventResultsLaunchPage"
+                Icon="Document" />
+
+            <!--<NavigationViewItem
+                Content="publish timing data"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.PublishSingleEventResultsWorkingPage"
+                Icon="Document" />-->
+
+            <NavigationViewItemSeparator />
+
+            <NavigationViewItem
+                Content="About"
+                helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.AboutPage"
+                Icon="Document" />
+
+            <NavigationViewItemSeparator />
+
+        </NavigationView.MenuItems>
+
+    </NavigationView>
+</Page>

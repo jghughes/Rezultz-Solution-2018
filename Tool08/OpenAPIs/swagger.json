@@ -1,0 +1,3182 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "RezultzSvcMvc",
+    "version": "v1"
+  },
+  "paths": {
+    "/Rezultz/AzureStorage/GetIfContainerExists": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/GetNamesOfBlobsInContainer": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "RequiredSubstring",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MustPrintDescriptionAsOpposedToBlobName",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/GetIfBlobExists": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Blob",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/GetAbsoluteUriOfBlockBlob": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Blob",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/DeleteBlockBlobIfExists": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Blob",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/UploadBytesToBlockBlob": {
+      "post": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Blob",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateContainerIfNotExist",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/UploadStringToBlockBlob": {
+      "post": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Blob",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreateContainerIfNotExist",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/DownloadBlockBlobAsBytes": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Blob",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/GetIfServiceIsAnswering": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/AzureStorage/GetServiceEndpointsInfo": {
+      "get": {
+        "tags": [
+          "AzureStorage"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetIfServiceIsAnswering": {
+      "get": {
+        "tags": [
+          "ControllerBaseJgh"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetServiceEndpointsInfo": {
+      "get": {
+        "tags": [
+          "ControllerBaseJgh"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/GetIfFileNameOfSeasonProfileIsRecognised": {
+      "get": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "parameters": [
+          {
+            "name": "SeasonId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/GetSeasonProfile": {
+      "get": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "parameters": [
+          {
+            "name": "SeasonId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/GetAllSeasonProfiles": {
+      "get": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/PopulateSingleEventWithResults": {
+      "post": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/PopulateAllEventsInSingleSeriesWithAllResults": {
+      "post": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/GetIfServiceIsAnswering": {
+      "get": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/LeaderboardResults/GetServiceEndpointsInfo": {
+      "get": {
+        "tags": [
+          "LeaderboardResults"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/GetIfContainerExists": {
+      "get": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/PostParticipantItem": {
+      "post": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TablePartition",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TableRowKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/PostParticipantItemArray": {
+      "post": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/GetParticipantItem": {
+      "get": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TablePartition",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TableRowKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/GetParticipantItemArray": {
+      "get": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/GetIfServiceIsAnswering": {
+      "get": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/ParticipantRegistration/GetServiceEndpointsInfo": {
+      "get": {
+        "tags": [
+          "ParticipantRegistration"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/GetIfPublisherIdIsRecognised": {
+      "get": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "parameters": [
+          {
+            "name": "FileNameFragment",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/GetPublisherModuleProfile": {
+      "get": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "parameters": [
+          {
+            "name": "FileNameFragment",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherModuleProfileItemDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/GetAllPublisherModuleId": {
+      "get": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/GetIllustrativeExampleOfRawDataset": {
+      "get": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "parameters": [
+          {
+            "name": "FileNameWithExtension",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/ComputeResultsForSingleEvent": {
+      "post": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherInputItemDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherInputItemDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherInputItemDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherInputItemDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherOutputItemDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/SaveFileToBeProcessedSubsequently": {
+      "put": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "parameters": [
+          {
+            "name": "DatasetIdentifier",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "FileNameWithExtension",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/PublishFileOfCompletedResultsForSingleEvent": {
+      "put": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "FileNameWithExtension",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/GetIfServiceIsAnswering": {
+      "get": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/RaceResultsPublishing/GetServiceEndpointsInfo": {
+      "get": {
+        "tags": [
+          "RaceResultsPublishing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/GetIfContainerExists": {
+      "get": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/PostTimeStampItem": {
+      "post": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TablePartition",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TableRowKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/PostTimeStampItemArray": {
+      "post": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/GetTimeStampItem": {
+      "get": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TablePartition",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TableRowKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/GetTimeStampItemArray": {
+      "get": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "parameters": [
+          {
+            "name": "Account",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Container",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/GetIfServiceIsAnswering": {
+      "get": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Rezultz/Timekeeping/GetServiceEndpointsInfo": {
+      "get": {
+        "tags": [
+          "TimeKeeping"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgeGroupSpecificationDto": {
+        "type": "object",
+        "properties": {
+          "ageLowerBound": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ageUpperBound": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayRank": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DateOnly": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "day": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dayOfWeek": {
+            "$ref": "#/components/schemas/DayOfWeek"
+          },
+          "dayOfYear": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "dayNumber": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DayOfWeek": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "DefaultEventSettingsDto": {
+        "type": "object",
+        "properties": {
+          "algorithmForCalculatingPointsEnumString": {
+            "type": "string",
+            "nullable": true
+          },
+          "oneLinerContactMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizerEmailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizerFacebookUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizerInstagramUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizerTwitterUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventInformationArray": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MoreInformationDto"
+            },
+            "nullable": true
+          },
+          "eventAnalyses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MoreInformationDto"
+            },
+            "nullable": true
+          },
+          "raceSpecifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RaceSpecificationDto"
+            },
+            "nullable": true
+          },
+          "ageGroupSpecifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgeGroupSpecificationDto"
+            },
+            "nullable": true
+          },
+          "uris": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UriItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EntityLocationDto": {
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "containerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "entityName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventProfileDto": {
+        "type": "object",
+        "properties": {
+          "orderInSequence": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "txxColumnHeader": {
+            "type": "string",
+            "nullable": true
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "advertisedDateAsString": {
+            "type": "string",
+            "nullable": true
+          },
+          "databaseAccountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataContainerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "htmlDocumentNameForPostedResults": {
+            "type": "string",
+            "nullable": true
+          },
+          "xmlFileNamesForPublishedResults": {
+            "type": "string",
+            "nullable": true
+          },
+          "isExcludedFromSeriesPoints": {
+            "type": "boolean"
+          },
+          "eventSettings": {
+            "$ref": "#/components/schemas/DefaultEventSettingsDto"
+          },
+          "publishedResultsForEvent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResultDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "JghSerialisableExceptionDto": {
+        "type": "object",
+        "properties": {
+          "className": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "hResult": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          },
+          "stackTraceString": {
+            "type": "string",
+            "nullable": true
+          },
+          "innerException": {
+            "$ref": "#/components/schemas/JghSerialisableExceptionDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MoreInformationDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "enumString": {
+            "type": "string",
+            "nullable": true
+          },
+          "blurb": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayRank": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublisherButtonProfileItemDto": {
+        "type": "object",
+        "properties": {
+          "identifierOfAssociatedDataset": {
+            "type": "string",
+            "nullable": true
+          },
+          "guiButtonContent": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortDescriptionOfAssociatedDataset": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileNameExtensionFiltersForBrowsingHardDrive": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileNameOfExampleOfAssociatedDataset": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublisherFileImportTargetItemDto": {
+        "type": "object",
+        "properties": {
+          "datasetIdentifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublisherInputItemDto": {
+        "type": "object",
+        "properties": {
+          "fileNameFragmentOfAssociatedComputerProfile": {
+            "type": "string",
+            "nullable": true
+          },
+          "seriesLabelAsEventIdentifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventLabelAsEventIdentifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentSeriesProfile": {
+            "$ref": "#/components/schemas/SeriesProfileDto"
+          },
+          "datasetTargetToBeProcessedCollection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublisherFileImportTargetItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublisherModuleProfileItemDto": {
+        "type": "object",
+        "properties": {
+          "fragmentInNameOfThisFile": {
+            "type": "string",
+            "nullable": true
+          },
+          "cSharpModuleCodeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "captionForModule": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionOfModule": {
+            "type": "string",
+            "nullable": true
+          },
+          "overviewOfModule": {
+            "type": "string",
+            "nullable": true
+          },
+          "guiButtonProfilesForPullingDatasetsFromPortalHub": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublisherButtonProfileItemDto"
+            },
+            "nullable": true
+          },
+          "guiButtonProfilesForBrowsingFileSystemForDatasets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublisherButtonProfileItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublisherOutputItemDto": {
+        "type": "object",
+        "properties": {
+          "labelOfEventAsIdentifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "ranToCompletionMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "conversionReport": {
+            "type": "string",
+            "nullable": true
+          },
+          "conversionDidFail": {
+            "type": "boolean"
+          },
+          "computedResultsCollection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResultDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RaceSpecificationDto": {
+        "type": "object",
+        "properties": {
+          "seniorityRankForPointsTransfer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trophyPoints": {
+            "type": "number",
+            "format": "double"
+          },
+          "pointsScaleAsCsv": {
+            "type": "string",
+            "nullable": true
+          },
+          "multiplicationFactorForNormalizationOfAverageSplitDuration": {
+            "type": "number",
+            "format": "double"
+          },
+          "distanceKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayRank": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResultDto": {
+        "type": "object",
+        "properties": {
+          "bib": {
+            "type": "string",
+            "nullable": true
+          },
+          "first": {
+            "type": "string",
+            "nullable": true
+          },
+          "last": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleInitial": {
+            "type": "string",
+            "nullable": true
+          },
+          "sex": {
+            "type": "string",
+            "nullable": true
+          },
+          "raceGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ageGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "team": {
+            "type": "string",
+            "nullable": true
+          },
+          "isSeries": {
+            "type": "boolean"
+          },
+          "dnxString": {
+            "type": "string",
+            "nullable": true
+          },
+          "t01": {
+            "type": "string",
+            "nullable": true
+          },
+          "t02": {
+            "type": "string",
+            "nullable": true
+          },
+          "t03": {
+            "type": "string",
+            "nullable": true
+          },
+          "t04": {
+            "type": "string",
+            "nullable": true
+          },
+          "t05": {
+            "type": "string",
+            "nullable": true
+          },
+          "t06": {
+            "type": "string",
+            "nullable": true
+          },
+          "t07": {
+            "type": "string",
+            "nullable": true
+          },
+          "t08": {
+            "type": "string",
+            "nullable": true
+          },
+          "t09": {
+            "type": "string",
+            "nullable": true
+          },
+          "t10": {
+            "type": "string",
+            "nullable": true
+          },
+          "t11": {
+            "type": "string",
+            "nullable": true
+          },
+          "t12": {
+            "type": "string",
+            "nullable": true
+          },
+          "t13": {
+            "type": "string",
+            "nullable": true
+          },
+          "t14": {
+            "type": "string",
+            "nullable": true
+          },
+          "t15": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SeriesProfileDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "advertisedDateAsString": {
+            "type": "string",
+            "nullable": true
+          },
+          "seriesTotalPointsNumOfScoresToCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seriesTotalPointsStandingsPostedDocumentName": {
+            "type": "string",
+            "nullable": true
+          },
+          "seriesTourDurationStandingsPostedDocumentName": {
+            "type": "string",
+            "nullable": true
+          },
+          "timestampHubItemDataContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "participantHubItemDataContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "datasetsUploadedForProcessingContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "resultsDataFilesPreviewedContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "resultsDataFilesPublishedContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "documentsPostedContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "temporaryStuffContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "mediaContainer": {
+            "$ref": "#/components/schemas/EntityLocationDto"
+          },
+          "eventProfileCollection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventProfileDto"
+            },
+            "nullable": true
+          },
+          "seriesInformationCollection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MoreInformationDto"
+            },
+            "nullable": true
+          },
+          "defaultSettingsForAllEvents": {
+            "$ref": "#/components/schemas/DefaultEventSettingsDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UriItemDto": {
+        "type": "object",
+        "properties": {
+          "sourceUriString": {
+            "type": "string",
+            "nullable": true
+          },
+          "referenceUriString": {
+            "type": "string",
+            "nullable": true
+          },
+          "blobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayRank": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "$ref": "#/components/schemas/DateOnly"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

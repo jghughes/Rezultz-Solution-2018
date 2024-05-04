@@ -1,0 +1,221 @@
+﻿<pagebase:UwpPageBase
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    x:Class="RezultzPortal.Uwp.Pages.RegisterParticipantsToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls1="using:RezultzPortal.Uwp.UserControls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    mc:Ignorable="d"
+    Style="{StaticResource LibraryPageStyle}"
+    DataContext="{Binding Path=RegisterParticipantsVm, Source={StaticResource DependencyInjectionLocator}}">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HereExportButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="200" />
+            </Style>
+
+            <Style x:Key="HereComboBoxStyle"
+                   TargetType="ComboBox">
+                <Setter Property="MinWidth" Value="200" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource AppPageContentAsGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition />
+                <RowDefinition Height="12" />
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Tag="PageTitle"
+                       Text="Participant registration :   data tools"
+                       Style="{StaticResource LibraryCaptionTextBlockStyle}" />
+
+            <TextBlock Grid.Row="2"
+                       DataContext="{Binding Path=GlobalProgressIndicatorVm, Source={StaticResource DependencyInjectionLocator}}"
+                       Text="{Binding Path=ProgressMessageOrWhiteOut, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+                       Style="{StaticResource LibraryGlobalProgressIndicatorTextBlockStyle}"
+                       Foreground="Red" />
+
+        </Grid>
+
+        <userControls1:HeaderStyleContentsUserControl Grid.Row="2" Tag="Header"
+                                                        DataContext="{Binding Path=HeadersVm}"
+                                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+        <Grid Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
+              Visibility="{Binding ElementName=MyRawDataUserControl, Path=Visibility}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="60" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+
+                <TextBlock Text="Export data"
+                           Style="{StaticResource AppSectionHeaderTextBlockStyle}" />
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel
+                    DataContext="{Binding Path=CboLookUpFileFormatsVm}"
+                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                    Orientation="Vertical">
+
+                    <TextBlock Text="Choose format..."
+                               Style="{StaticResource AppCaptionBlurbStyle2}" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                    <ComboBox
+                        DisplayMemberPath="Label"
+                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                        ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                        SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                        Style="{StaticResource HereComboBoxStyle}">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                <core:InvokeCommandAction
+                                    Command="{Binding Path=OnSelectionChangedCommand, Mode=OneWay}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ComboBox>
+
+                </StackPanel>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <TextBlock Text="Choose data source..."
+                           Style="{StaticResource AppCaptionBlurbStyle2}" />
+
+                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                <StackPanel BorderThickness="1" Orientation="Horizontal">
+
+                    <RadioButton x:Name="XamlElementRadioButtonDisplayVersion"
+                                 Content="As displayed"
+                                 FontSize="12" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                    <RadioButton x:Name="XamlElementRadioButtonSystemMasterList"
+                                 Content="System"
+                                 FontSize="12" />
+
+                </StackPanel>
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <TextBlock Text="Choose export..."
+                           Style="{StaticResource AppCaptionBlurbStyle2}" />
+
+                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                <Button Click="BtnExportChosenData_OnClick"
+                        CommandParameter="ParticipantMasterList"
+                        Content="Export participants"
+                        DataContext="{Binding Path=ExportConsolidatedParticipantDataFromLocalStorageButtonVm}"
+                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                        Style="{StaticResource HereExportButtonStyle}"
+                        ToolTipService.ToolTip="export participant list" />
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="2">
+
+                <TextBlock Text="Manage data"
+                           Style="{StaticResource AppSectionHeaderTextBlockStyle}" />
+
+                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                <StackPanel Orientation="Horizontal">
+
+                    <Button
+                        Content="Forcibly push all participants on this machine to hub"
+                        ToolTipService.ToolTip="Regardless of whether or not the profiles have been pushed before, push copies of all profiles on this machine to the remote hub where they will be preserved."
+                        Command="{Binding Path=OnClickCommand}"
+                        DataContext="{Binding Path=ForcePushAllDataInMemoryToRemoteHubButtonVm}"
+                        Style="{StaticResource HereExportButtonStyle}" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                    <Button
+                        Content="x"
+                        ToolTipService.ToolTip="Cancel"
+                        Command="{Binding Path=OnClickCommand}"
+                        DataContext="{Binding Path=ForcePushAllDataInMemoryToRemoteHubCancelButtonVm}" />
+
+                </StackPanel>
+
+                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                <StackPanel Orientation="Horizontal">
+
+                    <Button
+                        Content="Delete all participants on this machine"
+                        ToolTipService.ToolTip="Delete all profiles on this machine. Caution! Data created on this machine and not already pushed to the hub will be gone forever."
+                        Command="{Binding Path=OnClickCommand}"
+                        DataContext="{Binding Path=DeleteAllDataButtonVm}"
+                        Style="{StaticResource HereExportButtonStyle}" />
+
+                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                    <StackPanel Orientation="Horizontal"
+                                DataContext="{Binding Path=DeleteAllDataInMemoryProtectionButtonVm}"
+                                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}">
+
+                        <TextBlock Text=""
+                                   Style="{StaticResource AppBodyTextBlockStyle}"
+                                   VerticalAlignment="Center" />
+
+
+                        <ToggleSwitch
+                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                            IsOn="{Binding Path=IsChecked, Mode=TwoWay}"
+                            ToolTipService.ToolTip=""
+                            OffContent="Locked"
+                            OnContent="Unlocked" />
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+
+        <userControls1:FooterStyleContentsUserControl Grid.Row="6" Tag="Footer"
+                                                     DataContext="{Binding Path=FootersVm}" />
+
+    </Grid>
+
+</pagebase:UwpPageBase>

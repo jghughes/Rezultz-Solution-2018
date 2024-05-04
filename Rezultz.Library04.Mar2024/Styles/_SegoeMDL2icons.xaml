@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  for the full icon Segoe MDL2 character map in windows 10, go to https://docs.microsoft.com/en-ca/windows/uwp/design/style/segoe-ui-symbol-font  -->
+
+    <x:String x:Key="LibraryChevronRightSmall">&#xE970;</x:String>
+    <x:String x:Key="LibraryChevronDownSmall">&#xE96E;</x:String>
+
+</ResourceDictionary>

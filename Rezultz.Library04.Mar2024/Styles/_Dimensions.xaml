@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Thickness x:Key="LibraryMediumLeftRightMargin">12,0,12,0</Thickness>
+    <Thickness x:Key="LibraryGridLineItemTotalTextMargin">25,8,0,8</Thickness>
+    <Thickness x:Key="LibraryParagraphBottomAndTopMargin">0,11,0,11</Thickness>
+    <Thickness x:Key="LibraryStackPanelLeftAndBottomMargin">40,24,0,15</Thickness>
+    <Thickness x:Key="LibraryTwelveLeftMargin">12, 0, 0, 0</Thickness>
+
+
+</ResourceDictionary>

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <OpenApiReference Include="OpenAPIs\swagger1.json" CodeGenerator="NSwagCSharp" ClassName="RubbishClient">
+      <SourceUri>https://rezultzsvcmvc.azurewebsites.net/swagger/v1/swagger.json</SourceUri>
+    </OpenApiReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="8.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="14.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RezultzSvc.Agents.Mar2024\RezultzSvc.Agents.Mar2024.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Clients.Mvc.Mar2023\RezultzSvc.Clients.Mvc.Mar2023.csproj" />
+    <ProjectReference Include="..\RezultzSvc.Clients.Wcf.Mar2023\RezultzSvc.Clients.Wcf.Mar2023.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="OpenAPIs\swagger.json" ClassName="RubbishSwaggerClient" />
+    <None Update="OpenAPIs\swagger1.json" ClassName="NSwagClientV2" />
+    <None Update="OpenAPIs\swagger2.json" ClassName="NSwagClient" />
+    <None Update="OpenAPIs\swagger4.json" ClassName="Rubbish" />
+  </ItemGroup>
+
+</Project>

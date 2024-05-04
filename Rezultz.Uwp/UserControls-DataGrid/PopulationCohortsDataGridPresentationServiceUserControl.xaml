@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="Rezultz.Uwp.UserControls_DataGrid.PopulationCohortsDataGridPresentationServiceUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Grid.Primitives"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+            DataContext="{Binding Path=HeadingRhsTextVm}"
+            Style="{StaticResource LibraryBodyTextBlockStyle}"
+            Margin="{StaticResource LibraryGridLineItemTotalTextMargin}"
+            Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
+            Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+        <grid:RadDataGrid Grid.Row="1"
+            x:Name="XamlElementTelerikRadDataGridUserControl"
+            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+            ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CohortAnalysisItemDisplayObjectsGuardAgainstNull}, Mode=OneTime}"
+            SelectedItem="{Binding Path=CurrentItem, Mode=TwoWay, Converter={StaticResource CohortAnalysisItemDisplayObjectGuardAgainstNull}}"
+            Style="{StaticResource AppRadDataGridStyle}">
+
+            <grid:RadDataGrid.Resources>
+                <Style TargetType="primitives:DataGridHoverControl">
+                    <Setter Property="Background" Value="{ThemeResource SystemControlHighlightChromeHighBrush}" />
+                    <Setter Property="Opacity" Value="0.4" />
+                </Style>
+            </grid:RadDataGrid.Resources>
+
+        </grid:RadDataGrid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CodeNameFurnishedForConverterNotRecognzed" xml:space="preserve">
+    <value>Code name furnished for data preprocessor not recognized.</value>
+    <comment>PortalTimingTentDataConverterGuidePageViewModel</comment>
+  </data>
+  <data name="Complete__Conversion_process_ran_to_completion" xml:space="preserve">
+    <value>Pre-processing task complete.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_ConvertTimingTentDataToComplyWithRezultzApiButtonOnClickAsync_</comment>
+  </data>
+  <data name="Download_of_metadata_and_datasettings_and_other_ran_to_completion" xml:space="preserve">
+    <value>Operation ran to completion. Gathering of metadata, data settings, and other data was driven by your metadataID.</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="ExplainIfIsNotReadyToProceedWithDataTransfer_Unable_to_proceed__For_one_thing__there_is_no_working_dataset_" xml:space="preserve">
+    <value>Unable to proceed. For one thing, there is no working dataset.</value>
+    <comment>ExplainIfIsNotReadyToProceedWithDataTransfer</comment>
+  </data>
+  <data name="Export_your_target_series_points_standings_as___" xml:space="preserve">
+    <value>Export your target series points standings as :-</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_CalculateSeriesPointsStandingsButtonOnClickAsync_</comment>
+  </data>
+  <data name="Export_your_target_series_standings_as___" xml:space="preserve">
+    <value>Export your target series standings as :-</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_CalculateSeriesPointsStandingsButtonOnClickAsync_</comment>
+  </data>
+  <data name="Export_your_target_series_tour_standings_as___" xml:space="preserve">
+    <value>Export your target series tour standings as :-</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_CalculateSeriesPointsStandingsButtonOnClickAsync_</comment>
+  </data>
+  <data name="Failure__Operation_to_convert_timing_tent_data_to_comply_with_Rezultz_input_format_ran_into_difficulty_" xml:space="preserve">
+    <value>Failure. Operation to pre-process data to comply with Rezultz input format ran into difficulty.</value>
+    <comment>TranslateRawDataToComplyWithRezultzApiButtonOnClick</comment>
+  </data>
+  <data name="If_you_wish_to_change_your_target__please_do_so_now" xml:space="preserve">
+    <value>If you wish to change your target, please do so before proceeding to initialise.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_Page_OnLoaded_</comment>
+  </data>
+  <data name="Incomplete__Conversion_process_failed_to_run_to_completion" xml:space="preserve">
+    <value>Incomplete. Pre-processing task failed to run to completion</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_ConvertTimingTentDataToComplyWithRezultzApiButtonOnClickAsync_</comment>
+  </data>
+  <data name="In_order_to_continue__please_select_an_event" xml:space="preserve">
+    <value>In order to continue, please select an event</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="In_order_to_continue__please_select_a_blob_name" xml:space="preserve">
+    <value>In order to continue, please select a blob name</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Operation_to_calculate_results_ran_to_completion" xml:space="preserve">
+    <value>Calculation of results ran to completion.</value>
+    <comment>TranslateRawDataToComplyWithRezultzApiButtonOnClick</comment>
+  </data>
+  <data name="Operation_to_convert_timing_tent_data_to_comply_with_Rezultz_input_format_ran_to_completion_" xml:space="preserve">
+    <value>Pre-processing of data to comply with Rezultz input format ran to completion.</value>
+    <comment>TranslateRawDataToComplyWithRezultzApiButtonOnClick</comment>
+  </data>
+  <data name="Operation_to_upload_converted_data_to_production_storage_ran_to_completion_" xml:space="preserve">
+    <value>Upload of pre-processed data ran to completion.</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Operation_to_upload_data_to_preview_ran_to_completion_" xml:space="preserve">
+    <value>Upload of pre-processed data to staging storage ran to completion.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_UploadProcessedTimingSoftwareDataToStagingDataStorageButtonOnClick_</comment>
+  </data>
+  <data name="The_desired_column_format_for_the_table_of_results_is_unspecified_or_unrecognised__Sorry__Coding_error" xml:space="preserve">
+    <value>The desired column format for the table of results is unspecified or unrecognised. Sorry. Coding error.</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Unable_to_initialise_RepositoryOfProfileAndSettingsForGroupOfSeries_for_obscure_reasons__Do_not_proceed" xml:space="preserve">
+    <value>Unable to initialise profile and settings for obscure reasons. Do not proceed.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_Page_OnLoaded_</comment>
+  </data>
+  <data name="Unable_to_proceed__For_one_thing__the_blobname_for_the_intended_data_transfer_has_not_yet_been_identified_1" xml:space="preserve">
+    <value>Unable to proceed. For one thing, the blob name for the intended data transfer has not yet been identified.</value>
+    <comment>ExplainIfIsNotReadyToProceedWithDataTransfer</comment>
+  </data>
+  <data name="Unable_to_proceed__For_one_thing__the_event_corresponding_to_the_intended_data_transfer_has_not_yet_been_identified_" xml:space="preserve">
+    <value>Unable to proceed. For one thing, the sporting event corresponding to the intended data transfer has not yet been identified.</value>
+    <comment>ExplainIfIsNotReadyToProceedWithDataTransfer</comment>
+  </data>
+  <data name="Unable_to_proceed__For_one_thing__the_parent_series_of_the_event_corresponding_to_the_intended_data_transfer_has_not_yet_been_identified_" xml:space="preserve">
+    <value>Unable to proceed. For one thing, the parent series of the sporting event corresponding to the intended data transfer has not yet been identified.</value>
+    <comment>ExplainIfIsNotReadyToProceedWithDataTransfer</comment>
+  </data>
+  <data name="Unable_to_proceed__The_BlobName_relating_to_this_event_is_null_or_whitespace" xml:space="preserve">
+    <value>Unable to proceed. Unable to deduce a file name for this upload. Data error. The BlobName relating to this sporting event is null or white space.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_ObtainBlobNameOriginatingInSettings</comment>
+  </data>
+  <data name="Unable_to_proceed__Unable_to_deduce_a_blob_name_for_this_upload" xml:space="preserve">
+    <value>Unable to proceed. We are unable to deduce a blob name for this upload.  The &lt;CurrentItem&gt; property of the current &lt;CboPreProcessedDataLocationForEventLookUpPresenter&gt; is null.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel_ObtainBlobNameOriginatingInSettings</comment>
+  </data>
+  <data name="Unable_to_proceed__Your_input_file_is_empty__It_contains_nothing_" xml:space="preserve">
+    <value>Unable to proceed. Your input file is empty. It contains nothing.</value>
+    <comment>TranslateRawDataToComplyWithRezultzApiButtonOnClick</comment>
+  </data>
+  <data name="Unable_to_proceed__You_need_to_authenticate_yourself_before_proceeding_" xml:space="preserve">
+    <value>Unable to proceed. You need to authenticate yourself before proceeding.</value>
+    <comment>ExplainIfIsNotAuthorisedUser</comment>
+  </data>
+  <data name="UserName_not_recognised_" xml:space="preserve">
+    <value>Username not recognised.</value>
+    <comment>ForEnteringUserNameTextBox</comment>
+  </data>
+  <data name="Working____validating" xml:space="preserve">
+    <value>Working .... validating</value>
+    <comment>RezultzMetadataIdValidationVm</comment>
+  </data>
+  <data name="Working_____calculating" xml:space="preserve">
+    <value>Working .... calculating</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working_____converting" xml:space="preserve">
+    <value>Working .... preprocessing</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______uploading" xml:space="preserve">
+    <value>Working .... uploading</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="You_need_to_authenticate_yourself_before_proceeding_" xml:space="preserve">
+    <value>You need to authenticate yourself before proceeding.</value>
+    <comment>PortalTimingTentDataConverterGuidePageViewModel</comment>
+  </data>
+  <data name="Working_____downloading_preprocessed_data_calculating_race_results_publishing_web_pages" xml:space="preserve">
+    <value>Working .... downloading pre-processed data, calculating race results and uploading web documents</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Unable_to_proceed_For_one_thing_the_metadataID_is_invalid" xml:space="preserve">
+    <value>Unable to proceed. The format of your metadataID is invalid. </value>
+  </data>
+  <data name="Working_____downloading" xml:space="preserve">
+    <value>Working .... downloading</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Operation_to_download_data_ran_to_completion" xml:space="preserve">
+    <value>Download of data ran to completion.</value>
+    <comment>RezultzPortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="You_need_to_launch_the_app_to_start_work_" xml:space="preserve">
+    <value>You need to launch the app to start work.</value>
+  </data>
+  <data name="In_order_to_continue__please_select_a_series" xml:space="preserve">
+    <value>In order to continue, please select a series</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="In_order_to_continue__an_upload_destination_needs_to_be_known" xml:space="preserve">
+    <value>In order to continue an upload destination needs to be known. </value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Unable_to_proceed__Unable_to_deduce_a_destination_for_upload_to_production" xml:space="preserve">
+    <value>Unable to proceed. We are unable to deduce a destination for this upload. Data error. The &lt;DatabaseForResultsPublished&gt; property of the current &lt;SeriesItem&gt; is null.</value>
+  </data>
+  <data name="Unable_to_proceed__Unable_to_deduce_a_destination_for_upload_to_public" xml:space="preserve">
+    <value>Unable to proceed. We are unable to deduce a destination for this upload. Data error. The &lt;DocumentsPostedContainer&gt; property of the current &lt;SeriesItem&gt; is null.</value>
+  </data>
+  <data name="Unable_to_proceed__Unable_to_deduce_a_destination_for_upload" xml:space="preserve">
+    <value>Unable to proceed. We are unable to deduce a destination for this upload. Coding error. Enumeration value not found.</value>
+  </data>
+  <data name="Unable_to_proceed__Unable_to_deduce_a_destination_for_upload_to_staging" xml:space="preserve">
+    <value>Unable to proceed. We are unable to deduce a destination for this upload. Data error. The &lt;DocumentsPostedContainer&gt; property of the current &lt;SeriesItem&gt; is null.</value>
+  </data>
+  <data name="Working_____computing_leaderboard_for_single_event" xml:space="preserve">
+    <value>Working .... computing leaderboard for single event</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working_____downloading_results_for_single_event" xml:space="preserve">
+    <value>Working .... downloading results for single event</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______computing_series_standings" xml:space="preserve">
+    <value>Working .... computing_series_standings</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______doing_preprocessing_on_server" xml:space="preserve">
+    <value>Working .... doing preprocessing on server</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______posting_leaderboard_for_single_event_as_HTML_document" xml:space="preserve">
+    <value>Working .... posting leaderboard for single event as HTML document</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______posting_series_points_standings" xml:space="preserve">
+    <value>Working .... posting series points standings</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______posting_series_tour_standings" xml:space="preserve">
+    <value>Working .... posting series tour standings</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______pulling_participant_profiles_from_rezultz_hub" xml:space="preserve">
+    <value>Working .... pulling participant profiles from rezultz hub</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working______pulling_timestamps_from_rezultz_hub" xml:space="preserve">
+    <value>Working .... pulling timestamps from rezultz hub</value>
+    <comment>PortalPublishOrExportPageViewModel</comment>
+  </data>
+  <data name="Working_____downloading__results_for_multiple_events_in_series" xml:space="preserve">
+    <value>Working .... downloading results for multiple events in series</value>
+  </data>
+  <data name="Password_not_recognised_" xml:space="preserve">
+    <value>Password not recognised.</value>
+  </data>
+  <data name="Not_yet_signed_in" xml:space="preserve">
+    <value>Not yet signed in.</value>
+    <comment>Portal home page</comment>
+  </data>
+</root>

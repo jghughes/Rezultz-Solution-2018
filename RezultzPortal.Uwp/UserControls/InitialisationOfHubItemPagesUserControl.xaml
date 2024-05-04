@@ -1,0 +1,79 @@
+﻿<UserControl
+    x:Class="RezultzPortal.Uwp.UserControls.InitialisationOfHubItemPagesUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls1="using:RezultzPortal.Uwp.UserControls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+
+            <Style x:Key="HereConnectionTestButtonStyle"
+                   BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="MinWidth" Value="200"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <Button
+            Command="{Binding Path=OnClickCommand}"
+            Content="Test connection to hub"
+            DataContext="{Binding Path=CheckConnectionToRezultzHubButtonVm}"
+            Style="{StaticResource HereConnectionTestButtonStyle}" />
+
+        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+        <userControls1:SeasonProfileValidationUserControlForPortal
+            DataContext="{Binding Path=SeasonProfileAndIdentityValidationVm}"
+            Visibility="{Binding Path=SeasonProfileValidationIsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+
+        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+        <userControls1:IdentityValidationUserControlForPortal
+            DataContext="{Binding Path=SeasonProfileAndIdentityValidationVm}"
+            Visibility="{Binding Path=IdentityValidationIsVisible, Converter={StaticResource BooleanToVisibility}}" />
+
+        <StackPanel
+            Visibility="{Binding ElementName=XamlElementLaunchWorkSessionButton, Path=Visibility}" >
+
+            <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX3}" />
+
+            <userControls1:SeasonSeriesAndEventSelectorsUserControlForPortal
+                DataContext="{Binding Path=SeasonProfileAndIdentityValidationVm}"
+                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"/>
+
+            <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+            <TextBlock
+                Text="Warning: you must launch the work session to start work. You must re-launch the session if you change any ingredient of the work target."
+                Style="{StaticResource AppCaptionBlurbStyle2}" />
+
+            <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+            <Button x:Name="XamlElementLaunchWorkSessionButton"
+                Command="{Binding Path=OnClickCommand}"
+                Content="Launch work session"
+                DataContext="{Binding Path=LaunchWorkSessionButtonVm}"
+                Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                Style="{StaticResource AppOrdinaryButtonStyle}"
+                ToolTipService.ToolTip="Load data to start or resume work on the selected target" />
+
+        </StackPanel>
+
+    </StackPanel>
+
+
+</UserControl>

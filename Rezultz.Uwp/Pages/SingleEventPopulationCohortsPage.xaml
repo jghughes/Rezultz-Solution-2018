@@ -1,0 +1,22 @@
+﻿<pagebase:UwpPageBase
+    x:Class="Rezultz.Uwp.Pages.SingleEventPopulationCohortsPage"
+    xmlns:pagebase="using:Jgh.Uwp.Common.July2018.PageBase"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="using:Rezultz.Uwp.UserControls"
+    d:DesignHeight="790"
+    d:DesignWidth="1280"
+    DataContext="{Binding Path=SingleEventPopulationCohortsPageVm, Source={StaticResource DependencyInjectionLocator}}"
+    Style="{StaticResource LibraryPageStyle}"
+    mc:Ignorable="d">
+
+
+    <Grid Style="{StaticResource LibraryContentAsGridStyle}">
+        <userControls:PageContentsForPopulationCohortsStylePageUserControl x:Name="XamlElementPopulationCohortsFormatPageUserControl" />
+    </Grid>
+
+
+</pagebase:UwpPageBase>
+
