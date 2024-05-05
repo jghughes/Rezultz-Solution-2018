@@ -1,5 +1,8 @@
-﻿using System.Xml;
+﻿using System.Text;
+using System.Xml;
 using System.Xml.Linq;
+using Jgh.SymbolsStringsConstants.Mar2022;
+using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using static System.Net.Mime.MediaTypeNames;
@@ -113,7 +116,7 @@ internal class Program
     private const string InputFolder = @"C:\Users\johng\holding pen\results-old\";
     private const string OutputFolder = @"C:\Users\johng\holding pen\results-new\";
 
-    public const string XeArrayOfResult = "ArrayOfResult";
+    public const string XeArrayOfResult = "ArrayOf"+$"{XeResult}";
     public const string XeResult = "Result";
     public const string XeFirst = "First";
     public const string XeMiddle = "Middle";
@@ -223,15 +226,21 @@ internal class Program
 
         var newText =  listOfTextSubstitutionPairs.Aggregate(textAfterDeletions, (current, pair) => current.Replace(pair.Item1, pair.Item2));
 
+        newText = newText.Replace("arrayofresult", "ArrayOfresult");
+
         #endregion
 
-        #region double-check the new XML text - does it parse as and XML document?
+        #region double-check the new XML text - does it parse as an XML document and deserialise correctly ?
 
-        var xx = XDocument.Parse(newText);
+        var myXml = ParsePlainTextIntoXml(newText);
 
-        var zz = xx.Element("arrayofresult").Elements("result");
+        var dummyRows = ExtractListOfIndividualResults(myXml, XeResult.ToLower()); // blow up?
 
-        List<ResultDto> arrayOfResultDto = zz.Select(z => JghSerialisation.ToObjectFromXml<ResultDto>(z.ToString(), new[] {typeof(ResultDto)})).ToList();
+        var arrayOfResultDto = ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(dummyRows);
+
+        var yy = JghSerialisation.ToXmlFromObject(arrayOfResultDto, new[] {typeof(ResultDto)});
+
+        var zz = ListOfTextToBeDeleted.Aggregate(yy, (current, textToBeDeleted) => current.Replace(textToBeDeleted, string.Empty));
 
         #endregion
 
@@ -241,11 +250,95 @@ internal class Program
 
         var pathOfOutputFile = OutputFolder + @"\" + legitNewFileName;
 
-        File.WriteAllText(pathOfOutputFile, newText);
+        File.WriteAllText(pathOfOutputFile, zz);
+        //File.WriteAllText(pathOfOutputFile, newText);
 
         #endregion
 
         PrintReport(pathOfOutputFile);
+    }
+
+
+    private static XElement ParsePlainTextIntoXml(string inputText)
+    {
+        var failure = "Unable to parse text into xml.";
+        const string locus = "[ParsePlainTextIntoXml]";
+
+        try
+        {
+            if (inputText == null)
+                throw new ArgumentNullException(nameof(inputText));
+
+            return XElement.Parse(inputText);
+        }
+
+        #region try-catch
+
+        catch (Exception ex)
+        {
+            failure = JghString.ConcatAsSentences(
+                $"{failure} Text is not 100% correctly formatted.",
+                "Even the tiniest error in format, syntax and/or content causes disqualification.");
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, "", "", ex);
+        }
+
+        #endregion
+    }
+
+    private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
+    string nameOfRepeatingChildElement)
+    {
+        var failure = "Unable to extract child elements from parent Xml document.";
+        const string locus = "[ExtractListOfIndividualResults]";
+
+        try
+        {
+            if (parentXContainer == null)
+                throw new ArgumentNullException(nameof(parentXContainer));
+
+            if (string.IsNullOrWhiteSpace(nameOfRepeatingChildElement))
+                throw new ArgumentException($"Error. Null or blank argument. <{nameOfRepeatingChildElement}>");
+
+            var repeaters = parentXContainer.Elements(nameOfRepeatingChildElement).ToArray();
+
+            if (!repeaters.Any())
+                throw new Exception("No rows of data found.");
+
+            return repeaters;
+        }
+
+        #region try-catch
+
+        catch (Exception ex)
+        {
+            var intro = JghString.ConcatAsSentences(
+                "Unable to see or retrieve multiple repeating records in your data. This might be because there aren\'t any. It might be because the items are invisible.",
+                "If your data is exported from Access or Excel, be aware that row titles are generated automatically by the export wizard.",
+                "The wizard takes them from the name of their containing worksheet or table or table query output as the case may be.",
+                $"The problematic row title seems to be <{nameOfRepeatingChildElement}>.",
+                "This needs to be the same as the title in your dataset.");
+
+            failure = JghString.ConcatAsSentences(failure, intro);
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, "Locus2", "Locus3", ex);
+        }
+
+        #endregion
+    }
+
+    private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
+    {
+        List<ResultDto> answer = new();
+
+        foreach (var element in arrayOfIndividualResultXes)
+        {
+            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), new Type[]{typeof(ResultDto)});
+
+            answer.Add(resultItem);
+        }
+
+        return answer.ToArray();
     }
 
     private static List<Tuple<string, string>> ComposeTextSubstitutionPairs()

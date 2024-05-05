@@ -165,11 +165,11 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
         {
             var template = new List<ColumnSpecificationItem>
             {
-                new(HubItemXeNames.ClickCounter, "Tap", "ClickCounter"),
+                new(HubItemDto.XeClickCounter, "Tap", "ClickCounter"),
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemXeNames.Identifier, "ID", "Identifier"),
+                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
                 new(ParticipantHubItemDto.XeGender, "Gender", "Gender"),
                 new(ParticipantHubItemDto.XeBirthYear, "Birth", "BirthYear"),
                 new(ParticipantHubItemDto.XeCity, "City", "City"),
@@ -180,15 +180,15 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeIsSeries, "Registration", "IsSeries"),
                 new(ParticipantHubItemDto.XeSeries, "Series", "Series"),
                 new(ParticipantHubItemDto.XeEventIdentifiers, "Events", "EventIdentifiers"),
-                new(HubItemXeNames.MustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
-                new(HubItemXeNames.DatabaseActionEnum, "Action", "DatabaseActionEnum"),
-                new(HubItemXeNames.Guid, "ThisGuid", "DisplayVersionOfSourceItemGuid"),
-                new(HubItemXeNames.OriginatingItemGuid, "OriginGuid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
-                new(HubItemXeNames.TouchedBy, "Author", "TouchedBy"),
-                new(HubItemXeNames.WhenTouched, "WhenEntered", "WhenTouched"),
-                new(HubItemXeNames.IsStillToBePushed, "Push", "IsStillToBePushed"),
-                new(HubItemXeNames.IsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-                new(HubItemXeNames.Comment, "Comment", "Comment")
+                new(HubItemDto.XeMustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
+                new(HubItemDto.XeDatabaseActionEnum, "Action", "DatabaseActionEnum"),
+                new(HubItemDto.XeGuid, "ThisGuid", "DisplayVersionOfSourceItemGuid"),
+                new(HubItemDto.XeOriginatingItemGuid, "OriginGuid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
+                new(HubItemDto.XeTouchedBy, "Author", "TouchedBy"),
+                new(HubItemDto.XeWhenTouched, "WhenEntered", "WhenTouched"),
+                new(HubItemDto.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
+                new(HubItemDto.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
+                new(HubItemDto.XeComment, "Comment", "Comment")
             };
 
             return template;
@@ -202,7 +202,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemXeNames.Identifier, "ID", "Identifier"),
+                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
                 new(ParticipantHubItemDto.XeGender, "Gender", "Gender"),
                 new(ParticipantHubItemDto.XeBirthYear, "Birth", "BirthYear"),
                 new(ParticipantHubItemDto.XeCity, "City", "City"),
@@ -213,7 +213,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeIsSeries, "Registration", "IsSeries"),
                 //new(ParticipantHubItemSerialiserNames.Series, "Series", "Series"),
                 //new(ParticipantHubItemSerialiserNames.EventIdentifiers, "Events", "EventIdentifiers"),
-                new(HubItemXeNames.MustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
+                new(HubItemDto.XeMustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
                 //new(HubItemBaseSerialiserNames.DatabaseActionEnum, "Action", "DatabaseActionEnum"),
 
                 //new(HubItemBaseSerialiserNames.Guid, "This Guid", "DisplayVersionOfSourceItemGuid"),
@@ -223,7 +223,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 //new(HubItemBaseSerialiserNames.WhenTouched, "Inputted", "WhenTouched"),
                 //new(HubItemBaseSerialiserNames.IsStillToBePushed, "Push", "IsStillToBePushed"),
                 //new(HubItemBaseSerialiserNames.IsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-                new(HubItemXeNames.Comment, "Comment", "Comment")
+                new(HubItemDto.XeComment, "Comment", "Comment")
             };
 
             return template;
@@ -240,7 +240,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemXeNames.Identifier, "ID", "Identifier"),
+                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
                 new(ParticipantHubItemDto.XeGender, "Sex", "Gender"),
                 new(ParticipantHubItemDto.XeBirthYear, "Birth", "BirthYear"),
                 new(ParticipantHubItemDto.XeCity, "City", "City"),
@@ -257,12 +257,12 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
                 //new(HubItemBaseSerialiserNames.Guid, "This Guid", "DisplayVersionOfSourceItemGuid"),
                 //new(HubItemBaseSerialiserNames.OriginatingItemGuid, "Origin Guid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
-                new(HubItemXeNames.TouchedBy, "Author", "TouchedBy"),
+                new(HubItemDto.XeTouchedBy, "Author", "TouchedBy"),
                 //new(HubItemBaseSerialiserNames.TimeStamp, "TimeStamp", "TimeStamp"),
                 //new(HubItemBaseSerialiserNames.WhenTouched, "Inputted", "WhenTouched"),
-                new(HubItemXeNames.IsStillToBePushed, "Push", "IsStillToBePushed"),
-                new(HubItemXeNames.IsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-                new(HubItemXeNames.Comment, "Comment", "Comment")
+                new(HubItemDto.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
+                new(HubItemDto.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
+                new(HubItemDto.XeComment, "Comment", "Comment")
             };
 
             return template;

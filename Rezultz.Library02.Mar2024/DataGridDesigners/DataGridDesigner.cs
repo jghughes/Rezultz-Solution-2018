@@ -683,7 +683,7 @@ public class DataGridDesigner
 
             ColumnSpecificationItem[] columnSpecifications;
 
-            const string nameToBeUsedForParentXe = ResultDto.XeArrayOfResult;
+            const string nameToBeUsedForParentXe = ResultDto.XeRootForContainerOfSimpleStandAloneArray;
 
             ResultItemDisplayObject[] displayObjects;
 
@@ -831,7 +831,7 @@ public class DataGridDesigner
 
             var seriesTitle = $"{_parentSeriesProfile.Title.ToUpper()}";
 
-            const string nameToBeUsedForParentXe = ParticipantHubItemDto.XeArrayOfParticipant;
+            const string nameToBeUsedForParentXe = ParticipantHubItemDto.XeRootForContainerOfSimpleStandAloneArray;
 
             #region prepare text for titles, subject matter and narrative blurb
 
@@ -896,7 +896,7 @@ public class DataGridDesigner
 
             var seriesTitle = $"{_parentSeriesProfile.Title.ToUpper()}";
 
-            const string nameToBeUsedForParentXe = TimeStampHubItemDto.XeArrayOfTimeStamp;
+            const string nameToBeUsedForParentXe = TimeStampHubItemDto.XeRootForContainerOfSimpleStandAloneArray;
 
             #region prepare text for titles, subject matter and narrative blurb
 

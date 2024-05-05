@@ -2,13 +2,17 @@
 
 namespace Rezultz.DataTransferObjects.Nov2023.Results;
 
-[DataContract(Namespace = "", Name = XeResult)] //it is critical that we set the Namespace in the DataContract attribute to a blank otherwise the deserialisation at the other end fails for reasons unknown.
+[DataContract(Namespace = "", Name = XeResult)] //it is critical that we set the Namespace in the DataContract attribute to a blank otherwise the deserialisation at the other end fails.
 public class ResultDto
 {
     #region Names
 
-    public const string XeResult = "result";
-    public const string XeArrayOfResult = "arrayofresult";
+    public const string XeRootForContainerOfSimpleStandAloneArray = "ArrayOf" + $"{XeResult}"; 
+    // this is the obligatorily named root element for a container of an array of simple stand alone elements.
+    // The format is "ArrayOf" + the name of the repeating element.
+    // The format and content is obligatory for the deserialisation to work when using the System DataContractSerializer.
+
+    public const string XeResult = "result"; // the repeating element of the array
 
     public const string XeBib = "bib";
     public const string XeFirst = "first";

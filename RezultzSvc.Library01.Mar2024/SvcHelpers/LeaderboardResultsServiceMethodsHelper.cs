@@ -392,12 +392,14 @@ public class LeaderboardResultsServiceMethodsHelper
                 {
                     var text = JghConvert.ToStringFromUtf8Bytes(resultsDocumentInUnknownFormat);
 
-                    var xx = XDocument.Parse(text);
+                    arrayOfResultInThisBlob = JghSerialisation.ToObjectFromXml<ResultDto[]>(text, new[] { typeof(ResultDto) }); //Note: this will throw if the xml is not well formed and if the container of repeating elements is not named as expected by the DataContractSerializer i.e. "ArrayOf" + the name of the repeating element.
 
-                    var zz = xx.Element(ResultDto.XeArrayOfResult)?.Elements(ResultDto.XeResult);
+                    //var xx = XDocument.Parse(text);
 
-                    if(zz!=null)
-                        arrayOfResultInThisBlob = zz.Select(z => JghSerialisation.ToObjectFromXml<ResultDto>(z.ToString(), new[] { typeof(ResultDto) })).ToArray();
+                    //var zz = xx.Element(ResultDto.XeRootForContainerOfSimpleStandAloneArray)?.Elements(ResultDto.XeResult);
+
+                    //if(zz!=null)
+                    //    arrayOfResultInThisBlob = zz.Select(z => JghSerialisation.ToObjectFromXml<ResultDto>(z.ToString(), new[] { typeof(ResultDto) })).ToArray();
                 }
                 else
                 {

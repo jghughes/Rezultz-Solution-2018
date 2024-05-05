@@ -138,26 +138,26 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             var template = new List<ColumnSpecificationItem>
             {
-                new(HubItemXeNames.ClickCounter, "Tap", "ClickCounter"),
-                new(HubItemXeNames.TimeStamp, "Timestamp", "TimeStamp"),
+                new(HubItemDto.XeClickCounter, "Tap", "ClickCounter"),
+                new(TimeStampHubItemDto.XeTimeStamp, "Timestamp", "TimeStamp"),
 
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemXeNames.Identifier, "ID", "Identifier"),
+                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
                 new(TimeStampHubItemDto.XeDnxSymbol, "Dnx", "DnxSymbol"),
                 new(ParticipantHubItemDto.XeRace, "RaceGroup", "RaceGroup"),
 
-                new(HubItemXeNames.RecordingModeEnum, "Signal", "RecordingModeEnum"),
-                new(HubItemXeNames.MustDitchOriginatingItem, "Ditch", "MustDitchOriginatingItem"),
-                new(HubItemXeNames.DatabaseActionEnum, "Action", "DatabaseActionEnum"),
-                new(HubItemXeNames.Guid, "ThisGuid", "DisplayVersionOfSourceItemGuid"),
-                new(HubItemXeNames.OriginatingItemGuid, "OriginGuid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
-                new(HubItemXeNames.TouchedBy, "Author", "TouchedBy"),
-                new(HubItemXeNames.WhenTouched, "WhenEntered", "WhenTouched"),
-                new(HubItemXeNames.IsStillToBePushed, "Push", "IsStillToBePushed"),
-                new(HubItemXeNames.IsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-                new(HubItemXeNames.Comment, "Comment", "Comment")
+                new(HubItemDto.XeRecordingModeEnum, "Signal", "RecordingModeEnum"),
+                new(HubItemDto.XeMustDitchOriginatingItem, "Ditch", "MustDitchOriginatingItem"),
+                new(HubItemDto.XeDatabaseActionEnum, "Action", "DatabaseActionEnum"),
+                new(HubItemDto.XeGuid, "ThisGuid", "DisplayVersionOfSourceItemGuid"),
+                new(HubItemDto.XeOriginatingItemGuid, "OriginGuid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
+                new(HubItemDto.XeTouchedBy, "Author", "TouchedBy"),
+                new(HubItemDto.XeWhenTouched, "WhenEntered", "WhenTouched"),
+                new(HubItemDto.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
+                new(HubItemDto.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
+                new(HubItemDto.XeComment, "Comment", "Comment")
             };
             return template;
         }
@@ -168,26 +168,26 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             var template = new List<ColumnSpecificationItem>
             {
-                new(HubItemXeNames.ClickCounter, "Tap", "ClickCounter"),
-                new(HubItemXeNames.TimeStamp, "Timestamp", "TimeStamp"),
+                new(HubItemDto.XeClickCounter, "Tap", "ClickCounter"),
+                new(TimeStampHubItemDto.XeTimeStamp, "Timestamp", "TimeStamp"),
 
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 //new(ParticipantHubItemSerialiserNames.MiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemXeNames.Identifier, "ID", "Identifier"),
+                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
                 new(TimeStampHubItemDto.XeDnxSymbol, "Dnx", "DnxSymbol"),
                 new(ParticipantHubItemDto.XeRace, "RaceGroup", "RaceGroup"),
 
                 //new(HubItemBaseSerialiserNames.DatabaseActionEnum, "Action", "DatabaseActionEnum"),
-                new(HubItemXeNames.RecordingModeEnum, "Signal", "RecordingModeEnum"),
-                new(HubItemXeNames.MustDitchOriginatingItem, "Ditch", "MustDitchOriginatingItem"),
+                new(HubItemDto.XeRecordingModeEnum, "Signal", "RecordingModeEnum"),
+                new(HubItemDto.XeMustDitchOriginatingItem, "Ditch", "MustDitchOriginatingItem"),
                 //new(HubItemBaseSerialiserNames.OriginatingItemGuid, "Origin Guid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
                 //new(HubItemBaseSerialiserNames.Guid, "This Guid", "DisplayVersionOfSourceItemGuid"),
-                new(HubItemXeNames.TouchedBy, "Author", "TouchedBy"),
+                new(HubItemDto.XeTouchedBy, "Author", "TouchedBy"),
                 //new(HubItemBaseSerialiserNames.WhenTouched, "When entered", "WhenTouched"),
                 //new(HubItemBaseSerialiserNames.IsStillToBePushed, "Push", "IsStillToBePushed"),
                 //new(HubItemBaseSerialiserNames.IsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-                new(HubItemXeNames.Comment, "Comment", "Comment")
+                new(HubItemDto.XeComment, "Comment", "Comment")
             };
             return template;
         }

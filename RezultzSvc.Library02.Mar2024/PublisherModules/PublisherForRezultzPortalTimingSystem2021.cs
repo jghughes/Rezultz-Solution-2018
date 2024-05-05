@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.AzureStorageAccess.July2018;
 using NetStd.Exceptions.Mar2024.Helpers;
@@ -99,6 +100,14 @@ public class PublisherForRezultzPortalTimingSystem2021 : PublisherBase
             List<ResultItem> allComputedResults;
             try
             {
+
+
+                var dummy1 = XDocument.Parse(contentsOfDatasetAsString);
+
+                var dummy2 = dummy1.Element(ResultDto.XeRootForContainerOfSimpleStandAloneArray);
+
+                if (dummy2 == null) throw new JghAlertMessageException($"The root of this file is wrongly named. The obligatory name is <{ResultDto.XeRootForContainerOfSimpleStandAloneArray}>. Please investigate the file.");
+
                 var resultsFromSystemHub = JghSerialisation.ToObjectFromXml<ResultDto[]>(contentsOfDatasetAsString, new[] {typeof(ResultDto[])});
 
                 allComputedResults = ResultItem.FromDataTransferObject(resultsFromSystemHub).OrderBy(z => z.RaceGroup).ThenBy(z => z.DnxString).ThenBy(z => z.T01).ToList();

@@ -669,6 +669,20 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
+    private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
+    {
+        List<ResultDto> answer = new();
+
+        foreach (var element in arrayOfIndividualResultXes)
+        {
+            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), new Type[] { typeof(ResultDto) });
+
+            answer.Add(resultItem);
+        }
+
+        return answer.ToArray();
+    }
+
     private static XElement[] AddParticipantParticulars(List<XElement> listOfIndividualResultsXe,
         List<XElement> participantMasterListLineItems, out string errorMessage)
     {
@@ -989,38 +1003,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         return bibCodesDoMatch;
     }
 
-    private ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
-    {
-        List<ResultDto> answer = new();
 
-        foreach (var element in arrayOfIndividualResultXes)
-        {
-            ResultDto resultItem = new()
-            {
-                Bib = element.Element(UbiquitousFieldNames.XeBib)?.Value,
-                First = element.Element(ResultDto.XeFirst)?.Value,
-                Last = element.Element(ResultDto.XeLast)?.Value,
-                Sex = element.Element(ResultDto.XeSex)?.Value,
-                RaceGroup = element.Element(ResultDto.XeRace)?.Value,
-                AgeGroup = element.Element(ResultDto.XeAgeGroup)?.Value,
-                City = element.Element(ResultDto.XeCity)?.Value,
-                Team = element.Element(ResultDto.XeTeam)?.Value,
-                IsSeries = JghConvert.ToBool(element.Element(ResultDto.XeIsSeries)?.Value),
-                DnxString = element.Element(ResultDto.XeDnxString)?.Value,
-                T01 = element.Element(ResultDto.XeT01)?.Value,
-                T02 = element.Element(ResultDto.XeT02)?.Value,
-                T03 = element.Element(ResultDto.XeT03)?.Value,
-                T04 = element.Element(ResultDto.XeT04)?.Value,
-                T05 = element.Element(ResultDto.XeT05)?.Value,
-                T06 = element.Element(ResultDto.XeT06)?.Value,
-                T07 = element.Element(ResultDto.XeT07)?.Value,
-                T08 = element.Element(ResultDto.XeT08)?.Value
-            };
-            answer.Add(resultItem);
-        }
-
-        return answer.ToArray();
-    }
 
     private static string WriteOneLineReport(int index, ResultItem result, string inputDuration)
     {

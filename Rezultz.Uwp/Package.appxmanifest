@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/windowsTemplateStudio" IgnorableNamespaces="uap mp genTemplate">
-  <Identity Name="29710JohnHughesPlaceholde.Rezultz2018" Publisher="CN=681D2FEB-BF61-43DA-993A-4AD30C9B1BCF" Version="2.1.28.0" />
+  <Identity Name="29710JohnHughesPlaceholde.Rezultz2018" Publisher="CN=681D2FEB-BF61-43DA-993A-4AD30C9B1BCF" Version="2.1.29.0" />
   <mp:PhoneIdentity PhoneProductId="d20bdcd5-9fd0-4c01-b754-9a968fc290a1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Rezultz 2018</DisplayName>

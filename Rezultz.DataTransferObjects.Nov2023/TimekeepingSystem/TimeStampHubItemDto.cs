@@ -3,14 +3,18 @@ using NetStd.Interfaces01.July2018.Objects;
 
 namespace Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 
-[DataContract(Name = XeTimeStamp, Namespace = "")]
+[DataContract(Namespace = "", Name = XeTimeStamp)]
 public class TimeStampHubItemDto : IHubItemDataTransferObject
 {
     #region Names
 
-    public const string XeArrayOfTimeStamp = "ArrayOfTimeStamp";
-    public const string XeTimeStamp = "TimeStamp";
-    public const string XeDnxSymbol = "DnxSymbol";
+    public const string XeRootForContainerOfSimpleStandAloneArray = "ArrayOf" + $"{XeTimeStamp}";
+    // this is the obligatorily named root element for a container of an array of simple stand alone elements.
+    // The format is "ArrayOf" + the name of the repeating element.
+    // The format and content is obligatory for the deserialisation to work when using the System DataContractSerializer.
+
+    public const string XeTimeStamp = "timestamp"; // the repeating element of the array
+    public const string XeDnxSymbol = "dnx-symbol";
 
     #endregion
 
@@ -21,43 +25,43 @@ public class TimeStampHubItemDto : IHubItemDataTransferObject
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = XeDnxSymbol)]
     public string DnxSymbol { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = HubItemXeNames.ClickCounter)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = HubItemDto.XeClickCounter)]
     public int ClickCounter { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = HubItemXeNames.Identifier)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = HubItemDto.XeIdentifier)]
     public string Identifier { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = HubItemXeNames.RecordingModeEnum)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = HubItemDto.XeRecordingModeEnum)]
     public string RecordingModeEnum { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 5, Name = HubItemXeNames.DatabaseActionEnum)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 5, Name = HubItemDto.XeDatabaseActionEnum)]
     public string DatabaseActionEnum { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = HubItemXeNames.MustDitchOriginatingItem)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = HubItemDto.XeMustDitchOriginatingItem)]
     public bool MustDitchOriginatingItem { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 7, Name = HubItemXeNames.IsStillToBeBackedUp)]
+    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 7, Name = HubItemDto.XeIsStillToBeBackedUp)]
     public bool IsStillToBeBackedUp { get; set; } = true;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 8, Name = HubItemXeNames.IsStillToBePushed)]
+    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 8, Name = HubItemDto.XeIsStillToBePushed)]
     public bool IsStillToBePushed { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 9, Name = HubItemXeNames.TouchedBy)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 9, Name = HubItemDto.XeTouchedBy)]
     public string TouchedBy { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 10, Name = HubItemXeNames.TimeStampBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 10, Name = HubItemDto.XeTimeStampBinaryFormat)]
     public long TimeStampBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = HubItemXeNames.WhenTouchedBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = HubItemDto.XeWhenTouchedBinaryFormat)]
     public long WhenTouchedBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = HubItemXeNames.WhenPushedBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = HubItemDto.XeWhenPushedBinaryFormat)]
     public long WhenPushedBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = HubItemXeNames.OriginatingItemGuid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = HubItemDto.XeOriginatingItemGuid)]
     public string OriginatingItemGuid { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = HubItemXeNames.Guid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = HubItemDto.XeGuid)]
     public string Guid { get; set; } = string.Empty;
 
     #endregion
