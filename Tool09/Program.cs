@@ -13,176 +13,46 @@ namespace Tool09
 {
     internal class Program
     {
-        private const string Description = "This console program (Tool08) is a scratchpad for testing RaceResultsPublishingSvcAgent, their injected Wcf or Mvc clients and services," +
-                                           " and the C# publisher profile and module [PublisherForRezultzPortalTimingSystem2021]";
+        private const string Description = "This console program (Tool09) reads Andrew's participant list and translates them into ParticipantHubItems and optionally uploads them."
 
         private static async Task Main()
         {
             JghConsoleHelper.WriteLineFollowedByOne(Description);
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Rezultz stuff", LhsWidth)} : {InputFolderFromRezultz}");
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder from MyLaps timing data", LhsWidth)} : {InputFolderFromMyLaps}");
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for publishable results", LhsWidth)} : {OutputFolderForXml}");
+            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Andrew's participant files", LhsWidth)} : {InputFolderContainingParticipantFiles}");
+            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for publishable results", LhsWidth)} : {OutputFolderForSavedCopiesOfParticipantHubItems}");
             JghConsoleHelper.WriteLineWrappedInOne("Press enter to go. When you see FINISH you're done.");
             JghConsoleHelper.ReadLine();
             JghConsoleHelper.WriteLineWrappedInTwo("Working. Please wait...");
 
-            #region get ready
+            #region first things first - test if all our svc connectors are working - comment/uncomment out those you do or don't want at any point
 
-            #region confirm existence of folders
-
-            try
-            {
-                // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(InputFolderFromRezultz);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                JghConsoleHelper.WriteLine("Directory not found: " + InputFolderFromRezultz);
-                return;
-            }
-
-
-            try
-            {
-                // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(OutputFolderForXmlResults);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                JghConsoleHelper.WriteLine("Directory not found: " + OutputFolderForXmlResults);
-                return;
-            }
-
-            #endregion
-
-            #region confirm existence of files of input data
-
-            foreach (var timingDataFileTuple in ArrayOfRezultzPortalFileNameTuples)
-            {
-                var myFileInfo = new FileInfo(InputFolderFromRezultz + timingDataFileTuple.Item1);
-
-                if (!myFileInfo.Exists)
-                {
-                    JghConsoleHelper.WriteLine($"Timing data file not found: {myFileInfo.Name}");
-                    return;
-                }
-            }
-
-            #endregion
-
-            #region confirm existence of directories and files for outcome of processing data
-
-            try
-            {
-                foreach (var item in FileOfResultsExportedFromRezultzPortal)
-                {
-                    var pathOfXmlFile = OutputFolderForXmlResults + @"\" + Path.GetFileNameWithoutExtension(item.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
-
-                    File.WriteAllText(pathOfXmlFile, "<element>dummy</element>");
-                }
-            }
-            catch (Exception e)
-            {
-                JghConsoleHelper.WriteLine($"Failed to access a designated output file. {e.Message}");
-
-                return;
-            }
-
-            #endregion
-
-            #region load the timing data files from hard drive
-
-            try
-            {
-                foreach (var tuple in ArrayOfRezultzPortalFileNameTuples)
-                {
-                    if (!Path.GetFileName(tuple.Item1).EndsWith($".{RequiredRezultzPortalFileFormat}"))
-                    {
-                        JghConsoleHelper.WriteLine($"Skipping {tuple.Item1} because it's not a {RequiredRezultzPortalFileFormat} file as you appear to have specified. Does this make sense?");
-                        continue;
-                    }
-
-                    var item = new FileItem
-                    {
-                        FileInfo = new FileInfo(InputFolderFromRezultz + tuple.Item1),
-                        FileContentsAsXDocument = new XDocument(),
-                        OutputFileName = tuple.Item2
-                    };
-
-                    FileOfResultsExportedFromRezultzPortal.Add(item);
-
-                    JghConsoleHelper.WriteLine($"Will look for {item.FileInfo.Name}.");
-                }
-
-                JghConsoleHelper.WriteLine();
-
-
-                try
-                {
-                    foreach (var item in FileOfResultsExportedFromRezultzPortal)
-                    {
-                        JghConsoleHelper.WriteLine($"Looking for {item.FileInfo.Name}.");
-
-                        var fullInputPath = item.FileInfo.FullName;
-
-                        var rawInputAsText = await File.ReadAllTextAsync(fullInputPath);
-                        var rawInputAsLines = await File.ReadAllLinesAsync(fullInputPath);
-
-                        item.FileContentsAsText = rawInputAsText;
-                        item.FileContentsAsXDocument = XDocument.Parse(rawInputAsText);
-
-                        JghConsoleHelper.WriteLine($"Found {item.FileInfo.Name}.");
-                    }
-                }
-                catch (Exception e)
-                {
-                    JghConsoleHelper.WriteLine(e.Message);
-                    throw new Exception(e.InnerException?.Message);
-                }
-
-                if (FileOfResultsExportedFromRezultzPortal.Count == 0)
-                    throw new Exception("Found not even a single participant data file.");
-            }
-            catch (Exception e)
-            {
-                JghConsoleHelper.WriteLine($"Failed to locate designated participant file. {e.Message}");
-                JghConsoleHelper.WriteLine("");
-                return;
-            }
-
-            JghConsoleHelper.WriteLine();
-
-            #endregion
-
-            #region optional - first things first - test if all our svc connectors are working - comment/uncomment out those you do or don't want at any point
-
-            //JghConsoleHelper.WriteLineFollowedByOne("AzureStorageSvcAgent...");
+            //JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - AzureStorageSvcAgent...");
             //var answer1 = await AzureStorageSvcAgent.GetIfServiceIsAnsweringAsync();
             //JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer1}");
             //JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
             //JghConsoleHelper.ReadLine();
 
-            JghConsoleHelper.WriteLineFollowedByOne("ParticipantRegistrationSvcAgent...");
+            JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - ParticipantRegistrationSvcAgent...");
             var answer2 = await ParticipantRegistrationSvcAgent.GetIfServiceIsAnsweringAsync();
             JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer2}");
             JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
             JghConsoleHelper.ReadLine();
 
 
-            JghConsoleHelper.WriteLineFollowedByOne("LeaderboardResultsSvcAgent...");
+            JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - LeaderboardResultsSvcAgent...");
             var answer3 = await LeaderboardResultsSvcAgent.GetIfServiceIsAnsweringAsync();
             JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer3}");
             JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
             JghConsoleHelper.ReadLine();
 
 
-            //JghConsoleHelper.WriteLineFollowedByOne("TimeKeepingSvcAgent...");
+            //JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - TimeKeepingSvcAgent...");
             //var answer4 = await TimeKeepingSvcAgent.GetIfServiceIsAnsweringAsync();
             //JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer4}");
             //JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
             //JghConsoleHelper.ReadLine();
 
-            //JghConsoleHelper.WriteLineFollowedByOne("RaceResultsPublishingSvcAgent...");
+            //JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - RaceResultsPublishingSvcAgent...");
             //var answer5 = await RaceResultsPublishingSvcAgent.GetIfServiceIsAnsweringAsync();
             //JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer5}");
             //JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
@@ -202,7 +72,7 @@ namespace Tool09
 
             try
             {
-                JghConsoleHelper.WriteLineFollowedByOne("leaderboardResultsSvcAgent.GetSeasonProfileAsync('998')");
+                JghConsoleHelper.WriteLineFollowedByOne("Please wait. Fetching SeasonProfile('998')");
 
                 seasonProfileItem = await LeaderboardResultsSvcAgent.GetSeasonProfileAsync("998");
 
@@ -218,16 +88,126 @@ namespace Tool09
             }
             catch (Exception e)
             {
-                JghConsoleHelper.WriteLineFollowedByOne($"Oops. Failed to locate (or de-serialise) the designated input file. {e.Message}");
+                JghConsoleHelper.WriteLineFollowedByOne($"Oops. Failed to locate (or de-serialise) the designated season profile file. {e.Message}");
 
                 return;
             }
 
             #endregion
 
+            #region confirm existence of input and output folders
+
+            try
+            {
+                // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
+                Directory.SetCurrentDirectory(InputFolderContainingParticipantFiles);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                JghConsoleHelper.WriteLine("Directory not found: " + InputFolderContainingParticipantFiles);
+                return;
+            }
+
+            try
+            {
+                // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
+                Directory.SetCurrentDirectory(OutputFolderForSavedCopiesOfParticipantHubItems);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                JghConsoleHelper.WriteLine("Directory not found: " + OutputFolderForSavedCopiesOfParticipantHubItems);
+                return;
+            }
+
+            #endregion
+
+            #region Locate all files in input folder
+
+            var di = new DirectoryInfo(InputFolderContainingParticipantFiles); // Create a reference to the input directory.
+
+            var arrayOfInputFileInfo = di.GetFiles(); // Create an array representing all the files in the current directory of all types.
+
+            #endregion
+
+            #region Load all candidate XML files from input folder
+
+            try
+            {
+                foreach (var fi in arrayOfInputFileInfo)
+                {
+                    if (!Path.GetFileName(fi.FullName).EndsWith($".{RequiredInputFileFormat}"))
+                    {
+                        JghConsoleHelper.WriteLine($"Skipping {fi.Name} because it's not a {RequiredInputFileFormat} file as you appear to have specified. Does this make sense?");
+                        continue;
+                    }
+
+                    JghConsoleHelper.WriteLine($"Found {fi.Name}.");
+
+                    var fileItem = new FileItem
+                    {
+                        FileInfo = fi,
+                        FileContentsAsText = "",
+                        FileContentsAsXDocument = new XDocument("dummy"),
+                        OutputFileName = fi.Name
+                    };
+
+                    FilesOfParticipantListsImportedFromAndrew.Add(fileItem);
+
+                }
+
+                JghConsoleHelper.WriteLine();
+
+                try
+                {
+                    foreach (var file in FilesOfParticipantListsImportedFromAndrew)
+                    {
+                        JghConsoleHelper.WriteLine($"Parsing into XML {file.FileInfo.Name}....");
+
+                        var fullInputPath = file.FileInfo.FullName;
+
+                        var rawInputAsText = await File.ReadAllTextAsync(fullInputPath);
+                        var rawInputAsXDocument= XDocument.Parse(rawInputAsText);
+
+                        file.FileContentsAsText = rawInputAsText;
+                        file.FileContentsAsXDocument = rawInputAsXDocument;
+
+                        JghConsoleHelper.WriteLine($"Successfully parsed and loaded {file.FileInfo.Name}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLine(e.Message);
+                    throw new Exception(e.InnerException?.Message);
+                }
+
+                if (FilesOfParticipantListsImportedFromAndrew.Count == 0)
+                    throw new Exception("Found not even a single participant data file.");
+            }
+            catch (Exception e)
+            {
+                JghConsoleHelper.WriteLine($"Failed to locate designated participant file. {e.Message}");
+                JghConsoleHelper.WriteLine("");
+                return;
+            }
+
+            JghConsoleHelper.WriteLine();
+
+            #endregion
+
+
+
+
+
+
+
+
+
+
+
+
             #region upload timing data files required for preprocessing
 
-            foreach (var fileItem in FileOfResultsExportedFromRezultzPortal)
+            foreach (var fileItem in FilesOfParticipantListsImportedFromAndrew)
             {
                 var prettyTimeNow1 = DateTime.Now.ToString(JghDateTime.SortablePattern);
 
@@ -243,7 +223,6 @@ namespace Tool09
 
             #endregion
 
-            #endregion
 
 
         }
@@ -301,12 +280,12 @@ namespace Tool09
         {
             var outPutFileName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', DateTime.Now.ToString(JghDateTime.SortablePattern)) + "______ResultsSynthesisedByPublishingSvc" + "." + StandardFileTypeSuffix.Xml;
 
-            var pathOfXmlFile = OutputFolderForXmlResults + @"\" + outPutFileName;
+            var pathOfXmlFile = OutputFolderForSavedCopiesOfParticipantHubItems + @"\" + outPutFileName;
 
             File.WriteAllText(pathOfXmlFile, resultsDtoAsXml);
 
             JghConsoleHelper.WriteLineFollowedByOne($"The publishable results have been saved for perusal at your leisure.");
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Folder", 30)} : {OutputFolderForXmlResults}");
+            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Folder", 30)} : {OutputFolderForSavedCopiesOfParticipantHubItems}");
             JghConsoleHelper.WriteLineFollowedByOne($"{JghString.LeftAlign("FileName", 30)} : {outPutFileName}");
         }
 
@@ -314,11 +293,11 @@ namespace Tool09
 
         #region constants
 
-        private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\PublishedPreprocessedResults\";
+        private const string InputFolderContainingParticipantFiles = @"C:\Users\johng\holding pen\participants-from-Andrew\";
 
-        private const string RequiredRezultzPortalFileFormat = "xml";
+        private const string RequiredInputFileFormat = "xml";
 
-        private const string OutputFolderForXmlResults = @"C:\Users\johng\holding pen\StuffByJohn\Output\";
+        private const string OutputFolderForSavedCopiesOfParticipantHubItems = @"C:\Users\johng\holding pen\participants-ParticipantHubItems\";
 
         private const string IdentifierOfResultsFromRezultzPortal = EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem;
 
@@ -349,7 +328,7 @@ namespace Tool09
 
         #region variables
 
-        private static readonly List<FileItem> FileOfResultsExportedFromRezultzPortal = new();
+        private static readonly List<FileItem> FilesOfParticipantListsImportedFromAndrew = new();
 
         private static readonly List<PublisherImportFileTargetItem> FilesToBeProcessedByPublisherModule = new();
 
