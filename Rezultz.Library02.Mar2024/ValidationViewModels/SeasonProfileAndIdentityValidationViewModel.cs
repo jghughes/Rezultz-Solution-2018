@@ -161,8 +161,6 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
 
             EnlivenGui();
 
-            //SeasonProfileFileNameFragmentIsValidated = false;
-
             ThisViewModelIsInitialised = true;
 
             return messageOk;
@@ -585,8 +583,6 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
             #region success. save and confirm
 
             _mustOfferUserTheAlternativeOfSearchingLocalStorageForSeasonData = false;
-
-            //ThisViewModelIsInitialised = true;
 
             var seasonIdAsInt = Convert.ToInt32(TextBoxForEnteringSeasonProfileFileNameFragmentVm.Text);
 
@@ -1512,7 +1508,8 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
 
             var itemsSource = SeasonItemDisplayObject.FromModel(arrayOfSeasonItem);
 
-            foreach (var seasonItemVm in itemsSource) seasonItemVm.Tag = JghString.ConcatWithSeparator(" ", seasonItemVm.AdvertisedDateTime.ToString(JghDateTime.ShortDatePattern), seasonItemVm.Label);
+            foreach (var seasonItemVm in itemsSource) 
+                seasonItemVm.Tag = JghString.ConcatWithSeparator(" ", seasonItemVm.AdvertisedDateTime.ToString(JghDateTime.ShortDatePattern), seasonItemVm.Label);
 
             await CboLookupSeasonVm.RefillItemsSourceAsync(itemsSource);
 
@@ -1584,9 +1581,6 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         var bestGuessChoiceOfSeriesItemToKickOffWith =
             JghArrayHelpers.SelectMostRecentItemBeforeDateTimeNowInArrayOfItemsOrFailingThatPickTheEarliest(SeriesItemDisplayObject.ObtainSourceModel(CboLookupSeriesVm.ItemsSource.ToArray()));
 
-        //if (bestGuessChoiceOfSeriesItemToKickOffWith == null)
-        //    throw new Jgh404Exception("Sorry. Unexpected code error on local machine. bestGuessChoiceOfSeriesItemToKickOffWith is null. Unable to proceed.");
-
         await CboLookupSeriesVm.ChangeSelectedIndexToMatchItemLabelAsync(bestGuessChoiceOfSeriesItemToKickOffWith?.Label);
 
         CboLookupSeriesVm.IsDropDownOpen = false;
@@ -1597,10 +1591,6 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
 
         CboLookupSeriesVm.MakeVisibleIfItemsSourceIsGreaterThanOne();
 
-        //if (CboLookupSeriesVm.CurrentItem == null)
-        //    throw new JghNullObjectInstanceException("Sorry. Unexpected code error on local machine. CboLookupSeriesVm.CurrentItem is null. Unable to proceed."); // exceedingly farfetched. belt and braces
-
-        //CboLookupSeriesVm.Label = CboLookupSeriesVm.CurrentItem?.Label;
     }
 
     private async Task PopulateCboLookupEventAsync()

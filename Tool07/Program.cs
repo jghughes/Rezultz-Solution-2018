@@ -1,11 +1,7 @@
-﻿using System.Text;
-using System.Xml;
-using System.Xml.Linq;
-using Jgh.SymbolsStringsConstants.Mar2022;
+﻿using System.Xml.Linq;
 using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Tool07;
 
@@ -333,7 +329,7 @@ internal class Program
 
         foreach (var element in arrayOfIndividualResultXes)
         {
-            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), new Type[]{typeof(ResultDto)});
+            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), new[]{typeof(ResultDto)});
 
             answer.Add(resultItem);
         }

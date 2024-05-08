@@ -316,7 +316,7 @@ internal class Program
 
             #endregion
 
-            //await Main01(seriesLabel, eventLabel, seriesProfileItem);
+            await Main01(seriesLabel, eventLabel, seriesProfileItem);
 
             JghConsoleHelper.WriteLine("Thanks. Local test program complete. Press enter to exit...");
             JghConsoleHelper.ReadLine();
