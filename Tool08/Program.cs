@@ -18,6 +18,8 @@ internal class Program
 
     private static async Task Main()
     {
+        #region intro
+
         JghConsoleHelper.WriteLineFollowedByOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Test input folder for xml results exported from Rezultz Portal", LhsWidth)} : {InputFolderFromRezultz}");
@@ -25,6 +27,8 @@ internal class Program
         JghConsoleHelper.WriteLinePrecededByOne("Are you ready to go? Press enter to continue.");
         JghConsoleHelper.ReadLine();
         JghConsoleHelper.WriteLineFollowedByOne("Working. Please wait...");
+
+        #endregion
 
         try
         {

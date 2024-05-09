@@ -13,14 +13,9 @@ namespace Rezultz.Library01.Mar2024.Repository_interfaces
 
         bool IsMostRecentEntryWithSameOriginatingItemGuid(T candidateMostRecentItem);
 
-        //int FlagIncrementalEntriesAsPushedWhen(IEnumerable<T> pushed, bool trueIfPushedFalseIfUnPushed, DateTime whenPushed);
-
-        //Tuple<int, int> FlagAllEntriesAsPushedWhen();
-
         Tuple<int, int> FlagAllEntriesAsSaved();
 
 		int ClearCache();
-
 
 		bool TryAddNoDuplicate(T item, out string errorMessage);
 

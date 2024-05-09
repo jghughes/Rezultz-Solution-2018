@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Tool09;
+namespace Tool10;
 
 internal class FileItem
 {
@@ -10,5 +10,5 @@ internal class FileItem
 
     public XDocument FileContentsAsXDocument { get; set; } = new();
 
-    public string OutputFileName { get; set; } = string.Empty;
+    public string OutputSubFolderName { get; set; } = string.Empty;
 }

@@ -10,9 +10,10 @@
   <ItemGroup>
     <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj" />
     <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj" />
-    <ProjectReference Include="..\NetStd.Goodies.Xml.July2018\NetStd.Goodies.Xml.July2018.csproj" />
+    <ProjectReference Include="..\NetStd.OnBoardServices01.July2018\NetStd.OnBoardServices01.July2018.csproj" />
     <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
     <ProjectReference Include="..\Rezultz.DataTypes.Nov2023\Rezultz.DataTypes.Nov2023.csproj" />
+    <ProjectReference Include="..\Rezultz.Library01.Mar2024\Rezultz.Library01.Mar2024.csproj" />
     <ProjectReference Include="..\RezultzSvc.Agents.Mar2024\RezultzSvc.Agents.Mar2024.csproj" />
     <ProjectReference Include="..\RezultzSvc.Clients.Mvc.Mar2023\RezultzSvc.Clients.Mvc.Mar2023.csproj" />
   </ItemGroup>

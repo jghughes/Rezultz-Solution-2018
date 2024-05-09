@@ -1,4 +1,4 @@
-﻿namespace Tool09;
+﻿namespace Tool10;
 
 public static class JghConsoleHelper
 {
