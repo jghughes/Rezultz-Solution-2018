@@ -12,32 +12,32 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
         private const string Locus3 = "[Rezultz.Library02.Mar2024]";
 
 
-        public static bool DescendentPropertyIsNullOrValueIsSystemDefault(string propertyPathInXamlBindingSyntax, object parentObject)
+        public static bool DescendantPropertyIsNullOrValueIsSystemDefault(string propertyPathInXamlBindingSyntax, object parentObject)
         {
             var failure = "Failure whilst trying to determine value of a property on an object.";
-            const string locus = "[DescendentPropertyIsNullOrValueIsSystemDefault]";
+            const string locus = "[DescendantPropertyIsNullOrValueIsSystemDefault]";
 
             try
             {
-                var descendentObject = GetDescendentProperty(propertyPathInXamlBindingSyntax, parentObject);
+                var descendantObject = GetDescendantProperty(propertyPathInXamlBindingSyntax, parentObject);
 
-                if (descendentObject == null)
+                if (descendantObject == null)
                     return true;
 
-                if (descendentObject is string)
-                    return string.IsNullOrWhiteSpace(descendentObject as string);
+                if (descendantObject is string)
+                    return string.IsNullOrWhiteSpace(descendantObject as string);
 
-                if (descendentObject is int)
-                    return descendentObject as int? == 0;
+                if (descendantObject is int)
+                    return descendantObject as int? == 0;
 
-                if (descendentObject is double)
-                    return descendentObject as double? < double.Epsilon;
+                if (descendantObject is double)
+                    return descendantObject as double? < double.Epsilon;
 
-                if (descendentObject is bool)
-                    return descendentObject as bool? == false;
+                if (descendantObject is bool)
+                    return descendantObject as bool? == false;
 
-                if (descendentObject is DateTime)
-                    return descendentObject as DateTime? == DateTime.MinValue;
+                if (descendantObject is DateTime)
+                    return descendantObject as DateTime? == DateTime.MinValue;
 
                 return false;
             }
@@ -53,43 +53,11 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
             #endregion
         }
 
-        // ReSharper disable once UnusedMember.Local
-        //private static bool ValueOfDescendentPropertyAsDateTimeIsDefault(string propertyPathInXamlBindingSyntax, object parentObject)
-        //{
-        //    var descendentObject = GetDescendentProperty(propertyPathInXamlBindingSyntax, parentObject);
 
-        //    return descendentObject as DateTime? == DateTime.MinValue;
-        //}
-
-        // ReSharper disable once UnusedMember.Local
-        //private static bool ValueOfDescendentPropertyAsDoubleIsZero(string propertyPathInXamlBindingSyntax, object parentObject)
-        //{
-        //    var descendentObject = GetDescendentProperty(propertyPathInXamlBindingSyntax, parentObject);
-
-        //    return descendentObject as double? < double.Epsilon;
-        //}
-
-        // ReSharper disable once UnusedMember.Local
-        //private static bool ValueOfDescendentPropertyAsInt32IsZero(string propertyPathInXamlBindingSyntax, object parentObject)
-        //{
-        //    var descendentObject = GetDescendentProperty(propertyPathInXamlBindingSyntax, parentObject);
-
-        //    return descendentObject as int? == 0;
-        //}
-
-        // ReSharper disable once UnusedMember.Local
-        //private static bool ValueOfDescendentPropertyAsStringIsNullOrWhitespace(string propertyPathInXamlBindingSyntax, object parentObject)
-        //{
-        //    var descendentObject = GetDescendentProperty(propertyPathInXamlBindingSyntax, parentObject);
-
-        //    return string.IsNullOrWhiteSpace(descendentObject as string);
-        //}
-
-        public static object GetDescendentProperty(string propertyPathInXamlBindingSyntax, object objectBeingRefelected)
+        public static object GetDescendantProperty(string propertyPathInXamlBindingSyntax, object objectBeingReflected)
         {
-            var failureMsg = "Unable to obtain a specified member of an object by means of reflection.";
-
-            string locus = "[GetDescendentProperty]";
+            var failureMsg = "Unable to obtain a specified property of an object by means of reflection.";
+            string locus = "[GetDescendantProperty]";
 
             try
             {
@@ -98,14 +66,14 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
                 if (propertyPathInXamlBindingSyntax == null)
                     throw new JghInvalidValueException($"{nameof(propertyPathInXamlBindingSyntax)} is null.");
 
-                if (objectBeingRefelected == null)
-                    throw new JghInvalidValueException($"{nameof(objectBeingRefelected)} is null.");
+                if (objectBeingReflected == null)
+                    throw new JghInvalidValueException($"{nameof(objectBeingReflected)} is null.");
 
                 #endregion
 
                 var hierarchyOfMemberNames = propertyPathInXamlBindingSyntax.Split('.');
 
-                var objectAtCurrentLevel = objectBeingRefelected; // initialise
+                var objectAtCurrentLevel = objectBeingReflected; // initialise
 
                 foreach (var propertyNameAtThisLevel in hierarchyOfMemberNames)
                 {
@@ -116,7 +84,6 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
                     if (propertyInfo == null)
                     {
                         throw new JghInvalidValueException($"Coding error. Missing or mismatched property path or fragment. Property path is <{propertyPathInXamlBindingSyntax}>. Missing path fragment is <{propertyNameAtThisLevel}>.");
-                        //throw new JghInvalidValueException($"Path name being specified is <{propertyPathInXamlBindingSyntax}>.");
                     }
 
                     #endregion

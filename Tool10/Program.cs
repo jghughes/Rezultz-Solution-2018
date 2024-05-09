@@ -19,7 +19,7 @@ namespace Tool10;
 
 internal class Program
 {
-    private const string Description = "This console program (Tool09) reads Andrew's participant list and translates it into ParticipantHubItems and optionally uploads them.";
+    private const string Description = "This console program (Tool09) reads Andrew's participant master list/s and generates ParticipantHubItems.";
 
     #region the MEAT
 

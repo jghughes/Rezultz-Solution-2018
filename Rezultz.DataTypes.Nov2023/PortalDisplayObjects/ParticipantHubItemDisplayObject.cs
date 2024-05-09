@@ -175,7 +175,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeCity, "City", "City"),
 
                 new(ParticipantHubItemDto.XeRace, "RaceGroup", "RaceGroup"),
-                new(ParticipantHubItemDto.XeDateOfRaceGroupTransition, "Transition", "XeDateOfRaceGroupTransition"),
+                new(ParticipantHubItemDto.XeDateOfRaceGroupTransition, "Transition", "DateOfRaceGroupTransition"),
 
                 new(ParticipantHubItemDto.XeIsSeries, "Registration", "IsSeries"),
                 new(ParticipantHubItemDto.XeSeries, "Series", "Series"),
@@ -208,7 +208,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeCity, "City", "City"),
 
                 new(ParticipantHubItemDto.XeRace, "RaceGroup", "RaceGroup"),
-                new(ParticipantHubItemDto.XeDateOfRaceGroupTransition, "Transition", "XeDateOfRaceGroupTransition"),
+                new(ParticipantHubItemDto.XeDateOfRaceGroupTransition, "Transition", "DateOfRaceGroupTransition"),
 
                 new(ParticipantHubItemDto.XeIsSeries, "Registration", "IsSeries"),
                 //new(ParticipantHubItemSerialiserNames.Series, "Series", "Series"),
@@ -246,7 +246,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeCity, "City", "City"),
 
                 new(ParticipantHubItemDto.XeRace, "Race group", "RaceGroup"),
-                new(ParticipantHubItemDto.XeDateOfRaceGroupTransition, "Effective", "XeDateOfRaceGroupTransition"),
+                new(ParticipantHubItemDto.XeDateOfRaceGroupTransition, "Effective", "DateOfRaceGroupTransition"),
 
 
 

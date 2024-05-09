@@ -611,7 +611,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
     {
         // NB. for creating Participants, the parameter is irrelevant. not used
 
-        const string failure = "Unable to add a new item of clock data.";
+        const string failure = "Unable to add a new item of participant data.";
         const string locus = "[CreateParticipantProfileButtonOnClickAsync]";
 
         try

@@ -1253,7 +1253,7 @@ public class DataGridDesigner
 
     private static ColumnSpecificationItem[] ExtractColumnSpecificationItemsAssociatedWithActiveContent<T>(ColumnSpecificationItem[] columnSpecificationItems, T[] dataGridRows) where T : class, new()
     {
-        const string failure = "Unable to distil column specifications from source data.";
+        const string failure = "Unable to distill column specifications from source data.";
         const string locus = "[ExtractColumnSpecificationItemsAssociatedWithActiveContent]";
 
         try
@@ -1274,7 +1274,7 @@ public class DataGridDesigner
 
                 foreach (var thisDataGridRowDisplayObject in dataGridRows)
                 {
-                    if (JghReflectionHelpers.DescendentPropertyIsNullOrValueIsSystemDefault(associatedPropertyPath, thisDataGridRowDisplayObject)) continue;
+                    if (JghReflectionHelpers.DescendantPropertyIsNullOrValueIsSystemDefault(associatedPropertyPath, thisDataGridRowDisplayObject)) continue;
 
                     list.Add(columnSpecificationItem);
 
@@ -1339,7 +1339,7 @@ public class DataGridDesigner
                 foreach (var resultViewModel in dataGridRows)
                 {
                     var cellContentAsObject =
-                        JghReflectionHelpers.GetDescendentProperty(
+                        JghReflectionHelpers.GetDescendantProperty(
                             columnSpecItem.NameOfAssociatedPropertyInXamlBindingSyntax, resultViewModel);
 
                     var text = string.Empty;
@@ -2681,7 +2681,7 @@ public class DataGridDesigner
             var propertyValuesAsText = from column in columnSpecificationItems
                 where !string.IsNullOrWhiteSpace(column.NameOfAssociatedPropertyInXamlBindingSyntax)
                 let propertyAsObject =
-                    JghReflectionHelpers.GetDescendentProperty(column.NameOfAssociatedPropertyInXamlBindingSyntax,
+                    JghReflectionHelpers.GetDescendantProperty(column.NameOfAssociatedPropertyInXamlBindingSyntax,
                         rowItemObject)
                 let textInCell = propertyAsObject?.ToString() ?? string.Empty
                 let locusOfCurrentCellForErrMsg =
@@ -2770,7 +2770,7 @@ public class DataGridDesigner
             {
                 var newChildElement = new XElement(
                     column.CellXElementName,
-                    JghReflectionHelpers.GetDescendentProperty(column.NameOfAssociatedPropertyInXamlBindingSyntax,
+                    JghReflectionHelpers.GetDescendantProperty(column.NameOfAssociatedPropertyInXamlBindingSyntax,
                         typeOfRowItem));
 
                 answer.Add(newChildElement);
