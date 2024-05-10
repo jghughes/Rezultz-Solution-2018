@@ -398,18 +398,19 @@ internal class Program
 
     public static BabyParticipantDto CreateBaby(XElement child)
     {
-        const string XeIdentifier = "participant"; // the repeating element of the array
-        const string XeFirstName = "first-name";
-        const string XeMiddleInitial = "middle-initial";
-        const string XeLastName = "last-name";
-        const string XeGender = "gender";
-        const string XeBirthYear = "year-of-birth";
+        const string XeParticipant = "Master_x0020_List"; // the repeating element of the array
+        const string XeIdentifier = "Plate_x0020__x0023_"; // the repeating element of the array
+        const string XeFirstName = "First_x0020_Name";
+        //const string XeMiddleInitial = "";
+        const string XeLastName = "Last_x0020_Name";
+        const string XeGender = "Sex";
+        const string XeBirthYear = "Date_x0020_of_x0020_Birth";
         const string XeCity = "city";
-        const string XeTeam = "team";
-        const string XeRaceGroupBeforeTransition = "racegroup-before-transition";
-        const string XeRaceGroupAfterTransition = "racegroup-after-transition";
+        //const string XeTeam = "team";
+        const string XeRaceGroupBeforeTransition = "Category";
+        //const string XeRaceGroupAfterTransition = "Category";
         const string XeDateOfRaceGroupTransition = "racegroup-transition-date";
-        const string XeIsSeries = "is-series";
+        //const string XeIsSeries = "is-series";
         const string XeSeries = "series";
 
 
@@ -418,30 +419,126 @@ internal class Program
             Identifier = JghString.TmLr(child.Elements(XeIdentifier).First().Value),
             FirstName = JghString.TmLr(child.Elements(XeFirstName).First().Value),
             LastName = JghString.TmLr(child.Elements(XeLastName).First().Value),
-            MiddleInitial = child.Elements(XeMiddleInitial).First().Value,
+            MiddleInitial = string.Empty,
             Gender = JghString.TmLr(child.Elements(XeGender).First().Value),
             BirthYear = JghString.TmLr(child.Elements(XeBirthYear).First().Value),
             City = JghString.TmLr(child.Elements(XeCity).First().Value),
-            Team = JghString.TmLr(child.Elements(XeTeam).First().Value),
+            Team = string.Empty,
             RaceGroupBeforeTransition = JghString.TmLr(child.Elements(XeRaceGroupBeforeTransition).First().Value),
-            RaceGroupAfterTransition = JghString.TmLr(child.Elements(XeRaceGroupAfterTransition).First().Value),
-            DateOfRaceGroupTransitionAsString = JghString.TmLr(child.Elements(XeDateOfRaceGroupTransition).First().Value),
+            RaceGroupAfterTransition = string.Empty,
+            DateOfRaceGroupTransitionAsString = string.Empty,
             IsSeries = true, // default
             Series = JghString.TmLr(child.Elements(XeSeries).First().Value)
         };
 
-        #region fix BirthYear
-
-        if (!JghString.IsOnlyDigits(baby.BirthYear) || baby.BirthYear.Length is < 4 or > 4)
-            baby.BirthYear = "1900"; // default
-
-        #endregion
 
         #region fix Gender
 
+        var candidateGenderSymbol = baby.Gender;
+
+        if (candidateGenderSymbol == null || string.IsNullOrWhiteSpace(candidateGenderSymbol))
+        {
+            baby.Gender = Symbols.SymbolMale; // default
+        }
+        else
+        {
+            if (candidateGenderSymbol == "M")
+            {
+                baby.Gender = Symbols.SymbolMale;
+            }
+            else if (candidateGenderSymbol == "F")
+            {
+                baby.Gender = Symbols.SymbolFemale;
+            }
+            else if (candidateGenderSymbol == "non-binary")
+            {
+                baby.Gender = Symbols.SymbolNonBinary;
+            }
+            else
+            {
+                baby.Gender = Symbols.SymbolMale; // final default
+            }
+        }
+
+
+        #endregion
+
+        #region fix BirthYear
+
+        if (string.IsNullOrWhiteSpace(baby.BirthYear))
+        {
+            baby.BirthYear = "1900"; // default
+        }
+        else
+        {
+            var candidateBirthYear = baby.BirthYear.Take(4).ToString();
+
+            if (candidateBirthYear == null)
+            {
+                baby.BirthYear = "1900"; // default
+            }
+            else
+            {
+                baby.BirthYear = JghString.IsOnlyDigits(candidateBirthYear) ? candidateBirthYear : "1900"; // default
+            }
+        }
+
+        #endregion
+
+        #region fix City
+
+        var candidateCity = baby.City;
+
+        if (candidateCity.Contains(','))
+        {
+            baby.City = JghString.TmLr(candidateCity.Split(",").FirstOrDefault());
+        }
+        else if (candidateCity.Contains("n/a"))
+        {
+            baby.City = Symbols.SymbolQuestionMark;
+        }
+        else if (candidateCity.Contains('/'))
+        {
+            baby.City = JghString.TmLr(candidateCity.Split(",").FirstOrDefault());
+        }
+        else if (candidateCity.Contains(" "))
+        {
+            baby.City = JghString.TmLr(candidateCity.Split(" ").LastOrDefault());
+        }
         #endregion
 
         #region fix RaceGroup
+
+        const string XvalueExpert = "Expert";
+        const string XvalueSport = "Sport";
+        const string XvalueIntermediate = "Intermediate";
+        const string XvalueNovice = "Novice";
+
+        var candidateRaceGroup = baby.RaceGroupBeforeTransition;
+
+        if (candidateRaceGroup == null || string.IsNullOrWhiteSpace(candidateRaceGroup))
+        {
+            baby.RaceGroupBeforeTransition = JghString.TmLr(XvalueNovice); // default - shortest race
+        }
+        else
+        {
+            if (candidateRaceGroup is XvalueExpert or XvalueSport or XvalueIntermediate or XvalueNovice)
+            {
+                baby.RaceGroupBeforeTransition = JghString.TmLr(candidateRaceGroup);
+            }
+            else
+            {
+                baby.RaceGroupBeforeTransition = JghString.TmLr(XvalueNovice); // default - shortest race
+            }
+        }
+
+        baby.RaceGroupAfterTransition = baby.RaceGroupBeforeTransition;
+
+        #endregion
+
+        #region fix DateOfRaceGroupTransitionAsString
+
+        baby.DateOfRaceGroupTransitionAsString = DateTime.Today.ToString(JghDateTime.UniversalSortablePattern);
 
         #endregion
 

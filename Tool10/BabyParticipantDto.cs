@@ -9,7 +9,7 @@ public class BabyParticipantDto
 {
     #region Names
 
-    public const string XeRootForContainerOfSimpleStandAloneArray = "ArrayOf" + $"{XeParticipant}";
+    public const string XeDataRootForContainerOfSimpleStandAloneArray = "ArrayOf" + $"{XeParticipant}";
     // this is the obligatorily named root element for a container of an array of simple stand alone elements.
     // The format is "ArrayOf" + the name of the repeating element.
     // The format and content is obligatory for the deserialisation to work when using the System DataContractSerializer.
@@ -76,7 +76,4 @@ public class BabyParticipantDto
 
 
     #endregion
-
-
-
 }
