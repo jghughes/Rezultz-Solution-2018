@@ -4,14 +4,13 @@ using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.Exceptions.Mar2024.JghExceptions;
 using NetStd.Goodies.Mar2022;
 using NetStd.OnBoardServices01.July2018.Persistence;
-using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
-using Rezultz.DataTypes.Nov2023.RezultzItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
 using Rezultz.Library01.Mar2024.Repository_interfaces;
 using RezultzSvc.Agents.Mar2024.SvcAgents;
 using RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService;
+// ReSharper disable NotAccessedVariable
 
 // ReSharper disable InconsistentNaming
 
@@ -21,6 +20,11 @@ internal class Program
 {
     private const string Description = "This console program (Tool09) reads Andrew's participant master list/s and generates ParticipantHubItems.";
 
+    private static SeasonProfileItem? seasonProfileItem;
+
+    private static SeriesProfileItem? seriesProfileItem;
+
+
     #region the MEAT
 
     private static async Task Main()
@@ -29,11 +33,13 @@ internal class Program
 
         JghConsoleHelper.WriteLineFollowedByOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
-        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Andrew's participant file/s", LhsWidth)} : {FolderContainingMasterListFromAndrew}");
-        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for publishable hub items", LhsWidth)} : {FolderForBabyParticipants}");
-        JghConsoleHelper.WriteLineWrappedInOne("Press enter to go. When you see FINISH you're done.");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Andrew's participant master list XML file/s", LhsWidth)} : {FolderContainingMasterListFromAndrew}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for BabyParticipants", LhsWidth)} : {FolderForBabyParticipants}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for OriginatingParticipantHubItems", LhsWidth)} : {FolderForOriginatingParticipantHubItems}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for ModifiedParticipantHubItems", LhsWidth)} : {FolderForModifiedParticipantHubItems}");
+        JghConsoleHelper.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
         JghConsoleHelper.ReadLine();
-        JghConsoleHelper.WriteLineWrappedInTwo("Working. Please wait...");
+        JghConsoleHelper.WriteLineFollowedByOne("Working. Please wait...");
 
         #endregion
 
@@ -47,18 +53,18 @@ internal class Program
             //JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
             //JghConsoleHelper.ReadLine();
 
-            JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - ParticipantRegistrationSvcAgent...");
-            var answer2 = await ParticipantRegistrationSvcAgent.GetIfServiceIsAnsweringAsync();
-            JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer2}");
-            JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
-            JghConsoleHelper.ReadLine();
+            //JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - ParticipantRegistrationSvcAgent...");
+            //var answer2 = await ParticipantRegistrationSvcAgent.GetIfServiceIsAnsweringAsync();
+            //JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer2}");
+            //JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
+            //JghConsoleHelper.ReadLine();
 
 
-            JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - LeaderboardResultsSvcAgent...");
-            var answer3 = await LeaderboardResultsSvcAgent.GetIfServiceIsAnsweringAsync();
-            JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer3}");
-            JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
-            JghConsoleHelper.ReadLine();
+            //JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - LeaderboardResultsSvcAgent...");
+            //var answer3 = await LeaderboardResultsSvcAgent.GetIfServiceIsAnsweringAsync();
+            //JghConsoleHelper.WriteLineFollowedByOne($"GetIfServiceIsAnsweringAsync() = {answer3}");
+            //JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
+            //JghConsoleHelper.ReadLine();
 
 
             //JghConsoleHelper.WriteLineFollowedByOne("Please wait. Connecting to svc using - TimeKeepingSvcAgent...");
@@ -82,24 +88,19 @@ internal class Program
             string accountName;
             string containerName;
 
-            SeasonProfileItem? seasonProfileItem;
-            SeriesProfileItem seriesProfileItem;
-
             try
             {
                 JghConsoleHelper.WriteLineFollowedByOne("Please wait. Fetching SeasonProfile('999')");
 
                 seasonProfileItem = await LeaderboardResultsSvcAgent.GetSeasonProfileAsync("999");
+                JghConsoleHelper.WriteLineFollowedByOne($"Profile obtained = <{seasonProfileItem.Label}>");
 
-                JghConsoleHelper.WriteLineFollowedByOne($"Profile obtained = [{seasonProfileItem.Label}]");
+                seriesProfileItem = seasonProfileItem.SeriesProfiles.LastOrDefault();
 
-                seriesProfileItem = seasonProfileItem.SeriesProfiles.Last();
-
-                seriesLabel = seriesProfileItem.Label;
-                eventLabel = seriesProfileItem.EventProfileItems.Last().Label;
-
-                accountName = seriesProfileItem.ContainerForParticipantHubItemData.AccountName;
-                containerName = seriesProfileItem.ContainerForParticipantHubItemData.ContainerName;
+                seriesLabel = seriesProfileItem?.Label ?? string.Empty;
+                eventLabel = seriesProfileItem?.EventProfileItems.Last()?.Label ?? string.Empty; // i.e. the earliest 
+                accountName = seriesProfileItem?.ContainerForParticipantHubItemData?.AccountName ?? string.Empty;
+                containerName = seriesProfileItem?.ContainerForParticipantHubItemData?.ContainerName ?? string.Empty;
             }
             catch (Exception e)
             {
@@ -137,7 +138,7 @@ internal class Program
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForBabyParticipants);
+                Directory.SetCurrentDirectory(FolderForOriginatingParticipantHubItems);
             }
             catch (DirectoryNotFoundException)
             {
@@ -148,7 +149,7 @@ internal class Program
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForBabyParticipants);
+                Directory.SetCurrentDirectory(FolderForModifiedParticipantHubItems);
             }
             catch (DirectoryNotFoundException)
             {
@@ -168,48 +169,51 @@ internal class Program
 
             #region select XML files only, read them, and load their contents into one or more populated FileItems
 
-            JghConsoleHelper.WriteLinePrecededByOne("Please wait. Translating file/s into XDocument/s...");
+            JghConsoleHelper.WriteLineWrappedByOne("Please wait. Translating file/s into XDocument/s...");
 
             try
             {
-                foreach (var fi in arrayOfInputFileInfo)
+                foreach (FileInfo fi in arrayOfInputFileInfo)
                 {
                     if (!Path.GetFileName(fi.FullName).EndsWith($".{RequiredInputFileFormat}"))
                     {
-                        JghConsoleHelper.WriteLine($"Skipping {fi.Name} because it's not a {RequiredInputFileFormat} file as you appear to have specified. Does this make sense?");
+                        JghConsoleHelper.WriteLineFollowedByOne($"Skipping <{fi.Name}> because it's not a <{RequiredInputFileFormat}> file.");
                         continue;
                     }
 
-                    JghConsoleHelper.WriteLine($"Found {fi.Name}.");
+                    JghConsoleHelper.WriteLine($"Found an XML file called <{fi.Name}>. Initialising a FileItem for this file.");
 
                     var fileItem = new FileItem
                     {
                         FileInfo = fi,
                         FileContentsAsText = "",
-                        FileContentsAsXDocument = new XDocument("dummy"),
-                        OutputSubFolderName = fi.Name.Replace(fi.Extension, "") // i.e. use filename
+                        FileContentsAsXElement = new XElement(BabyParticipantDto.XeDataRootForContainerOfSimpleStandAloneArray),
+                        OutputSubFolderName = string.Empty // not used
                     };
 
                     FilesOfParticipantListsImportedFromAndrew.Add(fileItem);
+
+                    JghConsoleHelper.WriteLineFollowedByOne($"FileItem successfully initialised.");
+
                 }
 
                 JghConsoleHelper.WriteLine();
 
                 try
                 {
-                    foreach (var file in FilesOfParticipantListsImportedFromAndrew)
+                    foreach (var fileItem in FilesOfParticipantListsImportedFromAndrew)
                     {
-                        JghConsoleHelper.WriteLine($"Parsing into XML {file.FileInfo.Name}....");
+                        JghConsoleHelper.WriteLine($"Parsing <{fileItem.FileInfo.Name}> into XML....");
 
-                        var fullInputPath = file.FileInfo.FullName;
+                        var fullInputPath = fileItem.FileInfo.FullName;
 
                         var rawInputAsText = await File.ReadAllTextAsync(fullInputPath);
-                        var rawInputAsXDocument = XDocument.Parse(rawInputAsText);
+                        var rawInputAsXElement = XElement.Parse(rawInputAsText);
 
-                        file.FileContentsAsText = rawInputAsText;
-                        file.FileContentsAsXDocument = rawInputAsXDocument;
+                        fileItem.FileContentsAsText = rawInputAsText;
+                        fileItem.FileContentsAsXElement = rawInputAsXElement;
 
-                        JghConsoleHelper.WriteLine($"Successfully parsed and loaded {file.FileInfo.Name}");
+                        JghConsoleHelper.WriteLine($"Successfully parsed and loaded <{fileItem.FileInfo.Name}>");
                     }
                 }
                 catch (Exception e)
@@ -219,7 +223,7 @@ internal class Program
                 }
 
                 if (FilesOfParticipantListsImportedFromAndrew.Count == 0)
-                    throw new Exception("Found not even a single participant data file.");
+                    throw new Exception("Found not even a single participant data file from Andrew.");
             }
             catch (Exception e)
             {
@@ -228,26 +232,29 @@ internal class Program
                 return;
             }
 
-            JghConsoleHelper.WriteLineFollowedByOne("XDocument/s created.");
+            JghConsoleHelper.WriteLineFollowedByOne($"{FilesOfParticipantListsImportedFromAndrew.Count} parent XElement/s successfully created after reading participant data file/s from Andrew.");
 
             #endregion
 
             #region foreach FileItem, convert the xml contents into a list of BabyParticipantDto, consolidate the lists from all FileItems
 
-            JghConsoleHelper.WriteLinePrecededByOne("Please wait. Translating XDocument/s into Babies..");
+            JghConsoleHelper.WriteLinePrecededByOne("Please wait. Translating XElement/s into consolidated master list of all BabyParticipants..");
 
             List<BabyParticipantDto> babyParticipants = new();
 
             foreach (var fileItem in FilesOfParticipantListsImportedFromAndrew)
             {
-                var arrayOfRepeatingXe = fileItem.FileContentsAsXDocument.Elements(NameOfRepeatingChildXElement).ToArray();
+                var arrayOfRepeatingXe = fileItem.FileContentsAsXElement.Elements(NameOfRepeatingChildXElement).ToArray();
 
-                if (arrayOfRepeatingXe.Count() ! > 0)
+                if (arrayOfRepeatingXe.Length == 0)
                     throw new Exception($"Found not even a single repeating child XElement named <{NameOfRepeatingChildXElement}> in file <{fileItem.FileInfo.Name}>.");
 
                 foreach (var repeatXe in arrayOfRepeatingXe)
                 {
                     var baby = CreateBaby(repeatXe);
+
+                    if (baby is null)
+                        continue;
 
                     if (OneOrMoreEntriesAreInvalid(baby, out var errorMessage))
                         throw new JghAlertMessageException(errorMessage);
@@ -256,7 +263,7 @@ internal class Program
                 }
             }
 
-            JghConsoleHelper.WriteLine("Babies created.");
+            JghConsoleHelper.WriteLine($"{babyParticipants.Count} BabyParticipants created.");
 
             #endregion
 
@@ -266,7 +273,7 @@ internal class Program
 
             SaveWorkToHardDriveAsXml(arrayOfBabiesAsXmlText, FolderForBabyParticipants, FilenameForBabyParticipants);
 
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Babies successfully saved: ", LhsWidth)} : {FolderForBabyParticipants} {FilenameForBabyParticipants} {babyParticipants.Count} babies saved.");
+            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("BabyParticipants successfully saved: ", LhsWidth)} : {FolderForBabyParticipants} {FilenameForBabyParticipants} {babyParticipants.Count} babies saved.");
 
             #endregion
 
@@ -338,7 +345,7 @@ internal class Program
 
             #region wrap up
 
-            JghConsoleHelper.WriteLineWrappedInTwo("Deletions complete. No further action required. Goodbye.");
+            JghConsoleHelper.WriteLineWrappedByTwo("Deletions complete. No further action required. Goodbye.");
             JghConsoleHelper.WriteLine("ooo0 - Goodbye - 0ooo");
             Console.ReadLine();
 
@@ -357,7 +364,7 @@ internal class Program
 
     private const int LhsWidth = 50;
     private const string RequiredInputFileFormat = "xml";
-    private const string NameOfRepeatingChildXElement = "tobedone";
+    private const string NameOfRepeatingChildXElement = "Master_x0020_List";
 
     private const string FolderContainingMasterListFromAndrew = @"C:\Users\johng\holding pen\participants-from-Andrew\";
     private const string FolderForBabyParticipants = @"C:\Users\johng\holding pen\participants-BabyParticipants\";
@@ -380,11 +387,12 @@ internal class Program
 
     #region svc's available for use
 
+    // ReSharper disable once UnusedMember.Local
     private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientMvc());
     private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientMvc());
     private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientMvc());
-    private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientMvc());
-    private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientMvc());
+    //private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientMvc());
+    //private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientMvc());
 
     //private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientWcf());
     //private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientWcf());
@@ -396,39 +404,36 @@ internal class Program
 
     #region helper methods
 
-    public static BabyParticipantDto CreateBaby(XElement child)
+    public static BabyParticipantDto? CreateBaby(XElement child)
     {
-        const string XeParticipant = "Master_x0020_List"; // the repeating element of the array
         const string XeIdentifier = "Plate_x0020__x0023_"; // the repeating element of the array
         const string XeFirstName = "First_x0020_Name";
-        //const string XeMiddleInitial = "";
         const string XeLastName = "Last_x0020_Name";
         const string XeGender = "Sex";
         const string XeBirthYear = "Date_x0020_of_x0020_Birth";
         const string XeCity = "city";
-        //const string XeTeam = "team";
         const string XeRaceGroupBeforeTransition = "Category";
-        //const string XeRaceGroupAfterTransition = "Category";
-        const string XeDateOfRaceGroupTransition = "racegroup-transition-date";
-        //const string XeIsSeries = "is-series";
-        const string XeSeries = "series";
 
+        var candidateIdentifier = JghString.TmLr(child.Elements(XeIdentifier).First().Value);
+
+        if (string.IsNullOrWhiteSpace(candidateIdentifier))
+            return null;
 
         var baby = new BabyParticipantDto
         {
-            Identifier = JghString.TmLr(child.Elements(XeIdentifier).First().Value),
-            FirstName = JghString.TmLr(child.Elements(XeFirstName).First().Value),
-            LastName = JghString.TmLr(child.Elements(XeLastName).First().Value),
+            Identifier = candidateIdentifier,
+            FirstName = JghString.TmLr(child.Elements(XeFirstName).FirstOrDefault()?.Value),
+            LastName = JghString.TmLr(child.Elements(XeLastName).FirstOrDefault()?.Value),
             MiddleInitial = string.Empty,
-            Gender = JghString.TmLr(child.Elements(XeGender).First().Value),
-            BirthYear = JghString.TmLr(child.Elements(XeBirthYear).First().Value),
-            City = JghString.TmLr(child.Elements(XeCity).First().Value),
+            Gender = JghString.TmLr(child.Elements(XeGender).FirstOrDefault()?.Value),
+            BirthYear = JghString.TmLr(child.Elements(XeBirthYear).FirstOrDefault()?.Value),
+            City = JghString.TmLr(child.Elements(XeCity).FirstOrDefault()?.Value),
             Team = string.Empty,
-            RaceGroupBeforeTransition = JghString.TmLr(child.Elements(XeRaceGroupBeforeTransition).First().Value),
+            RaceGroupBeforeTransition = JghString.TmLr(child.Elements(XeRaceGroupBeforeTransition).FirstOrDefault()?.Value),
             RaceGroupAfterTransition = string.Empty,
             DateOfRaceGroupTransitionAsString = string.Empty,
             IsSeries = true, // default
-            Series = JghString.TmLr(child.Elements(XeSeries).First().Value)
+            Series = string.Empty
         };
 
 
@@ -450,7 +455,7 @@ internal class Program
             {
                 baby.Gender = Symbols.SymbolFemale;
             }
-            else if (candidateGenderSymbol == "non-binary")
+            else if (candidateGenderSymbol == "X")
             {
                 baby.Gender = Symbols.SymbolNonBinary;
             }
@@ -459,7 +464,6 @@ internal class Program
                 baby.Gender = Symbols.SymbolMale; // final default
             }
         }
-
 
         #endregion
 
@@ -471,7 +475,7 @@ internal class Program
         }
         else
         {
-            var candidateBirthYear = baby.BirthYear.Take(4).ToString();
+            var candidateBirthYear = JghString.Substring(0,4, baby.BirthYear);
 
             if (candidateBirthYear == null)
             {
@@ -532,14 +536,6 @@ internal class Program
             }
         }
 
-        baby.RaceGroupAfterTransition = baby.RaceGroupBeforeTransition;
-
-        #endregion
-
-        #region fix DateOfRaceGroupTransitionAsString
-
-        baby.DateOfRaceGroupTransitionAsString = DateTime.Today.ToString(JghDateTime.UniversalSortablePattern);
-
         #endregion
 
         return baby;
@@ -565,19 +561,19 @@ internal class Program
         answer.FirstName = JghString.TmLr(baby.FirstName);
         answer.MiddleInitial = JghString.TmLr(baby.MiddleInitial);
         answer.LastName = JghString.TmLr(baby.LastName);
-        answer.Gender = CboLookUpGenderSpecificationItemsVm?.CurrentItem?.Label ?? string.Empty;
+        answer.Gender = JghString.TmLr(baby.Gender); 
         JghConvert.TryConvertToInt32(baby.BirthYear, out var yearAsInt, out _);
         answer.BirthYear = yearAsInt;
 
         answer.City = JghString.TmLr(baby.City);
         answer.Team = JghString.TmLr(baby.Team);
-        answer.RaceGroupBeforeTransition = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm?.CurrentItem?.Label ?? string.Empty;
-        answer.RaceGroupAfterTransition = CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm?.CurrentItem?.Label ?? string.Empty;
-        answer.DateOfRaceGroupTransition = DateOfRaceGroupTransitionCalendarPickerVm.Date?.Date ?? DateTime.Today;
+        answer.RaceGroupBeforeTransition = baby.RaceGroupBeforeTransition;
+        answer.RaceGroupAfterTransition = string.Empty;
+        answer.DateOfRaceGroupTransition = DateTime.MaxValue; // this is a dummy placeholder. will be ignored when converting to ParticipantHubItemDto as desired
 
         answer.IsSeries = baby.IsSeries;
-        answer.Series = JghString.TmLr(baby.SeriesIdentifier);
-        answer.EventIdentifiers = JghString.TmLr(baby.EventIdentifiers);
+        answer.Series = string.Empty;
+        answer.EventIdentifiers = string.Empty;
         answer.MustDitchOriginatingItem = false;
         answer.TouchedBy = string.IsNullOrWhiteSpace(touchedBy) ? "anonymous" : JghString.TmLr(touchedBy);
 
@@ -586,11 +582,9 @@ internal class Program
         answer.DatabaseActionEnum = EnumStrings.DatabaseModify;
         answer.WhenTouchedBinaryFormat = DateTime.Now.ToBinary();
 
-        answer.Guid = Guid.NewGuid().ToString();
-        // NB Guid assigned here at moment of population by user (not in ctor). the ctor does not create the Guid fields. only in ParticipantHubItem.CreateItem() and ParticipantHubItemEditTemplateViewModel.MergeEditsBackIntoItemBeingModified()
+        answer.Guid = Guid.NewGuid().ToString(); // NB. Guid assigned here at moment of population by user (not in ctor). the ctor does not create the Guid fields. only in ParticipantHubItem.CreateItem() and ParticipantHubItemEditTemplateViewModel.MergeEditsBackIntoItemBeingModified()
 
         answer.Label = JghString.Concat(answer.Identifier, answer.FirstName, answer.LastName);
-        //answer.Label = JghString.Concat(answer.Identifier, answer.FirstName, answer.LastName, answer.RaceGroupBeforeTransition);
 
         #endregion
 
@@ -603,16 +597,16 @@ internal class Program
 
         var sb = new StringBuilder();
 
-        if (!JghString.IsOnlyLettersOrHyphen(baby.FirstName) || baby.FirstName.Length < 2) sb.AppendLine("First name must be two or more letters. May include a hyphen.");
-        if (!JghString.IsOnlyLetters(baby.MiddleInitial) || baby.MiddleInitial.Length > 1) sb.AppendLine("Middle initial must be a single letter or blank.");
-        if (!JghString.IsOnlyLettersOrHyphenOrApostrophe(baby.LastName) || baby.LastName.Length < 2) sb.AppendLine("Last name must be two or more letters. May include a hyphen or apostrophe.");
-        if (CboLookUpGenderSpecificationItemsVm.SelectedIndex == -1) sb.AppendLine("Gender must be specified.");
-        if (CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.SelectedIndex == -1) sb.AppendLine("Race must be specified.");
-        if (!JghString.IsOnlyLetters(baby.City)) sb.AppendLine("City name must be letters or blank.");
-        if (!JghString.IsOnlyLettersOrDigits(baby.Team)) sb.AppendLine("Team name must be letters and/or digits or blank.");
-        if (!JghString.IsOnlyDigits(baby.BirthYear) || baby.BirthYear.Length is < 4 or > 4) sb.AppendLine("Year of birth must be four digits.");
-        if (!JghString.IsOnlyLettersOrDigits(baby.Series)) sb.AppendLine("SeriesIdentifier identifier must be letters or digits or blank.");
-        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(baby.Identifier)) sb.AppendLine("ID must consist of letters, digits, or hyphens (or be temporarily blank).");
+        if (!JghString.IsOnlyLettersOrHyphenOrApostropheOrSpace(baby.FirstName) || baby.FirstName.Length < 2) sb.AppendLine($"First name must be two or more letters. May include a hyphen. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLetters(baby.MiddleInitial) || baby.MiddleInitial.Length > 1) sb.AppendLine($"Middle initial must be a single letter or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrHyphenOrApostropheOrSpace(baby.LastName) || baby.LastName.Length < 2) sb.AppendLine($"Last name must be two or more letters. May include a hyphen or apostrophe or a space. <{baby.FirstName} {baby.LastName}>");
+        if (string.IsNullOrWhiteSpace(baby.Gender)) sb.AppendLine($"Gender must be specified. <{baby.FirstName} {baby.LastName}>");
+        if (string.IsNullOrWhiteSpace(baby.RaceGroupBeforeTransition)) sb.AppendLine($"Race must be specified. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLetters(baby.City)) sb.AppendLine($"City name must be letters or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigits(baby.Team)) sb.AppendLine($"Team name must be letters and/or digits or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyDigits(baby.BirthYear) || baby.BirthYear.Length is < 4 or > 4) sb.AppendLine($"Year of birth must be four digits. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigits(baby.Series)) sb.AppendLine($"SeriesIdentifier identifier must be letters or digits or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(baby.Identifier)) sb.AppendLine($"ID must consist of letters, digits, or hyphens (or be temporarily blank). <{baby.FirstName} {baby.LastName}>");
 
         if (sb.Length <= 0)
         {
@@ -623,28 +617,6 @@ internal class Program
         errorMessage = sb.ToString();
 
         return true;
-    }
-
-    private static string ConvertOutputToResultsDtoXmlFileContents(ResultItem[] resultItems)
-    {
-        var resultsDto = ResultItem.ToDataTransferObject(resultItems);
-
-        return JghSerialisation.ToXmlFromObject(resultsDto, new[] {typeof(ResultDto)});
-    }
-
-    private static void SaveWorkToHardDriveAsXml(string xmlAsText, FileItem fileItem)
-    {
-        var outPutFileName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', DateTime.Now.ToString(JghDateTime.SortablePattern)) +
-                             fileItem.FileInfo.Name.Replace(fileItem.FileInfo.Extension, "") + "." +
-                             StandardFileTypeSuffix.Xml;
-
-        var pathOfXmlFile = FolderForBabyParticipants + @"\" + outPutFileName;
-
-        File.WriteAllText(pathOfXmlFile, xmlAsText);
-
-        JghConsoleHelper.WriteLineFollowedByOne("The extracted participant data has been saved for perusal at your leisure.");
-        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Folder", 30)} : {FolderForBabyParticipants}");
-        JghConsoleHelper.WriteLineFollowedByOne($"{JghString.LeftAlign("FileName", 30)} : {outPutFileName}");
     }
 
     private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename)

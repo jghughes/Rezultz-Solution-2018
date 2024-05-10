@@ -53,14 +53,14 @@ public static class JghConsoleHelper
         Console.WriteLine();
     }
 
-    public static void WriteLineWrappedInOne(string line)
+    public static void WriteLineWrappedByOne(string line)
     {
         Console.WriteLine();
         Console.WriteLine(line);
         Console.WriteLine();
     }
 
-    public static void WriteLineWrappedInTwo(string line)
+    public static void WriteLineWrappedByTwo(string line)
     {
         Console.WriteLine();
         Console.WriteLine();

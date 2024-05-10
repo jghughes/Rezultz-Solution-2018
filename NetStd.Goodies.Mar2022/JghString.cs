@@ -375,6 +375,19 @@ namespace NetStd.Goodies.Mar2022
 
             return isValid;
         }
+        public static bool IsOnlyLettersOrHyphenOrApostropheOrSpace(string value)
+        {
+
+            var isValid = true;
+
+            foreach (var c in value)
+            {
+                if (!(Char.IsLetter(c) || c is '-' or '\'' or ' '))
+                    isValid = false;
+            }
+
+            return isValid;
+        }
 
         public static bool IsValidEmailAddress(string value)
         {

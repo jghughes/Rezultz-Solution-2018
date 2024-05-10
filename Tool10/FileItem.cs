@@ -8,7 +8,7 @@ internal class FileItem
 
     public string FileContentsAsText { get; set; } = string.Empty;
 
-    public XDocument FileContentsAsXDocument { get; set; } = new();
+    public XElement FileContentsAsXElement { get; set; } = new("Rubbish");
 
     public string OutputSubFolderName { get; set; } = string.Empty;
 }
