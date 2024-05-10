@@ -216,7 +216,7 @@
                                     DataContext="{Binding Path=CboLookupAnomalousThresholdForTooManySplitsVm}"
                                     IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
                                     SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
                                     ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
                                     Style="{StaticResource HereComboBoxStyle}"
@@ -233,7 +233,7 @@
                                     DataContext="{Binding Path=CboLookupAnomalousThresholdForTooFewSplitsVm}"
                                     IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
                                     SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
                                     ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
                                     Style="{StaticResource HereComboBoxStyle}" VerticalAlignment="Bottom" />
@@ -249,7 +249,7 @@
                                     DataContext="{Binding Path=CboLookupAnomalousThresholdForTooBriefSplitsVm}"
                                     IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
                                     SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
                                     ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
                                     Style="{StaticResource HereComboBoxStyle}" VerticalAlignment="Bottom" />
@@ -266,7 +266,7 @@
                                     DataContext="{Binding Path=CboLookupOnlySubGroupOfSingleRaceInSplitIntervalsPerPersonDataGrid}"
                                     IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource SeriesItemDisplayObjectsGuardAgainstNull}}"
+                                    ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
                                     SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
                                     ItemTemplate="{StaticResource HereComboBoxItemDataTemplate}"
                                     Style="{StaticResource HereComboBoxStyle}" VerticalAlignment="Bottom" />
