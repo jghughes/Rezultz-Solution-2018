@@ -408,7 +408,8 @@ internal class Program
 
     #region constants
 
-    private const string DesiredSeasonProfileID = "998";
+    //private const string DesiredSeasonProfileID = "998"; // kelso
+    private const string DesiredSeasonProfileID = "999"; // my test profile
 
     private const int LhsWidth = 53;
     private const string RequiredInputFileFormat = "xml";
