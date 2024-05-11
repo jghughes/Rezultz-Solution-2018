@@ -355,9 +355,10 @@ namespace NetStd.Goodies.Mar2022
 
             foreach (var c in value)
             {
-                if (!(Char.IsLetterOrDigit(c) || c == '-') || c == ' ')
+                if (!(Char.IsLetterOrDigit(c) || c is '-' or ' '))
                     isValid = false;
             }
+
 
             return isValid;
         }

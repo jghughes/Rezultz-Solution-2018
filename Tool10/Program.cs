@@ -20,11 +20,6 @@ internal class Program
 {
     private const string Description = "This console program (Tool09) reads Andrew's participant master list/s and generates ParticipantHubItems.";
 
-    private static SeasonProfileItem? seasonProfileItem;
-
-    private static SeriesProfileItem? seriesProfileItem;
-
-
     #region the MEAT
 
     private static async Task Main()
@@ -33,13 +28,12 @@ internal class Program
 
         JghConsoleHelper.WriteLineFollowedByOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
-        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Andrew's participant master list XML file/s", LhsWidth)} : {FolderContainingMasterListFromAndrew}");
-        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for BabyParticipants", LhsWidth)} : {FolderForBabyParticipants}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Andrew's participant master list/s", LhsWidth)} : {FolderContainingMasterListFromAndrew}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for parsed participants", LhsWidth)} : {FolderForDeserialisedMasterList}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for OriginatingParticipantHubItems", LhsWidth)} : {FolderForOriginatingParticipantHubItems}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for ModifiedParticipantHubItems", LhsWidth)} : {FolderForModifiedParticipantHubItems}");
         JghConsoleHelper.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
         JghConsoleHelper.ReadLine();
-        JghConsoleHelper.WriteLineFollowedByOne("Working. Please wait...");
 
         #endregion
 
@@ -83,28 +77,21 @@ internal class Program
 
             #region download SeriesProfileItem from Azure to obtain relevant info
 
-            string seriesLabel;
-            string eventLabel;
-            string accountName;
-            string containerName;
-
             try
             {
-                JghConsoleHelper.WriteLineFollowedByOne("Please wait. Fetching SeasonProfile('999')");
+                JghConsoleHelper.WriteLine($"Please wait. Fetching SeasonProfile({DesiredSeasonProfileID})");
 
-                seasonProfileItem = await LeaderboardResultsSvcAgent.GetSeasonProfileAsync("999");
-                JghConsoleHelper.WriteLineFollowedByOne($"Profile obtained = <{seasonProfileItem.Label}>");
+                currentSeasonProfileItem = await LeaderboardResultsSvcAgent.GetSeasonProfileAsync(DesiredSeasonProfileID);
+                currentSeriesProfileItem = currentSeasonProfileItem?.SeriesProfiles.LastOrDefault();
+                currentEventProfileItem = currentSeriesProfileItem?.EventProfileItems.LastOrDefault();
 
-                seriesProfileItem = seasonProfileItem.SeriesProfiles.LastOrDefault();
+                JghConsoleHelper.WriteLine($"Season obtained = <{currentSeasonProfileItem?.Title}>");
+                JghConsoleHelper.WriteLine($"Series obtained = <{currentSeriesProfileItem?.Title}>");
 
-                seriesLabel = seriesProfileItem?.Label ?? string.Empty;
-                eventLabel = seriesProfileItem?.EventProfileItems.Last()?.Label ?? string.Empty; // i.e. the earliest 
-                accountName = seriesProfileItem?.ContainerForParticipantHubItemData?.AccountName ?? string.Empty;
-                containerName = seriesProfileItem?.ContainerForParticipantHubItemData?.ContainerName ?? string.Empty;
             }
             catch (Exception e)
             {
-                JghConsoleHelper.WriteLineFollowedByOne($"Oops. Failed to locate (or de-serialise) the designated season profile file. {e.Message}");
+                JghConsoleHelper.WriteLine($"Oops. Failed to locate (or de-serialise) the designated season profile file. {e.Message}");
 
                 return;
             }
@@ -127,11 +114,11 @@ internal class Program
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForBabyParticipants);
+                Directory.SetCurrentDirectory(FolderForDeserialisedMasterList);
             }
             catch (DirectoryNotFoundException)
             {
-                JghConsoleHelper.WriteLine("Directory not found: " + FolderForBabyParticipants);
+                JghConsoleHelper.WriteLine("Directory not found: " + FolderForDeserialisedMasterList);
                 return;
             }
 
@@ -169,7 +156,7 @@ internal class Program
 
             #region select XML files only, read them, and load their contents into one or more populated FileItems
 
-            JghConsoleHelper.WriteLineWrappedByOne("Please wait. Translating file/s into XDocument/s...");
+            JghConsoleHelper.WriteLineWrappedByOne("Please wait. Processing files.");
 
             try
             {
@@ -177,11 +164,9 @@ internal class Program
                 {
                     if (!Path.GetFileName(fi.FullName).EndsWith($".{RequiredInputFileFormat}"))
                     {
-                        JghConsoleHelper.WriteLineFollowedByOne($"Skipping <{fi.Name}> because it's not a <{RequiredInputFileFormat}> file.");
+                        JghConsoleHelper.WriteLine($"Ignoring non-XML file: {fi.Name}");
                         continue;
                     }
-
-                    JghConsoleHelper.WriteLine($"Found an XML file called <{fi.Name}>. Initialising a FileItem for this file.");
 
                     var fileItem = new FileItem
                     {
@@ -192,9 +177,6 @@ internal class Program
                     };
 
                     FilesOfParticipantListsImportedFromAndrew.Add(fileItem);
-
-                    JghConsoleHelper.WriteLineFollowedByOne($"FileItem successfully initialised.");
-
                 }
 
                 JghConsoleHelper.WriteLine();
@@ -203,8 +185,6 @@ internal class Program
                 {
                     foreach (var fileItem in FilesOfParticipantListsImportedFromAndrew)
                     {
-                        JghConsoleHelper.WriteLine($"Parsing <{fileItem.FileInfo.Name}> into XML....");
-
                         var fullInputPath = fileItem.FileInfo.FullName;
 
                         var rawInputAsText = await File.ReadAllTextAsync(fullInputPath);
@@ -213,7 +193,7 @@ internal class Program
                         fileItem.FileContentsAsText = rawInputAsText;
                         fileItem.FileContentsAsXElement = rawInputAsXElement;
 
-                        JghConsoleHelper.WriteLine($"Successfully parsed and loaded <{fileItem.FileInfo.Name}>");
+                        JghConsoleHelper.WriteLineFollowedByOne($"Successfully processed: {fileItem.FileInfo.Name}");
                     }
                 }
                 catch (Exception e)
@@ -232,13 +212,9 @@ internal class Program
                 return;
             }
 
-            JghConsoleHelper.WriteLineFollowedByOne($"{FilesOfParticipantListsImportedFromAndrew.Count} parent XElement/s successfully created after reading participant data file/s from Andrew.");
-
             #endregion
 
             #region foreach FileItem, convert the xml contents into a list of BabyParticipantDto, consolidate the lists from all FileItems
-
-            JghConsoleHelper.WriteLinePrecededByOne("Please wait. Translating XElement/s into consolidated master list of all BabyParticipants..");
 
             List<BabyParticipantDto> babyParticipants = new();
 
@@ -263,23 +239,17 @@ internal class Program
                 }
             }
 
-            JghConsoleHelper.WriteLine($"{babyParticipants.Count} BabyParticipants created.");
-
             #endregion
 
             #region save the consolidated file of all babies
 
             var arrayOfBabiesAsXmlText = JghSerialisation.ToXmlFromObject(babyParticipants.ToArray(), new[] {typeof(BabyParticipantDto)});
 
-            SaveWorkToHardDriveAsXml(arrayOfBabiesAsXmlText, FolderForBabyParticipants, FilenameForBabyParticipants);
-
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("BabyParticipants successfully saved: ", LhsWidth)} : {FolderForBabyParticipants} {FilenameForBabyParticipants} {babyParticipants.Count} babies saved.");
+            SaveWorkToHardDriveAsXml(arrayOfBabiesAsXmlText, FolderForDeserialisedMasterList, FilenameForBabyParticipants, babyParticipants.Count);
 
             #endregion
 
             #region translate all BabyParticipantDto into originating ParticpantHubItem and modified ParticpantHubItem
-
-            JghConsoleHelper.WriteLinePrecededByOne("Please wait. Translating Babies into hubItems...");
 
             List<ParticipantHubItem> originatingParticipantHubItems = new();
 
@@ -299,7 +269,7 @@ internal class Program
                     originatingBib = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, Guid.NewGuid().ToString());
 
                     JghConsoleHelper.WriteLine(
-                        $"Error: Bib <{originatingBib}> is malformed for <{babyParticipant.FirstName} {babyParticipant.LastName}> Applied default instead <{originatingBib}>. (Bib must consist of letters, digits, or hyphens, or be blank))");
+                        $"Error: Bib <{originatingBib}> is malformed for <{babyParticipant.FirstName} {babyParticipant.LastName}> Applied fallback instead <{originatingBib}>. (Bib must consist of letters, digits, or hyphens, or be blank))");
                 }
 
                 var originatingHubItem = ParticipantHubItem.Create(i, babyParticipant.Bib, babyParticipant.Rfid, EnumStrings.KindOfEntryIsParticipantEntry, "jgh");
@@ -321,31 +291,107 @@ internal class Program
                 i++;
             }
 
-            JghConsoleHelper.WriteLine("HubItems created.");
-
             #endregion
 
             #region save consolidated files of both
 
-            var originatingParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(originatingParticipantHubItems.ToArray(), new[] {typeof(ParticipantHubItem)});
+            var originatingParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(ParticipantHubItem.ToDataTransferObject(originatingParticipantHubItems.ToArray()), new[] {typeof(ParticipantHubItem)});
+            var modifiedParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(ParticipantHubItem.ToDataTransferObject(modifiedParticipantHubItems.ToArray()), new[] { typeof(ParticipantHubItem) });
 
-            SaveWorkToHardDriveAsXml(originatingParticipantHubItemAsXmlText, FolderForOriginatingParticipantHubItems, FilenameForOriginatingParticipantHubItems);
+            SaveWorkToHardDriveAsXml(originatingParticipantHubItemAsXmlText, FolderForOriginatingParticipantHubItems, FilenameForOriginatingParticipantHubItems, originatingParticipantHubItems.Count);
+            SaveWorkToHardDriveAsXml(modifiedParticipantHubItemAsXmlText, FolderForModifiedParticipantHubItems, FileNameForModifiedParticipantHubItems, modifiedParticipantHubItems.Count);
 
-            JghConsoleHelper.WriteLine(
-                $"{JghString.LeftAlign("Originating hub items successfully saved: ", LhsWidth)} : {FolderForOriginatingParticipantHubItems} {FilenameForOriginatingParticipantHubItems} {originatingParticipantHubItems.Count} items saved.");
+            #endregion
 
-            var modifiedParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(modifiedParticipantHubItems.ToArray(), new[] {typeof(ParticipantHubItem)});
+            #region decide if to proceed with upload. If No, then exit
 
-            SaveWorkToHardDriveAsXml(modifiedParticipantHubItemAsXmlText, FolderForModifiedParticipantHubItems, FileNameForModifiedParticipantHubItems);
+            JghConsoleHelper.WriteLineWrappedByOne("Do you wish to proceed and upload all the ParticipantHubItems? Press 'y' or anything else to quit.");
+            
+            var answer = Console.ReadLine();
 
-            JghConsoleHelper.WriteLine(
-                $"{JghString.LeftAlign("Modified hub items successfully saved: ", LhsWidth)} : {FolderForModifiedParticipantHubItems} {FileNameForModifiedParticipantHubItems} {modifiedParticipantHubItems.Count} items saved.");
+            if (answer != "y")
+            {
+                JghConsoleHelper.WriteLine();
+                JghConsoleHelper.WriteLine("Everything complete. No further action required. Goodbye.");
+                JghConsoleHelper.WriteLine();
+                JghConsoleHelper.WriteLine("ooo0 - Goodbye - 0ooo");
+                Console.ReadLine();
+                return;
+            }
+
+            #endregion
+
+            #region if Yes, proceed with upload
+
+            #region get parameters ready
+
+            var cloudDataLocation = ParticipantRegistrationSvcAgent.MakeDataLocationForStorageOfParticipantDataOnRemoteHub(currentSeriesProfileItem, currentEventProfileItem);
+
+            #endregion
+
+            #region prepare data
+
+            var entriesInRepositoryNotPushedPreviously = RepositoryOfHubStyleEntries.GetAllEntriesAsRawData()
+                .Where(z => z.IsStillToBePushed)
+                .ToArray();
+
+            if (!entriesInRepositoryNotPushedPreviously.Any())
+                throw new JghAlertMessageException(JghString.ConcatAsLines(
+                    "Nothing new to push to remote hub."));
+
+            var numberOfEntriesNotPushedPreviously = entriesInRepositoryNotPushedPreviously.Count(z => z.IsStillToBePushed);
+
+            var whenPushed = DateTime.Now.ToBinary();
+
+            #endregion
+
+            #region push
+
+            var scratchPadOfClonesToBePushed = new List<ParticipantHubItem>();
+
+            foreach (var item in entriesInRepositoryNotPushedPreviously)
+            {
+                var clone = item.ToShallowMemberwiseClone();
+                clone.IsStillToBePushed = false;
+                clone.WhenPushedBinaryFormat = whenPushed;
+                scratchPadOfClonesToBePushed.Add(clone);
+            }
+
+            JghConsoleHelper.WriteLineWrappedByOne($"Please wait. Uploading <{entriesInRepositoryNotPushedPreviously.Length}> ParticipantHubItems.");
+
+            var uploadReport = await ParticipantRegistrationSvcAgent.PostParticipantItemArrayAsync(cloudDataLocation.Item1, cloudDataLocation.Item2, scratchPadOfClonesToBePushed.ToArray());
+
+            #region success? - report back
+
+            foreach (var item in entriesInRepositoryNotPushedPreviously)
+            {
+                item.IsStillToBePushed = false;
+                item.WhenPushedBinaryFormat = whenPushed;
+            }
+
+            var messageOk = numberOfEntriesNotPushedPreviously switch
+            {
+                0 => "Nothing pushed. Cache was empty.",
+                1 => "Success. A copy of a single entry was pushed to the hub.",
+                _ => "Success. Copies of multiple entries were pushed to the hub."
+            };
+
+            var reportRegardingItemsNeverPushedBefore = JghString.ConcatAsParagraphs(messageOk,uploadReport);
+
+            JghConsoleHelper.WriteLinePrecededByOne(reportRegardingItemsNeverPushedBefore);
+            JghConsoleHelper.WriteLine($"Account: {cloudDataLocation.Item1}");
+
+            #endregion
+
+            #endregion
 
             #endregion
 
             #region wrap up
 
-            JghConsoleHelper.WriteLineWrappedByTwo("Deletions complete. No further action required. Goodbye.");
+            JghConsoleHelper.WriteLine();
+            JghConsoleHelper.WriteLine("Everything complete. No further action required. Goodbye.");
+            JghConsoleHelper.WriteLine();
             JghConsoleHelper.WriteLine("ooo0 - Goodbye - 0ooo");
             Console.ReadLine();
 
@@ -362,22 +408,30 @@ internal class Program
 
     #region constants
 
-    private const int LhsWidth = 70;
+    private const string DesiredSeasonProfileID = "998";
+
+    private const int LhsWidth = 53;
     private const string RequiredInputFileFormat = "xml";
     private const string NameOfRepeatingChildXElement = "Master_x0020_List";
 
     private const string FolderContainingMasterListFromAndrew = @"C:\Users\johng\holding pen\participants-from-Andrew\";
-    private const string FolderForBabyParticipants = @"C:\Users\johng\holding pen\participants-BabyParticipants\";
+    private const string FolderForDeserialisedMasterList = @"C:\Users\johng\holding pen\participants-BabyParticipants\";
     private const string FolderForOriginatingParticipantHubItems = @"C:\Users\johng\holding pen\participants-originating-ParticipantHubItems\";
     private const string FolderForModifiedParticipantHubItems = @"C:\Users\johng\holding pen\participants-modified-ParticipantHubItems\";
 
-    private const string FilenameForBabyParticipants = @"Babies.xml";
-    private const string FilenameForOriginatingParticipantHubItems = @"OriginatingParticipantHubItems.xml";
-    private const string FileNameForModifiedParticipantHubItems = @"ModifiedParticipantHubItems.xml";
+    private const string FilenameForBabyParticipants = @"BabyItems.xml";
+    private const string FilenameForOriginatingParticipantHubItems = @"OriginatingHubItems.xml";
+    private const string FileNameForModifiedParticipantHubItems = @"ModifiedHubItems.xml";
 
     #endregion
 
     #region variables
+
+    private static SeasonProfileItem? currentSeasonProfileItem;
+
+    private static SeriesProfileItem? currentSeriesProfileItem;
+
+    private static EventProfileItem? currentEventProfileItem;
 
     private static readonly List<FileItem> FilesOfParticipantListsImportedFromAndrew = new();
 
@@ -406,38 +460,48 @@ internal class Program
 
     public static BabyParticipantDto? CreateBaby(XElement child)
     {
+        #region Element names and symbols on the source Kelso masterlist in XML (src)
 
-        #region Names
+        const string SrcXeBib = "Plate_x0020__x0023_"; // the repeating element of the array
+        const string SrcXeFirstName = "First_x0020_Name";
+        const string SrcXeLastName = "Last_x0020_Name";
+        const string SrcXeGender = "Sex";
+        const string SrcXeBirthYear = "Date_x0020_of_x0020_Birth";
+        const string SrcXeCity = "city";
+        const string SrcXeCategory = "Category";
+        const string SrcXeRfid = "Bibtag_x0020__x0023_";
+        const string SrcXeReservation = "Reservation";
+        const string SrcXeProduct = "Product";
 
-        const string XeBib = "Plate_x0020__x0023_"; // the repeating element of the array
-        const string XeFirstName = "First_x0020_Name";
-        const string XeLastName = "Last_x0020_Name";
-        const string XeGender = "Sex";
-        const string XeBirthYear = "Date_x0020_of_x0020_Birth";
-        const string XeCity = "city";
-        const string XeRaceGroupBeforeTransition = "Category";
-        const string XeRfid = "Bibtag_x0020__x0023_";
-        const string XeReservation = "Reservation";
-        const string XeProduct = "Product";
+        const string SrcValueExpert = "Expert";
+        const string SrcValueSport = "Sport";
+        const string SrcValueIntermediate = "Intermediate";
+        const string SrcValueNovice = "Novice";
+        const string SrcValueBeginner = "Beginner";
+        const string SrcValueKids = "Kids";
+        const string SrcValueMale = "M";
+        const string SrcValueFemale = "F";
+        const string SrcValueNonBinary = "X";
+        const string SrcValueFullSeries = "Full Series";
 
         #endregion
 
         #region skip the ones from Andrew's masterlist we don't want included
 
-        var candidateBib = JghString.TmLr(child.Elements(XeBib).FirstOrDefault()?.Value);
+        var candidateBib = JghString.TmLr(child.Elements(SrcXeBib).FirstOrDefault()?.Value);
 
         if (string.IsNullOrWhiteSpace(candidateBib))
             return null;
 
-        var candidateRaceGroup = JghString.TmLr(child.Elements(XeRaceGroupBeforeTransition).FirstOrDefault()?.Value);
+        var candidateRaceGroup = JghString.TmLr(child.Elements(SrcXeCategory).FirstOrDefault()?.Value);
 
         if (string.IsNullOrWhiteSpace(candidateRaceGroup))
             return null;
 
-        if (candidateRaceGroup == "Beginner")
+        if (candidateRaceGroup == JghString.TmLr(SrcValueBeginner))
             return null;
 
-        if (candidateRaceGroup == "Kids")
+        if (candidateRaceGroup == JghString.TmLr(SrcValueKids))
             return null;
 
         #endregion
@@ -447,17 +511,17 @@ internal class Program
         var baby = new BabyParticipantDto
         {
             Bib = candidateBib,
-            Rfid = JghString.TmLr(child.Elements(XeRfid).FirstOrDefault()?.Value),
-            FirstName = JghString.TmLr(child.Elements(XeFirstName).FirstOrDefault()?.Value),
-            LastName = JghString.TmLr(child.Elements(XeLastName).FirstOrDefault()?.Value),
+            Rfid = JghString.TmLr(child.Elements(SrcXeRfid).FirstOrDefault()?.Value),
+            FirstName = JghString.TmLr(child.Elements(SrcXeFirstName).FirstOrDefault()?.Value),
+            LastName = JghString.TmLr(child.Elements(SrcXeLastName).FirstOrDefault()?.Value),
             MiddleInitial = string.Empty,
-            Gender = JghString.TmLr(child.Elements(XeGender).FirstOrDefault()?.Value),
-            BirthYear = JghString.TmLr(child.Elements(XeBirthYear).FirstOrDefault()?.Value),
-            City = JghString.TmLr(child.Elements(XeCity).FirstOrDefault()?.Value),
+            Gender = JghString.TmLr(child.Elements(SrcXeGender).FirstOrDefault()?.Value),
+            BirthYear = JghString.TmLr(child.Elements(SrcXeBirthYear).FirstOrDefault()?.Value),
+            City = JghString.TmLr(child.Elements(SrcXeCity).FirstOrDefault()?.Value),
             Team = string.Empty,
             Series = string.Empty,
-            Reservation = JghString.TmLr(child.Elements(XeReservation).FirstOrDefault()?.Value),
-            Product = JghString.TmLr(child.Elements(XeProduct).FirstOrDefault()?.Value),
+            Reservation = JghString.TmLr(child.Elements(SrcXeReservation).FirstOrDefault()?.Value),
+            Product = JghString.TmLr(child.Elements(SrcXeProduct).FirstOrDefault()?.Value),
         };
 
         #endregion
@@ -472,15 +536,15 @@ internal class Program
         }
         else
         {
-            if (candidateGenderSymbol == "M")
+            if (candidateGenderSymbol ==  JghString.TmLr(SrcValueMale))
             {
                 baby.Gender = Symbols.SymbolMale;
             }
-            else if (candidateGenderSymbol == "F")
+            else if (candidateGenderSymbol == JghString.TmLr(SrcValueFemale))
             {
                 baby.Gender = Symbols.SymbolFemale;
             }
-            else if (candidateGenderSymbol == "X")
+            else if (candidateGenderSymbol == JghString.TmLr(SrcValueNonBinary))
             {
                 baby.Gender = Symbols.SymbolNonBinary;
             }
@@ -494,21 +558,23 @@ internal class Program
 
         #region fix BirthYear
 
+        var defaultBirthYear = "1900";
+
         if (string.IsNullOrWhiteSpace(baby.BirthYear))
         {
-            baby.BirthYear = "1900"; // default
+            baby.BirthYear = defaultBirthYear; // default
         }
         else
         {
             var candidateBirthYear = JghString.Substring(0,4, baby.BirthYear);
 
-            if (candidateBirthYear == null)
+            if (string.IsNullOrWhiteSpace(candidateBirthYear))
             {
-                baby.BirthYear = "1900"; // default
+                baby.BirthYear = defaultBirthYear; // default
             }
             else
             {
-                baby.BirthYear = JghString.IsOnlyDigits(candidateBirthYear) ? candidateBirthYear : "1900"; // default
+                baby.BirthYear = JghString.IsOnlyDigits(candidateBirthYear) ? candidateBirthYear : defaultBirthYear;
             }
         }
 
@@ -524,44 +590,43 @@ internal class Program
         }
         else if (candidateCity.Contains("n/a"))
         {
-            baby.City = Symbols.SymbolQuestionMark;
+            baby.City = string.Empty;
         }
         else if (candidateCity.Contains('/'))
         {
-            baby.City = JghString.TmLr(candidateCity.Split(",").FirstOrDefault());
+            baby.City = JghString.TmLr(candidateCity.Split("/").FirstOrDefault());
         }
-        else if (candidateCity.Contains(" "))
+        else if (candidateCity.Contains("77 john street milton"))
         {
-            baby.City = JghString.TmLr(candidateCity.Split(" ").LastOrDefault());
+            baby.City = "milton";
         }
+
         #endregion
 
         #region fix IsSeries
 
-        baby.IsSeries = baby.Product.Contains("Full Series");
+        baby.IsSeries = baby.Product.Contains(JghString.TmLr(SrcValueFullSeries));
 
         #endregion
 
         #region fix RaceGroups
 
-        const string XvalueExpert = "Expert";
-        const string XvalueSport = "Sport";
-        const string XvalueIntermediate = "Intermediate";
-        const string XvalueNovice = "Novice";
-
         if (string.IsNullOrWhiteSpace(candidateRaceGroup))
         {
-            baby.RaceGroupBeforeTransition = JghString.TmLr(XvalueNovice); // default - shortest race
+            baby.RaceGroupBeforeTransition = JghString.TmLr(SrcValueNovice); // default - shortest race
         }
         else
         {
-            if (candidateRaceGroup is XvalueExpert or XvalueSport or XvalueIntermediate or XvalueNovice)
+            if (JghString.AreEqualIgnoreOrdinalCase(candidateRaceGroup, SrcValueExpert) ||
+                JghString.AreEqualIgnoreOrdinalCase(candidateRaceGroup, SrcValueSport) ||
+                JghString.AreEqualIgnoreOrdinalCase(candidateRaceGroup, SrcValueIntermediate) ||
+                JghString.AreEqualIgnoreOrdinalCase(candidateRaceGroup, SrcValueNovice))
             {
-                baby.RaceGroupBeforeTransition = JghString.TmLr(candidateRaceGroup);
+                baby.RaceGroupBeforeTransition = candidateRaceGroup;
             }
             else
             {
-                baby.RaceGroupBeforeTransition = JghString.TmLr(XvalueNovice); // default - shortest race
+                baby.RaceGroupBeforeTransition = JghString.TmLr(SrcValueNovice); // default - shortest race
             }
         }
 
@@ -606,7 +671,7 @@ internal class Program
         answer.IsSeries = baby.IsSeries;
         answer.Series = string.Empty;
         answer.EventIdentifiers = string.Empty;
-
+        answer.Reservation = JghString.TmLr(baby.Reservation);
         answer.Rfid = answer.Rfid;
 
 
@@ -655,15 +720,15 @@ internal class Program
         return true;
     }
 
-    private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename)
+    private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
     {
         var pathOfXmlFile = outPutFolder + @"\" + outPutFilename;
 
         File.WriteAllText(pathOfXmlFile, xmlAsText);
 
-        JghConsoleHelper.WriteLineFollowedByOne("The extracted data has been saved for perusal at your leisure.");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Folder", 20)} : {outPutFolder}");
-        JghConsoleHelper.WriteLineFollowedByOne($"{JghString.LeftAlign("FileName", 20)} : {outPutFilename}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("FileName", 20)} : {outPutFilename}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Items saved", 20)} : {numberOfItems}");
     }
 
     #endregion

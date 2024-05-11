@@ -12,7 +12,7 @@
         public const string XeIsStillToBePushed = "is-still-to-be-pushed";
         public const string XeTouchedBy = "touched-by";
         public const string XeWhenTouched = "when-touched";
-        public const string XeTimeStampBinaryFormat = "timeStamp-binary-format";
+        public const string XeTimeStampBinaryFormat = "timestamp-binary-format";
         public const string XeWhenTouchedBinaryFormat = "when-touched-binary-format";
         public const string XeWhenPushedBinaryFormat = "when-pushed-binary-format";
         public const string XeOriginatingItemGuid = "originating-item-guid";
