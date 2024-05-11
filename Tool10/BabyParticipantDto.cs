@@ -28,6 +28,7 @@ public class BabyParticipantDto
     public const string XeSeries = "series";
     public const string XeReservation = "reservation";
     public const string XeRfid = "rfid";
+    public const string XeProduct = "product";
 
     #endregion
 
@@ -80,6 +81,9 @@ public class BabyParticipantDto
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 15, Name = XeReservation)]
     public string Reservation { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 16, Name = XeProduct)]
+    public string Product { get; set; } = string.Empty;
 
 
 

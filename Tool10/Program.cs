@@ -302,7 +302,7 @@ internal class Program
                         $"Error: Bib <{originatingBib}> is malformed for <{babyParticipant.FirstName} {babyParticipant.LastName}> Applied default instead <{originatingBib}>. (Bib must consist of letters, digits, or hyphens, or be blank))");
                 }
 
-                var originatingHubItem = ParticipantHubItem.Create(i, babyParticipant.Bib, TODO, EnumStrings.KindOfEntryIsParticipantEntry, "jgh");
+                var originatingHubItem = ParticipantHubItem.Create(i, babyParticipant.Bib, babyParticipant.Rfid, EnumStrings.KindOfEntryIsParticipantEntry, "jgh");
 
                 originatingParticipantHubItems.Add(originatingHubItem);
 
@@ -362,7 +362,7 @@ internal class Program
 
     #region constants
 
-    private const int LhsWidth = 50;
+    private const int LhsWidth = 70;
     private const string RequiredInputFileFormat = "xml";
     private const string NameOfRepeatingChildXElement = "Master_x0020_List";
 
@@ -406,6 +406,9 @@ internal class Program
 
     public static BabyParticipantDto? CreateBaby(XElement child)
     {
+
+        #region Names
+
         const string XeBib = "Plate_x0020__x0023_"; // the repeating element of the array
         const string XeFirstName = "First_x0020_Name";
         const string XeLastName = "Last_x0020_Name";
@@ -413,17 +416,38 @@ internal class Program
         const string XeBirthYear = "Date_x0020_of_x0020_Birth";
         const string XeCity = "city";
         const string XeRaceGroupBeforeTransition = "Category";
-        const string XeRfid= "Bibtag_x0020__x0023_";
+        const string XeRfid = "Bibtag_x0020__x0023_";
         const string XeReservation = "Reservation";
+        const string XeProduct = "Product";
 
-        var candidateBib = JghString.TmLr(child.Elements(XeBib).First().Value);
+        #endregion
+
+        #region skip the ones from Andrew's masterlist we don't want included
+
+        var candidateBib = JghString.TmLr(child.Elements(XeBib).FirstOrDefault()?.Value);
 
         if (string.IsNullOrWhiteSpace(candidateBib))
             return null;
 
+        var candidateRaceGroup = JghString.TmLr(child.Elements(XeRaceGroupBeforeTransition).FirstOrDefault()?.Value);
+
+        if (string.IsNullOrWhiteSpace(candidateRaceGroup))
+            return null;
+
+        if (candidateRaceGroup == "Beginner")
+            return null;
+
+        if (candidateRaceGroup == "Kids")
+            return null;
+
+        #endregion
+
+        #region new up a baby
+
         var baby = new BabyParticipantDto
         {
             Bib = candidateBib,
+            Rfid = JghString.TmLr(child.Elements(XeRfid).FirstOrDefault()?.Value),
             FirstName = JghString.TmLr(child.Elements(XeFirstName).FirstOrDefault()?.Value),
             LastName = JghString.TmLr(child.Elements(XeLastName).FirstOrDefault()?.Value),
             MiddleInitial = string.Empty,
@@ -431,15 +455,12 @@ internal class Program
             BirthYear = JghString.TmLr(child.Elements(XeBirthYear).FirstOrDefault()?.Value),
             City = JghString.TmLr(child.Elements(XeCity).FirstOrDefault()?.Value),
             Team = string.Empty,
-            RaceGroupBeforeTransition = JghString.TmLr(child.Elements(XeRaceGroupBeforeTransition).FirstOrDefault()?.Value),
-            RaceGroupAfterTransition = string.Empty,
-            DateOfRaceGroupTransitionAsString = string.Empty,
-            IsSeries = true, // default
             Series = string.Empty,
-            Rfid = JghString.TmLr(child.Elements(XeRfid).FirstOrDefault()?.Value),
             Reservation = JghString.TmLr(child.Elements(XeReservation).FirstOrDefault()?.Value),
+            Product = JghString.TmLr(child.Elements(XeProduct).FirstOrDefault()?.Value),
         };
 
+        #endregion
 
         #region fix Gender
 
@@ -493,7 +514,7 @@ internal class Program
 
         #endregion
 
-        #region fix City
+        #region fix City - this is a kludge unfortunately
 
         var candidateCity = baby.City;
 
@@ -515,16 +536,20 @@ internal class Program
         }
         #endregion
 
-        #region fix RaceGroup
+        #region fix IsSeries
+
+        baby.IsSeries = baby.Product.Contains("Full Series");
+
+        #endregion
+
+        #region fix RaceGroups
 
         const string XvalueExpert = "Expert";
         const string XvalueSport = "Sport";
         const string XvalueIntermediate = "Intermediate";
         const string XvalueNovice = "Novice";
 
-        var candidateRaceGroup = baby.RaceGroupBeforeTransition;
-
-        if (candidateRaceGroup == null || string.IsNullOrWhiteSpace(candidateRaceGroup))
+        if (string.IsNullOrWhiteSpace(candidateRaceGroup))
         {
             baby.RaceGroupBeforeTransition = JghString.TmLr(XvalueNovice); // default - shortest race
         }
@@ -539,6 +564,9 @@ internal class Program
                 baby.RaceGroupBeforeTransition = JghString.TmLr(XvalueNovice); // default - shortest race
             }
         }
+
+        baby.RaceGroupAfterTransition = string.Empty;
+        baby.DateOfRaceGroupTransitionAsString = string.Empty;
 
         #endregion
 
