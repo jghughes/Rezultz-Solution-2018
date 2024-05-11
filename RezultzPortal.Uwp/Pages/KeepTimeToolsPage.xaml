@@ -135,7 +135,7 @@
                 <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                 <TextBlock
-                    Text="Warning!  To prevent nonsensical data, always pull participants down from the hub before exporting.  Do this on the 'create timestamps' screen or the 'quality checks' screen."
+                    Text="Warning!  To prevent nonsensical data, always pull participants down from the hub before exporting.  Do this on the 'create timestamps' screen or the 'find anomalies' screen."
                     Style="{StaticResource AppCaptionBlurbStyle2}" MaxWidth="300" />
 
                 <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
@@ -197,7 +197,7 @@
                 <StackPanel Orientation="Horizontal">
 
                     <Button
-                        Content="Delete all timestamps on this machine"
+                        Content="Forcibly delete all timestamps on this machine"
                         ToolTipService.ToolTip="Delete all timestamps on this machine for a clean start. Caution! Data not already pushed to the hub will be lost."
                         Command="{Binding Path=OnClickCommand}"
                         DataContext="{Binding Path=DeleteAllDataButtonVm}"

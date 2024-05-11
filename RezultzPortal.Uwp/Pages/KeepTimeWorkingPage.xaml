@@ -260,8 +260,8 @@
                                            Style="{StaticResource HereBodyTextBlockStyle}" />
 
                                 <TextBox Grid.Row="0" Grid.Column="2"
-                                         PlaceholderText="participantID..."
-                                         ToolTipService.ToolTip="Enter participant ID for the timestamp being cloned"
+                                         PlaceholderText="Bib..."
+                                         ToolTipService.ToolTip="Enter Bib for the timestamp being cloned"
                                          DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampCloneVm}"
                                          Text="{Binding Path=Text, FallbackValue=BindingIsNull, Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay}"
                                          IsEnabled="{Binding Path=IsAuthorisedToOperate}"
@@ -529,7 +529,7 @@
                                     </ComboBox>
 
                                     <TextBox x:Name="XamlElementTextBoxForEnteringGunStartIndividualId"
-                                             PlaceholderText="participantID..."
+                                             PlaceholderText="Bib..."
                                              DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampOfGunStartVm}"
                                              IsEnabled="{Binding IsAuthorisedToOperate}"
                                              Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
@@ -574,7 +574,7 @@
                                 <StackPanel Grid.Column="0" Grid.Row="0">
 
                                     <TextBox Name="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat01"
-                                             PlaceholderText="participantID..."
+                                             PlaceholderText="Bib..."
                                              TabIndex="2"
                                              DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampOfTimingMatVm01}"
                                              IsEnabled="{Binding IsAuthorisedToOperate}"
@@ -599,7 +599,7 @@
                                 <StackPanel Grid.Column="0" Grid.Row="2">
 
                                     <TextBox Name="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat02"
-                                             PlaceholderText="participantID..."
+                                             PlaceholderText="Bib..."
                                              TabIndex="3"
                                              DataContext="{Binding Path=TextBoxForEnteringIndividualIdForTimeStampOfTimingMatVm02}"
                                              IsEnabled="{Binding IsAuthorisedToOperate}"
@@ -750,7 +750,7 @@
 
                                     <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
 
-                                        <TextBlock Text="Display by participant  :"
+                                        <TextBlock Text="Display by Bib  :"
                                                    Style="{StaticResource HereCaptionBlurbStyle3}" />
 
 
