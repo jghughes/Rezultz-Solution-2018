@@ -13,7 +13,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
         #region props
 
-        public string Identifier { get; set; } = string.Empty;
+        public string Bib { get; set; } = string.Empty;
+
+        public string Rfid { get; set; } = string.Empty;
 
         public ParticipantHubItem Participant { get; set; }
 
@@ -56,7 +58,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
             if (item == null) return string.Empty;
 
             if (item.Participant == null)
-                return item.Identifier;
+                return item.Bib;
 
             var prettyGunStartDateTime = item.GunStartTimeStamp.TimeStampBinaryFormat == 0 ? string.Empty : JghDateTime.ToTimeLocalhhmmssf(item.GunStartTimeStamp.TimeStampBinaryFormat);
 
@@ -70,7 +72,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
                 dnxSymbol = JghString.TmLr(item.DnxSurmisedByThisAlgorithm);
 
 
-            return JghString.ConcatWithSeparator(" ", item.CalculatedRankOverall.ToString(), item.Identifier,  item.Participant.FirstName, item.Participant.LastName, item.RaceGroupDeducedFromParticipant, item.KindOfGunStart, prettyGunStartDateTime, prettyDuration, dnxSymbol);
+            return JghString.ConcatWithSeparator(" ", item.CalculatedRankOverall.ToString(), item.Bib, item.Rfid,  item.Participant.FirstName, item.Participant.LastName, item.RaceGroupDeducedFromParticipant, item.KindOfGunStart, prettyGunStartDateTime, prettyDuration, dnxSymbol);
 
         }
 
@@ -95,7 +97,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
             var answer = new ResultDto
             {
-                Bib = JghString.TmLr(item.Identifier),
+                Bib = JghString.TmLr(item.Bib),
+                Rfid = JghString.TmLr(item.Rfid),
                 RaceGroup = string.IsNullOrWhiteSpace(item.RaceGroupDeducedFromParticipant) ? Symbols.SymbolUncategorised : JghString.TmLr(item.RaceGroupDeducedFromParticipant)// must always have a default Race
             };
 
@@ -103,6 +106,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
             {
                 var xx = item.Participant;
 
+                //answer.Rfid = JghString.TmLr(xx.Rfid);
                 answer.First = JghString.TmLr(xx.FirstName);
                 answer.Last = JghString.TmLr(xx.LastName);
                 answer.MiddleInitial = JghString.TmLr(xx.MiddleInitial);

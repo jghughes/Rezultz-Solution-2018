@@ -800,7 +800,7 @@ internal class Program
         {
             var arrayOfDataInRow = row.Split(',');
 
-            #region instantiate MyLapsResultObject for this row and populate with particulars from participant master list iff identifier is found in master list
+            #region instantiate MyLapsResultObject for this row and populate with particulars from participant master list iff Bib is found in master list
 
             var candidateLapsResultItem = new MyLapsResultObject
             {

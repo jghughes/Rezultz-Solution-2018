@@ -1201,7 +1201,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
 
             var thisTimeStampBinaryFormat = JghDateTime.RoundedToTenthOfSecond(DateTime.Now).ToBinary();
 
-            var item = TimeStampHubItem.Create(ButtonClickCounter, labelOfStartingGroupOrIdOfSingleIndividual, kindOfGunStartEntryEnum, thisTimeStampBinaryFormat, touchedBy);
+            var item = TimeStampHubItem.Create(ButtonClickCounter, labelOfStartingGroupOrIdOfSingleIndividual, string.Empty, kindOfGunStartEntryEnum, thisTimeStampBinaryFormat, touchedBy);
 
             var didRunToCompletion = RepositoryOfHubStyleEntries.TryAddNoDuplicate(item, out var errorMessage);
 
@@ -1344,7 +1344,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
 
             var thisTimeStampBinaryFormat = JghDateTime.RoundedToTenthOfSecond(DateTime.Now).ToBinary();
 
-            var item = TimeStampHubItem.Create(ButtonClickCounter, participantId, kindOfEntryEnum, thisTimeStampBinaryFormat, touchedBy);
+            var item = TimeStampHubItem.Create(ButtonClickCounter, participantId, string.Empty, kindOfEntryEnum, thisTimeStampBinaryFormat, touchedBy);
 
             var didRunToCompletion = RepositoryOfHubStyleEntries.TryAddNoDuplicate(item, out var errorMessage);
 
@@ -1482,7 +1482,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
 
             var timeStampBinaryFormat = EditTemplateForRepositoryItemBeingEdited.GetBinaryTimeStamp();
 
-            var item = TimeStampHubItem.Create(ButtonClickCounter, participantId, kindOfEntryEnum, timeStampBinaryFormat, touchedBy);
+            var item = TimeStampHubItem.Create(ButtonClickCounter, participantId, string.Empty, kindOfEntryEnum, timeStampBinaryFormat, touchedBy);
 
 
             var didRunToCompletion = RepositoryOfHubStyleEntries.TryAddNoDuplicate(item, out var errorMessage);
@@ -1503,7 +1503,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
 
             #endregion
 
-            return $"{JghDateTime.ToTimeLocalhhmmssf(item.TimeStampBinaryFormat)} for {item.Identifier} confirmed.";
+            return $"{JghDateTime.ToTimeLocalhhmmssf(item.TimeStampBinaryFormat)} for {item.Bib} confirmed.";
         }
 
         #region try catch
@@ -2063,7 +2063,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
             multipleIdentifiers = JghString.ToTrimmedLowerCaseStrings(multipleIdentifiers);
 
             displayObjects = displayObjects
-                .Where(displayObject => multipleIdentifiers.Contains(JghString.TmLr(displayObject.Identifier)))
+                .Where(displayObject => multipleIdentifiers.Contains(JghString.TmLr(displayObject.Bib)))
                 .ToArray();
         }
 
@@ -2349,7 +2349,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
             var cleanIds = JghString.ToTrimmedLowerCaseStrings(multipleIds);
 
             displayObjects = displayObjects
-                .Where(displayObject => cleanIds.Contains(JghString.TmLr(displayObject.Identifier)))
+                .Where(displayObject => cleanIds.Contains(JghString.TmLr(displayObject.Bib)))
                 .ToArray();
         }
 
@@ -2980,7 +2980,7 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
         {
             if (displayObject.RecordingModeEnum != EnumStrings.KindOfEntryIsTimeStampForGunStartForSingleIndividual && displayObject.RecordingModeEnum != EnumStrings.KindOfEntryIsTimeStampForTimingMatSignal) return;
 
-            var participantHubItem = _participantDatabase.GetParticipantFromMasterList(JghString.TmLr(displayObject.Identifier));
+            var participantHubItem = _participantDatabase.GetParticipantFromMasterList(JghString.TmLr(displayObject.Bib));
 
             if (participantHubItem == null)
             {

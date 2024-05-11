@@ -24,11 +24,13 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
         public const string XeTotalNumberOfSplitIntervals = "TallyOfSplitIntervals";
         public const string XeCalculatedTotalCumulativeDuration = "CalculatedTotalCumulativeDuration";
 
-        #endregion        
-        
+        #endregion
+
         #region props
 
-        public string Identifier { get; set; } = string.Empty;
+        public string Bib { get; set; } = string.Empty;
+
+        public string Rfid { get; set; } = string.Empty;
 
         public string FirstName { get; set; } = string.Empty;
 
@@ -122,7 +124,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             var answer = new SplitIntervalConsolidationForParticipantDisplayObject
             {
-                Identifier = JghString.RightAlign(model.Identifier, 4, ' '),
+                Bib = JghString.RightAlign(model.Bib, 4, ' '),
+                Rfid = JghString.RightAlign(model.Rfid, 4, ' '),
                 CalculatedRankOverall = JghString.PadLeftOrBlankIfZero(model.CalculatedRankOverall, 4, ' '),
                 TallyOfTimingMatActivations = JghString.RightAlign(model.TallyOfTimingMatTimeStamps.ToString(), 5, ' '),
                 TallyOfSplitIntervals = JghString.RightAlign(model.TallyOfSplitIntervals.ToString(), 5, ' '),
@@ -257,7 +260,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             var answer = new SplitIntervalConsolidationForParticipantDisplayObject
             {
-                Identifier = JghString.RightAlign(model.Identifier, 4, ' '),
+                Bib = JghString.RightAlign(model.Bib, 4, ' '),
+                Rfid = JghString.RightAlign(model.Rfid, 4, ' '),
                 CalculatedRankOverall = JghString.PadLeftOrBlankIfZero(model.CalculatedRankOverall, 4, ' '),
                 TallyOfTimingMatActivations = JghString.RightAlign(model.TallyOfTimingMatTimeStamps.ToString(), 5, ' '),
                 TallyOfSplitIntervals = JghString.RightAlign(model.TallyOfSplitIntervals.ToString(), 5, ' '),
@@ -428,7 +432,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             var template = new List<ColumnSpecificationItem>
             {
                 new(XePlace, "Rank", "CalculatedRankOverall"),
-                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
+                new(HubItemDto.XeBib, "Bib", "Bib"),
+                new(HubItemDto.XeRfid, "Rfid", "Rfid"),
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
@@ -471,7 +476,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             var template = new List<ColumnSpecificationItem>
             {
                 new(XePlace, "Rank", "CalculatedRankOverall"),
-                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
+                new(HubItemDto.XeBib, "Bib", "Bib"),
+                new(HubItemDto.XeRfid, "Rfid", "Bib"),
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 //new(ParticipantHubItemSerialiserNames.MiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
@@ -523,7 +529,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             var label = JghString.ConcatWithSeparator(" ",
                 displayObject.CalculatedRankOverall,
-                displayObject.Identifier,
+                displayObject.Bib,
+                displayObject.Rfid,
                 displayObject.FirstName,
                 displayObject.LastName,
                 displayObject.RaceGroup,

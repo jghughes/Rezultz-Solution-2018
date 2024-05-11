@@ -650,7 +650,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
 
             var touchedBy = SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem?.UserName;
 
-            var item = ParticipantHubItem.Create(ButtonClickCounter, participantIdentifier, kindOfEntryEnum, touchedBy);
+            var item = ParticipantHubItem.Create(ButtonClickCounter, participantIdentifier, string.Empty, kindOfEntryEnum, touchedBy);
 
             var didRunToCompletion = RepositoryOfHubStyleEntries.TryAddNoDuplicate(item, out var errorMessage);
 
@@ -1158,7 +1158,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
             multipleIdentifiers = JghString.ToTrimmedLowerCaseStrings(multipleIdentifiers);
 
             displayObjects = displayObjects
-                .Where(displayObject => multipleIdentifiers.Contains(JghString.TmLr(displayObject.Identifier)))
+                .Where(displayObject => multipleIdentifiers.Contains(JghString.TmLr(displayObject.Bib)))
                 .ToArray();
         }
 
@@ -1195,7 +1195,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
             .OrderBy(z => z.LastName)
             .ThenBy(z => z.FirstName)
             .ThenBy(z => z.MiddleInitial)
-            .ThenBy(z => z.Identifier)
+            .ThenBy(z => z.Bib)
             .ThenByDescending(z => z.WhenTouched)
             .ToArray();
 

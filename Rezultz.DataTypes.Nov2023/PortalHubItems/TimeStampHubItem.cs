@@ -21,9 +21,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
         #region methods
         
-        public static TimeStampHubItem Create(int clickCounter, string identifier, string recordingModeEnum, long binaryTimeStamp, string touchedBy)
+        public static TimeStampHubItem Create(int clickCounter, string bib, string rfid, string recordingModeEnum, long binaryTimeStamp, string touchedBy)
         {
-            var thisIdentifier = JghString.CleanAndConvertToLetterOrDigitOrHyphen(identifier);
+            var thisIdentifier = JghString.CleanAndConvertToLetterOrDigitOrHyphen(bib);
 
             var thisTimeStampBinaryFormat = binaryTimeStamp;
             //var thisTimeStampBinaryFormat = JghDateTime.RoundedToTenthOfSecond(DateTime.Now).ToBinary();
@@ -35,7 +35,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
             var answer = new TimeStampHubItem
             {
                 ClickCounter = clickCounter,
-                Identifier = thisIdentifier,
+                Bib = thisIdentifier,
+                Rfid = rfid,
                 TimeStampBinaryFormat = thisTimeStampBinaryFormat,
                 RecordingModeEnum = thisRecordingModeEnum,
                 DatabaseActionEnum = EnumStrings.DatabaseAdd, // NB add is to create
@@ -51,7 +52,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
             // special case. there is only ever a single mass start.
             //if (clockHubItem.RecordingModeEnum == EnumStrings.KindOfEntryIsTimeStampForGunStartForEverybody)
-            //    clockHubItem.Identifier = JghString.CleanAndConvertToLetterOrDigit("0");
+            //    clockHubItem.Bib = JghString.CleanAndConvertToLetterOrDigit("0");
 
             return answer;
         }
@@ -72,7 +73,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
                     //Label = string.Empty,
                     //EnumString = string.Empty,
                     ClickCounter = src.ClickCounter,
-                    Identifier = src.Identifier,
+                    Bib = src.Bib,
+                    Rfid = src.Rfid,
                     RecordingModeEnum = src.RecordingModeEnum,
                     DatabaseActionEnum = src.DatabaseActionEnum,
                     MustDitchOriginatingItem = src.MustDitchOriginatingItem,
@@ -138,7 +140,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
                 {
                     DnxSymbol = src.DnxSymbol,
                     ClickCounter = src.ClickCounter,
-                    Identifier = src.Identifier,
+                    Bib = src.Bib,
+                    Rfid = src.Rfid,
                     RecordingModeEnum = src.RecordingModeEnum,
                     DatabaseActionEnum = src.DatabaseActionEnum,
                     MustDitchOriginatingItem = src.MustDitchOriginatingItem,
@@ -200,7 +203,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
         {
             if (item == null) return string.Empty;
 
-            return JghString.ConcatWithSeparator(" ", item.ClickCounter.ToString(), item.DatabaseActionEnum, item.Identifier, item.RecordingModeEnum, JghDateTime.ToTimeLocalhhmmssf(item.TimeStampBinaryFormat));
+            return JghString.ConcatWithSeparator(" ", item.ClickCounter.ToString(), item.DatabaseActionEnum, item.Bib, item.RecordingModeEnum, JghDateTime.ToTimeLocalhhmmssf(item.TimeStampBinaryFormat));
 
         }
 

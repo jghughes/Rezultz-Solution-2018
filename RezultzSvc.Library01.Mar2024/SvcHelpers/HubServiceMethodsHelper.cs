@@ -27,7 +27,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             // NB: ONLY use this method for uploading singletons i.e. for PINs and Check-ins.
             // in our blobStorage schema for singleton we use tablePartition==RecordingModeEnum
-            // and tableRowKey==Identifier for check-in (a pseudo singleton) and tableRowKey==ClockModeSymbolPin for the one and only PIN.
+            // and tableRowKey==Bib for check-in (a pseudo singleton) and tableRowKey==ClockModeSymbolPin for the one and only PIN.
 
             var accountConnectionString =
                 await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
@@ -81,7 +81,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             // NB: ONLY use this method for downloading singletons i.e. for PINs and Check-ins?.
             // in our blobStorage schema for singletons we use tablePartition==RecordingModeEnum
-            // and tableRowKey==Identifier for check-in and tableRowKey==ClockModeSymbolPin for the one and only PIN.
+            // and tableRowKey==Bib for check-in and tableRowKey==ClockModeSymbolPin for the one and only PIN.
 
 
             var accountConnectionString =
@@ -95,10 +95,10 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
             var keyCarrier = new TimeStampHubItemDto
             {
-                Identifier = tableRowKey,
+                Bib = tableRowKey,
                 RecordingModeEnum = tablePartition
             };
-            // in our database system, the row key to a singleton is in the Identifier property and nowhere else, and the table partition is always equivalent to the stopwatch recording mode symbol 
+            // in our database system, the row key to a singleton is in the Bib property and nowhere else, and the table partition is always equivalent to the stopwatch recording mode symbol 
 
             var blobName = CreateClockHubItemBlobName(keyCarrier);
 
@@ -108,7 +108,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
                 throw new Jgh404Exception("Blob not found.");
 
             var clockHubItemDataTransferObjectAsJsonHopefully = JghConvert.ToStringFromUtf8Bytes(response.Value.Content.ToArray());
-            // presumes this is a itemAsJson in json format where Identifier==pin when downloading a PIN)
+            // presumes this is a itemAsJson in json format where Bib==pin when downloading a PIN)
 
             return clockHubItemDataTransferObjectAsJsonHopefully;
         }
@@ -124,7 +124,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             var descriptionOfContents = MakeCleverDescriptionOfClockHubItemContents(item);
 
             var uniqueTableRowKey =
-                ChooseCosmosTableRowKey(item.RecordingModeEnum, item.Identifier, descriptionOfContents);
+                ChooseCosmosTableRowKey(item.RecordingModeEnum, item.Bib, descriptionOfContents);
 
             var tablePartition = item.RecordingModeEnum;
 
@@ -141,7 +141,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
             sb.Append(spacer);
 
-            sb.Append(JghString.RightAlign(hubItem.Identifier, 3, '0'));
+            sb.Append(JghString.RightAlign(hubItem.Bib, 3, '0'));
             sb.Append(spacer);
 
             // convert to UTC so that everything in the database is stored in UTC worldwide, regardless of the timezone where the server happens to be running

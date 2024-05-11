@@ -33,7 +33,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 var displayObject = new TimeStampHubItemDisplayObject
                 {
                     ClickCounter = JghString.ToStringMin3(model.ClickCounter),
-                    Identifier = JghString.RightAlign(model.Identifier, 4, ' '),
+                    Bib = JghString.RightAlign(model.Bib, 4, ' '),
+                    Rfid = JghString.RightAlign(model.Rfid, 4, ' '),
                     RecordingModeEnum = model.RecordingModeEnum,
                     DatabaseActionEnum = model.DatabaseActionEnum,
                     DnxSymbol = model.DnxSymbol,
@@ -144,7 +145,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
+                new(HubItemDto.XeBib, "Bib", "Bib"),
+                new(HubItemDto.XeBib, "rfid", "Rfid"),
                 new(TimeStampHubItemDto.XeDnxSymbol, "Dnx", "DnxSymbol"),
                 new(ParticipantHubItemDto.XeRace, "RaceGroup", "RaceGroup"),
 
@@ -174,7 +176,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 //new(ParticipantHubItemSerialiserNames.MiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-                new(HubItemDto.XeIdentifier, "ID", "Identifier"),
+                new(HubItemDto.XeBib, "Bib", "Bib"),
+                //new(HubItemDto.XeBib, "rfid", "Rfid"),
                 new(TimeStampHubItemDto.XeDnxSymbol, "Dnx", "DnxSymbol"),
                 new(ParticipantHubItemDto.XeRace, "RaceGroup", "RaceGroup"),
 
@@ -206,7 +209,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             var label = JghString.ConcatWithSeparator(" ",
                 displayObject.ClickCounter,
-                displayObject.Identifier,
+                displayObject.Bib,
+                displayObject.Rfid,
                 displayObject.TimeStamp,
                 displayObject.DnxSymbol,
 

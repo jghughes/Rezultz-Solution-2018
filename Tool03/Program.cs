@@ -309,13 +309,13 @@ internal class Program
                 {
                     var arrayOfDataInRow = row.Split(',');
 
-                    #region instantiate ResultItemDataTransferObject for this row and populate with particulars from participant master list iff identifier is found in master list
+                    #region instantiate ResultItemDataTransferObject for this row and populate with particulars from participant master list iff Bib is found in master list
 
                     var identifierOfParticipant = GetTextItemFromArrayByIndexOrStringEmpty(arrayOfDataInRow, indexOfBibColumn);
 
                     if (string.IsNullOrWhiteSpace(identifierOfParticipant)) continue;
 
-                    var participantItem = masterListOfParticipantHubItemDTo.FirstOrDefault(z => z.Identifier == identifierOfParticipant);
+                    var participantItem = masterListOfParticipantHubItemDTo.FirstOrDefault(z => z.Bib == identifierOfParticipant);
 
                     ResultDto thisResultItemDto;
 
@@ -333,13 +333,13 @@ internal class Program
                             IsSeries = false
                         };
 
-                        JghConsoleHelper.WriteLine($"Warning! Participant master list fails to have an identifier for {thisResultItemDto.Bib} {thisResultItemDto.Last} {thisResultItemDto.RaceGroup}");
+                        JghConsoleHelper.WriteLine($"Warning! Participant master list fails to have a Bib number for <{thisResultItemDto.Bib} {thisResultItemDto.Last} {thisResultItemDto.RaceGroup}>");
                     }
                     else
                     {
                         thisResultItemDto = new ResultDto
                         {
-                            Bib = participantItem.Identifier,
+                            Bib = participantItem.Bib,
                             First = participantItem.FirstName,
                             Last = participantItem.LastName,
                             MiddleInitial = participantItem.MiddleInitial,

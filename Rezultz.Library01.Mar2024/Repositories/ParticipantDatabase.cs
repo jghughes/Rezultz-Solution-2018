@@ -89,15 +89,15 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (string.IsNullOrWhiteSpace(row.RaceGroupBeforeTransition)) row.Comment = JghString.ConcatAsSentences(row.Comment, "Race group not specified.");
 
 
-                if (string.IsNullOrWhiteSpace(row.Identifier))
+                if (string.IsNullOrWhiteSpace(row.Bib))
                     row.Comment = JghString.ConcatAsSentences(row.Comment, "Blank ID.");
-                else if (JghString.JghStartsWith(Symbols.SymbolUnspecified, row.Identifier)) row.Comment = JghString.ConcatAsSentences(row.Comment, "ID not specified.");
+                else if (JghString.JghStartsWith(Symbols.SymbolUnspecified, row.Bib)) row.Comment = JghString.ConcatAsSentences(row.Comment, "ID not specified.");
 
 
                 if (string.IsNullOrWhiteSpace(JghString.Concat(row.FirstName, row.MiddleInitial, row.LastName))) row.Comment = JghString.ConcatAsSentences(row.Comment, "Blank names.");
 
                 if (string.IsNullOrWhiteSpace(JghString.Concat(row.FirstName, row.MiddleInitial, row.LastName)))
-                    if (JghString.JghStartsWith(Symbols.SymbolUnspecified, row.Identifier) || string.IsNullOrWhiteSpace(row.Identifier))
+                    if (JghString.JghStartsWith(Symbols.SymbolUnspecified, row.Bib) || string.IsNullOrWhiteSpace(row.Bib))
                         row.Comment = JghString.ConcatAsSentences(row.Comment, "ID blank or unspecified and names blank.");
             }
 
@@ -163,7 +163,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 .OrderBy(z => z.LastName)
                 .ThenBy(z => z.FirstName)
                 .ThenBy(z => z.MiddleInitial)
-                .ThenBy(z => z.Identifier)
+                .ThenBy(z => z.Bib)
                 .ThenByDescending(z => z.WhenTouchedBinaryFormat);
 
             return answer.ToArray();
@@ -228,7 +228,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         {
             List<ParticipantHubItem> answer = new();
 
-            JghListDictionary<string, ParticipantHubItem> listDictionaryGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByIdentifier(_backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => !z.MustDitchOriginatingItem).ToArray());
+            JghListDictionary<string, ParticipantHubItem> listDictionaryGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByBib(_backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => !z.MustDitchOriginatingItem).ToArray());
 
             List<ParticipantHubItem> repeatedIdentifiers = new();
 
@@ -236,7 +236,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (identifierKvp.Value.Count > 1)
                     repeatedIdentifiers.AddRange(identifierKvp.Value);
 
-            answer.AddRange(repeatedIdentifiers.OrderBy(y => y.Identifier).ThenByDescending(z => z.WhenTouchedBinaryFormat));
+            answer.AddRange(repeatedIdentifiers.OrderBy(y => y.Bib).ThenByDescending(z => z.WhenTouchedBinaryFormat));
 
             foreach (var repeat in answer) repeat.Comment = JghString.ConcatAsSentences(repeat.Comment, "Duplicate identifier.");
 
@@ -278,7 +278,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             var excludingDitches = _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => !z.MustDitchOriginatingItem).ToArray();
 
-            var candidateDuplicatesGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByIdentifier(excludingDitches);
+            var candidateDuplicatesGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByBib(excludingDitches);
 
             if (!candidateDuplicatesGroupedByIdentifier.Any()) return answer;
 
@@ -293,7 +293,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (mostRecentEntryForThisIdentifier == null || mostRecentEntryForThisIdentifier.MustDitchOriginatingItem) 
                     continue; // if the most recent entry is a ditch, the contestant is non-existent. ignore this contestant.
 
-                answer.Add(mostRecentEntryForThisIdentifier.Identifier, mostRecentEntryForThisIdentifier);
+                answer.Add(mostRecentEntryForThisIdentifier.Bib, mostRecentEntryForThisIdentifier);
 
             }
 

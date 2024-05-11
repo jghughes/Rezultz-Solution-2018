@@ -3,7 +3,8 @@
     public static class HubItemDto
     {
         public const string XeClickCounter = "click-counter";
-        public const string XeIdentifier = "identifier";
+        public const string XeBib = "bib";
+        public const string XeRfid = "rfid";
         public const string XeRecordingModeEnum = "recording-mode-enum";
         public const string XeDatabaseActionEnum = "database-action-enum";
         public const string XeMustDitchOriginatingItem = "must-ditch-originating-item";

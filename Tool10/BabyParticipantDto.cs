@@ -26,6 +26,8 @@ public class BabyParticipantDto
     public const string XeDateOfRaceGroupTransition = "racegroup-transition-date";
     public const string XeIsSeries = "is-series";
     public const string XeSeries = "series";
+    public const string XeReservation = "reservation";
+    public const string XeRfid = "rfid";
 
     #endregion
 
@@ -33,8 +35,8 @@ public class BabyParticipantDto
 
     // NB. empirically determined that JSONCONVERT fails to correctly roundtrip booleans unless EmitDefaultValue = true
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDto.XeIdentifier)]
-    public string Identifier { get; set; } = string.Empty;
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDto.XeBib)]
+    public string Bib { get; set; } = string.Empty;
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = XeFirstName)]
     public string FirstName { get; set; } = string.Empty;
@@ -71,6 +73,13 @@ public class BabyParticipantDto
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = XeSeries)]
     public string Series { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = XeRfid)]
+    public string Rfid { get; set; } = string.Empty;
+
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 15, Name = XeReservation)]
+    public string Reservation { get; set; } = string.Empty;
 
 
 

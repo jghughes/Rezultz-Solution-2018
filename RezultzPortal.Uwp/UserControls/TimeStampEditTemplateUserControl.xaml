@@ -72,10 +72,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0"
-                   Text="Identifier :" Style="{StaticResource HereBodyTextBlockStyle}" />
+                   Text="Bib :" Style="{StaticResource HereBodyTextBlockStyle}" />
         <TextBox Grid.Row="0" Grid.Column="2"
-                 PlaceholderText="Identifier for this timestamp .."
-                 Text="{Binding Path=Identifier,  Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay, FallbackValue=BindingIsNull}"
+                 PlaceholderText="Bib for this timestamp .."
+                 Text="{Binding Path=Bib,  Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay, FallbackValue=BindingIsNull}"
                  IsEnabled="{Binding Path=IsIdentifierIsLiveForEditing}"
                  Style="{StaticResource HereEntryStyle}" />
 

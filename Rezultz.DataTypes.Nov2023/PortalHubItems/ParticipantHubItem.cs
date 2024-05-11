@@ -52,16 +52,17 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
         [DataMember] public string EventIdentifiers { get; set; } = string.Empty;
 
+        [DataMember] public string Reservation { get; set; } = string.Empty;
 
 
         #endregion
 
         #region methods
 
-        public static ParticipantHubItem Create(int clickCounter, string identifier, string recordingModeEnum, string touchedBy)
+        public static ParticipantHubItem Create(int clickCounter, string bib, string rfid, string recordingModeEnum, string touchedBy)
         {
 
-            var thisIdentifier = JghString.CleanAndConvertToLetterOrDigitOrHyphen(identifier);
+            var thisBib = JghString.CleanAndConvertToLetterOrDigitOrHyphen(bib);
 
             var thisTimeStampBinaryFormat = JghDateTime.RoundedToTenthOfSecond(DateTime.Now).ToBinary();
 
@@ -72,7 +73,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
             var answer = new ParticipantHubItem
             {
                 ClickCounter = clickCounter,
-                Identifier = thisIdentifier,
+                Bib = thisBib,
+                Rfid = rfid,
                 TimeStampBinaryFormat = thisTimeStampBinaryFormat,
                 RecordingModeEnum = thisRecordingModeEnum,
                 DatabaseActionEnum = EnumStrings.DatabaseAdd, // NB this is for an addition
@@ -105,7 +107,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
                 {
                     Label = string.Empty,
                     ClickCounter = src.ClickCounter,
-                    Identifier = src.Identifier,
+                    Bib = src.Bib,
+                    Rfid = src.Rfid,
                     RecordingModeEnum = src.RecordingModeEnum,
                     DatabaseActionEnum = src.DatabaseActionEnum,
                     MustDitchOriginatingItem = src.MustDitchOriginatingItem,
@@ -129,7 +132,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
                     DateOfRaceGroupTransition = DateTime.TryParse(src.DateOfRaceGroupTransitionAsString, out var dateTime) ? dateTime.Date : DateTime.Today,
                     IsSeries = src.IsSeries,
                     Series = src.Series,
-                    EventIdentifiers = src.EventIdentifiers
+                    EventIdentifiers = src.EventIdentifiers,
+                    Reservation = src.Reservation
                 };
 
                 return answer;
@@ -182,6 +186,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
                 var answer = new ParticipantHubItemDto
                 {
+                    Bib = src.Bib,
+                    Rfid = src.Rfid,
                     FirstName = src.FirstName,
                     MiddleInitial = src.MiddleInitial,
                     LastName = src.LastName,
@@ -194,8 +200,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
                     IsSeries = src.IsSeries,
                     Series = src.Series,
                     EventIdentifiers = src.EventIdentifiers,
+                    Reservation = src.Reservation,
                     ClickCounter = src.ClickCounter,
-                    Identifier = src.Identifier,
                     RecordingModeEnum = src.RecordingModeEnum,
                     DatabaseActionEnum = src.DatabaseActionEnum,
                     MustDitchOriginatingItem = src.MustDitchOriginatingItem,
@@ -269,7 +275,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
         {
             if (item == null) return string.Empty;
 
-            return JghString.ConcatWithSeparator(" ", item.ClickCounter.ToString(), item.DatabaseActionEnum, item.Identifier, item.FirstName, item.LastName);
+            return JghString.ConcatWithSeparator(" ", item.ClickCounter.ToString(), item.DatabaseActionEnum, item.Bib, item.FirstName, item.LastName, item.Rfid);
         }
 
         #endregion

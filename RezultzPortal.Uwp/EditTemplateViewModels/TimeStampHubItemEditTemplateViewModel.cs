@@ -228,7 +228,8 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         _kindOfTimeStampEnum = itemBeingModified.RecordingModeEnum;
         KindOfTimeStampEnumText = _kindOfTimeStampEnum;
 
-        Identifier = JghString.TmLr(itemBeingModified.Identifier);
+        Bib = JghString.TmLr(itemBeingModified.Bib);
+        Rfid = JghString.TmLr(itemBeingModified.Rfid);
         SelectedYear = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Year;
         SelectedMonth = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Month;
         SelectedDay = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Day;
@@ -276,10 +277,15 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
 
         // editable fields in template
 
-        if (string.IsNullOrWhiteSpace(Identifier))
-            answer.Identifier = JghString.TmLr(Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString()));
+        if (string.IsNullOrWhiteSpace(Bib))
+            answer.Bib = JghString.TmLr(Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString()));
         else
-            answer.Identifier = JghString.TmLr(JghString.CleanAndConvertToLetterOrDigitOrHyphen(Identifier));
+            answer.Bib = JghString.TmLr(JghString.CleanAndConvertToLetterOrDigitOrHyphen(Bib));
+
+        if (string.IsNullOrWhiteSpace(Rfid))
+            answer.Rfid = JghString.TmLr(Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString()));
+        else
+            answer.Rfid = Rfid;
 
         answer.TimeStampBinaryFormat = GetBinaryTimeStamp();
 
@@ -307,7 +313,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         answer.Guid = System.Guid.NewGuid().ToString();
         // NB Guid assigned here at moment of population by user (not in ctor). the ctor does not create the Guid fields. only in TimeStampHubItem.CreateItem() and TimeStampHubItemEditTemplateViewModel.MergeEditsBackIntoItemBeingModified()
 
-        answer.Label = JghString.Concat(answer.Identifier, answer.RecordingModeEnum, answer.DatabaseActionEnum);
+        answer.Label = JghString.Concat(answer.Bib, answer.RecordingModeEnum, answer.DatabaseActionEnum);
 
         #endregion
 
@@ -326,7 +332,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         if (SelectedSecond is > 59 or < 0) sb.AppendLine("Seconds must be 0 to 59.");
         if (SelectedSecondTenth is > 9 or < 0) sb.AppendLine("Tenths must be 0 to 9.");
         if (SelectedSecondTenth is > 9 or < 0) sb.AppendLine("Tenths must be 0 to 9.");
-        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(Identifier))
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(Bib))
             sb.AppendLine("ID must consist of letters, digits, or hyphens (or be temporarily blank).");
 
         if (sb.Length <= 0)
@@ -383,7 +389,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
 
         KindOfTimeStampEnumText = string.Empty;
 
-        Identifier = string.Empty;
+        Bib = string.Empty;
 
         SelectedYear = 0;
         SelectedMonth = 0;
@@ -435,7 +441,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
     private string CurrentSemanticValue()
     {
         var answer = JghString.Concat(
-            ValueOrDummy(JghString.TmLr(Identifier)),
+            ValueOrDummy(JghString.TmLr(Bib)),
             SelectedYear.ToString(),
             SelectedMonth.ToString(),
             SelectedDay.ToString(),

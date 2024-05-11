@@ -15,6 +15,7 @@ public class ResultDto
     public const string XeResult = "result"; // the repeating element of the array
 
     public const string XeBib = "bib";
+    public const string XeRfid = "rfid";
     public const string XeFirst = "first";
     public const string XeMiddle = "middle";
     public const string XeLast = "last";
@@ -49,8 +50,11 @@ public class ResultDto
 
     #region DataMembers
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = XeBib)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 0, Name = XeBib)]
     public string Bib { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = XeRfid)]
+    public string Rfid { get; set; } = string.Empty;
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = XeFirst)]
     public string First { get; set; } = string.Empty;

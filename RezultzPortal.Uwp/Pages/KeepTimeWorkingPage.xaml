@@ -245,7 +245,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0"
-                                       Text="Timekeeping :  clone timestamp to another Identifier"
+                                       Text="Timekeeping :  clone timestamp to another Bib"
                                        Style="{StaticResource LibraryCaptionTextBlockStyle}" />
 
                             <Grid Grid.Row="2" Grid.Column="0">
@@ -256,7 +256,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Other Identifier :"
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Other Bib :"
                                            Style="{StaticResource HereBodyTextBlockStyle}" />
 
                                 <TextBox Grid.Row="0" Grid.Column="2"

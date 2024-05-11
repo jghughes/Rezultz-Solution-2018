@@ -21,7 +21,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         public string ClickCounter { get; set; }
 
-        public string Identifier { get; set; } = string.Empty;
+        public string Bib { get; set; } = string.Empty;
+
+        public string Rfid { get; set; } = string.Empty;
 
         public string RecordingModeEnum { get; set; } = string.Empty;
 

@@ -4,9 +4,11 @@
 	{
 		string RecordingModeEnum { get; set; }
 
-		string Identifier { get; set; }
+        string Bib { get; set; }
 
-		long TimeStampBinaryFormat { get; set; }
+        string Rfid { get; set; }
+
+        long TimeStampBinaryFormat { get; set; }
 
 		bool MustDitchOriginatingItem { get; set; }
 

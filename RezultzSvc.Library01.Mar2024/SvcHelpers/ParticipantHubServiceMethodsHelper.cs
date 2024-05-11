@@ -26,7 +26,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             // NB: ONLY use this method for uploading singletons i.e. for PINs and Checkins.
             // in our blobStorage schema for singletons we use tablePartition==RecordingModeEnum
-            // and tableRowKey==Identifier for checkin (a pseudo singleton) and tableRowKey==ParticipantModeSymbolPin for the one and only PIN.
+            // and tableRowKey==Bib for checkin (a pseudo singleton) and tableRowKey==ParticipantModeSymbolPin for the one and only PIN.
 
             var accountConnectionString =
                 await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
@@ -95,10 +95,10 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
             var keyCarrier = new ParticipantHubItemDto
             {
-                Identifier = tableRowKey,
+                Bib = tableRowKey,
                 RecordingModeEnum = tablePartition
             };
-            // in our database system, the row key to a singleton is in the Identifier property and nowhere else, and the table partition is always equivalent to the RecordingModeEnum 
+            // in our database system, the row key to a singleton is in the Bib property and nowhere else, and the table partition is always equivalent to the RecordingModeEnum 
 
             var blobName = CreateParticipantHubItemBlobName(keyCarrier);
 
@@ -122,7 +122,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             var descriptionOfContents = MakeCleverDescriptionOfParticipantItemContents(keyCarrier);
 
             var uniqueTableRowKey =
-                ChooseCosmosTableRowKey(keyCarrier.RecordingModeEnum, keyCarrier.Identifier, descriptionOfContents);
+                ChooseCosmosTableRowKey(keyCarrier.RecordingModeEnum, keyCarrier.Bib, descriptionOfContents);
 
             var tablePartition = keyCarrier.RecordingModeEnum;
 
@@ -140,7 +140,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             sb.Append(spacer);
             sb.Append(JghString.LeftAlign($"{hubItem.LastName}, {hubItem.FirstName} {hubItem.MiddleInitial}", 30, '_'));
             sb.Append(spacer);
-            sb.Append(JghString.RightAlign(hubItem.Identifier, 3, '0'));
+            sb.Append(JghString.RightAlign(hubItem.Bib, 3, '0'));
             sb.Append(spacer);
             sb.Append(StringHelpers.Truncate(hubItem.OriginatingItemGuid, 4));
             sb.Append("-");

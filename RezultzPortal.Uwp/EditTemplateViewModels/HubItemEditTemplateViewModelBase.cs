@@ -135,12 +135,20 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         #region EditTemplate INPC entries - all setters invoke AnyEditTemplateEntryChanged
 
-        private string _backingstoreIdentifier = string.Empty;
+        private string _backingstoreBib = string.Empty;
 
-        public string Identifier
+        public string Bib
         {
-            get => _backingstoreIdentifier ?? string.Empty;
-            set => SetProperty(ref _backingstoreIdentifier, value, AnyEditTemplateEntryChanged);
+            get => _backingstoreBib ?? string.Empty;
+            set => SetProperty(ref _backingstoreBib, value, AnyEditTemplateEntryChanged);
+        }
+
+        private string _backingstoreRfid = string.Empty;
+
+        public string Rfid
+        {
+            get => _backingstoreRfid ?? string.Empty;
+            set => SetProperty(ref _backingstoreRfid, value, AnyEditTemplateEntryChanged);
         }
 
         private bool _backingstoreMustDitchOriginatingItem;

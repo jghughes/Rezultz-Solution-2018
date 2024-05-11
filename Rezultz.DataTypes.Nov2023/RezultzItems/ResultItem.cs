@@ -40,6 +40,8 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public string Bib { get; set; } = string.Empty;
 
+        public string Rfid { get; set; } = string.Empty;
+
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;
@@ -121,6 +123,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                 var answer = new ResultItem()
                 {
                     Bib = JghString.TmLr(x.Bib),
+                    Rfid = JghString.TmLr(x.Rfid),
                     FirstName = JghString.TmLr(x.First),
                     LastName = JghString.TmLr(x.Last),
                     MiddleInitial = JghString.TmLr(x.MiddleInitial),
@@ -201,6 +204,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                 var answer = new ResultDto()
                 {
                     Bib = JghString.TmLr(x.Bib),
+                    Rfid = JghString.TmLr(x.Rfid),
                     First = JghString.TmLr(x.FirstName),
                     Last = JghString.TmLr(x.LastName),
                     MiddleInitial = JghString.TmLr(x.MiddleInitial),
@@ -335,7 +339,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
         public override string ToString()
         {
             return JghString.ConcatAsSentences(DerivedData?.PlaceCalculatedOverallInt.ToString(), FirstName, MiddleInitial, LastName,
-                RaceGroup, AgeGroup, Bib);
+                RaceGroup, AgeGroup, Bib, Rfid);
         }
 
 

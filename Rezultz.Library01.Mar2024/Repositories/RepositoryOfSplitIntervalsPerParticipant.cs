@@ -82,9 +82,11 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var consolidatedSplitIntervalsItem = new SplitIntervalConsolidationForParticipantItem
                 {
-                    Identifier = identifier,
+                    Bib = identifier,
                     Participant = _participantDatabase.GetParticipantFromMasterList(identifier) // totally normal for this to be null
                 };
+
+                consolidatedSplitIntervalsItem.Rfid = consolidatedSplitIntervalsItem.Participant?.Rfid; // Note: todo. it would be more logical for this to come from a timestamp, not the participant master list.
 
                 // figure out the governing RaceGroup of the individual when the event took place (could conceivably be an upgraded/downgraded RaceGroup if the individual changes categories)
 
@@ -359,7 +361,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var unPlacedSplitIntervals = raceKvp.Value
                     .Where(z => z.CalculatedRankOverall == 0)
-                    .OrderBy(intervalsItem => intervalsItem.Identifier);
+                    .OrderBy(intervalsItem => intervalsItem.Bib);
 
                 answer.AddRange(unPlacedSplitIntervals);
             }
@@ -415,9 +417,9 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 #region features of an item that are manifestly anomalous
 
-                if (string.IsNullOrWhiteSpace(row.Identifier))
+                if (string.IsNullOrWhiteSpace(row.Bib))
                     row.Comment = JghString.ConcatAsSentences(row.Comment, "Missing ID.");
-                else if (JghString.JghStartsWith(Symbols.SymbolUnspecified, row.Identifier)) row.Comment = JghString.ConcatAsSentences(row.Comment, "Unassigned ID.");
+                else if (JghString.JghStartsWith(Symbols.SymbolUnspecified, row.Bib)) row.Comment = JghString.ConcatAsSentences(row.Comment, "Unassigned ID.");
 
                 #endregion
 

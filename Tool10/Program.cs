@@ -289,20 +289,20 @@ internal class Program
 
             foreach (var babyParticipant in babyParticipants)
             {
-                var originatingIdentifier = babyParticipant.Identifier;
+                var originatingBib = babyParticipant.Bib;
 
-                if (string.IsNullOrWhiteSpace(originatingIdentifier))
-                    originatingIdentifier = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, Guid.NewGuid().ToString());
+                if (string.IsNullOrWhiteSpace(originatingBib))
+                    originatingBib = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, Guid.NewGuid().ToString());
 
-                if (!JghString.IsOnlyLettersOrDigitsOrHyphen(originatingIdentifier))
+                if (!JghString.IsOnlyLettersOrDigitsOrHyphen(originatingBib))
                 {
-                    originatingIdentifier = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, Guid.NewGuid().ToString());
+                    originatingBib = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, Guid.NewGuid().ToString());
 
                     JghConsoleHelper.WriteLine(
-                        $"Error: Identifier <{originatingIdentifier}> is malformed for <{babyParticipant.FirstName} {babyParticipant.LastName}> Applied default instead <{originatingIdentifier}>. (ID must consist of letters, digits, or hyphens, or be blank))");
+                        $"Error: Bib <{originatingBib}> is malformed for <{babyParticipant.FirstName} {babyParticipant.LastName}> Applied default instead <{originatingBib}>. (Bib must consist of letters, digits, or hyphens, or be blank))");
                 }
 
-                var originatingHubItem = ParticipantHubItem.Create(i, babyParticipant.Identifier, EnumStrings.KindOfEntryIsParticipantEntry, "jgh");
+                var originatingHubItem = ParticipantHubItem.Create(i, babyParticipant.Bib, TODO, EnumStrings.KindOfEntryIsParticipantEntry, "jgh");
 
                 originatingParticipantHubItems.Add(originatingHubItem);
 
@@ -406,22 +406,24 @@ internal class Program
 
     public static BabyParticipantDto? CreateBaby(XElement child)
     {
-        const string XeIdentifier = "Plate_x0020__x0023_"; // the repeating element of the array
+        const string XeBib = "Plate_x0020__x0023_"; // the repeating element of the array
         const string XeFirstName = "First_x0020_Name";
         const string XeLastName = "Last_x0020_Name";
         const string XeGender = "Sex";
         const string XeBirthYear = "Date_x0020_of_x0020_Birth";
         const string XeCity = "city";
         const string XeRaceGroupBeforeTransition = "Category";
+        const string XeRfid= "Bibtag_x0020__x0023_";
+        const string XeReservation = "Reservation";
 
-        var candidateIdentifier = JghString.TmLr(child.Elements(XeIdentifier).First().Value);
+        var candidateBib = JghString.TmLr(child.Elements(XeBib).First().Value);
 
-        if (string.IsNullOrWhiteSpace(candidateIdentifier))
+        if (string.IsNullOrWhiteSpace(candidateBib))
             return null;
 
         var baby = new BabyParticipantDto
         {
-            Identifier = candidateIdentifier,
+            Bib = candidateBib,
             FirstName = JghString.TmLr(child.Elements(XeFirstName).FirstOrDefault()?.Value),
             LastName = JghString.TmLr(child.Elements(XeLastName).FirstOrDefault()?.Value),
             MiddleInitial = string.Empty,
@@ -433,7 +435,9 @@ internal class Program
             RaceGroupAfterTransition = string.Empty,
             DateOfRaceGroupTransitionAsString = string.Empty,
             IsSeries = true, // default
-            Series = string.Empty
+            Series = string.Empty,
+            Rfid = JghString.TmLr(child.Elements(XeRfid).FirstOrDefault()?.Value),
+            Reservation = JghString.TmLr(child.Elements(XeReservation).FirstOrDefault()?.Value),
         };
 
 
@@ -551,11 +555,11 @@ internal class Program
 
         #region Step 2. insert editable fields into the "new" Modify item
 
-        // non-editable fields in template - new plan is to deny Identifier to be changed - if it was entered wrong then delete the item and re-enter it
-        //if (string.IsNullOrWhiteSpace(Identifier))
-        //    answer.Identifier = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString());
+        // non-editable fields in template - new plan is to deny Bib to be changed - if it was entered wrong then delete the item and re-enter it
+        //if (string.IsNullOrWhiteSpace(Bib))
+        //    answer.Bib = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString());
         //else
-        //    answer.Identifier = JghString.TmLr(JghString.CleanAndConvertToLetterOrDigitOrHyphen(JghString.TmLr(Identifier)));
+        //    answer.Bib = JghString.TmLr(JghString.CleanAndConvertToLetterOrDigitOrHyphen(JghString.TmLr(Bib)));
 
         // editable fields in template
         answer.FirstName = JghString.TmLr(baby.FirstName);
@@ -574,6 +578,10 @@ internal class Program
         answer.IsSeries = baby.IsSeries;
         answer.Series = string.Empty;
         answer.EventIdentifiers = string.Empty;
+
+        answer.Rfid = answer.Rfid;
+
+
         answer.MustDitchOriginatingItem = false;
         answer.TouchedBy = string.IsNullOrWhiteSpace(touchedBy) ? "anonymous" : JghString.TmLr(touchedBy);
 
@@ -584,7 +592,7 @@ internal class Program
 
         answer.Guid = Guid.NewGuid().ToString(); // NB. Guid assigned here at moment of population by user (not in ctor). the ctor does not create the Guid fields. only in ParticipantHubItem.CreateItem() and ParticipantHubItemEditTemplateViewModel.MergeEditsBackIntoItemBeingModified()
 
-        answer.Label = JghString.Concat(answer.Identifier, answer.FirstName, answer.LastName);
+        answer.Label = JghString.Concat(answer.Bib, answer.FirstName, answer.LastName);
 
         #endregion
 
@@ -601,12 +609,12 @@ internal class Program
         if (!JghString.IsOnlyLetters(baby.MiddleInitial) || baby.MiddleInitial.Length > 1) sb.AppendLine($"Middle initial must be a single letter or blank. <{baby.FirstName} {baby.LastName}>");
         if (!JghString.IsOnlyLettersOrHyphenOrApostropheOrSpace(baby.LastName) || baby.LastName.Length < 2) sb.AppendLine($"Last name must be two or more letters. May include a hyphen or apostrophe or a space. <{baby.FirstName} {baby.LastName}>");
         if (string.IsNullOrWhiteSpace(baby.Gender)) sb.AppendLine($"Gender must be specified. <{baby.FirstName} {baby.LastName}>");
-        if (string.IsNullOrWhiteSpace(baby.RaceGroupBeforeTransition)) sb.AppendLine($"Race must be specified. <{baby.FirstName} {baby.LastName}>");
-        if (!JghString.IsOnlyLetters(baby.City)) sb.AppendLine($"City name must be letters or blank. <{baby.FirstName} {baby.LastName}>");
-        if (!JghString.IsOnlyLettersOrDigits(baby.Team)) sb.AppendLine($"Team name must be letters and/or digits or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphenOrSpace(baby.RaceGroupBeforeTransition)) sb.AppendLine($"Race must be specified. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphenOrSpace(baby.City)) sb.AppendLine($"City name must be letters or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphenOrSpace(baby.Team)) sb.AppendLine($"Team name must be letters and/or digits or blank. <{baby.FirstName} {baby.LastName}>");
         if (!JghString.IsOnlyDigits(baby.BirthYear) || baby.BirthYear.Length is < 4 or > 4) sb.AppendLine($"Year of birth must be four digits. <{baby.FirstName} {baby.LastName}>");
-        if (!JghString.IsOnlyLettersOrDigits(baby.Series)) sb.AppendLine($"SeriesIdentifier identifier must be letters or digits or blank. <{baby.FirstName} {baby.LastName}>");
-        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(baby.Identifier)) sb.AppendLine($"ID must consist of letters, digits, or hyphens (or be temporarily blank). <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphenOrSpace(baby.Series)) sb.AppendLine($"SeriesIdentifier identifier must be letters or digits or blank. <{baby.FirstName} {baby.LastName}>");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(baby.Bib)) sb.AppendLine($"ID must consist of letters, digits, or hyphens (or be temporarily blank). <{baby.FirstName} {baby.LastName}>");
 
         if (sb.Length <= 0)
         {

@@ -845,7 +845,7 @@ public class DataGridDesigner
 
             var displayObjects = _finalisedDataGridRowsOfParticipantHubItemDisplayObjects
                 .Where(z => z != null)
-                .OrderBy(z => z.Identifier)
+                .OrderBy(z => z.Bib)
                 .ThenBy(z => z.LastName).ToArray();
 
             var columnSpecifications = desiredFormatEnumEnum switch

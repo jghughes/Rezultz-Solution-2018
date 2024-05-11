@@ -181,7 +181,7 @@
                 <StackPanel Orientation="Horizontal">
 
                     <Button
-                        Content="Delete all participants on this machine"
+                        Content="Forcibly delete all participants on this machine"
                         ToolTipService.ToolTip="Delete all profiles on this machine. Caution! Data created on this machine and not already pushed to the hub will be gone forever."
                         Command="{Binding Path=OnClickCommand}"
                         DataContext="{Binding Path=DeleteAllDataButtonVm}"

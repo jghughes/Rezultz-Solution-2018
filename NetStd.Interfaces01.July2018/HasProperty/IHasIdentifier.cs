@@ -2,6 +2,6 @@
 {
 	public interface IHasIdentifier
 	{
-		string Identifier { get;}
+		string Bib { get;}
 	}
 }

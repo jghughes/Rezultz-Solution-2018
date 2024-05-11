@@ -354,7 +354,8 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
 
         if (itemBeingModified == null) return true;
 
-        Identifier = JghString.TmLr(itemBeingModified.Identifier);
+        Bib = JghString.TmLr(itemBeingModified.Bib);
+        Rfid = JghString.TmLr(itemBeingModified.Rfid);
         FirstName = itemBeingModified.FirstName;
         MiddleInitial = itemBeingModified.MiddleInitial;
         LastName = itemBeingModified.LastName;
@@ -436,13 +437,14 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
 
         #region Step 2. insert editable fields into the "new" Modify item
 
-        // non-editable fields in template - new plan is to deny Identifier to be changed - if it was entered wrong then delete the item and re-enter it
-        //if (string.IsNullOrWhiteSpace(Identifier))
-        //    answer.Identifier = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString());
+        // non-editable fields in template - new plan is to deny Bib to be changed - if it was entered wrong then delete the item and re-enter it
+        //if (string.IsNullOrWhiteSpace(Bib))
+        //    answer.Bib = Symbols.SymbolUnspecified + "-" + JghString.Substring(0, 3, System.Guid.NewGuid().ToString());
         //else
-        //    answer.Identifier = JghString.TmLr(JghString.CleanAndConvertToLetterOrDigitOrHyphen(JghString.TmLr(Identifier)));
+        //    answer.Bib = JghString.TmLr(JghString.CleanAndConvertToLetterOrDigitOrHyphen(JghString.TmLr(Bib)));
 
         // editable fields in template
+        answer.Rfid = JghString.TmLr(Rfid);
         answer.FirstName = JghString.TmLr(FirstName);
         answer.MiddleInitial = JghString.TmLr(MiddleInitial);
         answer.LastName = JghString.TmLr(LastName);
@@ -470,8 +472,8 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
         answer.Guid = System.Guid.NewGuid().ToString();
         // NB Guid assigned here at moment of population by user (not in ctor). the ctor does not create the Guid fields. only in ParticipantHubItem.CreateItem() and ParticipantHubItemEditTemplateViewModel.MergeEditsBackIntoItemBeingModified()
 
-        answer.Label = JghString.Concat(answer.Identifier, answer.FirstName, answer.LastName);
-        //answer.Label = JghString.Concat(answer.Identifier, answer.FirstName, answer.LastName, answer.RaceGroupBeforeTransition);
+        answer.Label = JghString.Concat(answer.Bib, answer.FirstName, answer.LastName);
+        //answer.Label = JghString.Concat(answer.Bib, answer.FirstName, answer.LastName, answer.RaceGroupBeforeTransition);
 
         #endregion
 
@@ -493,16 +495,16 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
 
         var sb = new StringBuilder();
 
-        if (!JghString.IsOnlyLettersOrHyphen(FirstName) || FirstName.Length < 2) sb.AppendLine("First name must be two or more letters. May include a hyphen.");
+        if (!JghString.IsOnlyLettersOrHyphenOrApostropheOrSpace(FirstName) || FirstName.Length < 2) sb.AppendLine("First name must be two or more letters. May include a hyphen.");
         if (!JghString.IsOnlyLetters(MiddleInitial) || MiddleInitial.Length > 1) sb.AppendLine("Middle initial must be a single letter or blank.");
-        if (!JghString.IsOnlyLettersOrHyphenOrApostrophe(LastName) || LastName.Length < 2) sb.AppendLine("Last name must be two or more letters. May include a hyphen or apostrophe.");
+        if (!JghString.IsOnlyLettersOrHyphenOrApostropheOrSpace(LastName) || LastName.Length < 2) sb.AppendLine("Last name must be two or more letters. May include a hyphen or apostrophe.");
         if (CboLookUpGenderSpecificationItemsVm.SelectedIndex == -1) sb.AppendLine("Gender must be specified.");
         if (CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.SelectedIndex == -1) sb.AppendLine("Race must be specified.");
-        if (!JghString.IsOnlyLetters(City)) sb.AppendLine("City name must be letters or blank.");
-        if (!JghString.IsOnlyLettersOrDigits(Team)) sb.AppendLine("Team name must be letters and/or digits or blank.");
+        if (!JghString.IsOnlyLettersOrHyphenOrApostropheOrSpace(City)) sb.AppendLine("City name must be letters or blank. May include a hyphen or apostrophe.");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphenOrSpace(Team)) sb.AppendLine("Team name must be letters and/or digits or blank.");
         if (!JghString.IsOnlyDigits(BirthYear) || BirthYear.Length is < 4 or > 4) sb.AppendLine("Year of birth must be four digits.");
-        if (!JghString.IsOnlyLettersOrDigits(SeriesIdentifier)) sb.AppendLine("SeriesIdentifier identifier must be letters or digits or blank.");
-        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(Identifier)) sb.AppendLine("ID must consist of letters, digits, or hyphens (or be temporarily blank).");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphenOrSpace(SeriesIdentifier)) sb.AppendLine("SeriesIdentifier identifier must be letters or digits or blank.");
+        if (!JghString.IsOnlyLettersOrDigitsOrHyphen(Bib)) sb.AppendLine("ID must consist of letters, digits, or hyphens (or be temporarily blank).");
 
         if (sb.Length <= 0)
         {
@@ -528,7 +530,8 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
     {
         await base.ZeroiseAsync();
 
-        Identifier = string.Empty; // is this correct. or should we leave it untouched?
+        Bib = string.Empty; // is this correct. or should we leave it untouched?
+        Rfid = string.Empty; // is this correct. or should we leave it untouched?
         FirstName = string.Empty;
         MiddleInitial = string.Empty;
         LastName = string.Empty;
@@ -561,7 +564,8 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
     private string CurrentSemanticValue()
     {
         var answer = JghString.Concat(
-            ValueOrDummy(JghString.TmLr(Identifier)),
+            ValueOrDummy(JghString.TmLr(Bib)),
+            ValueOrDummy(Rfid),
             ValueOrDummy(FirstName),
             ValueOrDummy(MiddleInitial),
             ValueOrDummy(LastName),

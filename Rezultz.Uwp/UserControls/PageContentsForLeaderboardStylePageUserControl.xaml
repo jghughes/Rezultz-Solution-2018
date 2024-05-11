@@ -454,7 +454,7 @@
                                     </StackPanel>
 
                                     <Button
-                                        Content="Export favorites shown"
+                                        Content="Export favorites as displayed"
                                         CommandParameter="Favorites"
                                         Click="BtnExportChosenData_OnClick"
                                         DataContext="{Binding Path=ExportFavoritesButtonVm}"
@@ -466,7 +466,7 @@
                                     <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
 
                                     <Button
-                                        Content="Export leaderboard shown"
+                                        Content="Export leaderboard as displayed"
                                         CommandParameter="Leaderboard"
                                         Click="BtnExportChosenData_OnClick"
                                         DataContext="{Binding ExportSingleEventLeaderboardButtonVm}"

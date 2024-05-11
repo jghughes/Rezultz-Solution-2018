@@ -96,7 +96,7 @@ internal partial class ParticipantRegistrationSvcWcf : IParticipantRegistrationS
     {
         // NB: ONLY use this method for singletons i.e. for PINs and Check-ins and Profiles.
         // in our blobStorage schema for singletons we use tablePartition==RecordingModeEnum
-        // and tableRowKey==Identifier for check-in and profile, and tableRowKey==ParticipantModeSymbolPin for the one and only PIN.
+        // and tableRowKey==Bib for check-in and profile, and tableRowKey==ParticipantModeSymbolPin for the one and only PIN.
         // why? because in our system, only singletons have row keys which can be deduced for lookups. 
         // things which aren't singletons have row keys that are complex compound keys that fail in round tripping 
 
@@ -143,7 +143,7 @@ internal partial class ParticipantRegistrationSvcWcf : IParticipantRegistrationS
     {
         // NB: ONLY use this method for singletons i.e. for PINs and Check-ins and Profiles.
         // in our blobStorage schema for singletons we use tablePartition==RecordingModeEnum
-        // and tableRowKey==Identifier for check-in and profile, and tableRowKey==ParticipantModeSymbolPin for the one and only PIN.
+        // and tableRowKey==Bib for check-in and profile, and tableRowKey==ParticipantModeSymbolPin for the one and only PIN.
         // why? because in our system, only singletons have row keys which can be deduced for lookups. 
         // things which aren't singletons have row keys that are complex compound keys that fail in round tripping 
 

@@ -348,6 +348,20 @@ namespace NetStd.Goodies.Mar2022
 
             return isValid;
         }
+        public static bool IsOnlyLettersOrDigitsOrHyphenOrSpace(string value)
+        {
+
+            var isValid = true;
+
+            foreach (var c in value)
+            {
+                if (!(Char.IsLetterOrDigit(c) || c == '-') || c == ' ')
+                    isValid = false;
+            }
+
+            return isValid;
+        }
+
         public static bool IsOnlyLettersOrHyphen(string value)
         {
 

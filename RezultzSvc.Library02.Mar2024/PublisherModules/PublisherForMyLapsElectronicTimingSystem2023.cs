@@ -235,13 +235,13 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
                 {
                     var arrayOfDataInRow = row.Split(',');
 
-                    #region instantiate ResultItemDataTransferObject for this row and populate with particulars from participant master list iff identifier is found in master list
+                    #region instantiate ResultItemDataTransferObject for this row and populate with particulars from participant master list iff Bib is found in master list
 
                     var identifierOfParticipant = GetTextItemFromArrayByIndexOrStringEmpty(arrayOfDataInRow, indexOfBibColumn);
 
                     if (string.IsNullOrWhiteSpace(identifierOfParticipant)) continue;
 
-                    var participantItem = masterListOfParticipantHubItemDTo.FirstOrDefault(z => z.Identifier == identifierOfParticipant);
+                    var participantItem = masterListOfParticipantHubItemDTo.FirstOrDefault(z => z.Bib == identifierOfParticipant);
 
                     ResultItem thisResultItem;
 
@@ -260,13 +260,13 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
                         };
 
                         conversionReportSb.AppendLine(
-                            $"Warning! Participant master list fails to have an identifier for {thisResultItem.Bib} {thisResultItem.LastName} {thisResultItem.RaceGroup}");
+                            $"Warning! Participant master list fails to have a Bib number for <{thisResultItem.Bib} {thisResultItem.LastName} {thisResultItem.RaceGroup}>");
                     }
                     else
                     {
                         thisResultItem = new ResultItem
                         {
-                            Bib = participantItem.Identifier,
+                            Bib = participantItem.Bib,
                             FirstName = participantItem.FirstName,
                             LastName = participantItem.LastName,
                             MiddleInitial = participantItem.MiddleInitial,

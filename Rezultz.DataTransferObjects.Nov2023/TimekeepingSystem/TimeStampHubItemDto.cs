@@ -22,14 +22,17 @@ public class TimeStampHubItemDto : IHubItemDataTransferObject
 
     // NB. empirically determined that JSONCONVERT fails to correctly roundtrip booleans unless EmitDefaultValue = true
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = XeDnxSymbol)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 0, Name = XeDnxSymbol)]
     public string DnxSymbol { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = HubItemDto.XeClickCounter)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDto.XeClickCounter)]
     public int ClickCounter { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = HubItemDto.XeIdentifier)]
-    public string Identifier { get; set; } = string.Empty;
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = HubItemDto.XeBib)]
+    public string Bib { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = HubItemDto.XeRfid)]
+    public string Rfid { get; set; } = string.Empty;
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = HubItemDto.XeRecordingModeEnum)]
     public string RecordingModeEnum { get; set; } = string.Empty;

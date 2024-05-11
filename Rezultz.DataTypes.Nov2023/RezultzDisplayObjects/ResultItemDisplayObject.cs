@@ -41,6 +41,8 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
         public string Bib { get; set; } = string.Empty;
 
+        public string Rfid { get; set; } = string.Empty;
+
         public string FirstName { get; set; } = string.Empty;
 
         public string MiddleInitial { get; set; } = string.Empty;
@@ -161,6 +163,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                 var displayObject = new ResultItemDisplayObject
                 {
                     ID = model.ID,
+                    Rfid = model.Rfid,
                     Bib = JghString.RightAlign(JghString.TmLr(model.Bib), 4, ' '),
                     FirstName = JghString.TmLr(model.FirstName),
                     LastName = JghString.TmLr(model.LastName),
@@ -1198,7 +1201,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
         public override string ToString()
         {
             return JghString.ConcatAsSentences(PlaceCalculatedOverallAsString, FirstName, MiddleInitial, LastName,
-                RaceGroup, AgeGroup, Bib);
+                RaceGroup, AgeGroup, Bib, Rfid);
         }
 
         #endregion

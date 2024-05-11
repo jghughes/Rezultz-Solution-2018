@@ -25,7 +25,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
         [DataMember] public int ClickCounter { get; set; }
 
-        [DataMember] public string Identifier { get; set; } = string.Empty;
+        [DataMember] public string Bib { get; set; } = string.Empty;
+
+        [DataMember] public string Rfid { get; set; } = string.Empty;
 
         [DataMember] public string RecordingModeEnum { get; set; } = string.Empty;
 
@@ -70,15 +72,15 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
         #region static methods
 
-        public static JghListDictionary<string, T> ToListDictionaryGroupedByIdentifier<T>(T[] listHubItems) where T : class, IHubItem
+        public static JghListDictionary<string, T> ToListDictionaryGroupedByBib<T>(T[] listHubItems) where T : class, IHubItem
         {
             JghListDictionary<string, T> answer = new();
 
             if (listHubItems == null) return answer;
 
-            foreach (var hubItem in listHubItems.Where(z => z != null).Where(z => z.Identifier != null).OrderBy(z => z.Identifier).ThenByDescending(z => z.WhenTouchedBinaryFormat))
+            foreach (var hubItem in listHubItems.Where(z => z != null).Where(z => z.Bib != null).OrderBy(z => z.Bib).ThenByDescending(z => z.WhenTouchedBinaryFormat))
             {
-                answer.Add(hubItem.Identifier, hubItem);
+                answer.Add(hubItem.Bib, hubItem);
             }
 
             return answer;
@@ -97,14 +99,6 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
             return answer;
         }
-
-        #endregion
-
-        #region abstract methods
-
-        //public abstract string ToPrettyPrintedShortDescription(bool mustIncludeButtonClickCounter);
-
-        //public abstract string ToPrettyPrintedLongDescription(bool mustIncludeButtonClickCounter);
 
         #endregion
 

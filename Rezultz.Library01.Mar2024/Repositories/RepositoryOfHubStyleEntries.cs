@@ -361,13 +361,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             if (!itemsForThisRecordingMode.Any())
                 return new();
 
-            var hubItemsGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByIdentifier(itemsForThisRecordingMode);
-            //new JghListDictionary<string, T>();
-
-            //foreach (var hubItem in itemsForThisRecordingMode)
-            //{
-            //    hubItemsGroupedByIdentifier.Add(hubItem.Identifier, hubItem);
-            //}
+            var hubItemsGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByBib(itemsForThisRecordingMode);
 
             var answer = new Dictionary<string, T>();
 
@@ -396,14 +390,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 .Where(z => z.RecordingModeEnum == recordingModeEnum).ToArray();
 
 
-            var answer = HubItemBase.ToListDictionaryGroupedByIdentifier(interimAnswer);
-
-            //JghListDictionary<string, T> answer = new();
-
-            //foreach (var hubItem in interimAnswer)
-            //{
-            //    answer.Add(hubItem.Identifier, hubItem);
-            //}
+            var answer = HubItemBase.ToListDictionaryGroupedByBib(interimAnswer);
 
             return answer;
         }

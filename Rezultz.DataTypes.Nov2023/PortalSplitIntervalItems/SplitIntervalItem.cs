@@ -34,9 +34,11 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
 		public int Place { get; set; }
 
-		public string Identifier { get; set; } = string.Empty;
+        public string Bib { get; set; } = string.Empty;
 
-		public string FirstName { get; set; } = string.Empty;
+        public string Rfid { get; set; } = string.Empty;
+
+        public string FirstName { get; set; } = string.Empty;
 
 		public string MiddleInitial { get; set; } = string.Empty;
 
@@ -90,7 +92,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
 			var answer = new ResultDto()
 			{
-				Bib = JghString.TmLr(splitIntervalItem.Identifier),
+				Bib = JghString.TmLr(splitIntervalItem.Bib),
+                Rfid = JghString.TmLr(splitIntervalItem.Rfid),
 				First = JghString.TmLr(splitIntervalItem.FirstName),
 				Last = JghString.TmLr(splitIntervalItem.LastName),
 				MiddleInitial = JghString.TmLr(splitIntervalItem.MiddleInitial),
