@@ -25,46 +25,46 @@ public class TimeStampHubItemDto : IHubItemDataTransferObject
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 0, Name = XeDnxSymbol)]
     public string DnxSymbol { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDto.XeClickCounter)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDtoNames.XeClickCounter)]
     public int ClickCounter { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = HubItemDto.XeBib)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = HubItemDtoNames.XeBib)]
     public string Bib { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = HubItemDto.XeRfid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = HubItemDtoNames.XeRfid)]
     public string Rfid { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = HubItemDto.XeRecordingModeEnum)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = HubItemDtoNames.XeRecordingModeEnum)]
     public string RecordingModeEnum { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 5, Name = HubItemDto.XeDatabaseActionEnum)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 5, Name = HubItemDtoNames.XeDatabaseActionEnum)]
     public string DatabaseActionEnum { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = HubItemDto.XeMustDitchOriginatingItem)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = HubItemDtoNames.XeMustDitchOriginatingItem)]
     public bool MustDitchOriginatingItem { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 7, Name = HubItemDto.XeIsStillToBeBackedUp)]
+    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 7, Name = HubItemDtoNames.XeIsStillToBeBackedUp)]
     public bool IsStillToBeBackedUp { get; set; } = true;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 8, Name = HubItemDto.XeIsStillToBePushed)]
+    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 8, Name = HubItemDtoNames.XeIsStillToBePushed)]
     public bool IsStillToBePushed { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 9, Name = HubItemDto.XeTouchedBy)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 9, Name = HubItemDtoNames.XeTouchedBy)]
     public string TouchedBy { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 10, Name = HubItemDto.XeTimeStampBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 10, Name = HubItemDtoNames.XeTimeStampBinaryFormat)]
     public long TimeStampBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = HubItemDto.XeWhenTouchedBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = HubItemDtoNames.XeWhenTouchedBinaryFormat)]
     public long WhenTouchedBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = HubItemDto.XeWhenPushedBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = HubItemDtoNames.XeWhenPushedBinaryFormat)]
     public long WhenPushedBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = HubItemDto.XeOriginatingItemGuid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = HubItemDtoNames.XeOriginatingItemGuid)]
     public string OriginatingItemGuid { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = HubItemDto.XeGuid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = HubItemDtoNames.XeGuid)]
     public string Guid { get; set; } = string.Empty;
 
     #endregion

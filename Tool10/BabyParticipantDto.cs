@@ -36,7 +36,7 @@ public class BabyParticipantDto
 
     // NB. empirically determined that JSONCONVERT fails to correctly roundtrip booleans unless EmitDefaultValue = true
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDto.XeBib)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDtoNames.XeBib)]
     public string Bib { get; set; } = string.Empty;
 
     [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = XeFirstName)]

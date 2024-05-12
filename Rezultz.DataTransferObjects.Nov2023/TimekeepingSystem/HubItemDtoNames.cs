@@ -1,6 +1,6 @@
 ﻿namespace Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem
 {
-    public static class HubItemDto
+    public static class HubItemDtoNames
     {
         public const string XeClickCounter = "click-counter";
         public const string XeBib = "bib";

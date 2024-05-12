@@ -170,11 +170,11 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
     {
         var template = new List<ColumnSpecificationItem>
         {
-            new(HubItemDto.XeClickCounter, "Tap", "ClickCounter"),
+            new(HubItemDtoNames.XeClickCounter, "Tap", "ClickCounter"),
             new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
             new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
             new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-            new(HubItemDto.XeBib, "Bib", "Bib"),
+            new(HubItemDtoNames.XeBib, "Bib", "Bib"),
             new(ParticipantHubItemDto.XeRfid, "rfid", "Rfid"),
             new(ParticipantHubItemDto.XeGender, "Gender", "Gender"),
             new(ParticipantHubItemDto.XeBirthYear, "Birth", "BirthYear"),
@@ -191,15 +191,15 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
             new(ParticipantHubItemDto.XeReservation, "Reservation", "Reservation"),
 
 
-            new(HubItemDto.XeMustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
-            new(HubItemDto.XeDatabaseActionEnum, "Action", "DatabaseActionEnum"),
-            new(HubItemDto.XeGuid, "ThisGuid", "DisplayVersionOfSourceItemGuid"),
-            new(HubItemDto.XeOriginatingItemGuid, "OriginGuid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
-            new(HubItemDto.XeTouchedBy, "Author", "TouchedBy"),
-            new(HubItemDto.XeWhenTouched, "WhenEntered", "WhenTouched"),
-            new(HubItemDto.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
-            new(HubItemDto.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-            new(HubItemDto.XeComment, "Comment", "Comment")
+            new(HubItemDtoNames.XeMustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
+            new(HubItemDtoNames.XeDatabaseActionEnum, "Action", "DatabaseActionEnum"),
+            new(HubItemDtoNames.XeGuid, "ThisGuid", "DisplayVersionOfSourceItemGuid"),
+            new(HubItemDtoNames.XeOriginatingItemGuid, "OriginGuid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
+            new(HubItemDtoNames.XeTouchedBy, "Author", "TouchedBy"),
+            new(HubItemDtoNames.XeWhenTouched, "WhenEntered", "WhenTouched"),
+            new(HubItemDtoNames.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
+            new(HubItemDtoNames.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
+            new(HubItemDtoNames.XeComment, "Comment", "Comment")
         };
 
         return template;
@@ -213,7 +213,7 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
             new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
             new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
             new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-            new(HubItemDto.XeBib, "Bib", "Bib"),
+            new(HubItemDtoNames.XeBib, "Bib", "Bib"),
             new(ParticipantHubItemDto.XeGender, "Gender", "Gender"),
             new(ParticipantHubItemDto.XeBirthYear, "Birth", "BirthYear"),
             new(ParticipantHubItemDto.XeCity, "City", "City"),
@@ -224,7 +224,7 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
             new(ParticipantHubItemDto.XeIsSeries, "Registration", "IsSeries"),
             //new(ParticipantHubItemSerialiserNames.Series, "Series", "Series"),
             //new(ParticipantHubItemSerialiserNames.EventIdentifiers, "Events", "EventIdentifiers"),
-            new(HubItemDto.XeMustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
+            new(HubItemDtoNames.XeMustDitchOriginatingItem, "Ditch?", "MustDitchOriginatingItem"),
             //new(HubItemBaseSerialiserNames.DatabaseActionEnum, "Action", "DatabaseActionEnum"),
 
             //new(HubItemBaseSerialiserNames.Guid, "This Guid", "DisplayVersionOfSourceItemGuid"),
@@ -234,7 +234,7 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
             //new(HubItemBaseSerialiserNames.WhenTouched, "Inputted", "WhenTouched"),
             //new(HubItemBaseSerialiserNames.IsStillToBePushed, "Push", "IsStillToBePushed"),
             //new(HubItemBaseSerialiserNames.IsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-            new(HubItemDto.XeComment, "Comment", "Comment")
+            new(HubItemDtoNames.XeComment, "Comment", "Comment")
         };
 
         return template;
@@ -251,7 +251,7 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
             new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
             new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
             new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
-            new(HubItemDto.XeBib, "Bib", "Bib"),
+            new(HubItemDtoNames.XeBib, "Bib", "Bib"),
             new(ParticipantHubItemDto.XeRfid, "rfid", "Rfid"),
             new(ParticipantHubItemDto.XeGender, "Sex", "Gender"),
             new(ParticipantHubItemDto.XeBirthYear, "Birth", "BirthYear"),
@@ -270,12 +270,12 @@ public class ParticipantHubItemDisplayObject : HubItemDisplayObjectBase
 
             //new(HubItemBaseSerialiserNames.Guid, "This Guid", "DisplayVersionOfSourceItemGuid"),
             //new(HubItemBaseSerialiserNames.OriginatingItemGuid, "Origin Guid", "DisplayVersionOfSourceItemOriginatingItemGuid"),
-            new(HubItemDto.XeTouchedBy, "Author", "TouchedBy"),
+            new(HubItemDtoNames.XeTouchedBy, "Author", "TouchedBy"),
             //new(HubItemBaseSerialiserNames.TimeStamp, "TimeStamp", "TimeStamp"),
             //new(HubItemBaseSerialiserNames.WhenTouched, "Inputted", "WhenTouched"),
-            new(HubItemDto.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
-            new(HubItemDto.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
-            new(HubItemDto.XeComment, "Comment", "Comment")
+            new(HubItemDtoNames.XeIsStillToBePushed, "Push", "IsStillToBePushed"),
+            new(HubItemDtoNames.XeIsStillToBeBackedUp, "Save", "IsStillToBeBackedUp"),
+            new(HubItemDtoNames.XeComment, "Comment", "Comment")
         };
 
         return template;

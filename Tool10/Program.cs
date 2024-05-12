@@ -28,6 +28,7 @@ internal class Program
 
         JghConsoleHelper.WriteLineFollowedByOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("SeasonProfileID", LhsWidth)} : {DesiredSeasonProfileID}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Andrew's participant master list/s", LhsWidth)} : {FolderContainingMasterListFromAndrew}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for parsed participants", LhsWidth)} : {FolderForDeserialisedMasterList}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for OriginatingParticipantHubItems", LhsWidth)} : {FolderForOriginatingParticipantHubItems}");
@@ -378,7 +379,7 @@ internal class Program
 
             var reportRegardingItemsNeverPushedBefore = JghString.ConcatAsParagraphs(messageOk,uploadReport);
 
-            JghConsoleHelper.WriteLinePrecededByOne(reportRegardingItemsNeverPushedBefore);
+            JghConsoleHelper.WriteLine(reportRegardingItemsNeverPushedBefore);
             JghConsoleHelper.WriteLine($"Account: {cloudDataLocation.Item1}");
 
             #endregion
@@ -389,9 +390,7 @@ internal class Program
 
             #region wrap up
 
-            JghConsoleHelper.WriteLine();
-            JghConsoleHelper.WriteLine("Everything complete. No further action required. Goodbye.");
-            JghConsoleHelper.WriteLine();
+            JghConsoleHelper.WriteLinePrecededByOne("Everything complete. No further action required. Goodbye.");
             JghConsoleHelper.WriteLine("ooo0 - Goodbye - 0ooo");
             Console.ReadLine();
 
@@ -408,8 +407,8 @@ internal class Program
 
     #region constants
 
-    //private const string DesiredSeasonProfileID = "998"; // kelso
-    private const string DesiredSeasonProfileID = "999"; // my test profile
+    private const string DesiredSeasonProfileID = "998"; // kelso
+    //private const string DesiredSeasonProfileID = "999"; // my test profile
 
     private const int LhsWidth = 53;
     private const string RequiredInputFileFormat = "xml";

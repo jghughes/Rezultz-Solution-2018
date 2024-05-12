@@ -432,8 +432,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             var template = new List<ColumnSpecificationItem>
             {
                 new(XePlace, "Rank", "CalculatedRankOverall"),
-                new(HubItemDto.XeBib, "Bib", "Bib"),
-                new(HubItemDto.XeRfid, "Rfid", "Rfid"),
+                new(HubItemDtoNames.XeBib, "Bib", "Bib"),
+                new(HubItemDtoNames.XeRfid, "Rfid", "Rfid"),
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 new(ParticipantHubItemDto.XeMiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
@@ -466,7 +466,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ResultDto.XeT10, "T14", "T14"),
                 new(ResultDto.XeT10, "T15", "T15"),
 
-                new(HubItemDto.XeComment, "Anomalies", "Comment") // Comment field contains description of anomaly
+                new(HubItemDtoNames.XeComment, "Anomalies", "Comment") // Comment field contains description of anomaly
             };
             return template;
         }
@@ -476,8 +476,8 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             var template = new List<ColumnSpecificationItem>
             {
                 new(XePlace, "Rank", "CalculatedRankOverall"),
-                new(HubItemDto.XeBib, "Bib", "Bib"),
-                new(HubItemDto.XeRfid, "Rfid", "Bib"),
+                new(HubItemDtoNames.XeBib, "Bib", "Bib"),
+                new(HubItemDtoNames.XeRfid, "Rfid", "Bib"),
                 new(ParticipantHubItemDto.XeFirstName, "First", "FirstName"),
                 //new(ParticipantHubItemSerialiserNames.MiddleInitial, "M", "MiddleInitial"),
                 new(ParticipantHubItemDto.XeLastName, "Last", "LastName"),
@@ -510,7 +510,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 new(ResultDto.XeT10, "T14", "T14"),
                 new(ResultDto.XeT10, "T15", "T15"),
 
-                new(HubItemDto.XeComment, "Anomalies", "Comment") // Comment field contains description of anomaly
+                new(HubItemDtoNames.XeComment, "Anomalies", "Comment") // Comment field contains description of anomaly
             };
             return template;
         }
