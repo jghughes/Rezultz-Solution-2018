@@ -17,7 +17,7 @@
         Header="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
         IsSettingsVisible="false"
         PaneDisplayMode="Left"
-        OpenPaneLength="250"
+        OpenPaneLength="270"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
 
         <NavigationView.AlwaysShowHeader>False</NavigationView.AlwaysShowHeader>
@@ -106,7 +106,7 @@
                 Icon="Document" />
 
             <NavigationViewItem
-                Content="registration tools"
+                Content="registration data tools"
                 helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.RegisterParticipantsToolsPage"
                 Icon="Document" />
 
