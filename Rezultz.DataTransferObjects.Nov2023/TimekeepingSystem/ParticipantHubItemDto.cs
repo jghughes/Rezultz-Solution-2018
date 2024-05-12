@@ -40,88 +40,89 @@ public class ParticipantHubItemDto : IHubItemDataTransferObject
 
     // NB. empirically determined that JSONCONVERT fails to correctly roundtrip booleans unless EmitDefaultValue = true
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 0, Name = HubItemDto.XeBib)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = HubItemDto.XeBib)]
     public string Bib { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 1, Name = XeRfid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = XeRfid)]
     public string Rfid { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 2, Name = XeFirstName)]
-    public string FirstName { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = XeLastName)]
-    public string LastName { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = XeMiddleInitial)]
-    public string MiddleInitial { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 5, Name = XeGender)]
-    public string Gender { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = XeBirthYear)]
-    public int BirthYear { get; set; }
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 7, Name = XeCity)]
-    public string City { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 8, Name = XeTeam)]
-    public string Team { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 9, Name = XeRaceGroupBeforeTransition)]
-    public string RaceGroupBeforeTransition { get; set; } // originates from Label element of RaceSpecificationItem in SeriesSettings
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 10, Name = XeRaceGroupAfterTransition)]
-    public string RaceGroupAfterTransition { get; set; } // originates from Label element of RaceSpecificationItem in SeriesSettings
-
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = XeDateOfRaceGroupTransition)]
-    public string DateOfRaceGroupTransitionAsString { get; set; }
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 12, Name = XeIsSeries)]
-    public bool IsSeries { get; set; }
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = XeSeries)]
-    public string Series { get; set; } = string.Empty;
-
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = XeEventIdentifiers)]
-    public string EventIdentifiers { get; set; } = string.Empty;
-    
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 15, Name = XeReservation)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 3, Name = XeReservation)]
     public string Reservation { get; set; }
-    
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 16, Name = HubItemDto.XeClickCounter)]
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 4, Name = HubItemDto.XeClickCounter)]
     public int ClickCounter { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 17, Name = HubItemDto.XeRecordingModeEnum)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 5, Name = XeFirstName)]
+    public string FirstName { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = XeLastName)]
+    public string LastName { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 7, Name = XeMiddleInitial)]
+    public string MiddleInitial { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 8, Name = XeGender)]
+    public string Gender { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 9, Name = XeBirthYear)]
+    public int BirthYear { get; set; }
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 10, Name = XeCity)]
+    public string City { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 11, Name = XeTeam)]
+    public string Team { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 12, Name = XeSeries)]
+    public string Series { get; set; } = string.Empty;
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 13, Name = XeEventIdentifiers)]
+    public string EventIdentifiers { get; set; } = string.Empty;
+
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 14, Name = XeIsSeries)]
+    public bool IsSeries { get; set; }
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 15, Name = XeRaceGroupBeforeTransition)]
+    public string RaceGroupBeforeTransition { get; set; } // originates from Label element of RaceSpecificationItem in SeriesSettings
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 16, Name = XeRaceGroupAfterTransition)]
+    public string RaceGroupAfterTransition { get; set; } // originates from Label element of RaceSpecificationItem in SeriesSettings
+
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 17, Name = XeDateOfRaceGroupTransition)]
+    public string DateOfRaceGroupTransitionAsString { get; set; }
+
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 18, Name = HubItemDto.XeRecordingModeEnum)]
     public string RecordingModeEnum { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 18, Name = HubItemDto.XeDatabaseActionEnum)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 19, Name = HubItemDto.XeDatabaseActionEnum)]
     public string DatabaseActionEnum { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 19, Name = HubItemDto.XeMustDitchOriginatingItem)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 20, Name = HubItemDto.XeMustDitchOriginatingItem)]
     public bool MustDitchOriginatingItem { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 20, Name = HubItemDto.XeIsStillToBeBackedUp)]
+    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 21, Name = HubItemDto.XeIsStillToBeBackedUp)]
     public bool IsStillToBeBackedUp { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 21, Name = HubItemDto.XeIsStillToBePushed)]
+    [DataMember(EmitDefaultValue = true, IsRequired = true, Order = 22, Name = HubItemDto.XeIsStillToBePushed)]
     public bool IsStillToBePushed { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 22, Name = HubItemDto.XeTouchedBy)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 23, Name = HubItemDto.XeTouchedBy)]
     public string TouchedBy { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 23, Name = HubItemDto.XeTimeStampBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 24, Name = HubItemDto.XeTimeStampBinaryFormat)]
     public long TimeStampBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 24, Name = HubItemDto.XeWhenTouchedBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 25, Name = HubItemDto.XeWhenTouchedBinaryFormat)]
     public long WhenTouchedBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 25, Name = HubItemDto.XeWhenPushedBinaryFormat)]
+    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 26, Name = HubItemDto.XeWhenPushedBinaryFormat)]
     public long WhenPushedBinaryFormat { get; set; }
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 26, Name = HubItemDto.XeOriginatingItemGuid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 27, Name = HubItemDto.XeOriginatingItemGuid)]
     public string OriginatingItemGuid { get; set; } = string.Empty;
 
-    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 27, Name = HubItemDto.XeGuid)]
+    [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 28, Name = HubItemDto.XeGuid)]
     public string Guid { get; set; } = string.Empty;
 
     #endregion
