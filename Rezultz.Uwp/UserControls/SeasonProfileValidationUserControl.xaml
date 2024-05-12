@@ -133,7 +133,7 @@
                     Orientation="Horizontal">
 
             <Button
-                Content="Submit season ID"
+                Content="Submit"
                 ToolTipService.ToolTip="Submit season ID (profile filename) for verification and download profile if verified."
                 DataContext="{Binding Path=SubmitSeasonProfileFileNameFragmentButtonVm}"
                 Command="{Binding Path=OnClickCommand}"
