@@ -235,7 +235,7 @@
                                     Orientation="Vertical">
 
                             <Button
-                                Content="Refresh screen"
+                                Content="Apply filters"
                                 ToolTipService.ToolTip="Refresh the display of profiles according to the chosen filters and options."
                                 TabIndex="20"
                                 DataContext="{Binding Path=RefreshRepositoryDataGridButtonVm}"
@@ -473,7 +473,7 @@
 
                                     <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
 
-                                        <TextBlock Text="Display by participant  :"
+                                        <TextBlock Text="Display by ID  :"
                                                    Style="{StaticResource HereCaptionBlurbStyle3}" />
 
 

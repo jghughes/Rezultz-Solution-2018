@@ -329,7 +329,7 @@
                                     Orientation="Vertical">
 
                             <Button
-                                Content="Refresh screen"
+                                Content="Apply filters"
                                 ToolTipService.ToolTip="Refresh the display of timestamps according to the chosen filters and options."
                                 TabIndex="20"
                                 DataContext="{Binding Path=RefreshRepositoryDataGridButtonVm}"
