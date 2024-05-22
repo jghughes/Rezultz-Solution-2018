@@ -12,8 +12,7 @@ using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using Rezultz.DataTypes.Nov2023.PublisherModuleItems;
 using Rezultz.DataTypes.Nov2023.RezultzItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
-using Rezultz.Library01.Mar2024.Repositories;
-using Rezultz.Library01.Mar2024.Repository_interfaces;
+using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 using RezultzSvc.Library02.Mar2024.SvcHelpers;
 
 namespace RezultzSvc.Library02.Mar2024.PublisherModules;
@@ -45,229 +44,22 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
     private const string Locus2 = nameof(PublisherForMyLapsElectronicTimingSystem2024);
     private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
-    public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
+    #region variables
+
+    private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
+
+    #endregion
+
+    #region helpers
+
+    private static AgeGroupSpecificationItem[] GetAgeGroupSpecificationItems(SeriesProfileItem seriesMetaDataItem)
     {
-        throw new NotImplementedException(); // nothing required at time of writing
+        var arrayOfAgeGroupSpecificationItem = seriesMetaDataItem.DefaultEventSettingsForAllEvents.AgeGroupSpecificationItems;
+
+        return arrayOfAgeGroupSpecificationItem;
     }
 
-    public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
-    {
-        const string failure = "Unable to compute results for specified event based on datasets loaded.";
-        const string locus = "[DoAllTranslationsAndComputationsToGenerateResultsAsync()]";
-
-        const int lhsWidth = 50;
-        const int lhsWidthPlus1 = lhsWidth + 1;
-        //const int lhsWidthLess1 = lhsWidth - 1;
-        //const int lhsWidthLess2 = lhsWidth - 2;
-        //const int lhsWidthLess3 = lhsWidth - 3;
-        const int lhsWidthLess4 = lhsWidth - 4;
-        const int lhsWidthLess5 = lhsWidth - 5;
-        //const int lhsWidthLess6 = lhsWidth - 6;
-        const int lhsWidthLess7 = lhsWidth - 7;
-
-
-        var conversionReportSb = new JghStringBuilder();
-        var ranToCompletionMsgSb = new JghStringBuilder();
-        var startDateTime = DateTime.UtcNow;
-
-        conversionReportSb.AppendLineFollowedByOne("Conversion report:");
-
-        List<ResultItem> allComputedResults = new();
-
-        try
-        {
-            #region null checks
-
-            //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
-
-            if (publisherInputItem == null)
-                throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null.");
-
-            if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))
-                throw new ArgumentException(publisherInputItem.NullChecksFailureMessage); // Note: might look odd, but isn't. The pre-formatted message is the exception message
-
-            #endregion
-
-            #region fetch MyLaps timing data files
-
-            conversionReportSb.AppendLine("Doing null checks to confirm that we have one or more files of timing data originating from MyLaps ...");
-
-            var myLapsFileTargets = publisherInputItem.DeduceStorageLocations(IdentifierOfDatasetOfMyLapsTimingData) ??
-                                      throw new JghAlertMessageException("MyLaps file/s not specified. EntityLocationItem array is null.");
-
-            if (!myLapsFileTargets.Any())
-                throw new JghAlertMessageException("MyLaps file/s not specified. Please import one or more MyLaps files.");
-
-            List<MyLapsFile> myLapsFiles = new();
-
-            foreach (var target in myLapsFileTargets)
-            {
-                if (!await _storage.GetIfBlobExistsAsync(target.AccountName, target.ContainerName, target.EntityName))
-                    throw new JghAlertMessageException($"Error. Missing file. Specified MyLaps file not found. <{target.EntityName}> ");
-
-                var myLapsTimingDataAsCsv = JghConvert.ToStringFromUtf8Bytes(
-                    await _storage.DownloadBlockBlobAsBytesAsync(target.AccountName, target.ContainerName, target.EntityName));
-
-                if (string.IsNullOrWhiteSpace(myLapsTimingDataAsCsv))
-                    throw new JghAlertMessageException($"Specified MyLaps file is empty. <{target.EntityName}>");
-
-                myLapsFiles.Add(new MyLapsFile(IdentifierOfDatasetOfMyLapsTimingData, target.EntityName, myLapsTimingDataAsCsv));
-
-                conversionReportSb.AppendLine($"MyLaps file found <{target.EntityName}>...");
-            }
-
-            #endregion
-
-            #region fetch participant master list
-
-
-            Dictionary<string, ParticipantHubItem> dictionaryOfParticipants = RepositoryOfHubStyleEntries.GetDictionaryOfIdentifiersWithTheirMostRecentItemForThisRecordingModeFromMasterList();
-
-
-
-
-
-
-
-
-            conversionReportSb.AppendLine("Doing null checks to confirm that we have the master list of participants ...");
-
-            var participantFileTarget = publisherInputItem.DeduceStorageLocation(EnumForParticipantListFromPortal) ??
-                                     throw new JghAlertMessageException("Participant file not identified. Please import a participant file");
-
-            if (!await _storage.GetIfBlobExistsAsync(participantFileTarget.AccountName, participantFileTarget.ContainerName, participantFileTarget.EntityName))
-                throw new JghAlertMessageException($"Error. Missing file. Expected Participant file not found. <{participantFileTarget.EntityName}>");
-
-            var participantFileContentsAsJson = JghConvert.ToStringFromUtf8Bytes(
-                await _storage.DownloadBlockBlobAsBytesAsync(participantFileTarget.AccountName, participantFileTarget.ContainerName, participantFileTarget.EntityName));
-
-            if (string.IsNullOrWhiteSpace(participantFileContentsAsJson))
-                throw new JghAlertMessageException($"Participant file is empty. <{participantFileTarget.EntityName}>");
-
-            conversionReportSb.AppendLine("Participant file obtained ...");
-
-            List<ParticipantHubItemDto> masterListOfParticipantHubItemDTo;
-
-            try
-            {
-                masterListOfParticipantHubItemDTo = JghSerialisation.ToObjectFromJson<List<ParticipantHubItemDto>>(participantFileContentsAsJson);
-            }
-            catch (Exception)
-            {
-                throw new JghAlertMessageException(
-                    "Content and/or format of Participant file is not what publisher was coded for. JSON deserialisation threw an exception.");
-            }
-
-            conversionReportSb.AppendLine($"{JghString.LeftAlign("Participant file", lhsWidth)} : {participantFileTarget.EntityName}");
-            conversionReportSb.AppendLine($"{JghString.LeftAlign("Participants", lhsWidth)} : {masterListOfParticipantHubItemDTo.Count}");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            #endregion
-
-            #region dig required info out of SeriesProfile
-
-            conversionReportSb.AppendLine("Extracting information out of SeriesProfile...");
-
-            var ageGroupSpecificationItems = GetAgeGroupSpecificationItems(publisherInputItem.SeriesProfile);
-
-            var thisEvent = publisherInputItem.SeriesProfile.EventProfileItems.FirstOrDefault(z => z.Label == publisherInputItem.EventLabelAsEventIdentifier);
-
-            var dateOfThisEvent = thisEvent?.AdvertisedDate ?? DateTime.MinValue;
-
-            #endregion
-
-            #region do all computations and calculations - process one or more files
-
-            foreach (var myLapsFile in myLapsFiles)
-            {
-                conversionReportSb.AppendLinePrecededByOne($"Processing MyLaps file: <{myLapsFile.FileName}>");
-
-                var answerAsResultItems = MyLaps2024Helper.GenerateResultItemArrayFromMyLapsFile(myLapsFile, conversionReportSb, lhsWidth, dictionaryOfParticipants, ageGroupSpecificationItems, dateOfThisEvent);
-
-                allComputedResults.AddRange(answerAsResultItems);
-
-                conversionReportSb.AppendLineWrappedByOne($"{JghString.LeftAlign("Results synthesised from this file", lhsWidth)} : {answerAsResultItems.Count}");
-
-            }
-
-            #endregion
-
-            #region report progress and wrap up
-
-            var prettyDuration = (DateTime.UtcNow - startDateTime).TotalSeconds;
-
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Outcome:", lhsWidth)} Computations ran to completion");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Operation duration:", lhsWidthLess4)} {prettyDuration} seconds");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Source dataset (participants):", lhsWidthLess7)} <{participantFileTarget.EntityName}>");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Container:", lhsWidthPlus1)} <{participantFileTarget.ContainerName}>");
-            foreach (var myLapsFileTarget in myLapsFileTargets)
-            {
-                ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Source dataset (MyLaps):", lhsWidthLess7)} <{myLapsFileTarget.EntityName}>");
-                ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Container:", lhsWidthPlus1)} <{myLapsFileTarget.ContainerName}>");
-            }
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Results computed:", lhsWidthLess4)} {allComputedResults.Count} results");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conclusion:", lhsWidthPlus1)} Success. {allComputedResults.Count} results computed.");
-
-            var answer2 = new PublisherOutputItem
-            {
-                LabelOfEventAsIdentifier = publisherInputItem.EventLabelAsEventIdentifier,
-                RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
-                ConversionReport = conversionReportSb.ToString(),
-                ConversionDidFail = false,
-                ComputedResults = allComputedResults.ToArray()
-            };
-
-            #endregion
-
-            return await Task.FromResult(answer2);
-        }
-
-        #region try-catch
-
-        catch (JghAlertMessageException ex)
-        {
-            conversionReportSb.AppendLinePrecededByOne(ex.Message);
-
-            var prettyDuration = (DateTime.UtcNow - startDateTime).TotalSeconds;
-
-            ranToCompletionMsgSb.AppendLinePrecededByOne($"{JghString.LeftAlign("Outcome:", lhsWidth)} Conversion interrupted. Conversion ran into a problem.");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Message:", lhsWidthPlus1)} {ex.Message}");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conversion duration:", lhsWidthLess5)} {prettyDuration} seconds");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Results computed:", lhsWidthLess4)} none");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conclusion:", lhsWidth)} Failure. Please read the conversion report for more information.");
-
-            var answer2 = new PublisherOutputItem
-            {
-                LabelOfEventAsIdentifier = publisherInputItem?.EventLabelAsEventIdentifier,
-                RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
-                ConversionReport = conversionReportSb.ToString(),
-                ConversionDidFail = true,
-                ComputedResults = Array.Empty<ResultItem>()
-            };
-
-            return await Task.FromResult(answer2);
-        }
-        catch (Exception ex)
-        {
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
-        }
-
-
-        #endregion
-    }
+    #endregion
 
     #region local class
 
@@ -291,35 +83,227 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
 
     #endregion
 
-    #region const
+    #region methods
 
-    private const string IdentifierOfDatasetOfMyLapsTimingData = "MyLaps2023AsCsv"; // the identifier here originates from the profile file. Can be anything you like there, but must be kept in sync here
+    public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
+    {
+        throw new NotImplementedException(); // nothing required at time of writing
+    }
+
+    public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
+    {
+        const string failure = "Unable to compute results for specified event based on datasets uploaded for processing.";
+        const string locus = "[DoAllTranslationsAndComputationsToGenerateResultsAsync()]";
+
+        #region declarations
+
+        var startDateTime = DateTime.UtcNow;
+
+        JghStringBuilder ranToCompletionMsgSb = new();
+
+        JghStringBuilder conversionReportSb = new(); conversionReportSb.AppendLineFollowedByOne("Conversion report:");
+
+        List<MyLapsFile> myLapsFiles = [];
+
+        List<ResultItem> allComputedResults = [];
+
+        #endregion
+
+        try
+        {
+            #region null checks
+
+            //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
+
+            if (publisherInputItem == null)
+                throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null <PublisherInputItem>.");
+
+            if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))
+                throw new ArgumentException(publisherInputItem.NullChecksFailureMessage); // Note: might look odd, but isn't. The pre-formatted message is the exception message
+
+            #endregion
+
+            #region look in PublisherInputItem for names of previously uploaded MyLaps timing data files
+
+            conversionReportSb.AppendLine("Doing null checks to confirm that we have one or more files of timing data originating from MyLaps.");
+
+            var myLapsFileTargets = publisherInputItem.DeduceStorageLocations(IdentifierOfDatasetOfMyLapsTimingData) ??
+                                    throw new JghAlertMessageException("MyLaps file/s not specified. EntityLocationItem array is null.");
+
+            if (!myLapsFileTargets.Any())
+                throw new JghAlertMessageException("No MyLaps files specified. Please import and upload one or more files of MyLaps timing data in order to proceed.");
+
+            #endregion
+
+            #region fetch MyLaps timing data files from Azure
+
+            foreach (var target in myLapsFileTargets)
+            {
+                if (!await _storage.GetIfBlobExistsAsync(target.AccountName, target.ContainerName, target.EntityName))
+                    throw new JghAlertMessageException($"Error. Missing file. Specified MyLaps file not found. <{target.EntityName}> ");
+
+                var myLapsTimingDataAsString = JghConvert.ToStringFromUtf8Bytes(
+                    await _storage.DownloadBlockBlobAsBytesAsync(target.AccountName, target.ContainerName, target.EntityName));
+
+                if (string.IsNullOrWhiteSpace(myLapsTimingDataAsString))
+                    throw new JghAlertMessageException($"Specified MyLaps file is blank. <{target.EntityName}>");
+
+                conversionReportSb.AppendLine($"MyLaps file found. <{target.EntityName}>");
+
+                myLapsFiles.Add(new MyLapsFile(IdentifierOfDatasetOfMyLapsTimingData, target.EntityName, myLapsTimingDataAsString));
+            }
+
+            #endregion
+
+            #region fetch previously uploaded participant master list
+
+            conversionReportSb.AppendLine("Doing null checks to confirm that we have a previously uploaded master list of participants.");
+
+            var participantFileTarget = publisherInputItem.DeduceStorageLocation(EnumForParticipantListFromPortal) ??
+                                        throw new JghAlertMessageException("Name of file containing master list of participants not identified. Please import and upload a participant file.");
+
+            if (!await _storage.GetIfBlobExistsAsync(participantFileTarget.AccountName, participantFileTarget.ContainerName, participantFileTarget.EntityName))
+                throw new JghAlertMessageException($"Error. Missing file. Expected file containing master list of participants not found. <{participantFileTarget.EntityName}>");
+
+            var participantFileContentsAsJson = JghConvert.ToStringFromUtf8Bytes(
+                await _storage.DownloadBlockBlobAsBytesAsync(participantFileTarget.AccountName, participantFileTarget.ContainerName, participantFileTarget.EntityName));
+
+            if (string.IsNullOrWhiteSpace(participantFileContentsAsJson))
+                throw new JghAlertMessageException($"Participant file is empty. <{participantFileTarget.EntityName}>");
+
+            conversionReportSb.AppendLine("Success. File containing master list of participants obtained.");
+
+            List<ParticipantHubItemDto> masterListOfParticipantHubItemDTo;
+
+            try
+            {
+                masterListOfParticipantHubItemDTo = JghSerialisation.ToObjectFromJson<List<ParticipantHubItemDto>>(participantFileContentsAsJson);
+            }
+            catch (Exception)
+            {
+                throw new JghAlertMessageException(
+                    "Content and/or format of file containing master list of participants is not what publisher was coded to expect. JSON deserialisation threw an exception.");
+            }
+
+            conversionReportSb.AppendLine($"{JghString.LeftAlign("Participant file", LhsWidth)} : {participantFileTarget.EntityName}");
+            conversionReportSb.AppendLine($"{JghString.LeftAlign("Participants", LhsWidth)} : {masterListOfParticipantHubItemDTo.Count}");
+
+            #endregion
+
+            #region convert participant master list to dictionary
+
+            var masterListOfParticipantsAsDictionary = masterListOfParticipantHubItemDTo.ToDictionary(z => z.Bib, ParticipantHubItem.FromDataTransferObject);
+
+            #endregion
+
+            #region get ready - dig required info out of SeriesProfile
+
+            conversionReportSb.AppendLine("Extracting information out of SeriesProfile.");
+
+            var ageGroupSpecificationItems = GetAgeGroupSpecificationItems(publisherInputItem.SeriesProfile);
+
+            var thisEvent = publisherInputItem.SeriesProfile.EventProfileItems.FirstOrDefault(z => z.Label == publisherInputItem.EventLabelAsEventIdentifier);
+
+            var dateOfThisEvent = thisEvent?.AdvertisedDate ?? DateTime.MinValue;
+
+            #endregion
+
+            #region do all computations and calculations - process one or more files
+
+            foreach (var myLapsFile in myLapsFiles)
+            {
+                conversionReportSb.AppendLinePrecededByOne($"{JghString.LeftAlign("Processing MyLaps file", LhsWidth)} : {myLapsFile.FileName}");
+
+                var answerAsResultItemsInThisFile = MyLaps2024Helper.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth); // the MEAT
+
+                conversionReportSb.AppendLineWrappedByOne($"{JghString.LeftAlign("Results synthesised from this file", LhsWidth)} : {answerAsResultItemsInThisFile.Count}");
+
+                allComputedResults.AddRange(answerAsResultItemsInThisFile.OrderBy(z => z.T01));
+            }
+
+            #endregion
+
+            #region report conclusion of processing
+
+            var prettyDuration = (DateTime.UtcNow - startDateTime).TotalSeconds;
+
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Outcome:", LhsWidth)} Computations ran to completion");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Operation duration:", LhsWidthLess4)} {prettyDuration} seconds");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Source dataset (participants):", LhsWidthLess7)} <{participantFileTarget.EntityName}>");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Container:", LhsWidthPlus1)} <{participantFileTarget.ContainerName}>");
+            foreach (var myLapsFileTarget in myLapsFileTargets)
+            {
+                ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Source dataset (MyLaps):", LhsWidthLess7)} <{myLapsFileTarget.EntityName}>");
+                ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Container:", LhsWidthPlus1)} <{myLapsFileTarget.ContainerName}>");
+            }
+
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Results computed:", LhsWidthLess4)} {allComputedResults.Count} results");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conclusion:", LhsWidthPlus1)} Success. {allComputedResults.Count} results computed.");
+
+            #endregion
+
+            #region return answer
+
+            var answer2 = new PublisherOutputItem
+            {
+                LabelOfEventAsIdentifier = publisherInputItem.EventLabelAsEventIdentifier,
+                RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
+                ConversionReport = conversionReportSb.ToString(),
+                ConversionDidFail = false,
+                ComputedResults = allComputedResults.ToArray()
+            };
+
+            return await Task.FromResult(answer2);
+
+            #endregion
+        }
+
+        #region try-catch
+
+        catch (JghAlertMessageException ex)
+        {
+            conversionReportSb.AppendLinePrecededByOne(ex.Message);
+
+            var prettyDuration = (DateTime.UtcNow - startDateTime).TotalSeconds;
+
+            ranToCompletionMsgSb.AppendLinePrecededByOne($"{JghString.LeftAlign("Outcome:", LhsWidth)} Conversion interrupted. Conversion ran into a problem.");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Message:", LhsWidthPlus1)} {ex.Message}");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conversion duration:", LhsWidthLess5)} {prettyDuration} seconds");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Results computed:", LhsWidthLess4)} none");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conclusion:", LhsWidth)} Failure. Please read the conversion report for more information.");
+
+            var answer2 = new PublisherOutputItem
+            {
+                LabelOfEventAsIdentifier = publisherInputItem?.EventLabelAsEventIdentifier,
+                RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
+                ConversionReport = conversionReportSb.ToString(),
+                ConversionDidFail = true,
+                ComputedResults = Array.Empty<ResultItem>()
+            };
+
+            return await Task.FromResult(answer2);
+        }
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region constants
+
+    private const string IdentifierOfDatasetOfMyLapsTimingData = "MyLaps"; // the identifier for MyLaps timing data files here originates from the profile file. Can be anything you like there, but must be kept in sync here
 
     private const string EnumForParticipantListFromPortal = EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub;
 
-    #endregion
-
-    #region variables
-
-    private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
-
-    public static readonly IRepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem> RepositoryOfHubStyleEntries = new RepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem>(new IsolatedStorageService());
-
-
-    #endregion
-
-    #region helpers
-
-
-
-    private static AgeGroupSpecificationItem[] GetAgeGroupSpecificationItems(SeriesProfileItem seriesMetaDataItem)
-    {
-        var arrayOfAgeGroupSpecificationItem = seriesMetaDataItem.DefaultEventSettingsForAllEvents.AgeGroupSpecificationItems;
-
-        return arrayOfAgeGroupSpecificationItem;
-    }
-
-
+    private const int LhsWidth = 50;
+    private const int LhsWidthPlus1 = LhsWidth + 1;
+    private const int LhsWidthLess4 = LhsWidth - 4;
+    private const int LhsWidthLess5 = LhsWidth - 5;
+    private const int LhsWidthLess7 = LhsWidth - 7;
 
     #endregion
 }

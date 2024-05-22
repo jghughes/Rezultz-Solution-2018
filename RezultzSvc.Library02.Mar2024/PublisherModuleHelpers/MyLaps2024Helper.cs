@@ -4,7 +4,6 @@ using System.Linq;
 using System.Xml.Linq;
 using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.Exceptions.Mar2024.Helpers;
-using NetStd.Exceptions.Mar2024.JghExceptions;
 using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
@@ -13,54 +12,59 @@ using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
 using RezultzSvc.Library02.Mar2024.PublisherModules;
 
+// ReSharper disable IdentifierTypo
+
 // ReSharper disable InconsistentNaming
 
-namespace RezultzSvc.Library02.Mar2024.SvcHelpers;
+namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 
 public class MyLaps2024Helper
 {
-    #region method
+    #region primary method
 
-    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(PublisherForMyLapsElectronicTimingSystem2024.MyLapsFile myLapsFile, JghStringBuilder conversionReportSb,
-        int lhsWidth, Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent)
+    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(PublisherForMyLapsElectronicTimingSystem2024.MyLapsFile myLapsFile,
+        Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
+        JghStringBuilder conversionReportSb, int lhsWidth)
     {
         #region declarations
 
-        var i = 1;
-        XElement rawInputAsXElement = null;
-        List<ResultItem> answerAsResultItems = new();
+        var i = 0;
+
+        var durationAsPossiblyNastyString = string.Empty;
+
+        List<ResultItem> answerAsResultItems = [];
 
         #endregion
 
-        #region step 1 null checks
+        #region null checks
 
-        rawInputAsXElement = XElement.Parse(myLapsFile.FileContents);
+        var fileContentsAsXElement = XElement.Parse(myLapsFile.FileContents); // will blow if parsing fails
 
-        var repeatingChildElements = rawInputAsXElement.Elements().ToArray(); // Note: this returns the first level children - all the individual MyLaps line items
+        var repeatingChildElements = fileContentsAsXElement.Elements().ToArray(); // Note: this returns the first level children i.e. all the individual MyLaps line items
 
         // bale if we don't have any data rows
         if (!repeatingChildElements.Any())
-            throw new JghAlertMessageException("Unable to extract any rows of repeating XElements in the provided MyLaps file.");
+            return answerAsResultItems;
 
         #endregion
 
-        #region step 2 process all the line items
+        #region process all the line items in the XML file
 
         conversionReportSb.AppendLine($"{JghString.LeftAlign("MyLaps line items extracted", lhsWidth)} : {repeatingChildElements.Length}");
 
-        conversionReportSb.AppendLine("Processing line items one by one...");
+        conversionReportSb.AppendLine("Processing line items one by one.");
 
         foreach (var thisRepeatingChildElement in repeatingChildElements)
         {
             #region declarations
 
             ResultItem thisRepeatingResultItem;
-            var durationAsPossiblyNastyString = string.Empty;
+
             var mustSkipThisRowBecauseGunTimeIsNonsense = false; // initial default
 
             #endregion
 
-            #region skip if can't see a bib number in the element
+            #region skip if can't see a bib number in thisRepeatingChildElement
 
             var bibOfThisRepeatingXe = thisRepeatingChildElement.Elements(SrcXeBib).FirstOrDefault();
 
@@ -70,30 +74,15 @@ public class MyLaps2024Helper
 
             #endregion
 
-            #region if can see a bib number, try find the matching participant stored on the hub
+            #region if can see a bib number, try find the matching participant in the master list that was previously uploaded (having been generated from the hub)
 
             var participantIsFound = dictionaryOfParticipants.TryGetValue(bibOfThisRepeatingXe.Value, out var participantHubItem);
 
             #endregion
 
-            #region new up a ResultItem depending on whether the matching bib number is found or not
+            #region new up a ResultItem depending on whether or not the matching bib number is found
 
-            if (!participantIsFound)
-            {
-                thisRepeatingResultItem = new ResultItem
-                {
-                    Bib = bibOfThisRepeatingXe.Value,
-                    LastName = GetValueOfXElementOrStringEmpty(SrcXeFullName, thisRepeatingChildElement),
-                    Gender = GetValueOfXElementOrStringEmpty(SrcXeGender, thisRepeatingChildElement),
-                    Age = JghConvert.ToInt32(GetValueOfXElementOrStringEmpty(SrcXeAge, thisRepeatingChildElement)),
-                    RaceGroup = GetValueOfXElementOrStringEmpty(SrcXeRaceGroup, thisRepeatingChildElement),
-                    IsSeries = false // no option but to assume this. play safe
-                };
-
-                conversionReportSb.AppendLine(
-                    $"Warning! Participant database on the hub fails to contain a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>");
-            }
-            else
+            if (participantIsFound)
             {
                 thisRepeatingResultItem = new ResultItem
                 {
@@ -111,12 +100,27 @@ public class MyLaps2024Helper
                     RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
                 };
             }
+            else
+            {
+                thisRepeatingResultItem = new ResultItem
+                {
+                    Bib = bibOfThisRepeatingXe.Value,
+                    LastName = GetTmlrValueOfXElementOrStringEmpty(SrcXeFullName, thisRepeatingChildElement),
+                    Gender = GetTmlrValueOfXElementOrStringEmpty(SrcXeGender, thisRepeatingChildElement),
+                    Age = JghConvert.ToInt32(GetTmlrValueOfXElementOrStringEmpty(SrcXeAge, thisRepeatingChildElement)),
+                    RaceGroup = GetTmlrValueOfXElementOrStringEmpty(SrcXeRaceGroup, thisRepeatingChildElement),
+                    IsSeries = false // no option but to assume this. play safe
+                };
+
+                conversionReportSb.AppendLine(
+                    $"Warning! Participant database on the hub fails to contain a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>.");
+            }
 
             #endregion
 
-            #region handle T01 and/or Dnx
+            #region handle T01 (GunTime) or Dnx
 
-            var possibleDnx = GetValueOfXElementOrStringEmpty(SrcXeOverall, thisRepeatingChildElement);
+            var possibleDnx = GetTmlrValueOfXElementOrStringEmpty(SrcXeOverall, thisRepeatingChildElement); //in MyLaps, DNF is in the column "Overall"
 
             if (possibleDnx == JghString.TmLr(SrcValueDnf))
             {
@@ -125,7 +129,7 @@ public class MyLaps2024Helper
             }
             else
             {
-                durationAsPossiblyNastyString = GetValueOfXElementOrStringEmpty(SrcXeGunTime, thisRepeatingChildElement);
+                durationAsPossiblyNastyString = GetTmlrValueOfXElementOrStringEmpty(SrcXeGunTime, thisRepeatingChildElement);
 
                 if (TryConvertTextToTimespan(durationAsPossiblyNastyString, out var myTimeSpan, out var conversionReport01))
                 {
@@ -159,11 +163,12 @@ public class MyLaps2024Helper
                 }
             }
 
-            #endregion conversionReportSb.AppendLine(WriteOneLineReport(i, thisRepeatingResultItem, durationAsPossiblyNastyString));
+            #endregion
 
             #region around we go
 
             i += 1;
+            conversionReportSb.AppendLine(WriteOneLineReport(i, thisRepeatingResultItem, durationAsPossiblyNastyString));
 
             if (!mustSkipThisRowBecauseGunTimeIsNonsense)
                 answerAsResultItems.Add(thisRepeatingResultItem);
@@ -173,48 +178,22 @@ public class MyLaps2024Helper
 
         #endregion
 
-        #region step 3 report overall outcome for this file
-
-        var j = 1;
-
-        foreach (var resultItemDataTransferObject in answerAsResultItems.OrderBy(z => z.T01))
-        {
-            conversionReportSb.AppendLine(WriteOneLineReport(j, resultItemDataTransferObject, string.Empty));
-
-            j += 1;
-        }
-
-        #endregion
-
         return answerAsResultItems;
     }
 
     #endregion
 
-    #region Element names and symbols used in MyLaps spreadsheets from Andrew
+    #region xelements in .xml files originating from Access and before that from MyLaps Excel spreadsheets from Andrew
 
-    public const string SrcXeBib = "Bib_x0023_"; // the repeating element of the array
-    public const string SrcXeGunTime = "Gun_x0020_Time";
-    public const string SrcXeChipTime = "Chip_x0020_Time";
-    public const string SrcXeOverall = "Overall";
-
-    //const string SrcXeFirstName = "First_x0020_Name";
+    private const string SrcXeBib = "Bib_x0023_"; // the repeating element of the array
+    private const string SrcXeGunTime = "Gun_x0020_Time";
+    private const string SrcXeOverall = "Overall";
     private const string SrcXeFullName = "Athlete";
     private const string SrcXeGender = "Gender";
     private const string SrcXeAge = "Age";
-    private const string SrcXeCity = "city";
     private const string SrcXeRaceGroup = "Race";
 
-    private const string SrcValueExpert = "Expert";
-    private const string SrcValueSport = "Sport";
-    private const string SrcValueIntermediate = "Intermediate";
-    private const string SrcValueNovice = "Novice";
-    private const string SrcValueBeginner = "Beginner";
-    private const string SrcValueKids = "Kids";
-    private const string SrcValueMale = "M";
-    private const string SrcValueFemale = "F";
-    private const string SrcValueNonBinary = "X";
-    private const string SrcValueDnf = "DNF";
+    private const string SrcValueDnf = "DNF"; // not a name. a value
 
     #endregion
 
@@ -247,7 +226,7 @@ public class MyLaps2024Helper
         return answer;
     }
 
-    public static string GetValueOfXElementOrStringEmpty(string name, XElement xE)
+    public static string GetTmlrValueOfXElementOrStringEmpty(string name, XElement xE)
     {
         var textItem = xE.Elements(name).FirstOrDefault();
 

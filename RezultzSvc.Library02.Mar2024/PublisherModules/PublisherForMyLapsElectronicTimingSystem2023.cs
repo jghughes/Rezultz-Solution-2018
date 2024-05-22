@@ -86,7 +86,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
             #endregion
 
-            #region fetch MyLaps timing data files
+            #region fetch previously uploaded  MyLaps timing data files
 
             conversionReportSb.AppendLine("Doing null checks to confirm that we have one or more files of timing data originating from MyLaps ...");
 
@@ -116,7 +116,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
             #endregion
 
-            #region fetch participant master list
+            #region fetch previously uploaded participant master list
 
             conversionReportSb.AppendLine("Doing null checks to confirm that we have the master list of participants ...");
 

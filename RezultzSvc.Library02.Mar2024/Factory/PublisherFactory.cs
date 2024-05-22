@@ -25,6 +25,7 @@ public class PublisherFactory
 
     public const string ModuleCodeNameForRezultzPortalTimingSystem2021 = "RezultzPortalTimingSystem2021";
     public const string ModuleCodeNameForMyLaps2023 = "MyLapsElectronicTimingSystem2023";
+    public const string ModuleCodeNameForMyLaps2024 = "MyLapsElectronicTimingSystem2024";
     public const string ModuleCodeNameForKelso2015to2019Mtb = "KelsoFilesFromAJLeemingViaAccess2015";
     public const string ModuleCodeNameForKelso2013to2016Cx = "FilesFromCrossMgrEditedManuallyByJGH2013";
 
@@ -32,6 +33,7 @@ public class PublisherFactory
     {
         {ModuleCodeNameForRezultzPortalTimingSystem2021,new ModuleParticulars(ModuleCodeNameForRezultzPortalTimingSystem2021, @"2021.06.24") },
         {ModuleCodeNameForMyLaps2023,new ModuleParticulars(ModuleCodeNameForMyLaps2023, @"2023.05.30") },
+        {ModuleCodeNameForMyLaps2024,new ModuleParticulars(ModuleCodeNameForMyLaps2024, @"2024.05.30") },
         {ModuleCodeNameForKelso2015to2019Mtb,new ModuleParticulars(ModuleCodeNameForKelso2015to2019Mtb,  @"2016.05.01") },
         {ModuleCodeNameForKelso2013to2016Cx,new ModuleParticulars(ModuleCodeNameForKelso2013to2016Cx, @"2016.08.01") },
     };
