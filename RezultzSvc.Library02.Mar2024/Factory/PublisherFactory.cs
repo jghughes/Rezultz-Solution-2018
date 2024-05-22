@@ -83,6 +83,7 @@ public class PublisherFactory
             {
                 ModuleCodeNameForRezultzPortalTimingSystem2021 => new PublisherForRezultzPortalTimingSystem2021(),
                 ModuleCodeNameForMyLaps2023 => new PublisherForMyLapsElectronicTimingSystem2023(),
+                ModuleCodeNameForMyLaps2024 => new PublisherForMyLapsElectronicTimingSystem2024(),
                 ModuleCodeNameForKelso2015to2019Mtb => new PublisherForKelsoMtb2015To2019(),
                 ModuleCodeNameForKelso2013to2016Cx => new PublisherForKelsoCrossMgr2013To2016(),
                 _ => throw new JghPublisherServiceFaultException(
