@@ -61,7 +61,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         var ranToCompletionMsgSb = new JghStringBuilder();
         var startDateTime = DateTime.UtcNow;
 
-        conversionReportSb.AppendLineFollowedByOne("Conversion report:");
+        conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
         try
         {

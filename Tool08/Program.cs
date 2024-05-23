@@ -241,7 +241,7 @@ internal class Program
 
                 var blobName3 = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', $"{prettyTimeNow1}____{fileName}");
 
-                var didSucceed3 = await RaceResultsPublishingSvcAgent.UploadDatasetFileToBeProcessedSubsequentlyAsync(IdentifierOfResultsFromRezultzPortal, new EntityLocationItem(accountName, containerName, blobName3), fileItem.FileContentsAsText,
+                var didSucceed3 = await RaceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(IdentifierOfResultsFromRezultzPortal, new EntityLocationItem(accountName, containerName, blobName3), fileItem.FileContentsAsText,
                     CancellationToken.None);
 
                 if (didSucceed3) FilesToBeProcessedByPublisherModule.Add(new PublisherImportFileTargetItem(IdentifierOfResultsFromRezultzPortal, blobName3));
@@ -338,7 +338,7 @@ internal class Program
         JghConsoleHelper.WriteLineFollowedByOne("RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() ....");
 
         
-        var publisherOutput = await RaceResultsPublishingSvcAgent.GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync("21portal", seriesLabel, eventLabel, seriesProfileItem, FilesToBeProcessedByPublisherModule.ToArray());
+        var publisherOutput = await RaceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync("21portal", seriesLabel, eventLabel, seriesProfileItem, FilesToBeProcessedByPublisherModule.ToArray());
 
         if (publisherOutput == null)
         {

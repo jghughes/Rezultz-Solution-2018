@@ -289,11 +289,6 @@ public class RaceResultsPublishingServiceClientMvc02 : IRaceResultsPublishingSer
         #endregion
     }
 
-
-
-
-
-
     public async Task<PublisherModuleProfileItemDto> GetPublisherModuleProfileItemAsync(string fileNameFragment, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
@@ -369,8 +364,7 @@ public class RaceResultsPublishingServiceClientMvc02 : IRaceResultsPublishingSer
 
         #endregion
     }
-
-
+    
 
     public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct)
     {
@@ -443,7 +437,7 @@ public class RaceResultsPublishingServiceClientMvc02 : IRaceResultsPublishingSer
         #endregion
     }
 
-    public async Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string fileNameWithExtension, CancellationToken ct)
+    public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string fileNameWithExtension, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIllustrativeExampleOfDatasetExpectedByPublisherAsync]";
@@ -518,78 +512,7 @@ public class RaceResultsPublishingServiceClientMvc02 : IRaceResultsPublishingSer
         #endregion
     }
 
-    public async Task<PublisherOutputItemDto> ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct)
-    {
-        const string failure = "Unable to do what this method does.";
-        const string locus = "[ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync]";
-
-        var startTimestamp = DateTime.Now;
-
-        try
-        {
-            if (!NetworkInterface.GetIsNetworkAvailable())
-                throw new JghCommunicationFailureException(StringsMar2023.NoConnection);
-
-            //var route = $"{ThisControllerRoute}/{Routes.ComputeResultsForSingleEvent}";
-
-            var route = new MvcRouteSegmentItem(ThisControllerRoute, Routes.ComputeResultsForSingleEvent, null);
-
-            HttpRequestService.MustProcessResponseContentUsingReadAsStringAsync = true; // true because we want a full stack trace from the publishing modules, otherwise we won't know what went wrong in sufficient detail
-
-            var answerAsPublisherOutputDto = await HttpRequestService.PostObjectAsync<PublisherInputItemDto, PublisherOutputItemDto>(route, publisherInputItemDto, "", ct);
-
-            return answerAsPublisherOutputDto;
-        }
-
-        #region catch
-
-        catch (InvalidOperationException invalidProblem)
-        {
-            var msg = JghString.ConcatAsSentences(StringsMar2023.CallInvalid, invalidProblem.Message, JghString.MakeWaitTimeMsg(startTimestamp));
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-        catch (TaskCanceledException timeoutProblem)
-        {
-            var msg = JghString.ConcatAsSentences(StringsMar2023.CallTimedOut, JghExceptionHelpers.FindInnermostException(timeoutProblem).Message, JghString.MakeWaitTimeMsg(startTimestamp));
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-        catch (HttpRequestException badRequest)
-        {
-            var msg = JghString.ConcatAsParagraphs(StringsMar2023.HttpRequestExceptionThrown, JghExceptionHelpers.FindInnermostException(badRequest).Message, JghString.MakeWaitTimeMsg(startTimestamp));
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-        catch (JghApiException<string> alert)
-        {
-            var msg = Helpers.MakeAlertMessage(alert);
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-        catch (JghApiException<ExceptionDto> ex)
-        {
-            var msg = JghString.ConcatAsParagraphs(StringsMar2023.ServerExceptionThrown, Helpers.MakeExceptionMessage(ex), JghString.MakeWaitTimeMsg(startTimestamp));
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-        catch (JghApiException apiException)
-        {
-            var msg = JghString.ConcatAsParagraphs(StringsMar2023.ApiExceptionThrown, apiException.Description, JghString.MakeWaitTimeMsg(startTimestamp));
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-        catch (Exception unanticipatedProblem)
-        {
-            var msg = JghString.ConcatAsParagraphs(StringsMar2023.CallFailed, JghExceptionHelpers.FindInnermostException(unanticipatedProblem).Message, JghString.MakeWaitTimeMsg(startTimestamp));
-
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
-        }
-
-        #endregion
-    }
-
-    public async Task<bool> SendFileOfRawDataToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct)
+    public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[SendFileOfRawDataToBeProcessedSubsequentlyAsync]";
@@ -668,7 +591,78 @@ public class RaceResultsPublishingServiceClientMvc02 : IRaceResultsPublishingSer
         #endregion
     }
 
-    public async Task<bool> SendFileOfCompletedResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct)
+    public async Task<PublisherOutputItemDto> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct)
+    {
+        const string failure = "Unable to do what this method does.";
+        const string locus = "[ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync]";
+
+        var startTimestamp = DateTime.Now;
+
+        try
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                throw new JghCommunicationFailureException(StringsMar2023.NoConnection);
+
+            //var route = $"{ThisControllerRoute}/{Routes.ComputeResultsForSingleEvent}";
+
+            var route = new MvcRouteSegmentItem(ThisControllerRoute, Routes.ComputeResultsForSingleEvent, null);
+
+            HttpRequestService.MustProcessResponseContentUsingReadAsStringAsync = true; // true because we want a full stack trace from the publishing modules, otherwise we won't know what went wrong in sufficient detail
+
+            var answerAsPublisherOutputDto = await HttpRequestService.PostObjectAsync<PublisherInputItemDto, PublisherOutputItemDto>(route, publisherInputItemDto, "", ct);
+
+            return answerAsPublisherOutputDto;
+        }
+
+        #region catch
+
+        catch (InvalidOperationException invalidProblem)
+        {
+            var msg = JghString.ConcatAsSentences(StringsMar2023.CallInvalid, invalidProblem.Message, JghString.MakeWaitTimeMsg(startTimestamp));
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+        catch (TaskCanceledException timeoutProblem)
+        {
+            var msg = JghString.ConcatAsSentences(StringsMar2023.CallTimedOut, JghExceptionHelpers.FindInnermostException(timeoutProblem).Message, JghString.MakeWaitTimeMsg(startTimestamp));
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+        catch (HttpRequestException badRequest)
+        {
+            var msg = JghString.ConcatAsParagraphs(StringsMar2023.HttpRequestExceptionThrown, JghExceptionHelpers.FindInnermostException(badRequest).Message, JghString.MakeWaitTimeMsg(startTimestamp));
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+        catch (JghApiException<string> alert)
+        {
+            var msg = Helpers.MakeAlertMessage(alert);
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+        catch (JghApiException<ExceptionDto> ex)
+        {
+            var msg = JghString.ConcatAsParagraphs(StringsMar2023.ServerExceptionThrown, Helpers.MakeExceptionMessage(ex), JghString.MakeWaitTimeMsg(startTimestamp));
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+        catch (JghApiException apiException)
+        {
+            var msg = JghString.ConcatAsParagraphs(StringsMar2023.ApiExceptionThrown, apiException.Description, JghString.MakeWaitTimeMsg(startTimestamp));
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+        catch (Exception unanticipatedProblem)
+        {
+            var msg = JghString.ConcatAsParagraphs(StringsMar2023.CallFailed, JghExceptionHelpers.FindInnermostException(unanticipatedProblem).Message, JghString.MakeWaitTimeMsg(startTimestamp));
+
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, new JghCommunicationFailureException(msg));
+        }
+
+        #endregion
+    }
+    
+    public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[SendFileOfCompletedResultsForSingleEventAsync]";

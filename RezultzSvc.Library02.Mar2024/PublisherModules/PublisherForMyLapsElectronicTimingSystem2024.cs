@@ -101,7 +101,7 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
 
         JghStringBuilder ranToCompletionMsgSb = new();
 
-        JghStringBuilder conversionReportSb = new(); conversionReportSb.AppendLineFollowedByOne("Conversion report:");
+        JghStringBuilder conversionReportSb = new(); conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
         List<MyLapsFile> myLapsFiles = [];
 

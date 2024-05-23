@@ -15,12 +15,12 @@ public interface IRaceResultsPublishingServiceClient : IServiceClientBase
 
     public Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct);
 
-    public Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string fileNameWithExtension, CancellationToken ct);
+    public Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string fileNameWithExtension, CancellationToken ct);
 
-    public Task<PublisherOutputItemDto> ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct);
+    public Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct);
 
-    public Task<bool> SendFileOfRawDataToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct);
+    public Task<PublisherOutputItemDto> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct);
     
-    public Task<bool> SendFileOfCompletedResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct);
+    public Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct);
 
 }

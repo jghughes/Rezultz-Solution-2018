@@ -14,14 +14,14 @@ public interface IRaceResultsPublishingSvcAgent : ISvcAgentBase
 
     public Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct = default);
 
-    public Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string entityFileName, CancellationToken ct = default);
+    public Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string entityFileName, CancellationToken ct = default);
 
-    public Task<PublisherOutputItem> GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, string eventLabelAsEventIdentifier,
+    public Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
+
+    public Task<PublisherOutputItem> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, string eventLabelAsEventIdentifier,
         SeriesProfileItem seriesProfile, PublisherImportFileTargetItem[] filesToBeFetchedForProcessing, CancellationToken ct = default);
 
-    public Task<bool> UploadDatasetFileToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
-
-    public Task<bool> UploadFileOfCompletedResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
+    public Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
 
     #region old
 

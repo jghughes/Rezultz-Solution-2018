@@ -68,7 +68,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
         var ranToCompletionMsgSb = new JghStringBuilder();
         var startDateTime = DateTime.UtcNow;
 
-        conversionReportSb.AppendLineFollowedByOne("Conversion report:");
+        conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
         List<ResultItem> allComputedResults = new();
 

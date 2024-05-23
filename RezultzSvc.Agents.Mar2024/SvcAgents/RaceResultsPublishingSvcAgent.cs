@@ -98,14 +98,14 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string entityFileName, CancellationToken ct = default)
+    public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string entityFileName, CancellationToken ct = default)
     {
         const string failure = "Unable to get example of input dataset.";
         const string locus = "[GetIllustrativeExampleOfDatasetExpectedByPublisherAsync]";
 
         try
         {
-            var answer = await _myServiceClient.GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(entityFileName, ct);
+            var answer = await _myServiceClient.GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(entityFileName, ct);
 
             return answer;
         }
@@ -114,8 +114,27 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
             throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
         }
     }
-    
-    public async Task<PublisherOutputItem> GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, 
+
+    public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
+    {
+        const string failure = "Unable to upload input dataset.";
+        const string locus = "[SendFileOfRawDataToBeProcessedSubsequentlyAsync]";
+
+        try
+        {
+            var storageLocationDto = EntityLocationItem.ToDataTransferObject(storageLocation);
+
+            var answer = await _myServiceClient.UploadSourceDatasetToBeProcessedSubsequentlyAsync(identifierOfDataset, storageLocationDto, datasetAsRawString, ct);
+
+            return answer;
+        }
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
+        }
+    }
+
+    public async Task<PublisherOutputItem> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, 
         string eventLabelAsEventIdentifier, SeriesProfileItem seriesProfile, PublisherImportFileTargetItem[] filesToBeFetchedForProcessing, CancellationToken ct = default)
     {
         const string failure = "Unable to process datasets.";
@@ -134,7 +153,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
 
             var publisherInputDto = PublisherInputItem.ToDataTransferObject(publisherInput);
 
-            var publisherOutputDto = await _myServiceClient.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(publisherInputDto, ct);
+            var publisherOutputDto = await _myServiceClient.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(publisherInputDto, ct);
 
             var answer = PublisherOutputItem.FromDataTransferObject(publisherOutputDto);
 
@@ -146,26 +165,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<bool> UploadDatasetFileToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
-    {
-        const string failure = "Unable to upload input dataset.";
-        const string locus = "[SendFileOfRawDataToBeProcessedSubsequentlyAsync]";
-
-        try
-        {
-            var storageLocationDto = EntityLocationItem.ToDataTransferObject(storageLocation);
-
-            var answer = await _myServiceClient.SendFileOfRawDataToBeProcessedSubsequentlyAsync(identifierOfDataset, storageLocationDto, datasetAsRawString, ct);
-
-            return answer;
-        }
-        catch (Exception ex)
-        {
-            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, Locus2, Locus3, ex);
-        }
-    }
-
-    public async Task<bool> UploadFileOfCompletedResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
+    public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
     {
         const string failure = "Unable to upload completed results.";
         const string locus = "[SendFileOfCompletedResultsForSingleEventAsync]";
@@ -174,7 +174,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         {
             var storageLocationDto = EntityLocationItem.ToDataTransferObject(storageLocation);
 
-            var answer = await _myServiceClient.SendFileOfCompletedResultsForSingleEventAsync(storageLocationDto, datasetAsRawString, ct);
+            var answer = await _myServiceClient.UploadPublishableResultsForSingleEventAsync(storageLocationDto, datasetAsRawString, ct);
 
             return answer;
         }

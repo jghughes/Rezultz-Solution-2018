@@ -117,7 +117,8 @@
         <userControls1:HeaderStyleContentsUserControl Grid.Row="2" Tag="Header"
                                                       x:Name="XamlElementHeaderUserControl"
                                                       DataContext="{Binding Path=HeadersVm}"
-                                                      Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" Margin="{StaticResource LibraryTwelveLeftMargin}"/>
+                                                      Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                                      Margin="{StaticResource LibraryTwelveLeftMargin}" />
 
         <Rectangle Grid.Row="3" Tag="Spacer"
                    Visibility="{Binding ElementName=XamlElementHeaderUserControl, Path=Visibility}"
@@ -202,10 +203,24 @@
 
                         </StackPanel>
 
+
                         <StackPanel
                             Visibility="{Binding ElementName=XamlElementCleanAndRefreshPublishingSequenceButton, Path=Visibility}">
 
                             <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                            <StackPanel Orientation="Horizontal" Margin="124,0,0,0"
+                                        Visibility="{Binding ElementName=XamlElementCleanAndRefreshPublishingSequenceButton, Path=Visibility}">
+
+                                <TextBlock Text="Show workings?"
+                                           Style="{StaticResource HereCheckBoxBodyTextBlockStyle}" />
+
+                                <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                <CheckBox x:Name="XamlElementCheckBoxShowAllWorkings" />
+
+                            </StackPanel>
+
 
                             <StackPanel Orientation="Vertical" Margin="124,0,0,0">
 
@@ -261,27 +276,27 @@
                                 <StackPanel Orientation="Vertical">
 
                                     <userControls1:PublishingModuleFetchSomethingFromRezultzHubButtonUserControl
-                                        DataContext="{Binding Path=PullTimestampsFromRezultzHubAndUploadButtonVm}"
+                                        DataContext="{Binding Path=PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm}"
                                         Visibility="{Binding Path=IsVisible}" />
 
                                     <userControls1:PublishingModuleFetchSomethingFromRezultzHubButtonUserControl
-                                        DataContext="{Binding Path=PullParticipantsFromRezultzHubAndUploadButtonVm}"
+                                        DataContext="{Binding Path=PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm}"
                                         Visibility="{Binding Path=IsVisible}" />
 
                                     <userControls1:PublishingModuleFetchSomethingFromRezultzHubButtonUserControl
-                                        DataContext="{Binding Path=PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm}"
+                                        DataContext="{Binding Path=PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm}"
                                         Visibility="{Binding Path=IsVisible}" />
 
-                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm01"
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm01"
                                                 Orientation="Vertical"
-                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm01}"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01}"
                                                 Visibility="{Binding Path=IsVisible}">
 
                                         <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                                         <Button Content="{Binding Path=Content}"
                                                 ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
-                                                Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                                Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
                                                 Tag="{Binding Path=DatasetIdentifyingEnum}"
                                                 IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                                 Style="{StaticResource HereImportDataButtonStyle}"
@@ -291,9 +306,9 @@
 
                                     </StackPanel>
 
-                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm02"
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm02"
                                                 Orientation="Vertical"
-                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm02}"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02}"
                                                 Visibility="{Binding Path=IsVisible}">
 
                                         <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
@@ -301,7 +316,7 @@
                                         <Button
                                             Content="{Binding Path=Content}"
                                             ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
-                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
                                             Tag="{Binding Path=DatasetIdentifyingEnum}"
                                             IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                             Style="{StaticResource HereImportDataButtonStyle}"
@@ -311,9 +326,9 @@
 
                                     </StackPanel>
 
-                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm03"
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm03"
                                                 Orientation="Vertical"
-                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm03}"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03}"
                                                 Visibility="{Binding Path=IsVisible}">
 
                                         <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
@@ -321,7 +336,7 @@
                                         <Button
                                             Content="{Binding Path=Content}"
                                             ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
-                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
                                             Tag="{Binding Path=DatasetIdentifyingEnum}"
                                             IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                             Style="{StaticResource HereImportDataButtonStyle}"
@@ -331,9 +346,9 @@
 
                                     </StackPanel>
 
-                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm04"
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm04"
                                                 Orientation="Vertical"
-                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm04}"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04}"
                                                 Visibility="{Binding Path=IsVisible}">
 
                                         <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
@@ -341,7 +356,7 @@
                                         <Button
                                             Content="{Binding Path=Content}"
                                             ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
-                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
                                             Tag="{Binding Path=DatasetIdentifyingEnum}"
                                             IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                             Style="{StaticResource HereImportDataButtonStyle}"
@@ -351,9 +366,9 @@
 
                                     </StackPanel>
 
-                                    <StackPanel Tag="BrowseHardDriveForCustomDatasetAndUploadButtonVm05"
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm05"
                                                 Orientation="Vertical"
-                                                DataContext="{Binding Path=BrowseHardDriveForCustomDatasetAndUploadButtonVm05}"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05}"
                                                 Visibility="{Binding Path=IsVisible}">
 
                                         <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
@@ -361,7 +376,7 @@
                                         <Button
                                             Content="{Binding Path=Content}"
                                             ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
-                                            Click="BtnBrowseHardDriveForFileAndUpload_OnClick"
+                                            Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
                                             Tag="{Binding Path=DatasetIdentifyingEnum}"
                                             IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                             Style="{StaticResource HereImportDataButtonStyle}"
@@ -391,16 +406,16 @@
 
                                     <Button Content="Compute results"
                                             Command="{Binding Path=OnClickCommand}"
-                                            DataContext="{Binding Path=PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm}"
+                                            DataContext="{Binding Path=ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm}"
                                             Style="{StaticResource HereOrdinaryButtonStyle}"
                                             TabIndex="20"
-                                            ToolTipService.ToolTip="Consolidate all collected data into a file containing a finalised set of Results" />
+                                            ToolTipService.ToolTip="Process all previously imported and uploaded source data into publishable Results for a single event." />
 
                                     <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}"
                                                Visibility="{Binding ElementName=XamlElementOutcomeOfComputeOperationTextVm, Path=Visibility}" />
 
                                     <TextBlock x:Name="XamlElementOutcomeOfComputeOperationTextVm"
-                                               DataContext="{Binding Path=OutcomeOfComputeOperationTextVm}"
+                                               DataContext="{Binding Path=OutcomeOfProcessingOperationTextVm}"
                                                Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
                                                Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
                                                Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
@@ -427,7 +442,7 @@
                                     <StackPanel Margin="29,0,0,0">
 
                                         <Button Content="Export work"
-                                                Click="BtnSavePreprocessedDataToHardDrive_OnClick"
+                                                Click="BtnSaveSuccessfullyComputedLeaderboardToHardDrive_OnClick"
                                                 DataContext="{Binding Path=ExportLeaderboardToHardDriveButtonVm}"
                                                 IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                                                 Style="{StaticResource HereOrdinaryButtonStyle}"
@@ -440,7 +455,7 @@
                                             Visibility="{Binding ElementName=XamlElementSavedFileNameOfProcessedDataTextVm, Path=Visibility}" />
 
                                         <TextBlock x:Name="XamlElementSavedFileNameOfProcessedDataTextVm"
-                                                   DataContext="{Binding Path=SavedFileNameOfProcessedDataTextVm}"
+                                                   DataContext="{Binding Path=SavedFileNameOfSuccessfullyProcessedLeaderboardTextVm}"
                                                    Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull }"
                                                    Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
                                                    Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
@@ -452,6 +467,49 @@
                                     </StackPanel>
 
                                 </StackPanel>
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock
+                                        Text="      option : "
+                                        Style="{StaticResource HereBodyTextBlockStyle}"
+                                        MinWidth="0"
+                                        VerticalAlignment="Top"
+                                        Margin="0,6,0,0" />
+
+                                    <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
+
+                                    <StackPanel Margin="29,0,0,0">
+
+                                        <Button Content="Export processing report"
+                                                Click="BtnSaveProcessingReportToHardDrive_OnClick"
+                                                DataContext="{Binding Path=ExportProcessingReportToHardDriveButtonVm}"
+                                                IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                                Style="{StaticResource HereOrdinaryButtonStyle}"
+                                                TabIndex="30"
+                                                ToolTipService.ToolTip="save a copy of the processing report"
+                                                VerticalAlignment="Top" />
+
+                                        <Rectangle
+                                            Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                            Visibility="{Binding ElementName=XamlElementSavedConversionReportTextVm, Path=Visibility}" />
+
+                                        <TextBlock x:Name="XamlElementSavedConversionReportTextVm"
+                                                   DataContext="{Binding Path=SavedFileNameOfProcessingReportTextVm}"
+                                                   Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull }"
+                                                   Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
+                                                   Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
+
+                                        <Rectangle
+                                            Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                            Visibility="{Binding ElementName=XamlElementSavedConversionReportTextVm, Path=Visibility}" />
+
+                                    </StackPanel>
+
+                                </StackPanel>
+
 
                                 <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
@@ -483,7 +541,7 @@
 
                                         <TextBlock
                                             x:Name="XamlElementRanToCompletionMessageForPreviewDataTextVm"
-                                            DataContext="{Binding Path=RanToCompletionMessageForPreviewDataTextVm}"
+                                            DataContext="{Binding Path=RanToCompletionMessageForPreviewLeaderboardTextVm}"
                                             Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
                                             Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
                                             Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
@@ -524,7 +582,7 @@
                                                Visibility="{Binding ElementName=XamlElementRanToCompletionMessageForPublishedDataTextVm, Path=Visibility}" />
 
                                     <TextBlock x:Name="XamlElementRanToCompletionMessageForPublishedDataTextVm"
-                                               DataContext="{Binding Path=RanToCompletionMessageForPublishedDataTextVm}"
+                                               DataContext="{Binding Path=RanToCompletionMessageForPublishedLeaderboardTextVm}"
                                                Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
                                                Visibility="{Binding Path=Text, Converter={StaticResource TextToVisibility}}"
                                                Style="{StaticResource ThisHereCaptionBlurbStyle2}" />
@@ -557,22 +615,6 @@
 
                     <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
 
-
-                        <StackPanel Orientation="Horizontal" Margin="124,0,0,0"
-                                    Visibility="{Binding ElementName=XamlElementCleanAndRefreshPublishingSequenceButton, Path=Visibility}">
-
-                            <TextBlock Text="Show workings in publishing sequence?"
-                                       Style="{StaticResource HereCheckBoxBodyTextBlockStyle}" />
-
-                            <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
-
-                            <CheckBox x:Name="XamlElementCheckBoxShowAllWorkings" />
-
-                        </StackPanel>
-
-
-                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
-
                     <StackPanel Orientation="Horizontal"
                                 Visibility="{Binding ElementName=XamlElementCheckBoxShowAllWorkings, Path=IsChecked}">
 
@@ -580,8 +622,7 @@
                             Text="Workings : "
                             Style="{StaticResource HereBodyTextBlockStyle}"
                             VerticalAlignment="Top"
-                            Margin="0,6,0,0"
-                            />
+                            Margin="0,6,0,0" />
 
                         <Rectangle Style="{StaticResource LibraryWideHorizontalSpacerStyle}" />
 
@@ -635,7 +676,7 @@
         </Grid>
 
         <userControls1:FooterStyleContentsUserControl Grid.Row="5" Tag="Footer"
-                                                     DataContext="{Binding Path=FootersVm}" />
+                                                      DataContext="{Binding Path=FootersVm}" />
 
     </Grid>
 

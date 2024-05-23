@@ -99,22 +99,23 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             LaunchWorkSessionButtonVm = new ButtonControlViewModel(LaunchWorkSessionButtonVmOnClickExecuteAsync, LaunchWorkSessionButtonVmOnClickCanExecute);
             CleanAndRefreshPublishingSequenceButtonVm = new ButtonControlViewModel(CleanAndRefreshPublishingSequenceButtonOnClickExecuteAsync, CleanAndRefreshPublishingSequenceButtonOnClickCanExecute);
 
-            PullTimestampsFromRezultzHubAndUploadButtonVm =
-                new PublishingModuleButtonControlViewModel(PullTimestampsFromRezultzHubAndUploadButtonVmOnClickExecuteAsync, PullTimestampsFromRezultzHubAndUploadButtonVmOnClickCanExecute);
-            PullParticipantsFromRezultzHubAndUploadButtonVm =
-                new PublishingModuleButtonControlViewModel(PullParticipantsRezultzHubAndUploadButtonOnClickExecuteAsync, PullParticipantsRezultzHubAndUploadButtonOnClickCanExecute);
-            PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm =
-                new PublishingModuleButtonControlViewModel(PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickExecuteAsync, PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickCanExecute);
+            PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm =
+                new PublishingModuleButtonControlViewModel(PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickExecuteAsync, PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickCanExecute);
+            PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm =
+                new PublishingModuleButtonControlViewModel(PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickExecuteAsync, PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickCanExecute);
+            PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm =
+                new PublishingModuleButtonControlViewModel(PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync, PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickCanExecute);
 
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm01 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm02 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm03 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm04 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm05 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
 
-            PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm = new ButtonControlViewModel(PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickExecuteAsync,
-                PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickCanExecute);
+            ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm = new ButtonControlViewModel(ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickExecuteAsync,
+                ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute);
 
+            ExportProcessingReportToHardDriveButtonVm = new ButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
             ExportLeaderboardToHardDriveButtonVm = new ButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
 
             UploadLeaderboardToPreviewStorageButtonVm =
@@ -301,15 +302,15 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
     public string EnumStringForComputedLeaderboard = "ComputedLeaderboardEnum";
 
     public string EnumStringForLogOfFileTransfers = "LogOfFileTransfersEnum";
-    public string EnumStringForProcessingReport = "ConversionReportEnum";
+    public string EnumStringForProcessingReport = "ProcessingReportEnum";
 
-    public string EnumStringForImportedFile01 = "ImportedFile01Enum";
-    public string EnumStringForImportedFile02 = "ImportedFile02Enum";
-    public string EnumStringForImportedFile03 = "ImportedFile03Enum";
-    public string EnumStringForImportedFile04 = "ImportedFile04Enum";
-    public string EnumStringForImportedFile05 = "ImportedFile05Enum";
+    //public string EnumStringForImportedFile01 = "ImportedFile01Enum";
+    //public string EnumStringForImportedFile02 = "ImportedFile02Enum";
+    //public string EnumStringForImportedFile03 = "ImportedFile03Enum";
+    //public string EnumStringForImportedFile04 = "ImportedFile04Enum";
+    //public string EnumStringForImportedFile05 = "ImportedFile05Enum";
 
-    public string SuccessfullyComputedResultsAsXml { get; set; } = string.Empty;
+    public string SuccessfullyComputedLeaderboardAsXml { get; set; } = string.Empty;
 
     #endregion
 
@@ -341,21 +342,20 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
     #region TextBlock presenters
 
-    //public TextBlockControlViewModel ForDisplayingLogOfFilesThatWereTransferredTextVm { get; } = new();
-    //public TextBlockControlViewModel ConversionReportLogTextVm { get; } = new();
+    public TextBlockControlViewModel CSharpPublisherModuleCodeNameTextVm { get; } = new() { IsVisible = true };
+    public TextBlockControlViewModel CSharpPublisherModuleVersionNumberTextVm { get; } = new() { IsVisible = true };
+    public TextBlockControlViewModel CSharpPublisherModuleVeryShortDescriptionTextVm { get; } = new() { IsVisible = true };
+    public TextBlockControlViewModel CSharpPublisherModuleShortDescriptionTextVm { get; } = new() { IsVisible = true };
+    public TextBlockControlViewModel CSharpPublisherModuleGeneralOverviewTextVm { get; } = new() { IsVisible = true };
 
-    public TextBlockControlViewModel SavedFileNameOfProcessedDataTextVm { get; } = new();
-    public TextBlockControlViewModel RanToCompletionMessageForPreviewDataTextVm { get; } = new();
-    public TextBlockControlViewModel RanToCompletionMessageForPublishedDataTextVm { get; } = new();
-    public TextBlockControlViewModel OutcomeOfComputeOperationTextVm { get; } = new();
+    public TextBlockControlViewModel ProcessingReportTextVm { get; } = new();
+    public TextBlockControlViewModel SavedFileNameOfProcessingReportTextVm { get; } = new();
 
-    public TextBlockControlViewModel VeryShortDescriptionOfModuleTextVm { get; } = new() {IsVisible = true};
-    public TextBlockControlViewModel ShortDescriptionOfModuleTextVm { get; } = new() {IsVisible = true};
-    public TextBlockControlViewModel GeneralOverviewOfModuleTextVm { get; } = new() {IsVisible = true};
-    public TextBlockControlViewModel CSharpModuleVersionNumberTextVm { get; } = new() {IsVisible = true};
+    public TextBlockControlViewModel OutcomeOfProcessingOperationTextVm { get; } = new();
 
-    public TextBlockControlViewModel CSharpModuleCodeNameTextVm { get; } = new() {IsVisible = true};
-    //public TextBlockControlViewModel CurrentlyValidatedPublishingProfileFileNameTextVm { get; } = new() { Text = XmlFilename_not_yet_entered };
+    public TextBlockControlViewModel SavedFileNameOfSuccessfullyProcessedLeaderboardTextVm { get; } = new();
+    public TextBlockControlViewModel RanToCompletionMessageForPreviewLeaderboardTextVm { get; } = new();
+    public TextBlockControlViewModel RanToCompletionMessageForPublishedLeaderboardTextVm { get; } = new();
 
     #endregion
 
@@ -370,21 +370,19 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
     public ButtonControlViewModel LaunchWorkSessionButtonVm { get; }
     public ButtonControlViewModel CleanAndRefreshPublishingSequenceButtonVm { get; }
 
-    public PublishingModuleButtonControlViewModel PullTimestampsFromRezultzHubAndUploadButtonVm { get; }
-    public PublishingModuleButtonControlViewModel PullParticipantsFromRezultzHubAndUploadButtonVm { get; }
+    public PublishingModuleButtonControlViewModel PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm { get; }
+    public PublishingModuleButtonControlViewModel PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm { get; }
+    public PublishingModuleButtonControlViewModel PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm { get; }
 
+    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01 { get; }
+    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02 { get; }
+    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 { get; }
+    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 { get; }
+    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 { get; }
 
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForCustomDatasetAndUploadButtonVm01 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForCustomDatasetAndUploadButtonVm02 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForCustomDatasetAndUploadButtonVm03 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForCustomDatasetAndUploadButtonVm04 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForCustomDatasetAndUploadButtonVm05 { get; }
+    public ButtonControlViewModel ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm { get; }
 
-    public PublishingModuleButtonControlViewModel PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm { get; }
-
-
-    public ButtonControlViewModel PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm { get; }
-
+    public ButtonControlViewModel ExportProcessingReportToHardDriveButtonVm { get; }
     public ButtonControlViewModel ExportLeaderboardToHardDriveButtonVm { get; }
     public ButtonControlViewModel UploadLeaderboardToPreviewStorageButtonVm { get; }
     public ButtonControlViewModel UploadLeaderboardToPublishedStorageButtonVm { get; }
@@ -756,7 +754,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             var messageOk = $"{FilenameSuccessfullyConfirmed} ID=<{TextBoxForEnteringPublishingProfileFileNameFragmentVm.Label}>\r\n\r\n{PublishingModuleProfile.GeneralOverviewOfModule}";
 
-            ShortDescriptionOfModuleTextVm.Text = PublishingModuleProfile.ShortDescriptionOfModule;
+            CSharpPublisherModuleShortDescriptionTextVm.Text = PublishingModuleProfile.ShortDescriptionOfModule;
 
             await TextBoxForEnteringPublishingProfileFileNameFragmentVm.ChangeTextAsync(string.Empty);
 
@@ -1036,28 +1034,28 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
     #endregion
 
-    #region PullTimestampsFromRezultzHubAndUploadButtonVmOnClickAsync
+    #region PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync
 
-    protected virtual bool PullTimestampsFromRezultzHubAndUploadButtonVmOnClickCanExecute()
+    protected virtual bool PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickCanExecute()
     {
-        return PullTimestampsFromRezultzHubAndUploadButtonVm.IsAuthorisedToOperate;
+        return PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullTimestampsFromRezultzHubAndUploadButtonVmOnClickExecuteAsync()
+    private async void PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
-        const string locus = "[PullTimestampsFromRezultzHubAndUploadButtonVmOnClickExecuteAsync]";
+        const string locus = "[PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickExecuteAsync]";
 
         try
         {
-            if (!PullTimestampsFromRezultzHubAndUploadButtonVmOnClickCanExecute())
+            if (!PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickCanExecute())
                 return;
 
             GlobalProgressIndicatorVm.OpenProgressIndicator($"{StringsPortal.Working_____downloading}");
 
             DeadenGui();
 
-            var progressReport = await PullTimestampsFromRezultzHubAndUploadButtonVmOnClickAsync();
+            var progressReport = await PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync();
 
             EnlivenGui();
 
@@ -1087,10 +1085,10 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullTimestampsFromRezultzHubAndUploadButtonVmOnClickAsync()
+    private async Task<string> PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
-        const string locus = "[PullTimestampsFromRezultzHubAndUploadButtonVmOnClickAsync]";
+        const string locus = "[PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync]";
 
         var startDateTime = DateTime.UtcNow;
 
@@ -1136,7 +1134,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             if (!exists)
             {
-                PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetAsRawString = string.Empty;
+                PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetAsRawString = string.Empty;
                 throw new JghAlertMessageException("No container of timestamps on hub. Hub was empty.");
             }
 
@@ -1150,7 +1148,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             if (downLoadedClockHubItems.Length == 0)
             {
-                PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetAsRawString = string.Empty;
+                PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetAsRawString = string.Empty;
                 throw new JghAlertMessageException("No timestamps received. Hub was empty.");
             }
 
@@ -1209,7 +1207,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             var datasetEntityName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('_',
                 $"{DateTime.Now.ToString(JghDateTime.SortablePattern)}___{EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson}"); // create a artificial but meaningful file name and assign to SingleEventResultsObtainedFromHubDescriptionOfOrigin
 
-            var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadDatasetFileToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson,
+            var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson,
                 new EntityLocationItem(accountName, containerName, datasetEntityName),
                 dataTransferObjectsAsJson, CancellationToken.None);
 
@@ -1253,10 +1251,10 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             #region update button
 
-            PullTimestampsFromRezultzHubAndUploadButtonVm.DatasetHasBeenUploaded = true;
-            PullTimestampsFromRezultzHubAndUploadButtonVm.DatasetFileNameForUpload = datasetEntityName;
-            PullTimestampsFromRezultzHubAndUploadButtonVm.DatasetFileUploadOutcomeReport = ranToCompletionMsgSb.ToString();
-            PullTimestampsFromRezultzHubAndUploadButtonVm.DatasetAsRawString = dataTransferObjectsAsJson;
+            PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetHasBeenUploaded = true;
+            PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetFileNameForUpload = datasetEntityName;
+            PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetFileUploadOutcomeReport = ranToCompletionMsgSb.ToString();
+            PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetAsRawString = dataTransferObjectsAsJson;
 
             #endregion
 
@@ -1277,28 +1275,28 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
     #endregion
 
-    #region PullParticipantsRezultzHubAndUploadButtonOnClickAsync
+    #region PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync
 
-    protected virtual bool PullParticipantsRezultzHubAndUploadButtonOnClickCanExecute()
+    protected virtual bool PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickCanExecute()
     {
-        return PullParticipantsFromRezultzHubAndUploadButtonVm.IsAuthorisedToOperate;
+        return PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullParticipantsRezultzHubAndUploadButtonOnClickExecuteAsync()
+    private async void PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PullParticipantsRezultzHubAndUploadButtonOnClickExecuteAsync]";
 
         try
         {
-            if (!PullParticipantsRezultzHubAndUploadButtonOnClickCanExecute())
+            if (!PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickCanExecute())
                 return;
 
             GlobalProgressIndicatorVm.OpenProgressIndicator($"{StringsPortal.Working_____downloading}");
 
             DeadenGui();
 
-            var progressReport = await PullParticipantsRezultzHubAndUploadButtonOnClickAsync();
+            var progressReport = await PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync();
 
             EnlivenGui();
 
@@ -1328,7 +1326,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullParticipantsRezultzHubAndUploadButtonOnClickAsync()
+    private async Task<string> PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
         const string locus = "[PullParticipantsRezultzHubAndUploadButtonOnClickAsync]";
@@ -1440,7 +1438,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             var datasetEntityName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('_',
                 $"{DateTime.Now.ToString(JghDateTime.SortablePattern)}___{EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub}");
 
-            var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadDatasetFileToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub,
+            var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub,
                 new EntityLocationItem(accountName, containerName, datasetEntityName),
                 dataTransferObjectsAsJson,
                 CancellationToken.None);
@@ -1486,10 +1484,10 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             #region update button
 
-            PullParticipantsFromRezultzHubAndUploadButtonVm.DatasetHasBeenUploaded = true;
-            PullParticipantsFromRezultzHubAndUploadButtonVm.DatasetFileNameForUpload = datasetEntityName;
-            PullParticipantsFromRezultzHubAndUploadButtonVm.DatasetAsRawString = dataTransferObjectsAsJson;
-            PullParticipantsFromRezultzHubAndUploadButtonVm.DatasetFileUploadOutcomeReport = ranToCompletionMsgSb.ToString();
+            PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetHasBeenUploaded = true;
+            PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetFileNameForUpload = datasetEntityName;
+            PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetAsRawString = dataTransferObjectsAsJson;
+            PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetFileUploadOutcomeReport = ranToCompletionMsgSb.ToString();
 
             #endregion
 
@@ -1510,28 +1508,28 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
     #endregion
 
-    #region PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickAsync
+    #region PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync
 
-    protected virtual bool PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickCanExecute()
+    protected virtual bool PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickCanExecute()
     {
-        return PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.IsAuthorisedToOperate;
+        return PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickExecuteAsync()
+    private async void PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
-        const string locus = "[PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickExecuteAsync]";
+        const string locus = "[PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync]";
 
         try
         {
-            if (!PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickCanExecute())
+            if (!PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickCanExecute())
                 return;
 
             GlobalProgressIndicatorVm.OpenProgressIndicator($"{StringsPortal.Working_____downloading}");
 
             DeadenGui();
 
-            var progressReport = await PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickAsync();
+            var progressReport = await PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync();
 
             EnlivenGui();
 
@@ -1561,10 +1559,10 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickAsync()
+    private async Task<string> PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
-        const string locus = "[PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonOnClickAsync]";
+        const string locus = "[PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync]";
 
         var startDateTime = DateTime.UtcNow;
 
@@ -1614,7 +1612,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             if (!exists)
             {
-                PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetAsRawString = string.Empty;
+                PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetAsRawString = string.Empty;
                 throw new JghAlertMessageException("No container of timestamps on hub. Hub was empty.");
             }
 
@@ -1628,7 +1626,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             if (downLoadedClockHubItems.Length == 0)
             {
-                PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetAsRawString = string.Empty;
+                PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetAsRawString = string.Empty;
                 throw new JghAlertMessageException("No timestamps received. Hub was empty.");
             }
 
@@ -1726,7 +1724,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             var datasetEntityName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-',
                 $"{DateTime.Now.ToString(JghDateTime.SortablePattern)}+{EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem}");
 
-            var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadDatasetFileToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem,
+            var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem,
                 new EntityLocationItem(accountName, containerName, datasetEntityName),
                 dataTransferObjectsAsXml,
                 CancellationToken.None);
@@ -1774,10 +1772,10 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             #region update button
 
-            PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetHasBeenUploaded = true;
-            PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetFileNameForUpload = datasetEntityName;
-            PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetFileUploadOutcomeReport = ranToCompletionMsgSb.ToString();
-            PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetAsRawString = dataTransferObjectsAsXml;
+            PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetHasBeenUploaded = true;
+            PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetFileNameForUpload = datasetEntityName;
+            PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetFileUploadOutcomeReport = ranToCompletionMsgSb.ToString();
+            PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetAsRawString = dataTransferObjectsAsXml;
 
             #endregion
 
@@ -1798,14 +1796,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
     #endregion
 
-    #region PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickAsync
+    // commands/click-events for all BrowseHardDriveForFileAndUploadAsSourceDataButtons are to be found in the page code-behind
 
-    protected virtual bool PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickCanExecute()
+    #region ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync
+
+    protected virtual bool ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute()
     {
-        return PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm.IsAuthorisedToOperate;
+        return ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickExecuteAsync()
+    private async void ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickExecuteAsync]";
@@ -1815,13 +1815,13 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             ThrowIfWorkSessionNotProperlyInitialised();
 
 
-            if (!PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickCanExecute()) return;
+            if (!ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute()) return;
 
             GlobalProgressIndicatorVm.OpenProgressIndicator($"{StringsPortal.Working_____converting}");
 
             DeadenGui();
 
-            var progressReport = await PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickAsync();
+            var progressReport = await ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync();
 
             EnlivenGui();
 
@@ -1851,7 +1851,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickAsync()
+    private async Task<string> ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync()
     {
         #region local helpers
 
@@ -1876,14 +1876,14 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             try
             {
-                AddDataset(PullTimestampsFromRezultzHubAndUploadButtonVm);
-                AddDataset(PullParticipantsFromRezultzHubAndUploadButtonVm);
-                AddDataset(PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm);
-                AddDataset(BrowseHardDriveForCustomDatasetAndUploadButtonVm01);
-                AddDataset(BrowseHardDriveForCustomDatasetAndUploadButtonVm02);
-                AddDataset(BrowseHardDriveForCustomDatasetAndUploadButtonVm03);
-                AddDataset(BrowseHardDriveForCustomDatasetAndUploadButtonVm04);
-                AddDataset(BrowseHardDriveForCustomDatasetAndUploadButtonVm05);
+                AddDataset(PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm);
+                AddDataset(PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm);
+                AddDataset(PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05);
 
                 return datasetsToBeProcessed.ToArray();
             }
@@ -1901,7 +1901,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
 
         const string failure = "Unable to execute button click method.";
-        const string locus = "[PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickAsync]";
+        const string locus = "[ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync]";
 
         try
         {
@@ -1915,14 +1915,14 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             #region bale if no data to process
 
-            if (string.IsNullOrWhiteSpace(PullTimestampsFromRezultzHubAndUploadButtonVm.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(PullParticipantsFromRezultzHubAndUploadButtonVm.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(BrowseHardDriveForCustomDatasetAndUploadButtonVm01.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(BrowseHardDriveForCustomDatasetAndUploadButtonVm02.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(BrowseHardDriveForCustomDatasetAndUploadButtonVm03.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(BrowseHardDriveForCustomDatasetAndUploadButtonVm04.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(BrowseHardDriveForCustomDatasetAndUploadButtonVm05.DatasetAsRawString))
+            if (string.IsNullOrWhiteSpace(PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05.DatasetAsRawString))
                 throw new JghAlertMessageException(StringsPortal.Unable_to_proceed__No_datasets_as_yet);
 
             #endregion
@@ -1950,7 +1950,8 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
                 var datasetTargetsToBeProcessed = GatherTargetsForDatasetsImportedAndPreviouslyUploadedForSubsequentProcessing();
 
-                publisherOutputItem = await _raceResultsPublishingSvcAgent.GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(
+                
+                publisherOutputItem = await _raceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(
                     TextBoxForEnteringPublishingProfileFileNameFragmentVm.Label,
                     seriesLabelAsIdentifier, eventLabelAsIdentifier, seriesProfile, datasetTargetsToBeProcessed, CancellationToken.None);
 
@@ -1961,7 +1962,9 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
                 var computedResultsAsXml = JghSerialisation.ToXmlFromObject(computedResultsDto, new[] {typeof(ResultDto)});
 
-                SuccessfullyComputedResultsAsXml = computedResultsAsXml; // crucial assignment - this is what we pick up to be published eventually
+                ProcessingReportTextVm.Text = publisherOutputItem.ConversionReport;
+
+                SuccessfullyComputedLeaderboardAsXml = computedResultsAsXml; // crucial assignment - this is what we pick up to be published eventually
 
                 await CboLookupItemOfWorkingsForDisplayVm.AddItemToItemsSourceAsync(new CboLookupItemDisplayObject
                     {Label = "Computed results for publishing to leaderboard", Blurb = computedResultsAsXml, EnumString = EnumStringForComputedLeaderboard});
@@ -1972,9 +1975,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             {
                 AppendToConversionReportLog(publisherOutputItem.ConversionReport);
 
-                SuccessfullyComputedResultsAsXml = string.Empty;
+                ProcessingReportTextVm.Text = string.Empty;
 
-                OutcomeOfComputeOperationTextVm.Text = ex.Message;
+                SuccessfullyComputedLeaderboardAsXml = string.Empty;
+
+                OutcomeOfProcessingOperationTextVm.Text = ex.Message;
 
                 AppendToConversionReportLog(JghExceptionHelpers.FindInnermostException(ex).Message);
 
@@ -1987,7 +1992,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             NextThingToDoEnum = NextThingToDo.MakeControlsForPublishingActive;
 
-            OutcomeOfComputeOperationTextVm.Text = ranToCompletionReport;
+            OutcomeOfProcessingOperationTextVm.Text = ranToCompletionReport;
 
             return ranToCompletionReport;
         }
@@ -2070,9 +2075,9 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             #endregion
 
-            var messageOk = await UploadProcessedArrayOfResultItemAsync(SuccessfullyComputedResultsAsXml, EnumForResultsDatabaseDestinations.Draft);
+            var messageOk = await UploadProcessedArrayOfResultItemAsync(SuccessfullyComputedLeaderboardAsXml, EnumForResultsDatabaseDestinations.Draft);
 
-            if (!string.IsNullOrWhiteSpace(messageOk)) RanToCompletionMessageForPreviewDataTextVm.Text = messageOk;
+            if (!string.IsNullOrWhiteSpace(messageOk)) RanToCompletionMessageForPreviewLeaderboardTextVm.Text = messageOk;
 
             NextThingToDoEnum = NextThingToDo.MakeControlsForPublishingActive;
 
@@ -2159,9 +2164,9 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
 
             #endregion
 
-            var ranToCompletionMessage = await UploadProcessedArrayOfResultItemAsync(SuccessfullyComputedResultsAsXml, EnumForResultsDatabaseDestinations.Publish);
+            var ranToCompletionMessage = await UploadProcessedArrayOfResultItemAsync(SuccessfullyComputedLeaderboardAsXml, EnumForResultsDatabaseDestinations.Publish);
 
-            if (!string.IsNullOrWhiteSpace(ranToCompletionMessage)) RanToCompletionMessageForPublishedDataTextVm.Text = ranToCompletionMessage;
+            if (!string.IsNullOrWhiteSpace(ranToCompletionMessage)) RanToCompletionMessageForPublishedLeaderboardTextVm.Text = ranToCompletionMessage;
 
             NextThingToDoEnum = NextThingToDo.MakeControlsForPullingConvertingAndUploadingDeactivated;
 
@@ -2272,13 +2277,13 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 switch (buttonProfile.IdentifierOfAssociatedDataset)
                 {
                     case EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson:
-                        configureButtonVmMethod(buttonProfile, PullTimestampsFromRezultzHubAndUploadButtonVm);
+                        configureButtonVmMethod(buttonProfile, PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm);
                         break;
                     case EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub:
-                        configureButtonVmMethod(buttonProfile, PullParticipantsFromRezultzHubAndUploadButtonVm);
+                        configureButtonVmMethod(buttonProfile, PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm);
                         break;
                     case EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem:
-                        configureButtonVmMethod(buttonProfile, PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm);
+                        configureButtonVmMethod(buttonProfile, PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm);
                         break;
                 }
             }
@@ -2293,19 +2298,19 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 switch (i)
                 {
                     case 1:
-                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForCustomDatasetAndUploadButtonVm01);
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01);
                         break;
                     case 2:
-                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForCustomDatasetAndUploadButtonVm02);
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02);
                         break;
                     case 3:
-                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForCustomDatasetAndUploadButtonVm03);
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03);
                         break;
                     case 4:
-                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForCustomDatasetAndUploadButtonVm04);
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04);
                         break;
                     case 5:
-                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForCustomDatasetAndUploadButtonVm05);
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05);
                         break;
                 }
 
@@ -2410,22 +2415,22 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
     {
         if (PublishingModuleProfile == null)
         {
-            VeryShortDescriptionOfModuleTextVm.Text = string.Empty;
-            ShortDescriptionOfModuleTextVm.Text = string.Empty;
-            GeneralOverviewOfModuleTextVm.Text = string.Empty;
-            CSharpModuleVersionNumberTextVm.Text = string.Empty;
-            CSharpModuleCodeNameTextVm.Text = string.Empty;
+            CSharpPublisherModuleVeryShortDescriptionTextVm.Text = string.Empty;
+            CSharpPublisherModuleShortDescriptionTextVm.Text = string.Empty;
+            CSharpPublisherModuleGeneralOverviewTextVm.Text = string.Empty;
+            CSharpPublisherModuleVersionNumberTextVm.Text = string.Empty;
+            CSharpPublisherModuleCodeNameTextVm.Text = string.Empty;
 
             return string.Empty;
         }
 
         var p = PublishingModuleProfile;
 
-        VeryShortDescriptionOfModuleTextVm.Text = p.VeryShortDescriptionOfModule?.Replace(@"\n", "");
-        ShortDescriptionOfModuleTextVm.Text = p.ShortDescriptionOfModule?.Replace(@"\n", "");
-        GeneralOverviewOfModuleTextVm.Text = p.GeneralOverviewOfModule?.Replace(@"\n", "");
-        CSharpModuleVersionNumberTextVm.Text = p.CSharpModuleVersionNumber;
-        CSharpModuleCodeNameTextVm.Text = p.CSharpModuleCodeName;
+        CSharpPublisherModuleVeryShortDescriptionTextVm.Text = p.VeryShortDescriptionOfModule?.Replace(@"\n", "");
+        CSharpPublisherModuleShortDescriptionTextVm.Text = p.ShortDescriptionOfModule?.Replace(@"\n", "");
+        CSharpPublisherModuleGeneralOverviewTextVm.Text = p.GeneralOverviewOfModule?.Replace(@"\n", "");
+        CSharpPublisherModuleVersionNumberTextVm.Text = p.CSharpModuleVersionNumber;
+        CSharpPublisherModuleCodeNameTextVm.Text = p.CSharpModuleCodeName;
 
         var messageOk = FilenameSuccessfullyConfirmed + p.FragmentInNameOfFile;
 
@@ -2437,11 +2442,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         PublishingModuleProfile = null;
         _publisherModuleProfileItemUponLaunchOfWorkSession = null;
 
-        VeryShortDescriptionOfModuleTextVm.Text = string.Empty;
-        ShortDescriptionOfModuleTextVm.Text = string.Empty;
-        GeneralOverviewOfModuleTextVm.Text = string.Empty;
-        CSharpModuleVersionNumberTextVm.Text = string.Empty;
-        CSharpModuleCodeNameTextVm.Text = string.Empty;
+        CSharpPublisherModuleVeryShortDescriptionTextVm.Text = string.Empty;
+        CSharpPublisherModuleShortDescriptionTextVm.Text = string.Empty;
+        CSharpPublisherModuleGeneralOverviewTextVm.Text = string.Empty;
+        CSharpPublisherModuleVersionNumberTextVm.Text = string.Empty;
+        CSharpPublisherModuleCodeNameTextVm.Text = string.Empty;
 
         await TextBoxForEnteringPublishingProfileFileNameFragmentVm.ChangeTextAsync(string.Empty);
         TextBoxForEnteringPublishingProfileFileNameFragmentVm.Label = XmlFilename_not_yet_entered;
@@ -2454,14 +2459,15 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         _sbFriendlyLogOfActivity = new StringBuilder();
         _sbFriendlyLogOfBlobAndFileTransfers = new StringBuilder();
 
-        SuccessfullyComputedResultsAsXml = string.Empty;
-        SavedFileNameOfProcessedDataTextVm.Text = string.Empty;
-        RanToCompletionMessageForPreviewDataTextVm.Text = string.Empty;
-        RanToCompletionMessageForPublishedDataTextVm.Text = string.Empty;
-        OutcomeOfComputeOperationTextVm.Text = string.Empty;
+        ProcessingReportTextVm.Text = string.Empty;
+        SavedFileNameOfProcessingReportTextVm.Text = string.Empty;
 
-        //ForDisplayingLogOfFilesThatWereTransferredTextVm.Text = string.Empty;
-        //ConversionReportLogTextVm.Text = string.Empty;
+        SuccessfullyComputedLeaderboardAsXml = string.Empty;
+        SavedFileNameOfSuccessfullyProcessedLeaderboardTextVm.Text = string.Empty;
+        RanToCompletionMessageForPreviewLeaderboardTextVm.Text = string.Empty;
+        RanToCompletionMessageForPublishedLeaderboardTextVm.Text = string.Empty;
+        OutcomeOfProcessingOperationTextVm.Text = string.Empty;
+
 
         await PopulateCboLookupItemOfWorkingsForDisplayVmAsync();
     }
@@ -2473,14 +2479,14 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         _sbFriendlyLogOfActivity = new StringBuilder();
         _sbFriendlyLogOfBlobAndFileTransfers = new StringBuilder();
 
-        SuccessfullyComputedResultsAsXml = string.Empty;
-        SavedFileNameOfProcessedDataTextVm.Text = string.Empty;
-        RanToCompletionMessageForPreviewDataTextVm.Text = string.Empty;
-        RanToCompletionMessageForPublishedDataTextVm.Text = string.Empty;
-        OutcomeOfComputeOperationTextVm.Text = string.Empty;
+        ProcessingReportTextVm.Text = string.Empty;
+        SavedFileNameOfProcessingReportTextVm.Text = string.Empty;
 
-        //ForDisplayingLogOfFilesThatWereTransferredTextVm.Text = string.Empty;
-        //ConversionReportLogTextVm.Text = string.Empty;
+        SuccessfullyComputedLeaderboardAsXml = string.Empty;
+        SavedFileNameOfSuccessfullyProcessedLeaderboardTextVm.Text = string.Empty;
+        RanToCompletionMessageForPreviewLeaderboardTextVm.Text = string.Empty;
+        RanToCompletionMessageForPublishedLeaderboardTextVm.Text = string.Empty;
+        OutcomeOfProcessingOperationTextVm.Text = string.Empty;
 
         await PopulateCboLookupItemOfWorkingsForDisplayVmAsync();
     }
@@ -2490,7 +2496,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         var inputButtonMs = MakeListOfDatasetInputButtonVms();
 
         foreach (var buttonVm in inputButtonMs.Where(buttonVm => buttonVm is {IsDesignated: true} && !string.IsNullOrWhiteSpace(buttonVm.DatasetExampleBlobName)))
-            buttonVm.DatasetExampleSnippet = await _raceResultsPublishingSvcAgent.GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(buttonVm.DatasetExampleBlobName, CancellationToken.None);
+            buttonVm.DatasetExampleSnippet = await _raceResultsPublishingSvcAgent.GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(buttonVm.DatasetExampleBlobName, CancellationToken.None);
 
         return true;
     }
@@ -2562,7 +2568,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 target.EntityName = JghFilePathValidator.EliminateSpaces('-', target.EntityName);
                 // just in case contains spaces or is longer than 255 characters
 
-                var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadFileOfCompletedResultsForSingleEventAsync(target, stringToBeUploaded);
+                var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadPublishableResultsForSingleEventAsync(target, stringToBeUploaded);
 
                 if (!uploadDidSucceed)
                 {
@@ -2745,14 +2751,14 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 CleanAndRefreshPublishingSequenceButtonVm.IsAuthorisedToOperate = true;
                 break;
             case NextThingToDo.MakeControlsForPreprocessingActive:
-                PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm.IsAuthorisedToOperate = true;
+                ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm.IsAuthorisedToOperate = true;
                 LaunchWorkSessionButtonVm.IsAuthorisedToOperate = true;
                 CleanAndRefreshPublishingSequenceButtonVm.IsAuthorisedToOperate = true;
                 break;
             case NextThingToDo.MakeControlsForPublishingActive:
-                //ConfigureDatasetImportButtonDelegate myDelegate2 = DatasetImportButtonIsAuthorisedToOperateToFalse;
                 ConfigurePublisherDatasetImportButtons(DatasetImportButtonIsAuthorisedToOperateToFalse);
                 LaunchWorkSessionButtonVm.IsAuthorisedToOperate = true;
+                ExportProcessingReportToHardDriveButtonVm.IsAuthorisedToOperate = true;
                 ExportLeaderboardToHardDriveButtonVm.IsAuthorisedToOperate = true;
                 UploadLeaderboardToPreviewStorageButtonVm.IsAuthorisedToOperate = true;
                 UploadLeaderboardToPublishedStorageButtonVm.IsAuthorisedToOperate = true;
@@ -2760,16 +2766,17 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 break;
             case NextThingToDo.MakeControlsForPullingConvertingAndUploadingDeactivated:
                 LaunchWorkSessionButtonVm.IsAuthorisedToOperate = true;
-                PullTimestampsFromRezultzHubAndUploadButtonVm.IsAuthorisedToOperate = false;
-                PullParticipantsFromRezultzHubAndUploadButtonVm.IsAuthorisedToOperate = false;
-                PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm.IsAuthorisedToOperate = false;
+                PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.IsAuthorisedToOperate = false;
+                PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.IsAuthorisedToOperate = false;
+                PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.IsAuthorisedToOperate = false;
 
-                BrowseHardDriveForCustomDatasetAndUploadButtonVm01.IsAuthorisedToOperate = false;
-                BrowseHardDriveForCustomDatasetAndUploadButtonVm02.IsAuthorisedToOperate = false;
-                BrowseHardDriveForCustomDatasetAndUploadButtonVm03.IsAuthorisedToOperate = false;
-                BrowseHardDriveForCustomDatasetAndUploadButtonVm04.IsAuthorisedToOperate = false;
-                BrowseHardDriveForCustomDatasetAndUploadButtonVm05.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05.IsAuthorisedToOperate = false;
 
+                ExportProcessingReportToHardDriveButtonVm.IsAuthorisedToOperate = true;
                 ExportLeaderboardToHardDriveButtonVm.IsAuthorisedToOperate = true;
                 UploadLeaderboardToPreviewStorageButtonVm.IsAuthorisedToOperate = false;
                 UploadLeaderboardToPublishedStorageButtonVm.IsAuthorisedToOperate = false;
@@ -2820,17 +2827,18 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, CleanAndRefreshPublishingSequenceButtonVm);
 
 
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullTimestampsFromRezultzHubAndUploadButtonVm);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullParticipantsFromRezultzHubAndUploadButtonVm);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm);
 
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForCustomDatasetAndUploadButtonVm01);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForCustomDatasetAndUploadButtonVm02);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForCustomDatasetAndUploadButtonVm03);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForCustomDatasetAndUploadButtonVm04);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForCustomDatasetAndUploadButtonVm05);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05);
 
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonVm);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, ExportProcessingReportToHardDriveButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, ExportLeaderboardToHardDriveButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, UploadLeaderboardToPreviewStorageButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, UploadLeaderboardToPublishedStorageButtonVm);
@@ -2844,14 +2852,14 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
     {
         var answer = new List<PublishingModuleButtonControlViewModel>
         {
-            PullTimestampsFromRezultzHubAndUploadButtonVm,
-            PullParticipantsFromRezultzHubAndUploadButtonVm,
-            PullEverythingFromRezultzHubAndUploadDatasetOfResultsButtonVm,
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm01,
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm02,
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm03,
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm04,
-            BrowseHardDriveForCustomDatasetAndUploadButtonVm05
+            PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm,
+            PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm,
+            PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05
         };
 
 

@@ -60,7 +60,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         var ranToCompletionMsgSb = new JghStringBuilder();
         var startDateTime = DateTime.UtcNow;
 
-        conversionReportSb.AppendLineFollowedByOne("Conversion report:");
+        conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
         try
         {

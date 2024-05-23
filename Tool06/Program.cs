@@ -312,7 +312,7 @@ internal class Program
 
             var blobName1 = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', $"{prettyTimeNow}____{fileName}");
 
-            var didSucceed = await RaceResultsPublishingSvcAgent.UploadDatasetFileToBeProcessedSubsequentlyAsync(identifierOfDataset,
+            var didSucceed = await RaceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(identifierOfDataset,
                 new EntityLocationItem(accountName, containerName, blobName1),
                 participantMasterListDtoSerialisedAsStringOfJson,
                 CancellationToken.None);
@@ -341,7 +341,7 @@ internal class Program
 
                 var blobName3 = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', $"{prettyTimeNow}____{fileName}");
 
-                var didSucceed3 = await RaceResultsPublishingSvcAgent.UploadDatasetFileToBeProcessedSubsequentlyAsync(identifierOfDataset, new EntityLocationItem(accountName, containerName, blobName3), fileItem.FileContentsAsText,
+                var didSucceed3 = await RaceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(identifierOfDataset, new EntityLocationItem(accountName, containerName, blobName3), fileItem.FileContentsAsText,
                     CancellationToken.None);
 
                 if (didSucceed3)
@@ -396,7 +396,7 @@ internal class Program
             var testSeriesProfile = seasonProfile.SeriesProfiles.First();
             var importFileTargets = new PublisherImportFileTargetItem[] { new("ResultItemsAsXml", "SplitIntervalsForParticipants+2023-11-12T13-41-32.xml") };
             JghConsoleHelper.WriteLineFollowedByOne("ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(....)");
-            var outputOfProcessing = await RaceResultsPublishingSvcAgent.GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync("21portal", "TEST MTB Series 2022", "Dummy event #13 August 16th", testSeriesProfile, importFileTargets);
+            var outputOfProcessing = await RaceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync("21portal", "TEST MTB Series 2022", "Dummy event #13 August 16th", testSeriesProfile, importFileTargets);
             JghConsoleHelper.WriteLineFollowedByOne("answer:");
             JghConsoleHelper.WriteLineWrappedInTwo(JghSerialisation.ToXmlFromObject(outputOfProcessing, new[] { typeof(PublisherOutputItem) }));
             JghConsoleHelper.WriteLinePrecededByOne("Press enter to continue to next test.");
@@ -405,7 +405,7 @@ internal class Program
             var results = ResultItem.ToDataTransferObject(outputOfProcessing.ComputedResults);
             var uploadFileContents = JghSerialisation.ToXmlFromObject(results, new[] { typeof(ResultDto) });
             JghConsoleHelper.WriteLineFollowedByOne("SendFileOfCompletedResultsForSingleEventAsync(....)");
-            var outcomeOfUploadOfResults = await RaceResultsPublishingSvcAgent.UploadFileOfCompletedResultsForSingleEventAsync(new EntityLocationItem("customertester", "testuploadcontainer", "mytestfile.xml"), uploadFileContents);
+            var outcomeOfUploadOfResults = await RaceResultsPublishingSvcAgent.UploadPublishableResultsForSingleEventAsync(new EntityLocationItem("customertester", "testuploadcontainer", "mytestfile.xml"), uploadFileContents);
             JghConsoleHelper.WriteLineFollowedByOne($"answer = {outcomeOfUploadOfResults}");
             JghConsoleHelper.WriteLineFollowedByOne("Press enter to continue to next test.");
             //JghConsoleHelper.ReadLine();
@@ -428,7 +428,7 @@ internal class Program
     {
         JghConsoleHelper.WriteLineFollowedByOne("RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync()...");
 
-        var publisherOutput = await RaceResultsPublishingSvcAgent.GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync("23mylaps", seriesLabel, eventLabel, seriesProfileItem, FilesForPublisherModuleToProcess.ToArray());
+        var publisherOutput = await RaceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync("23mylaps", seriesLabel, eventLabel, seriesProfileItem, FilesForPublisherModuleToProcess.ToArray());
         
         if (publisherOutput == null)
         {

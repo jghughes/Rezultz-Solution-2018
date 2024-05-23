@@ -340,7 +340,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string fileNameWithExtension, CancellationToken ct)
+    public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string fileNameWithExtension, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIllustrativeExampleOfDatasetExpectedByPublisherAsync]";
@@ -403,7 +403,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<bool> SendFileOfRawDataToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct)
+    public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[SendFileOfRawDataToBeProcessedSubsequentlyAsync]";
@@ -422,14 +422,6 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
 
             return didSucceed;
 
-            //var datasetAsRawStringAsCompressedBytesOut = await JghCompression.CompressAsync(JghConvert.ToBytesUtf8FromString(datasetAsRawString));
-
-            //var boolAsJsonAsCompressedBytesBack =
-            //    await _svcProxy.UploadDatasetToBeProcessedSubsequentlyAsync(identifierOfDataset, storageLocation.AccountName, storageLocation.ContainerName, storageLocation.EntityItemName, datasetAsRawStringAsCompressedBytesOut);
-
-            //var didSucceed = await JghCompressionHelper.ConvertJsonAsCompressedBytesToObjectAsync<bool>(boolAsJsonAsCompressedBytesBack);
-
-            //return didSucceed;
         }
 
         #region catch
@@ -468,7 +460,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<PublisherOutputItemDto> ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct)
+    public async Task<PublisherOutputItemDto> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync]";
@@ -489,20 +481,6 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
             var publisherOutputDto = JghSerialisation.ToObjectFromJson<PublisherOutputItemDto>(publisherOutputDtoAsJson);
 
             return publisherOutputDto;
-
-
-
-
-
-
-
-            //var publisherInputDtoAsJsonAsCompressedBytesOut = await JghCompressionHelper.ConvertObjectToJsonAsCompressedBytesAsync(publisherInputItemDto);
-
-            //var publisherOutputDtoAsJsonAsCompressedBytesBack = await _svcProxy.GetResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(publisherInputDtoAsJsonAsCompressedBytesOut);
-
-            //var publisherOutputDto = await JghCompressionHelper.ConvertJsonAsCompressedBytesToObjectAsync<PublisherOutputItemDto>(publisherOutputDtoAsJsonAsCompressedBytesBack);
-
-            //return publisherOutputDto;
         }
 
         #region catch
@@ -541,7 +519,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<bool> SendFileOfCompletedResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct)
+    public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[SendFileOfCompletedResultsForSingleEventAsync]";

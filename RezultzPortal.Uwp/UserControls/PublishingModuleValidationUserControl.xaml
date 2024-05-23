@@ -107,7 +107,7 @@
                                Margin="0,0,3,0" />
 
                     <TextBlock
-                        DataContext="{Binding Path=ShortDescriptionOfModuleTextVm}"
+                        DataContext="{Binding Path=CSharpPublisherModuleShortDescriptionTextVm}"
                         Text="{Binding Path=Text, Converter={StaticResource TextGuardAgainstNull}, FallbackValue=BindingIsNull}"
                         Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
                         Style="{StaticResource HereCaptionBlurbStyle2}" Margin="3,0,0,0" />
