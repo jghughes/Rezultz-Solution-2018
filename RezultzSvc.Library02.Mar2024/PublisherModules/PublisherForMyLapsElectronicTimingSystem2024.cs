@@ -39,12 +39,14 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules;
 ///     These are the buttons that the user clicks to get info from the hub and browse the hard drive and these are the
 ///     datasets expected here.
 /// </summary>
-public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
+public partial class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
 {
     private const string Locus2 = nameof(PublisherForMyLapsElectronicTimingSystem2024);
     private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
     #region variables
+
+    private readonly bool mustProcessSourceMyLapsDatasetAsXmlNotCsv = true;
 
     private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
 
@@ -57,28 +59,6 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
         var arrayOfAgeGroupSpecificationItem = seriesMetaDataItem.DefaultEventSettingsForAllEvents.AgeGroupSpecificationItems;
 
         return arrayOfAgeGroupSpecificationItem;
-    }
-
-    #endregion
-
-    #region local class
-
-    public class MyLapsFile
-    {
-        public MyLapsFile()
-        {
-        }
-
-        public MyLapsFile(string identifierOfDataSet, string fileName, string contents)
-        {
-            IdentifierOfDataset = identifierOfDataSet ?? string.Empty;
-            FileName = fileName ?? string.Empty;
-            FileContents = contents ?? string.Empty;
-        }
-
-        public string IdentifierOfDataset { get; set; } = string.Empty;
-        public string FileName { get; set; } = string.Empty;
-        public string FileContents { get; set; } = string.Empty;
     }
 
     #endregion
@@ -105,7 +85,7 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
 
         List<MyLapsFile> myLapsFiles = [];
 
-        List<ResultItem> allComputedResults = [];
+        List<ResultItem> allComputedResultItems = [];
 
         #endregion
 
@@ -214,11 +194,13 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
             {
                 conversionReportSb.AppendLinePrecededByOne($"{JghString.LeftAlign("Processing MyLaps file", LhsWidth)} : {myLapsFile.FileName}");
 
-                var answerAsResultItemsInThisFile = MyLaps2024Helper.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth); // the MEAT
+                var computedResultItemsInThisFile = mustProcessSourceMyLapsDatasetAsXmlNotCsv ? 
+                    MyLaps2024HelperXml.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth) : // the MEAT
+                    MyLaps2024HelperCsv.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth);
 
-                conversionReportSb.AppendLineWrappedByOne($"{JghString.LeftAlign("Results synthesised from this file", LhsWidth)} : {answerAsResultItemsInThisFile.Count}");
+                conversionReportSb.AppendLineWrappedByOne($"{JghString.LeftAlign("ResultItems synthesised from this file", LhsWidth)} : {computedResultItemsInThisFile.Count}");
 
-                allComputedResults.AddRange(answerAsResultItemsInThisFile.OrderBy(z => z.T01));
+                allComputedResultItems.AddRange(computedResultItemsInThisFile.OrderBy(z => z.T01));
             }
 
             #endregion
@@ -237,8 +219,8 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
                 ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Container:", LhsWidthPlus1)} <{myLapsFileTarget.ContainerName}>");
             }
 
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Results computed:", LhsWidthLess4)} {allComputedResults.Count} results");
-            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conclusion:", LhsWidthPlus1)} Success. {allComputedResults.Count} results computed.");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Results computed:", LhsWidthLess4)} {allComputedResultItems.Count} results");
+            ranToCompletionMsgSb.AppendLine($"{JghString.LeftAlign("Conclusion:", LhsWidthPlus1)} Success. {allComputedResultItems.Count} results computed.");
 
             #endregion
 
@@ -250,7 +232,7 @@ public class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
                 RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
                 ConversionReport = conversionReportSb.ToString(),
                 ConversionDidFail = false,
-                ComputedResults = allComputedResults.ToArray()
+                ComputedResults = allComputedResultItems.ToArray()
             };
 
             return await Task.FromResult(answer2);

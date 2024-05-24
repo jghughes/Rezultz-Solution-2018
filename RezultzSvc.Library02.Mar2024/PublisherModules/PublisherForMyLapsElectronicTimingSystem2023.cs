@@ -446,7 +446,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
     #endregion
 
-    #region const
+    #region settings
 
     private const string IdentifierOfDatasetOfMyLapsTimingData = "MyLaps2023AsCsv"; // the identifier here originates from the profile file. Can be anything you like there, but must be kept in sync here
 

@@ -10,7 +10,6 @@ using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using Rezultz.DataTypes.Nov2023.RezultzItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
-using RezultzSvc.Library02.Mar2024.PublisherModules;
 
 // ReSharper disable IdentifierTypo
 
@@ -18,11 +17,11 @@ using RezultzSvc.Library02.Mar2024.PublisherModules;
 
 namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 
-public class MyLaps2024Helper
+public class MyLaps2024HelperXml
 {
     #region primary method
 
-    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(PublisherForMyLapsElectronicTimingSystem2024.MyLapsFile myLapsFile,
+    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
         Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
         JghStringBuilder conversionReportSb, int lhsWidth)
     {
@@ -36,7 +35,7 @@ public class MyLaps2024Helper
 
         #endregion
 
-        #region null checks
+        #region try parse file contents as .xml
 
         var fileContentsAsXElement = XElement.Parse(myLapsFile.FileContents); // will blow if parsing fails
 
@@ -48,7 +47,7 @@ public class MyLaps2024Helper
 
         #endregion
 
-        #region process all the line items in the XML file
+        #region process all the line items in the .xml file
 
         conversionReportSb.AppendLine($"{JghString.LeftAlign("MyLaps line items extracted", lhsWidth)} : {repeatingChildElements.Length}");
 
@@ -60,7 +59,7 @@ public class MyLaps2024Helper
 
             ResultItem thisRepeatingResultItem;
 
-            var mustSkipThisRowBecauseGunTimeIsNonsense = false; // initial default
+            var mustSkipThisRowBecauseGunTimeIsInValid = false; // initial default
 
             #endregion
 
@@ -118,7 +117,7 @@ public class MyLaps2024Helper
 
             #endregion
 
-            #region handle T01 (GunTime) or Dnx
+            #region figure out TO1 (Gun Time) and Dnx (Overall)
 
             var possibleDnx = GetTmlrValueOfXElementOrStringEmpty(SrcXeOverall, thisRepeatingChildElement); //in MyLaps, DNF is in the column "Overall"
 
@@ -141,25 +140,10 @@ public class MyLaps2024Helper
                     thisRepeatingResultItem.T01 = string.Empty;
                     thisRepeatingResultItem.DnxString = Symbols.SymbolDnf;
                 }
-                else if (JghString.TmLr(durationAsPossiblyNastyString).Contains("dns"))
-                {
-                    thisRepeatingResultItem.T01 = string.Empty;
-                    thisRepeatingResultItem.DnxString = Symbols.SymbolDns;
-                }
-                else if (JghString.TmLr(durationAsPossiblyNastyString).Contains("dq"))
-                {
-                    thisRepeatingResultItem.T01 = string.Empty;
-                    thisRepeatingResultItem.DnxString = Symbols.SymbolDq;
-                }
-                else if (JghString.TmLr(durationAsPossiblyNastyString).Contains("tbd"))
-                {
-                    thisRepeatingResultItem.T01 = string.Empty;
-                    thisRepeatingResultItem.DnxString = Symbols.SymbolTbd;
-                }
                 else
                 {
-                    thisRepeatingResultItem.T01 = $"Gun Time is nonsense. {conversionReport01}";
-                    mustSkipThisRowBecauseGunTimeIsNonsense = true;
+                    thisRepeatingResultItem.T01 = $"<{SrcXeGunTime}> is invalid. {conversionReport01}";
+                    mustSkipThisRowBecauseGunTimeIsInValid = true;
                 }
             }
 
@@ -170,7 +154,7 @@ public class MyLaps2024Helper
             i += 1;
             conversionReportSb.AppendLine(WriteOneLineReport(i, thisRepeatingResultItem, durationAsPossiblyNastyString));
 
-            if (!mustSkipThisRowBecauseGunTimeIsNonsense)
+            if (!mustSkipThisRowBecauseGunTimeIsInValid)
                 answerAsResultItems.Add(thisRepeatingResultItem);
 
             #endregion
@@ -203,7 +187,7 @@ public class MyLaps2024Helper
     {
         var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;
 
-        string answer;
+        string answerAsRaceGroup;
 
         if (isTransitionalParticipant)
         {
@@ -211,19 +195,19 @@ public class MyLaps2024Helper
             {
                 var eventIsBeforeRaceGroupTransition = dateOfEvent < dateOfTransition;
 
-                answer = eventIsBeforeRaceGroupTransition ? participantItem.RaceGroupBeforeTransition : participantItem.RaceGroupAfterTransition;
+                answerAsRaceGroup = eventIsBeforeRaceGroupTransition ? participantItem.RaceGroupBeforeTransition : participantItem.RaceGroupAfterTransition;
 
-                return answer;
+                return answerAsRaceGroup;
             }
 
-            answer = participantItem.RaceGroupBeforeTransition;
+            answerAsRaceGroup = participantItem.RaceGroupBeforeTransition;
         }
         else
         {
-            answer = participantItem.RaceGroupBeforeTransition;
+            answerAsRaceGroup = participantItem.RaceGroupBeforeTransition;
         }
 
-        return answer;
+        return answerAsRaceGroup;
     }
 
     public static string GetTmlrValueOfXElementOrStringEmpty(string name, XElement xE)
