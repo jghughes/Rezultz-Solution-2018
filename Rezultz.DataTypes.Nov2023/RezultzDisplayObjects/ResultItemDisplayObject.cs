@@ -17,14 +17,16 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
     public class ResultItemDisplayObject : BindableBase, IHasRace, IHasGender, IHasAgeGroup, IHasCity, IHasUtilityClassification, IHasTeam,
         IHasFirstName, IHasLastName, IHasMiddleInitial, IHasFullName, IHasBib, IHasCollectionLineItemPropertiesV2
     {
-        public const string XePlaceOverall = "place-overall"; //move to ResultItemDisplayObject
-        public const string XeTotalDuration = "total-duration"; //move to ResultItemDisplayObject
-        public const string XeGapTimespanString = "gap"; //move to ResultItemDisplayObject
-        public const string XeGapCxStyle = "gap-cxStyle"; //move to ResultItemDisplayObject
-        public const string XeFractionalPlaceInRaceInNumeratorOverDenominatorFormat = "fractional-points-in-race"; //move to ResultItemDisplayObject
-        public const string XeFractionalPlaceBySexInNumeratorOverDenominatorFormat = "fractional-points-in-sex";//move to ResultItemDisplayObject
-        public const string XeFractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat = "fractional-points-in-sex-and-age-group"; //move to ResultItemDisplayObject
-        public const string XePointsCalculated = "points-calculated"; //move to ResultItemDisplayObject
+        public const string XeBib= "bib";
+        public const string XeFullName = "fullname";
+        public const string XePlaceOverall = "place-overall";
+        public const string XeTotalDuration = "total-duration"; 
+        public const string XeGapTimespanString = "gap"; 
+        public const string XeGapCxStyle = "gap-cxStyle"; 
+        public const string XeFractionalPlaceInRaceInNumeratorOverDenominatorFormat = "fractional-points-in-race"; 
+        public const string XeFractionalPlaceBySexInNumeratorOverDenominatorFormat = "fractional-points-in-sex";
+        public const string XeFractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat = "fractional-points-in-sex-and-age-group"; 
+        public const string XePointsCalculated = "points-calculated"; 
 
 
         #region field
@@ -528,9 +530,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                             "cat",
                             "FractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -596,10 +598,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                             "cat",
                             "FractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -658,10 +660,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                             "cat",
                             "FractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XePointsCalculated, "points",
@@ -714,10 +716,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                             "cat",
                             "FractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -767,10 +769,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XePlaceOverall,
                         "pos", "PlaceCalculatedOverallAsString"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -823,9 +825,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                             "cat",
                             "FractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -865,10 +867,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XePlaceOverall,
                         "pos", "PlaceCalculatedOverallAsString"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XePointsCalculated, "points",
@@ -908,9 +910,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
                         "time", "TotalDurationInDisplayFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
 
@@ -954,9 +956,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XePlaceOverall,
                         "pos", "PlaceCalculatedOverallAsString"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -997,9 +999,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XePlaceOverall,
                         "pos", "PlaceCalculatedOverallAsString"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
@@ -1052,10 +1054,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XePlaceOverall,
                         "pos", "PlaceCalculatedOverallAsString"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
                     template.Add(new ColumnSpecificationItem(XePointsCalculated, "points",
@@ -1096,9 +1098,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                     template.Add(new ColumnSpecificationItem(XeTotalDuration,
                         "time", "TotalDurationInDisplayFormat"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.XeBib, "ID", "Bib"));
+                    template.Add(new ColumnSpecificationItem(XeBib, "ID", "Bib"));
 
-                    template.Add(new ColumnSpecificationItem(UbiquitousFieldNames.FullName, "name",
+                    template.Add(new ColumnSpecificationItem(XeFullName, "name",
                         "FullName"));
 
 

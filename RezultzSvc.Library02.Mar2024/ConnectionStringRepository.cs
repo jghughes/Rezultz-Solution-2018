@@ -94,7 +94,7 @@ namespace RezultzSvc.Library02.Mar2024
             }
             catch (Exception)
             {
-                tcs.TrySetResult(Array.Empty<string>());
+                tcs.TrySetResult([]);
             }
 
             return tcs.Task;

@@ -167,7 +167,7 @@ public class MyLaps2024HelperXml
 
     #endregion
 
-    #region xelements in .xml files originating from Access and before that from MyLaps Excel spreadsheets from Andrew
+    #region xelements in xml files originating from Access and before that from MyLaps Excel spreadsheets from Andrew
 
     private const string SrcXeBib = "Bib_x0023_"; // the repeating element of the array
     private const string SrcXeGunTime = "Gun_x0020_Time";
@@ -234,7 +234,7 @@ public class MyLaps2024HelperXml
             return false;
         }
 
-        var failure = "Conversion anomaly.";
+        var failure = "Conversion failure.";
         const string locus = "[TryConvertTextToTimespan]";
 
         conversionReport = string.Empty;

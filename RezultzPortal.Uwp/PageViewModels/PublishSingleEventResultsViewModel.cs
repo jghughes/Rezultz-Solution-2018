@@ -474,8 +474,9 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
     {
         await CboLookupItemOfWorkingsForDisplayVm.ZeroiseItemsSourceAsync();
 
-        await CboLookupItemOfWorkingsForDisplayVm.AddItemToItemsSourceAsync(new CboLookupItemDisplayObject {Label = "Processing report", EnumString = EnumStringForProcessingReport});
-        await CboLookupItemOfWorkingsForDisplayVm.AddItemToItemsSourceAsync(new CboLookupItemDisplayObject {Label = "Intermediate file/dataset transfers", EnumString = EnumStringForLogOfFileTransfers});
+        await CboLookupItemOfWorkingsForDisplayVm.AddItemToItemsSourceAsync(new CboLookupItemDisplayObject { Label = Symbols.SymbolNotApplicable, EnumString = Symbols.SymbolNotApplicable });
+        await CboLookupItemOfWorkingsForDisplayVm.AddItemToItemsSourceAsync(new CboLookupItemDisplayObject { Label = "Processing report", EnumString = EnumStringForProcessingReport });
+        await CboLookupItemOfWorkingsForDisplayVm.AddItemToItemsSourceAsync(new CboLookupItemDisplayObject {Label = "File movements", EnumString = EnumStringForLogOfFileTransfers});
 
         CboLookupItemOfWorkingsForDisplayVm.IsDropDownOpen = false;
 
@@ -755,6 +756,8 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             var messageOk = $"{FilenameSuccessfullyConfirmed} ID=<{TextBoxForEnteringPublishingProfileFileNameFragmentVm.Label}>\r\n\r\n{PublishingModuleProfile.GeneralOverviewOfModule}";
 
             CSharpPublisherModuleShortDescriptionTextVm.Text = PublishingModuleProfile.ShortDescriptionOfModule;
+
+            CSharpPublisherModuleGeneralOverviewTextVm.Text = PublishingModuleProfile.GeneralOverviewOfModule;
 
             await TextBoxForEnteringPublishingProfileFileNameFragmentVm.ChangeTextAsync(string.Empty);
 

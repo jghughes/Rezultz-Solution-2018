@@ -23,19 +23,21 @@ public class PublisherFactory
 
     #region important consts - CSharpModuleCodeName is defined in the publisher profile XML files. Keep these in sync with those 
 
-    public const string ModuleCodeNameForRezultzPortalTimingSystem2021 = "RezultzPortalTimingSystem2021";
-    public const string ModuleCodeNameForMyLaps2023 = "MyLapsElectronicTimingSystem2023";
-    public const string ModuleCodeNameForMyLaps2024 = "MyLapsElectronicTimingSystem2024";
-    public const string ModuleCodeNameForKelso2015to2019Mtb = "KelsoFilesFromAJLeemingViaAccess2015";
     public const string ModuleCodeNameForKelso2013to2016Cx = "FilesFromCrossMgrEditedManuallyByJGH2013";
+    public const string ModuleCodeNameForKelso2015to2019Mtb = "KelsoFilesFromAJLeemingViaAccess2015";
+    public const string ModuleCodeNameForRezultzPortalTimingSystem2021 = "RezultzPortalTimingSystem2021";
+    public const string ModuleCodeNameForMyLaps2023csv = "MyLapsElectronicTimingSystem2023csv";
+    public const string ModuleCodeNameForMyLaps2024csv = "MyLapsElectronicTimingSystem2024csv";
+    public const string ModuleCodeNameForMyLaps2024xml = "MyLapsElectronicTimingSystem2024xml";
 
     private readonly Dictionary<string, ModuleParticulars> DictionaryOfCSharpModuleParticulars = new()
     {
-        {ModuleCodeNameForRezultzPortalTimingSystem2021,new ModuleParticulars(ModuleCodeNameForRezultzPortalTimingSystem2021, @"2021.06.24") },
-        {ModuleCodeNameForMyLaps2023,new ModuleParticulars(ModuleCodeNameForMyLaps2023, @"2023.05.30") },
-        {ModuleCodeNameForMyLaps2024,new ModuleParticulars(ModuleCodeNameForMyLaps2024, @"2024.05.30") },
-        {ModuleCodeNameForKelso2015to2019Mtb,new ModuleParticulars(ModuleCodeNameForKelso2015to2019Mtb,  @"2016.05.01") },
         {ModuleCodeNameForKelso2013to2016Cx,new ModuleParticulars(ModuleCodeNameForKelso2013to2016Cx, @"2016.08.01") },
+        {ModuleCodeNameForKelso2015to2019Mtb,new ModuleParticulars(ModuleCodeNameForKelso2015to2019Mtb,  @"2016.05.01") },
+        {ModuleCodeNameForRezultzPortalTimingSystem2021,new ModuleParticulars(ModuleCodeNameForRezultzPortalTimingSystem2021, @"2021.06.24") },
+        {ModuleCodeNameForMyLaps2023csv,new ModuleParticulars(ModuleCodeNameForMyLaps2023csv, @"2023.05.30") },
+        {ModuleCodeNameForMyLaps2024csv,new ModuleParticulars(ModuleCodeNameForMyLaps2024csv, @"2024.05.30") },
+        {ModuleCodeNameForMyLaps2024xml,new ModuleParticulars(ModuleCodeNameForMyLaps2024xml, @"2024.05.23") },
     };
 
     #endregion
@@ -81,13 +83,14 @@ public class PublisherFactory
 
             IPublisher publisher = requiredCSharpModuleCodeName switch
             {
-                ModuleCodeNameForRezultzPortalTimingSystem2021 => new PublisherForRezultzPortalTimingSystem2021(),
-                ModuleCodeNameForMyLaps2023 => new PublisherForMyLapsElectronicTimingSystem2023(),
-                ModuleCodeNameForMyLaps2024 => new PublisherForMyLapsElectronicTimingSystem2024(),
-                ModuleCodeNameForKelso2015to2019Mtb => new PublisherForKelsoMtb2015To2019(),
                 ModuleCodeNameForKelso2013to2016Cx => new PublisherForKelsoCrossMgr2013To2016(),
+                ModuleCodeNameForKelso2015to2019Mtb => new PublisherForKelsoMtb2015To2019(),
+                ModuleCodeNameForRezultzPortalTimingSystem2021 => new PublisherForRezultzPortalTimingSystem2021(),
+                ModuleCodeNameForMyLaps2023csv => new PublisherForMyLapsElectronicTimingSystem2023(),
+                ModuleCodeNameForMyLaps2024csv => new PublisherForMyLapsElectronicTimingSystem2024Csv(),
+                ModuleCodeNameForMyLaps2024xml => new PublisherForMyLapsElectronicTimingSystem2024Xml(),
                 _ => throw new JghPublisherServiceFaultException(
-                    $"Unable to proceed. Unable to instantiate C# module. Codename of failing module is <{requiredCSharpModuleCodeName}>. Sorry. This is a coding error in the publishing service.")
+                    $"Unable to proceed. Unable to instantiate C# module. Codename of failing module is <{requiredCSharpModuleCodeName}>. Sorry. This is a coding error in the publishing service.[PublisherFactory.ManufacturePublisher()]")
             };
 
             publisher.AssociatedProfileFile = profileXe;

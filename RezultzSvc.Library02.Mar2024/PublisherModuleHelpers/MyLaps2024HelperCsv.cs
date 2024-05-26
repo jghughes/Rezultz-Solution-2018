@@ -196,8 +196,7 @@ public class MyLaps2024HelperCsv
     #region headings in .csv columns
 
     private const string SrcXeBib = "Bib#"; // the repeating element of the array
-    private const string SrcXeGunTime = "Finish Time";
-    //private const string SrcXeOverall = "Overall";
+    private const string SrcXeGunTime = "Gun Time";
     private const string SrcXeFullName = "Athlete";
     private const string SrcXeGender = "Gender";
     private const string SrcXeAge = "Age";
@@ -268,7 +267,7 @@ public class MyLaps2024HelperCsv
             return false;
         }
 
-        var failure = "Conversion anomaly.";
+        var failure = "Conversion failure.";
         const string locus = "[TryConvertTextToTimespan]";
 
         conversionReport = string.Empty;

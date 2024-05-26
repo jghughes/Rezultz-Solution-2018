@@ -17,36 +17,35 @@ using RezultzSvc.Library02.Mar2024.SvcHelpers;
 
 namespace RezultzSvc.Library02.Mar2024.PublisherModules;
 
-/// <summary>
-///     Takes the CSV data files received manually from Andrew Haddow from the MyLaps electronic timing system.
-///     Each race has its own CSV file. In each file, the  relevant columns are 'Gun Time' and 'Bib'.
-///     Takes the JSON participant master list from the Rezultz portal, and using the JSON seriesMetadata
-///     from Rezultz, does all translations and computation and deduces a resulting array of ResultItems
-///     and generates an XML file in the format required by the Rezultz 2018 import API.
-///     Note: on occasions when Andrew is not using Rezultz, which was for all events except Event #01,
-///     he chooses Excel as his preferred MyLaps export format and then he cuts and pasts selected
-///     columns from Excel into a TextBox in RaceRoster, assigning the columns to the correct fields in RaceRoster.
-///     Specified in
-///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-23mylaps.xml
-///     In future, don't do things the way we jury-rigged them in 2023 as described above.
-///     The MyLaps CSV direct export function is buggy and can't handle times exceeding one hour.
-///     Rather export from MyLaps into Excel, then into Access, and then into XML. This might improve your chances.
-///     It will mean not having to work with MyLaps directly, or with infernal .csv files.
-///     At time of writing, the conversion module specification file specifies two ComputerGuiButtonProfileItems.
-///     The two DatasetIdentifier are:
-///     Jgh.SymbolsStringsConstants.Mar2022.EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub
-///     and "MyLaps2023AsCsv".
+/// <remarks>
+///     This module relies for source data on the Excel '97 files received from Andrew Haddow from the MyLaps electronic timing system.
+///     Each of the four races has its own Excel file. In each file, the relevant columns are 'Gun Time' and 'Bib'.
+/// 
+///     Andrew uses RaceRoster to publicise results on the Kelso website. He chooses Excel as his
+///     preferred MyLaps export format. He cuts and pasts selected columns from Excel into a TextBox in
+///     RaceRoster, assigning the columns to the correct fields in RaceRoster. He emails these files to JGH.
+/// 
+///     Then JGH imports the files into Access one by one and exports them as four files in .xml format.
+///     These are the files that this module uses. 
+/// 
+///     The module gets the Participant master list (json) and the SeriesProfile file (json) from the
+///     Rezultz portal, and does all translations and computations and deduces a resulting array of
+///     ResultItems i.e. a leaderboard in the format required by the Rezultz 2018 import API.
+/// 
+///     At time of writing, the publishing module profile file specifies 1 + 4 = 5 [gui-button-profile].
+///     The one for Jgh.SymbolsStringsConstants.Mar2022.EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub
+///     is specified in the profile in the collection [gui-button-profiles-for-importing-input-datasets-from-portal-hub].
+///     The four "MyLaps" buttons are specified in the collection [gui-buttons-for-browsing-file-system-for-input-datasets].
 ///     These are the buttons that the user clicks to get info from the hub and browse the hard drive and these are the
-///     datasets expected here.
-/// </summary>
-public partial class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBase
+///     datasets expected here. See:
+///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-24mylapsxml.xml
+/// </remarks>
+public class PublisherForMyLapsElectronicTimingSystem2024Xml : PublisherBase
 {
-    private const string Locus2 = nameof(PublisherForMyLapsElectronicTimingSystem2024);
+    private const string Locus2 = nameof(PublisherForMyLapsElectronicTimingSystem2024Xml);
     private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
     #region variables
-
-    private readonly bool mustProcessSourceMyLapsDatasetAsXmlNotCsv = true;
 
     private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
 
@@ -194,9 +193,7 @@ public partial class PublisherForMyLapsElectronicTimingSystem2024 : PublisherBas
             {
                 conversionReportSb.AppendLinePrecededByOne($"{JghString.LeftAlign("Processing MyLaps file", LhsWidth)} : {myLapsFile.FileName}");
 
-                var computedResultItemsInThisFile = mustProcessSourceMyLapsDatasetAsXmlNotCsv ? 
-                    MyLaps2024HelperXml.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth) : // the MEAT
-                    MyLaps2024HelperCsv.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth);
+                var computedResultItemsInThisFile = MyLaps2024HelperXml.GenerateResultItemArrayFromMyLapsFile(myLapsFile, masterListOfParticipantsAsDictionary, ageGroupSpecificationItems, dateOfThisEvent, conversionReportSb, LhsWidth); // the MEAT
 
                 conversionReportSb.AppendLineWrappedByOne($"{JghString.LeftAlign("ResultItems synthesised from this file", LhsWidth)} : {computedResultItemsInThisFile.Count}");
 
