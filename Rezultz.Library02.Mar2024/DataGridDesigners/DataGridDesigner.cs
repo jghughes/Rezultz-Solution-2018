@@ -88,14 +88,19 @@ public class DataGridDesigner
 
     public const string SpacerBetweenColumnsInPrintVersions = "   ";
 
-    public const string SeparatorBetweenColumnsInGuiVersions = "  ";
-
     public static readonly string[] LabelsOfColumnsToBeLeftAligned =
     {
-        UbiquitousFieldNames.FirstName,
-        UbiquitousFieldNames.MiddleInitial,
-        UbiquitousFieldNames.LastName,
-        UbiquitousFieldNames.FullName,
+        //UbiquitousFieldNames.FirstName,
+        //UbiquitousFieldNames.MiddleInitial,
+        //UbiquitousFieldNames.LastName,
+        //UbiquitousFieldNames.FullName,
+
+        ResultDto.XeFirst,
+        ResultDto.XeMiddle,
+        ResultDto.XeLast,
+        ResultDto.XeFullName,
+
+
         ResultDto.XeSex,
         ResultDto.XeCity,
         ResultDto.XeRace,
@@ -114,14 +119,16 @@ public class DataGridDesigner
 
     public static readonly string[] LabelsOfColumnsToBeUpperCase =
     {
-        UbiquitousFieldNames.FirstName,
-        UbiquitousFieldNames.MiddleInitial,
-        UbiquitousFieldNames.LastName,
-        UbiquitousFieldNames.FullName,
+        //UbiquitousFieldNames.FirstName,
+        //UbiquitousFieldNames.MiddleInitial,
+        //UbiquitousFieldNames.LastName,
+        //UbiquitousFieldNames.FullName,
+        ResultDto.XeFirst,
+        ResultDto.XeMiddle,
+        ResultDto.XeLast,
+        ResultDto.XeFullName,
 
-        UbiquitousFieldNames.FirstName,
-        UbiquitousFieldNames.MiddleInitial,
-        UbiquitousFieldNames.LastName
+
     };
 
     public static readonly string[] LabelsOfColumnsToBeNonSpecificCase =

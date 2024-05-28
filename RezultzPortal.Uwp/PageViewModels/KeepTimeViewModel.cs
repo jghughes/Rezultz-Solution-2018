@@ -2723,9 +2723,9 @@ public class KeepTimeViewModel : HubItemPagesViewModelBase<TimeStampHubItem, Tim
 
     #region helpers
 
-    protected override async Task PopulateCboLookupPrePopulatedCbosAsync()
+    protected override async Task PopulateCboLookupPrepopulatedCbosAsync()
     {
-        await PopulateCboLookUpFileFormatsPresenter(); // arbitrary location for this. ordinarily would do this in ctor but can't because async
+        await PopulateCboLookUpFileFormatsCboAsync(); // arbitrary location for this. ordinarily would do this in ctor but can't because async
 
         var dnxSymbols = new[]
         {

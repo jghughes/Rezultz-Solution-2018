@@ -368,12 +368,11 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
 
         {"Race_x0020_Date", RaceSpecificationDto.XeAdvertisedStartDateTime},
         {"Race_x0020_Discipline", RaceSpecificationDto.XeDiscipline},
-        {"Rider_x0020_Bib_x0020__x0023_", UbiquitousFieldNames.XeBib},
+        {"Rider_x0020_Bib_x0020__x0023_", ResultDto.XeBib},
         {"Rider_x0020_Place", XePlaceString},
         {"Race_x0020_Category", ResultDto.XeRace},
         {"Rider_x0020_Time", "dummy"},
         {"Race_x0020_Distance", RaceSpecificationDto.XeDistanceOfCourseKm},
-        //{"Race_x0020_Distance_x0020_Type", RaceSpecificationItemSerialiserNames.DistanceUnitsOfMeasureEnum},
         {"Rider_x0020_Lap_x0020_1", ResultDto.XeT01},
         {"Rider_x0020_Lap_x0020_2", ResultDto.XeT02},
         {"Rider_x0020_Lap_x0020_3", ResultDto.XeT03},
@@ -686,10 +685,6 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
     private static XElement[] AddParticipantParticulars(List<XElement> listOfIndividualResultsXe,
         List<XElement> participantMasterListLineItems, out string errorMessage)
     {
-        #region example of individual result Xe
-
-        #endregion
-
         #region null value error handling
 
         if ((listOfIndividualResultsXe == null) | (participantMasterListLineItems == null))
@@ -721,7 +716,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
 
                 debugSb.AppendLine(string.Format(individualResultXe.ToString()));
 
-                var bibXe = individualResultXe.Elements(UbiquitousFieldNames.XeBib).First();
+                var bibXe = individualResultXe.Elements(ParticipantMasterListXeNames.Bib).First();
 
                 var bibCode = bibXe.Value;
 
@@ -742,8 +737,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
 
                     if (participantXe.Elements(ParticipantMasterListXeNames.First).Any())
                     {
-                        individualResultXe.Elements(UbiquitousFieldNames.FirstName).Remove();
-                        individualResultXe.Add(new XElement(UbiquitousFieldNames.FirstName,
+                        individualResultXe.Elements("First").Remove();
+                        individualResultXe.Add(new XElement(ResultDto.XeFirst,
                             participantXe.Elements(ParticipantMasterListXeNames.First).First().Value));
                     }
 
@@ -751,8 +746,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
 
                     if (participantXe.Elements(ParticipantMasterListXeNames.Last).Any())
                     {
-                        individualResultXe.Elements(UbiquitousFieldNames.LastName).Remove();
-                        individualResultXe.Add(new XElement(UbiquitousFieldNames.LastName,
+                        individualResultXe.Elements("Last").Remove();
+                        individualResultXe.Add(new XElement(ResultDto.XeLast,
                             participantXe.Elements(ParticipantMasterListXeNames.Last).First().Value));
                     }
 

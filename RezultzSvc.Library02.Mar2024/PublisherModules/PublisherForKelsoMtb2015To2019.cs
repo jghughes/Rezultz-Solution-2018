@@ -305,7 +305,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
 
     private static Dictionary<string, string> XElementNameMappingDictionary => new()
     {
-        {"plate", UbiquitousFieldNames.XeBib},
+        {"plate", ResultDto.XeBib},
         {"first_name", ResultDto.XeFirst},
         {"last_name", ResultDto.XeLast},
         {"gender", ResultDto.XeSex},
@@ -975,7 +975,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         {
             ResultItem resultItem = new()
             {
-                Bib = element.Element(UbiquitousFieldNames.XeBib)?.Value,
+                Bib = element.Element(ResultDto.XeBib)?.Value,
                 FirstName = element.Element(ResultDto.XeFirst)?.Value,
                 LastName = element.Element(ResultDto.XeLast)?.Value,
                 Gender = element.Element(ResultDto.XeSex)?.Value,

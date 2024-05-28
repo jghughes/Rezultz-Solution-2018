@@ -231,13 +231,9 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
     {
         await ZeroiseDisplayOfSimpleElementsOfGuiAsync();
 
-        //HeadersVm.Populate(Strings05.Target_event, Strings05.Not_yet_launched);
-        //HeadersVm.IsVisible = true;
-
         FootersVm.Populate(StringsPortal.Welcome__);
-        //FootersVm.IsVisible = true;
 
-        await PopulateCboLookupPrePopulatedCbosAsync();
+        await PopulateCboLookupPrepopulatedCbosAsync();
 
         await SeasonProfileAndIdentityValidationVm.BeInitialisedForRezultzPortalOrchestrateAsync(); // Note. This has additional internal first time thru logic.
 
@@ -1698,26 +1694,24 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         //await EditTemplateForRepositoryItemBeingEdited.ZeroiseAsync(); // on balance prefer not to do this. it's nice for what we just did to remain visible
     }
 
-    protected abstract Task PopulateCboLookupPrePopulatedCbosAsync();
+    protected abstract Task PopulateCboLookupPrepopulatedCbosAsync();
 
-    protected async Task<bool> PopulateCboLookUpFileFormatsPresenter()
+    protected async Task PopulateCboLookUpFileFormatsCboAsync()
     {
         var kindsOfMoreInfoVm = new CboLookupItemDisplayObject[]
         {
-            new() {Label = "text data (.csv)", EnumString = EnumStrings.AsCsvFile},
             new() {Label = "XML data (.xml)", EnumString = EnumStrings.AsFlatFileXml},
-            new() {Label = "JSON data (.json)", EnumString = EnumStrings.AsFlatFileJson}
+            new() {Label = "JSON data (.json)", EnumString = EnumStrings.AsFlatFileJson},
+            new() {Label = "CSV data (.csv)", EnumString = EnumStrings.AsCsvFile},
         };
 
         await CboLookUpFileFormatsVm.RefillItemsSourceAsync(kindsOfMoreInfoVm);
 
         CboLookUpFileFormatsVm.IsDropDownOpen = false;
 
-        await CboLookUpFileFormatsVm.ChangeSelectedIndexToMatchItemEnumStringAsync(EnumStrings.AsCsvFile);
+        await CboLookUpFileFormatsVm.ChangeSelectedIndexToMatchItemEnumStringAsync(EnumStrings.AsFlatFileXml);
 
         CboLookUpFileFormatsVm.SaveSelectedIndexAsLastKnownGood();
-
-        return true;
     }
 
     public void UpdateLogOfActivity(string message)

@@ -43,6 +43,27 @@
                    BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
                    TargetType="Button">
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <!--<Setter Property="FontSize" Value="11" />-->
+                <Setter Property="MinWidth" Value="212" />
+            </Style>
+
+            <Style x:Key="HerePostedResultsHyperlinkButtonStyle"
+                   BasedOn="{StaticResource LibraryHyperlinkButtonStyle}"
+                   TargetType="HyperlinkButton">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <!--<Setter Property="FontSize" Value="11" />-->
+                <Setter Property="MinWidth" Value="212" />
+                <Setter Property="Padding" Value="13,5,0,6" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderBrush" Value="Gray" />
+
+            </Style>
+
+            <Style x:Key="HereForDisplayingUrlTextBlockStyle"
+                   BasedOn="{StaticResource HereCaptionBlurbStyle2}"
+                   TargetType="TextBlock">
+                <Setter Property="Padding" Value="13,3,0,3" />
+
             </Style>
 
             <Style x:Key="HereSuggestBoxStyle"
@@ -421,7 +442,7 @@
 
                             <StackPanel>
 
-                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
 
                                 <StackPanel>
 
@@ -449,24 +470,13 @@
                                             </interactivity:Interaction.Behaviors>
                                         </ComboBox>
 
-                                        <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
 
                                     </StackPanel>
 
-                                    <Button
-                                        Content="Export favorites as displayed"
-                                        CommandParameter="Favorites"
-                                        Click="BtnExportChosenData_OnClick"
-                                        DataContext="{Binding Path=ExportFavoritesButtonVm}"
-                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
-                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                        Style="{StaticResource HereOrdinaryButtonStyle}" 
-                                        ToolTipService.ToolTip="save your favorites to a file in your chosen file format" />
-
-                                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+                                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                                     <Button
-                                        Content="Export leaderboard as displayed"
+                                        Content="Export leaderboard (in display format)"
                                         CommandParameter="Leaderboard"
                                         Click="BtnExportChosenData_OnClick"
                                         DataContext="{Binding ExportSingleEventLeaderboardButtonVm}"
@@ -476,9 +486,25 @@
                                         ToolTipService.ToolTip="save the leaderboard to a file in your chosen file format" />
 
 
+                                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}"
+                                               Visibility="{Binding ElementName=XamlElementExportFavoritesButton, Path=Visibility}"/>
+
+                                    <Button
+                                        x:Name="XamlElementExportFavoritesButton"
+                                        Content="Export favorites (in display format)"
+                                        CommandParameter="Favorites"
+                                        Click="BtnExportChosenData_OnClick"
+                                        DataContext="{Binding Path=ExportFavoritesButtonVm}"
+                                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                        Style="{StaticResource HereOrdinaryButtonStyle}" 
+                                        ToolTipService.ToolTip="save your favorites to a file in your chosen file format" />
+
+
+
                                 </StackPanel>
 
-                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+                                <!--<Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />-->
 
                             </StackPanel>
 
@@ -498,7 +524,27 @@
 
                             <StackPanel>
 
-                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyleX2}" />
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                <Button
+                                    Content="Post results"
+                                    Command="{Binding Path=OnClickCommand}"
+                                    DataContext="{Binding Path=PostLeaderboardAsHtmlToPublicDataStorageButtonVm}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Style="{StaticResource HerePostButtonStyle}" 
+                                    ToolTipService.ToolTip="Generate web document of displayed results and post to storage location accessible by the public" />
+
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                <TextBlock
+                                    DataContext="{Binding Path=NavigateToPostedLeaderboardHyperlinkButtonVm}"
+                                    Text="{Binding Path=AbsoluteUriAsString, FallbackValue=TxtBlockForDisplayingAbsoluteUriAsString}"
+                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                                    Style="{StaticResource HereForDisplayingUrlTextBlockStyle}"/>
+
+                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                                 <HyperlinkButton
                                     Content="See posted results"
@@ -507,33 +553,7 @@
                                     IsEnabled="{Binding Path=IsAuthorisedToOperate }"
                                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
                                     ToolTipService.ToolTip="Open posted results in web browser"
-                                    Style="{StaticResource LibraryHyperlinkButtonStyle}"
-                                    FontSize="12"
-                                    Margin="13,0,0,0" />
-
-                                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
-
-                                <TextBlock
-                                    DataContext="{Binding Path=NavigateToPostedLeaderboardHyperlinkButtonVm}"
-                                    Text="{Binding Path=AbsoluteUriAsString, FallbackValue=TxtBlockForDisplayingAbsoluteUriAsString}"
-                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                    TextWrapping="Wrap"
-                                    IsTextSelectionEnabled="True"
-                                    Foreground="{StaticResource LibraryOnBackgroundMuted2Color}"
-                                    FontSize="12"
-                                    Margin="15,0,0,0" MaxWidth="250" HorizontalAlignment="Left" />
-
-                                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
-
-                                <Button
-                                    Content="Post results"
-                                    Command="{Binding Path=OnClickCommand}"
-                                    DataContext="{Binding Path=PostLeaderboardAsHtmlToPublicDataStorageButtonVm}"
-                                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                                    Style="{StaticResource HerePostButtonStyle}" FontSize="12"
-                                    HorizontalContentAlignment="Center"
-                                    TabIndex="60"
-                                    ToolTipService.ToolTip="Generate web document of displayed results and post to storage location accessible by the general public" />
+                                    Style="{StaticResource HerePostedResultsHyperlinkButtonStyle}"/>
 
 
                             </StackPanel>

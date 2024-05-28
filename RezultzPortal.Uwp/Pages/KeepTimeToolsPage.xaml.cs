@@ -263,7 +263,7 @@ public sealed partial class KeepTimeToolsPage
                         }
                         else
                         {
-                            throw new JghAlertMessageException("Data source not recognised. Please choose a data source.");
+                            throw new JghAlertMessageException("Timestamp portrayal not recognised. Please choose a portrayal.");
                         }
 
                         #endregion
@@ -317,7 +317,7 @@ public sealed partial class KeepTimeToolsPage
                         }
                         else
                         {
-                            throw new JghAlertMessageException("Data source not recognised. Please choose a data source.");
+                            throw new JghAlertMessageException("Timestamp portrayal not recognised. Please choose a portrayal.");
                         }
 
                         #endregion

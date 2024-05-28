@@ -19,6 +19,7 @@ public class ResultDto
     public const string XeFirst = "first";
     public const string XeMiddle = "middle";
     public const string XeLast = "last";
+    public const string XeFullName= "fullname"; // not used except in DataGridDesigner
     public const string XeSex = "sex"; // NB
     public const string XeAge = "age";
     public const string XeIsSeries = "isseries";

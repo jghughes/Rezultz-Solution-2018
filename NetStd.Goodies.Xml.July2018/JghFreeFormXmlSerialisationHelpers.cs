@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
 using NetStd.Interfaces01.July2018.HasProperty;
@@ -13,6 +12,11 @@ namespace NetStd.Goodies.Xml.July2018
     {
         private const string Locus2 = nameof(JghFreeFormXmlSerialisationHelpers);
         private const string Locus3 = "[NetStd.Goodies.Xml.July2018]";
+
+        public const string XeFirstName = "first";
+        public const string XeMiddleInitial = "middle";
+        public const string XeLastName = "last";
+        public const string XeFullName = "fullname";
 
         public static string ConvertNamedThingsIntoSimpleIdentitiesAsFreeFormXml<T>(T[] itemsIdentifiedByTheirNames)
             where T : class, IHasFirstName, IHasLastName, IHasMiddleInitial, IHasFullName
@@ -32,10 +36,10 @@ namespace NetStd.Goodies.Xml.July2018
                     var xE = new XElement(
                         "Thing",
                         //new XElement(XmlNames.Bib, JghString.TmLr(person.Bib)), // don't use bib. people can change their bib during the course of a season
-                        new XElement(UbiquitousFieldNames.FirstName, JghString.TmLr(person.FirstName)),
-                        new XElement(UbiquitousFieldNames.LastName, JghString.TmLr(person.LastName)),
-                        new XElement(UbiquitousFieldNames.MiddleInitial, JghString.TmLr(person.MiddleInitial)),
-                        new XElement(UbiquitousFieldNames.FullName, JghString.TmLr(person.FullName))
+                        new XElement(XeFirstName, JghString.TmLr(person.FirstName)),
+                        new XElement(XeLastName, JghString.TmLr(person.LastName)),
+                        new XElement(XeMiddleInitial, JghString.TmLr(person.MiddleInitial)),
+                        new XElement(XeFullName, JghString.TmLr(person.FullName))
                     );
 
                     childElements.Add(xE);
@@ -91,13 +95,13 @@ namespace NetStd.Goodies.Xml.July2018
                     {
                         //Bib = JghString.TmLr(JghXElementHelpers.AsTrimmedString(child.Element(XmlNames.Bib))), // don't use bib. people can change their bib during the course of a season
                         FirstName = JghString.TmLr(
-                            JghXElementHelpers.AsTrimmedString(child.Element(UbiquitousFieldNames.FirstName))),
+                            JghXElementHelpers.AsTrimmedString(child.Element(XeFirstName))),
                         LastName = JghString.TmLr(
-                            JghXElementHelpers.AsTrimmedString(child.Element(UbiquitousFieldNames.LastName))),
+                            JghXElementHelpers.AsTrimmedString(child.Element(XeLastName))),
                         MiddleInitial =
                             JghString.TmLr(
                                 JghXElementHelpers.AsTrimmedString(
-                                    child.Element(UbiquitousFieldNames.MiddleInitial))),
+                                    child.Element(XeMiddleInitial))),
                     };
 
                     individuals.Add(person);

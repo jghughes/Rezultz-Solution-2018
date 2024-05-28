@@ -1578,9 +1578,9 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         await ForEnteringIndividualIdForParticipantProfileCreateTextVm.ChangeTextAsync(string.Empty);
     }
 
-    protected override async Task PopulateCboLookupPrePopulatedCbosAsync()
+    protected override async Task PopulateCboLookupPrepopulatedCbosAsync()
     {
-        await PopulateCboLookUpFileFormatsPresenter(); // arbitrary location for this. ordinarily would do this in ctor but can't because async
+        await PopulateCboLookUpFileFormatsCboAsync(); // arbitrary location for this. ordinarily would do this in ctor but can't because async
     }
 
     private async Task InsertACommentToHighlightAllModifiedEntriesAsync(ParticipantHubItemDisplayObject[] rawEntriesInRepositoryInMemoryAsDisplayObjects)

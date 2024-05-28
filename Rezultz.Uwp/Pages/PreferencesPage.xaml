@@ -176,7 +176,7 @@
 
                     <controls:Expander.Header>
 
-                        <TextBlock Text="Sign in (system operators only)"
+                        <TextBlock Text="Sign in (system administrators only)"
                                    Style="{StaticResource AppBodyTextBlockStyle}" />
 
                     </controls:Expander.Header>
@@ -220,7 +220,7 @@
                             </StackPanel>
 
                             <TextBlock
-                                Text="This preference is for system operators only.  It is used to troubleshoot results created by operators that are still in preview.  These would normally be results that have been prepared, but not yet reviewed, and not yet published for general consumption."
+                                Text="This preference is for system administrators only.  It is used to troubleshoot results created by administrators that are still in preview.  These would normally be results that have been prepared, but not yet reviewed, and not yet published for general consumption."
                                 Style="{StaticResource AppBlurbStyle2}" />
 
                             <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
@@ -246,7 +246,7 @@
                     <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                     <TextBlock
-                        Text="For system operators, it is for taking the leaderboard and converting it into the format of a printed web page that can be accessed by a corresponding hyperlink. The event organisers can put the link on their website. Posting is done from the menu on the Leaderboard page."
+                        Text="For system administrators, it is for taking the leaderboard and converting it into the format of a printed web page that can be accessed by a corresponding hyperlink. The event organisers can put the link on their website. Posting is done from the menu on the Leaderboard page."
                         Style="{StaticResource AppBlurbStyle2}" />
 
                 </StackPanel>

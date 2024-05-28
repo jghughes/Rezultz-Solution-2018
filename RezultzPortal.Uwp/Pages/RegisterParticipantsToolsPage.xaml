@@ -20,12 +20,17 @@
                    BasedOn="{StaticResource LibraryOrdinaryButtonStyle}"
                    TargetType="Button">
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="200" />
+                <Setter Property="MinWidth" Value="430" />
             </Style>
 
             <Style x:Key="HereComboBoxStyle"
                    TargetType="ComboBox">
                 <Setter Property="MinWidth" Value="200" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+            <Style x:Key="HereRadioButtonStyle"
+                   TargetType="RadioButton">
                 <Setter Property="FontSize" Value="12" />
             </Style>
 
@@ -67,15 +72,15 @@
         </Grid>
 
         <userControls1:HeaderStyleContentsUserControl Grid.Row="2" Tag="Header"
-                                                        DataContext="{Binding Path=HeadersVm}"
-                                                        Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
+                                                      DataContext="{Binding Path=HeadersVm}"
+                                                      Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}" />
 
         <Grid Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
               Visibility="{Binding ElementName=MyRawDataUserControl, Path=Visibility}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="60" />
+                <RowDefinition Height="30" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -86,12 +91,37 @@
 
                 <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
 
-                <StackPanel
-                    DataContext="{Binding Path=CboLookUpFileFormatsVm}"
-                    Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
-                    Orientation="Vertical">
+                <StackPanel Tag="Choose participant portrayal">
 
-                    <TextBlock Text="Choose format..."
+                    <TextBlock Text="Choose participant portrayal..."
+                               Style="{StaticResource AppCaptionBlurbStyle2}" />
+
+                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                    <StackPanel BorderThickness="1" Orientation="Horizontal">
+
+                        <RadioButton x:Name="XamlElementRadioButtonDisplayVersion"
+                                     Content="On-screen columns"
+                                     Style="{StaticResource HereRadioButtonStyle}" />
+
+                        <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+                        <RadioButton x:Name="XamlElementRadioButtonSystemMasterList"
+                                     Content="Columns stored in hub database"
+                                     Style="{StaticResource HereRadioButtonStyle}" />
+
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel Tag="Choose SaveFile format"
+                            DataContext="{Binding Path=CboLookUpFileFormatsVm}"
+                            Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
+                            Orientation="Vertical">
+
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+
+                    <TextBlock Text="Choose file format..."
                                Style="{StaticResource AppCaptionBlurbStyle2}" />
 
                     <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
@@ -112,41 +142,24 @@
 
                 </StackPanel>
 
-                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
+                <StackPanel Tag="Choose dataset">
 
-                <TextBlock Text="Choose data source..."
-                           Style="{StaticResource AppCaptionBlurbStyle2}" />
+                    <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
 
-                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+                    <TextBlock Text="Choose dataset..."
+                               Style="{StaticResource AppCaptionBlurbStyle2}" />
 
-                <StackPanel BorderThickness="1" Orientation="Horizontal">
+                    <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
-                    <RadioButton x:Name="XamlElementRadioButtonDisplayVersion"
-                                 Content="As displayed"
-                                 FontSize="12" />
-
-                    <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
-
-                    <RadioButton x:Name="XamlElementRadioButtonSystemMasterList"
-                                 Content="System"
-                                 FontSize="12" />
+                    <Button Click="BtnExportChosenData_OnClick"
+                            CommandParameter="ParticipantMasterList"
+                            Content="Export participant master list"
+                            DataContext="{Binding Path=ExportConsolidatedParticipantDataFromLocalStorageButtonVm}"
+                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                            Style="{StaticResource HereExportButtonStyle}"
+                            ToolTipService.ToolTip="export participant list" />
 
                 </StackPanel>
-
-                <Rectangle Style="{StaticResource LibraryRegularVerticalSpacerStyle}" />
-
-                <TextBlock Text="Choose export..."
-                           Style="{StaticResource AppCaptionBlurbStyle2}" />
-
-                <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
-
-                <Button Click="BtnExportChosenData_OnClick"
-                        CommandParameter="ParticipantMasterList"
-                        Content="Export participants"
-                        DataContext="{Binding Path=ExportConsolidatedParticipantDataFromLocalStorageButtonVm}"
-                        IsEnabled="{Binding Path=IsAuthorisedToOperate}"
-                        Style="{StaticResource HereExportButtonStyle}"
-                        ToolTipService.ToolTip="export participant list" />
 
             </StackPanel>
 
@@ -166,13 +179,13 @@
                         DataContext="{Binding Path=ForcePushAllDataInMemoryToRemoteHubButtonVm}"
                         Style="{StaticResource HereExportButtonStyle}" />
 
-                    <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+                    <!--<Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
 
                     <Button
                         Content="x"
                         ToolTipService.ToolTip="Cancel"
                         Command="{Binding Path=OnClickCommand}"
-                        DataContext="{Binding Path=ForcePushAllDataInMemoryToRemoteHubCancelButtonVm}" />
+                        DataContext="{Binding Path=ForcePushAllDataInMemoryToRemoteHubCancelButtonVm}" />-->
 
                 </StackPanel>
 
@@ -214,7 +227,7 @@
         </Grid>
 
         <userControls1:FooterStyleContentsUserControl Grid.Row="6" Tag="Footer"
-                                                     DataContext="{Binding Path=FootersVm}" />
+                                                      DataContext="{Binding Path=FootersVm}" />
 
     </Grid>
 
