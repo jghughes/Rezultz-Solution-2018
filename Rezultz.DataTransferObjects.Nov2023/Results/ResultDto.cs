@@ -7,10 +7,13 @@ public class ResultDto
 {
     #region Names
 
-    public const string XeRootForContainerOfSimpleStandAloneArray = "ArrayOf" + $"{XeResult}"; 
+    public const string XeRootForArrayOfResult = "ArrayOf" + XeResult;
     // this is the obligatorily named root element for a container of an array of simple stand alone elements.
     // The format is "ArrayOf" + the name of the repeating element.
     // The format and content is obligatory for the deserialisation to work when using the System DataContractSerializer.
+
+    public const string XeRootForArrayOfOfSplitIntervalsForParticipant = "ArrayOf" + XeSplitIntervalsForParticipantItem; // used only in Rezultz.Library02.Mar2024.DataGridDesigners.DataGridDesigner
+    public const string XeSplitIntervalsForParticipantItem = "splitintervalsforparticipant"; // used only in Rezultz.Library02.Mar2024.DataGridDesigners.DataGridDesigner
 
     public const string XeResult = "result"; // the repeating element of the array
 

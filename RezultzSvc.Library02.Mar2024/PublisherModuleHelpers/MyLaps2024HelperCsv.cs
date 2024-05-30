@@ -103,7 +103,12 @@ public class MyLaps2024HelperCsv
 
             #region if can see a bib number in the .csv, try find the matching participant in the master list that was previously uploaded (having been generated from the hub)
 
-            var participantIsFound = dictionaryOfParticipants.TryGetValue(bibOfThiRepeatingRow, out var participantHubItem);
+            ParticipantHubItem discoveredParticipantHubItem = null;
+
+            bool participantIsDiscovered = false;
+
+            if (dictionaryOfParticipants != null)
+                participantIsDiscovered = dictionaryOfParticipants.TryGetValue(bibOfThiRepeatingRow, out discoveredParticipantHubItem);
 
             #endregion
 
@@ -111,21 +116,21 @@ public class MyLaps2024HelperCsv
 
             ResultItem thisRepeatingResultItem;
 
-            if (participantIsFound)
+            if (participantIsDiscovered && discoveredParticipantHubItem != null)
             {
                 thisRepeatingResultItem = new ResultItem
                 {
-                    Bib = participantHubItem.Bib,
-                    FirstName = participantHubItem.FirstName,
-                    LastName = participantHubItem.LastName,
-                    MiddleInitial = participantHubItem.MiddleInitial,
-                    Gender = participantHubItem.Gender,
-                    Age = ParticipantDatabase.ToAgeFromBirthYear(participantHubItem.BirthYear),
-                    AgeGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(participantHubItem.BirthYear, ageGroupSpecificationItems),
-                    City = participantHubItem.City,
-                    Team = participantHubItem.Team,
-                    IsSeries = participantHubItem.IsSeries,
-                    RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
+                    Bib = discoveredParticipantHubItem.Bib,
+                    FirstName = discoveredParticipantHubItem.FirstName,
+                    LastName = discoveredParticipantHubItem.LastName,
+                    MiddleInitial = discoveredParticipantHubItem.MiddleInitial,
+                    Gender = discoveredParticipantHubItem.Gender,
+                    Age = ParticipantDatabase.ToAgeFromBirthYear(discoveredParticipantHubItem.BirthYear),
+                    AgeGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(discoveredParticipantHubItem.BirthYear, ageGroupSpecificationItems),
+                    City = discoveredParticipantHubItem.City,
+                    Team = discoveredParticipantHubItem.Team,
+                    IsSeries = discoveredParticipantHubItem.IsSeries,
+                    RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(discoveredParticipantHubItem), dateOfThisEvent)
                 };
 
             }
@@ -143,8 +148,11 @@ public class MyLaps2024HelperCsv
                     IsSeries = false
                 };
 
-                conversionReportSb.AppendLine(
-                    $"Warning! Participant master list fails to have a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>");
+                if (dictionaryOfParticipants != null)
+                {
+                    conversionReportSb.AppendLine(
+                        $"Warning! Participant master list fails to have a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>");
+                }
             }
 
             #endregion

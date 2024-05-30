@@ -104,9 +104,9 @@ public class PublisherForRezultzPortalTimingSystem2021 : PublisherBase
 
                 var dummy1 = XDocument.Parse(contentsOfDatasetAsString);
 
-                var dummy2 = dummy1.Element(ResultDto.XeRootForContainerOfSimpleStandAloneArray);
+                var dummy2 = dummy1.Element(ResultDto.XeRootForArrayOfResult);
 
-                if (dummy2 == null) throw new JghAlertMessageException($"The root of this file is wrongly named. The obligatory name is <{ResultDto.XeRootForContainerOfSimpleStandAloneArray}>. Please investigate the file.");
+                if (dummy2 == null) throw new JghAlertMessageException($"The root of this file is wrongly named. The obligatory name is <{ResultDto.XeRootForArrayOfResult}>. Please investigate the file.");
 
                 var resultsFromSystemHub = JghSerialisation.ToObjectFromXml<ResultDto[]>(contentsOfDatasetAsString, new[] {typeof(ResultDto[])});
 

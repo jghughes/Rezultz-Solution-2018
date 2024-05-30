@@ -79,8 +79,6 @@ public class DataGridDesigner
     public const string PrefixForViewModelChildPropertyNames = "";
     public const int LengthOfPrefixForViewModelChildPropertyNames = 0;
 
-    private const string XeArrayOfSplitIntervalsForParticipant = "ArrayOfSplitIntervalsForParticipant";
-    private const string XeSplitIntervalsForParticipantItem = "SplitIntervalsForParticipant";
 
     #endregion
 
@@ -690,7 +688,7 @@ public class DataGridDesigner
 
             ColumnSpecificationItem[] columnSpecifications;
 
-            const string nameToBeUsedForParentXe = ResultDto.XeRootForContainerOfSimpleStandAloneArray;
+            const string nameToBeUsedForParentXe = ResultDto.XeRootForArrayOfResult;
 
             ResultItemDisplayObject[] displayObjects;
 
@@ -969,7 +967,7 @@ public class DataGridDesigner
 
             var seriesTitle = $"{_parentSeriesProfile.Title.ToUpper()}";
 
-            const string nameToBeUsedForParentXe = XeArrayOfSplitIntervalsForParticipant;
+            const string nameToBeUsedForParentXe = ResultDto.XeRootForArrayOfOfSplitIntervalsForParticipant;
 
             #region prepare text for titles, subject matter and narrative blurb
 
@@ -2508,7 +2506,7 @@ public class DataGridDesigner
             var collectionOfXe = await JghParallel.SelectAsParallelWorkStealingAsync(
                 displayObjectArray,
                 z =>
-                    TransformDataGridRowItemIntoXElement(z, relevantColumnSpecificationItems, XeSplitIntervalsForParticipantItem),
+                    TransformDataGridRowItemIntoXElement(z, relevantColumnSpecificationItems, ResultDto.XeSplitIntervalsForParticipantItem),
                 500);
 
             // be sure to delete any duplicates that inadvertently creep in (which they do!)

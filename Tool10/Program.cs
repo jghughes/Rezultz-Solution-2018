@@ -18,7 +18,7 @@ namespace Tool10;
 
 internal class Program
 {
-    private const string Description = "This console program (Tool09) reads Andrew's participant master list/s and generates ParticipantHubItems.";
+    private const string Description = "This console program (Tool10) reads Andrew's participant master list/s and generates ParticipantHubItems.";
 
     #region the MEAT
 
@@ -147,7 +147,99 @@ internal class Program
 
             #endregion
 
-            #region find all files that exist in input folder
+            #region step 1 populate the list of RezultzFileItems with resultDto file contents
+
+            try
+            {
+                foreach (var rezultzFileItem in ListOfRezultzFileItemsBeingProcessed)
+                {
+                    if (!rezultzFileItem.RezultzFileInfo.Name.EndsWith($".{RequiredRezultzFileFormat}"))
+                    {
+                        JghConsoleHelper.WriteLine($"Skipping {rezultzFileItem.RezultzFileInfo.Name} because it's not a {RequiredRezultzFileFormat} file as you appear to have specified. Does this make sense?");
+                        continue;
+                    }
+
+                    JghConsoleHelper.WriteLine($"Deserializing text to array of ResultItemDataTransferObject for {rezultzFileItem.RezultzFileInfo.Name}");
+
+                    var xx = JghSerialisation.ToObjectFromXml<ResultDto[]>(rezultzFileItem.RezultzFileContentsAsText, new[] { typeof(ResultDto) });
+
+                    rezultzFileItem.RezultzFileContentsAsResultsDataTransferObjects = xx.ToList();
+
+                    JghConsoleHelper.WriteLine($"Loaded {rezultzFileItem.RezultzFileContentsAsResultsDataTransferObjects.Count} ResultItemDataTransferObjects");
+                }
+
+                JghConsoleHelper.WriteLine();
+            }
+            catch (Exception e)
+            {
+                JghConsoleHelper.WriteLine($"Exception thrown: failed to successfully deserialize [rezultzFileItem.RezultzFileContentsAsText] to [rezultzFileItem.RezultzFileContentsAsResultsDataTransferObjects ]. {e.Message}");
+                JghConsoleHelper.WriteLine("");
+                return;
+            }
+
+            #endregion
+
+            #region load draft results from native timing system (exported from KeepTimeTools page in Portal)
+
+            JghConsoleHelper.WriteLineWrappedByOne("Please wait. Processing files.");
+
+            try
+            {
+                foreach (FileInfo fi in arrayOfInputFileInfo)
+                {
+                    if (!Path.GetFileName(fi.FullName).EndsWith($".{RequiredInputFileFormat}"))
+                    {
+                        JghConsoleHelper.WriteLine($"Ignoring non-XML file: {fi.Name}");
+                        continue;
+                    }
+
+                    var fileItem = new FileItem
+                    {
+                        FileInfo = fi,
+                        FileContentsAsText = "",
+                        FileContentsAsXElement = new XElement(BabyParticipantDto.XeDataRootForContainerOfSimpleStandAloneArray),
+                        OutputSubFolderName = string.Empty // not used
+                    };
+
+                    FilesOfParticipantListsImportedFromAndrew.Add(fileItem);
+                }
+
+                JghConsoleHelper.WriteLine();
+
+                try
+                {
+                    foreach (var fileItem in FilesOfParticipantListsImportedFromAndrew)
+                    {
+                        var fullInputPath = fileItem.FileInfo.FullName;
+
+                        var rawInputAsText = await File.ReadAllTextAsync(fullInputPath);
+                        var rawInputAsXElement = XElement.Parse(rawInputAsText);
+
+                        fileItem.FileContentsAsText = rawInputAsText;
+                        fileItem.FileContentsAsXElement = rawInputAsXElement;
+
+                        JghConsoleHelper.WriteLineFollowedByOne($"Successfully processed: {fileItem.FileInfo.Name}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLine(e.Message);
+                    throw new Exception(e.InnerException?.Message);
+                }
+
+                if (FilesOfParticipantListsImportedFromAndrew.Count == 0)
+                    throw new Exception("Found not even a single participant data file from Andrew.");
+            }
+            catch (Exception e)
+            {
+                JghConsoleHelper.WriteLine($"Failed to locate designated participant file. {e.Message}");
+                JghConsoleHelper.WriteLine("");
+                return;
+            }
+
+            #endregion
+
+            #region find all MyLaps csv files that exist in input folder
 
             var di = new DirectoryInfo(FolderContainingMasterListFromAndrew); // Create a reference to the input directory.
 
@@ -419,6 +511,7 @@ internal class Program
     private const string FolderForOriginatingParticipantHubItems = @"C:\Users\johng\holding pen\participants-originating-ParticipantHubItems\";
     private const string FolderForModifiedParticipantHubItems = @"C:\Users\johng\holding pen\participants-modified-ParticipantHubItems\";
 
+    private const string FilenameForResultsFromPortalTimingSystem = @"DraftResultsForLeaderboard.xml";
     private const string FilenameForBabyParticipants = @"BabyItems.xml";
     private const string FilenameForOriginatingParticipantHubItems = @"OriginatingHubItems.xml";
     private const string FileNameForModifiedParticipantHubItems = @"ModifiedHubItems.xml";

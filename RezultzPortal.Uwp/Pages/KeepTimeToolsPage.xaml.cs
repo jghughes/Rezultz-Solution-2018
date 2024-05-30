@@ -347,7 +347,7 @@ public sealed partial class KeepTimeToolsPage
                 }
                 case exportTimeStampsPairedIntoSplitsPerPersonButtonCommand:
                 {
-                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "SplitIntervalsForParticipants");
+                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "DraftResultsForLeaderboard");
                     break;
                 }
                 default:

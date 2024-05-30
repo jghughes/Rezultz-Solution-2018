@@ -17,12 +17,12 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         #region CellXElementNames in ColumnSpecificationItem
 
-        public const string XePlace = "Place";
-        public const string XeKindOfGunStart = "KindOfGunStart";
-        public const string XePrettyGunStartDateTime = "PrettyGunStartDateTime";
-        public const string XeTallyOfTimingMatActivations = "TallyOfTimingMatActivations";
-        public const string XeTotalNumberOfSplitIntervals = "TallyOfSplitIntervals";
-        public const string XeCalculatedTotalCumulativeDuration = "CalculatedTotalCumulativeDuration";
+        public const string XePlace = "place";
+        public const string XeKindOfGunStart = "kind-of-gunstart";
+        public const string XePrettyGunStartDateTime = "pretty-gunstart-datetime";
+        public const string XeTallyOfTimingMatActivations = "tally-of-timingmat-activations";
+        public const string XeTotalNumberOfSplitIntervals = "tally-of-split-intervals";
+        public const string XeCalculatedTotalCumulativeDuration = "calculated-total-cumulative-duration";
 
         #endregion
 

@@ -195,7 +195,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
             #region create answer as XML document. add XAttribute to document to provide the name of the inputEntity file as the primarysource - the start of a paper trail
 
             var answerDocument =
-                JghXElementHelpers.WrapCollectionOfXElementsInNewParent(ResultDto.XeRootForContainerOfSimpleStandAloneArray, arrayOfIndividualResultXes);
+                JghXElementHelpers.WrapCollectionOfXElementsInNewParent(ResultDto.XeRootForArrayOfResult, arrayOfIndividualResultXes);
 
             answerDocument.Add(new XAttribute(sourceFileXAttribute, targetFileFromAJ.EntityName));
 

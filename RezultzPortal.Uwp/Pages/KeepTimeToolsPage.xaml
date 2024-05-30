@@ -170,7 +170,7 @@
 
                     <Button Click="BtnExportChosenData_OnClick"
                             CommandParameter="TimestampsPairedIntoSplitsPerParticipant"
-                            Content="Export timestamps paired into split intervals for each participant"
+                            Content="Export timestamps consolidated into provisional Results"
                             DataContext="{Binding Path=ExportAllSplitIntervalsPerPersonButtonVm}"
                             IsEnabled="{Binding Path=IsAuthorisedToOperate}"
                             Style="{StaticResource HereExportButtonStyle}"
@@ -179,7 +179,7 @@
                     <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                     <TextBlock
-                        Text="Warning! To prevent nonsensical data, always pull participant info down from the hub before exporting.  Do this on the 'create timestamps' screen or the 'find anomalies' screen."
+                        Text="Warning! To prevent nonsensical exports, always pull participant info down from the hub before exporting.  Do this on the 'create timestamps' screen or the 'find anomalies' screen."
                         Style="{StaticResource HereWarningTextBlockStyle}" />
 
                 </StackPanel>
