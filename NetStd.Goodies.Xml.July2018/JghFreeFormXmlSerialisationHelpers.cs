@@ -76,7 +76,7 @@ namespace NetStd.Goodies.Xml.July2018
             try
             {
                 if (parentXElementAsString == null)
-                    return new T[0];
+                    return [];
 
                 XElement parentXElement;
 

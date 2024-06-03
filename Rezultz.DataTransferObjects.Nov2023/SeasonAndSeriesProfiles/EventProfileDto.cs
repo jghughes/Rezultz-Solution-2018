@@ -64,7 +64,7 @@ namespace Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles
 
         // note this is not strictly metadata, but it is a useful place to put it - this is what we use to ship back and forth the subsequently populated results for the event
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = XeResultsForEvent)]
-        public ResultDto[] PublishedResultsForEvent { get; set; } = Array.Empty<ResultDto>();
+        public ResultDto[] PublishedResultsForEvent { get; set; } = [];
 
         #endregion
     }

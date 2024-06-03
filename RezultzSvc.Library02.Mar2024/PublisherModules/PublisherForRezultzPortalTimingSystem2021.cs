@@ -108,7 +108,7 @@ public class PublisherForRezultzPortalTimingSystem2021 : PublisherBase
 
                 if (dummy2 == null) throw new JghAlertMessageException($"The root of this file is wrongly named. The obligatory name is <{ResultDto.XeRootForArrayOfResult}>. Please investigate the file.");
 
-                var resultsFromSystemHub = JghSerialisation.ToObjectFromXml<ResultDto[]>(contentsOfDatasetAsString, new[] {typeof(ResultDto[])});
+                var resultsFromSystemHub = JghSerialisation.ToObjectFromXml<ResultDto[]>(contentsOfDatasetAsString, [typeof(ResultDto[])]);
 
                 allComputedResults = ResultItem.FromDataTransferObject(resultsFromSystemHub).OrderBy(z => z.RaceGroup).ThenBy(z => z.DnxString).ThenBy(z => z.T01).ToList();
 
@@ -187,7 +187,7 @@ public class PublisherForRezultzPortalTimingSystem2021 : PublisherBase
                 RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
                 ConversionReport = conversionReportSb.ToString(),
                 ConversionDidFail = true,
-                ComputedResults = Array.Empty<ResultItem>()
+                ComputedResults = []
             };
 
             return await Task.FromResult(answer2);

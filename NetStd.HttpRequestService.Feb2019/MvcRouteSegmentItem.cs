@@ -6,5 +6,5 @@ public readonly struct MvcRouteSegmentItem(string controller, string action, Lis
 {
     public string Controller { get; } = controller ?? string.Empty;
     public string Action { get; } = action ?? string.Empty;
-    public List<KeyValuePair<string, object>> QueryParameters { get; } = queryParameters ?? new List<KeyValuePair<string, object>>();
+    public List<KeyValuePair<string, object>> QueryParameters { get; } = queryParameters ?? [];
 }

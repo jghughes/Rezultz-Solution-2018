@@ -58,9 +58,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                 "Unable to populate array of simple identities of itemsIdentifiedByTheirNames with full details of their newest results.";
             const string locus = "[SearchByName]";
 
-            if (searchList == null) return Array.Empty<TU>();
+            if (searchList == null) return [];
 
-            if (populationToBeSearched == null || !populationToBeSearched.Any()) return Array.Empty<TU>();
+            if (populationToBeSearched == null || !populationToBeSearched.Any()) return [];
 
             // arrayOfIdentities are the Favorites for example
 

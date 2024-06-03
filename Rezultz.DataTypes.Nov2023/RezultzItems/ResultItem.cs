@@ -174,7 +174,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
             try
             {
                 if (dataTransferObject == null)
-                    return Array.Empty<ResultItem>();
+                    return [];
 
                 var answer = dataTransferObject.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -254,7 +254,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
             try
             {
                 if (item == null)
-                    return Array.Empty<ResultDto>();
+                    return [];
 
                 var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 
@@ -289,7 +289,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
             try
             {
                 if (item == null)
-                    return Array.Empty<SearchQueryItem>();
+                    return [];
 
                 var answer = item.Select(ToSearchQuerySuggestionItem).Where(z => z != null).ToArray();
 

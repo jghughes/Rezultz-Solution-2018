@@ -34,7 +34,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             try
             {
-                profileDto = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(AssociatedProfileFile.ToString(), new[] { typeof(PublisherModuleProfileItemDto) });
+                profileDto = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(AssociatedProfileFile.ToString(), [typeof(PublisherModuleProfileItemDto)]);
             }
             catch (Exception)
             {
@@ -192,12 +192,12 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         static PublisherButtonProfileItemDto[] GetComputerGuiButtonProfileDtos(XElement parentXe)
         {
             if (parentXe == null)
-                return Array.Empty<PublisherButtonProfileItemDto>();
+                return [];
 
             var buttonXElements = GetChildElements(parentXe, PublisherButtonProfileItemDto.XeGuiButtonProfile);
 
             if (buttonXElements == null || !buttonXElements.Any())
-                return Array.Empty<PublisherButtonProfileItemDto>();
+                return [];
 
             return buttonXElements.Select(thisButtonXe => new PublisherButtonProfileItemDto
             {

@@ -19,7 +19,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         public bool ConversionDidFail { get; set; } = false;
 
-        public ResultItem[] ComputedResults { get; set; } = Array.Empty<ResultItem>();  
+        public ResultItem[] ComputedResults { get; set; } = [];  
 
         #endregion
 

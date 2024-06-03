@@ -45,19 +45,19 @@ namespace Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles
         public string OrganizerTwitterUri { get; set; } = string.Empty;
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 7, Name = XeMoreEventInformationItems)]
-        public MoreInformationDto[] EventInformationArray { get; set; } = Array.Empty<MoreInformationDto>();
+        public MoreInformationDto[] EventInformationArray { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 8, Name = XeMoreEventAnalysisItems)]
-        public MoreInformationDto[] EventAnalyses { get; set; } = Array.Empty<MoreInformationDto>();
+        public MoreInformationDto[] EventAnalyses { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 9, Name = XeAllRaceSpecifications)]
-        public RaceSpecificationDto[] RaceSpecifications { get; set; } = Array.Empty<RaceSpecificationDto>();
+        public RaceSpecificationDto[] RaceSpecifications { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 10, Name = XeAllAgeGroupSpecifications)]
-        public AgeGroupSpecificationDto[] AgeGroupSpecifications { get; set; } = Array.Empty<AgeGroupSpecificationDto>();
+        public AgeGroupSpecificationDto[] AgeGroupSpecifications { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = XeAllUris)]
-        public UriDto[] Uris { get; set; } = Array.Empty<UriDto>();
+        public UriDto[] Uris { get; set; } = [];
 
         #endregion
     }

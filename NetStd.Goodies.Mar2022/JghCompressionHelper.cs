@@ -12,7 +12,7 @@ namespace NetStd.Goodies.Mar2022
 
         var myObjectAsXmlString = JghConvert.ToStringFromUtf8Bytes(myObjectAsXmlAsBytes);
 
-        var myObject = JghSerialisation.ToObjectFromXml<T>(myObjectAsXmlString, new[] { typeof(T) }); 
+        var myObject = JghSerialisation.ToObjectFromXml<T>(myObjectAsXmlString, [typeof(T)]); 
 
         return myObject;
     }
@@ -33,7 +33,7 @@ namespace NetStd.Goodies.Mar2022
         public static async Task<byte[]> ConvertObjectToXmlAsCompressedBytesAsync<T>(T myObject)
     {
 
-        var myObjectAsXmlString = JghSerialisation.ToXmlFromObject(myObject, new[] { typeof(T) });
+        var myObjectAsXmlString = JghSerialisation.ToXmlFromObject(myObject, [typeof(T)]);
 
         var myObjectAsXmlAsBytes = JghConvert.ToBytesUtf8FromString(myObjectAsXmlString);
 

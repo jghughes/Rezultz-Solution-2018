@@ -237,8 +237,8 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             if (seriesProfileDto == null)
                 throw new JghSeasonDataFile404Exception("Unable proceed. SeriesItem is null.");
 
-            List<EventProfileDto> allEventsInSeries = new();
-            List<Task<EventProfileDto>> allEventsInSeriesTasks = new();
+            List<EventProfileDto> allEventsInSeries = [];
+            List<Task<EventProfileDto>> allEventsInSeriesTasks = [];
 
             foreach (var thisEventItem in seriesProfileDto.EventProfileCollection
                          .Where(z => z != null))
@@ -289,7 +289,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
     {
         try
         {
-            List<SeriesProfileDto> populatedTargetItemsAsList = new();
+            List<SeriesProfileDto> populatedTargetItemsAsList = [];
 
             foreach (var seriesSeasonDocumentTarget in seasonData.SeriesProfileFileLocationCollection)
                 try
@@ -386,13 +386,13 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
                 var resultsDocumentInUnknownFormat = resultsDocumentInUnknownFormatAsBinary.ToArray();
 
 
-                ResultDto[] arrayOfResultInThisBlob = Array.Empty<ResultDto>();
+                ResultDto[] arrayOfResultInThisBlob = [];
 
                 if (dataItemName.EndsWith(".xml"))
                 {
                     var text = JghConvert.ToStringFromUtf8Bytes(resultsDocumentInUnknownFormat);
 
-                    arrayOfResultInThisBlob = JghSerialisation.ToObjectFromXml<ResultDto[]>(text, new[] { typeof(ResultDto) }); //Note: this will throw if the xml is not well formed and if the container of repeating elements is not named as expected by the DataContractSerializer i.e. "ArrayOf" + the name of the repeating element.
+                    arrayOfResultInThisBlob = JghSerialisation.ToObjectFromXml<ResultDto[]>(text, [typeof(ResultDto)]); //Note: this will throw if the xml is not well formed and if the container of repeating elements is not named as expected by the DataContractSerializer i.e. "ArrayOf" + the name of the repeating element.
 
                     //var xx = XDocument.Parse(text);
 

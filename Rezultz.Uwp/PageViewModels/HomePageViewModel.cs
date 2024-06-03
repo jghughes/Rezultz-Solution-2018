@@ -99,7 +99,7 @@ namespace Rezultz.Uwp.PageViewModels
 
         protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
         {
-            return new List<object>();
+            return [];
         }
 
         #endregion

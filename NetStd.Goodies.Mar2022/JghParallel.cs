@@ -54,7 +54,7 @@ namespace NetStd.Goodies.Mar2022
         public static async Task<T[]> WhenAllAsync<T>(Task<T>[] tasks) where T : class
         {
             if (tasks == null)
-                return Array.Empty<T>();
+                return [];
 
             var nonNullTasks = tasks
                 .Where(task => task != null).ToList();
@@ -138,11 +138,11 @@ namespace NetStd.Goodies.Mar2022
 
             #region check for null parameters
 
-            if (source == null) return new TResult[0];
+            if (source == null) return [];
 
-            if (!source.Any()) return new TResult[0];
+            if (!source.Any()) return [];
 
-            if (transform == null) return new TResult[0];
+            if (transform == null) return [];
 
             #endregion
 
@@ -241,11 +241,11 @@ namespace NetStd.Goodies.Mar2022
             {
                 #region check for null parameters
 
-                if (source == null) return new TResult[0];
+                if (source == null) return [];
 
-                if (!source.Any()) return new TResult[0];
+                if (!source.Any()) return [];
 
-                if (transform == null) return new TResult[0];
+                if (transform == null) return [];
 
                 #endregion
 
@@ -272,7 +272,7 @@ namespace NetStd.Goodies.Mar2022
 
                 IList<KeyValuePair<int, TSource>> indexedSource = EstablishTheOrder(source);
 
-                if (indexedSource == null) return new TResult[0];
+                if (indexedSource == null) return [];
 
                 var remainingActiveThreads = threadCount;
 
@@ -409,7 +409,7 @@ namespace NetStd.Goodies.Mar2022
 
                 if (sourceCollection == null) return null;
 
-                if (!sourceCollection.Any()) return new T[0][];
+                if (!sourceCollection.Any()) return [];
 
                 if (sizeThresholdForPartition < 1)
                     sizeThresholdForPartition = 1;
@@ -472,7 +472,7 @@ namespace NetStd.Goodies.Mar2022
                     {
                         partitions.Add(currentPartition);
 
-                        currentPartition = new List<T>();
+                        currentPartition = [];
 
                         var bucketOfRemaindersIsNotFull = remainders.Count < numberOfRemainders;
 
@@ -575,7 +575,7 @@ namespace NetStd.Goodies.Mar2022
 
             var outerCollection = source.ToArray();
 
-            if (!outerCollection.Any()) return new T[0];
+            if (!outerCollection.Any()) return [];
 
             var flattenedAnswer = new List<T>();
 
@@ -597,7 +597,7 @@ namespace NetStd.Goodies.Mar2022
 
             var outerCollection = source.ToArray();
 
-            if (!outerCollection.Any()) return new T[0];
+            if (!outerCollection.Any()) return [];
 
             var flattenedSource = new List<T>();
 
@@ -636,11 +636,11 @@ namespace NetStd.Goodies.Mar2022
             const string locus = "[SelectOnAStandAloneThreadAsync]";
 
 
-            if (source == null) return new TResult[0];
+            if (source == null) return [];
 
-            if (!source.Any()) return new TResult[0];
+            if (!source.Any()) return [];
 
-            if (transform == null) return new TResult[0];
+            if (transform == null) return [];
 
             try
             {
@@ -688,7 +688,7 @@ namespace NetStd.Goodies.Mar2022
 
             if (item.Value == null) return new KeyValuePair<int, TResult[]>(item.Key, null);
 
-            if (!item.Value.Any()) return new KeyValuePair<int, TResult[]>(item.Key, new TResult[0]);
+            if (!item.Value.Any()) return new KeyValuePair<int, TResult[]>(item.Key, []);
 
             try
             {

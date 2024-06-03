@@ -81,7 +81,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
             try
             {
                 if (models == null)
-                    return Array.Empty<CboLookupItemDisplayObject>();
+                    return [];
 
                 var answer = models.Select(FromModel).Where(z => z != null).ToArray();
 
@@ -111,7 +111,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
             try
             {
                 if (viewModels == null)
-                    return Array.Empty<CboLookupItem>();
+                    return [];
 
                 var answer = viewModels.Select(ObtainSourceModel).Where(z => z != null).ToArray();
 
@@ -162,7 +162,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
             try
             {
                 if (labels == null)
-                    return Array.Empty<CboLookupItemDisplayObject>();
+                    return [];
 
                 var answer = labels.Select(FromLabel).Where(z => z != null).ToArray();
 

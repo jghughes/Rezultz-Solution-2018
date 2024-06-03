@@ -266,7 +266,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                 RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
                 ConversionReport = conversionReportSb.ToString(),
                 ConversionDidFail = true,
-                ComputedResults = Array.Empty<ResultItem>()
+                ComputedResults = []
             };
             return await Task.FromResult(answer2);
         }
@@ -323,15 +323,15 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
             {"", ""}
         };
 
-        private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished => new()
-        {
+        private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished =>
+        [
             "event",
             "checked_in",
             "Time_Text",
             "TmAdjustment",
             FieldNames.WeirdKelsoClockTime,
             FieldNames.WeirdKelsoClockTimeOffset
-        };
+        ];
 
         #endregion
 
@@ -969,7 +969,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         private ResultItem[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
     {
-        List<ResultItem> answer = new();
+        List<ResultItem> answer = [];
 
         foreach (var element in arrayOfIndividualResultXes)
         {

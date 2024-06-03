@@ -62,7 +62,7 @@ namespace NetStd.DataTypes.Mar2024
             try
             {
                 if (dataTransferObject == null)
-                    return Array.Empty<UriItem>();
+                    return [];
 
                 var answer = dataTransferObject.Select(FromDataTransferObject).Where(z => z != null).ToArray();
                 return answer;
@@ -116,7 +116,7 @@ namespace NetStd.DataTypes.Mar2024
             try
             {
                 if (item == null)
-                    return Array.Empty<UriDto>();
+                    return [];
 
                 var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

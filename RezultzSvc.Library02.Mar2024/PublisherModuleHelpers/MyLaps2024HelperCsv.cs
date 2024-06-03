@@ -32,13 +32,13 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
 
         #region step 1 interpret ObtainedDatasetToBeProcessedAsRawString as csv data if we can
 
-        var allRowsOfCsvText = myLapsFile.FileContents.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
+        var allRowsOfCsvText = myLapsFile.FileContents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
 
         var relevantRowsOfCsvText =
             allRowsOfCsvText.Where(z => !string.IsNullOrWhiteSpace(z)).Where(z => z.Contains(','))
                 .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair of blank lines at the bottom of the file
 
-        List<string> relevantRowsWithoutEscapeLiterals = new();
+        List<string> relevantRowsWithoutEscapeLiterals = [];
 
         foreach (var rowOfCsv in relevantRowsOfCsvText)
         {

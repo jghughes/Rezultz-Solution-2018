@@ -61,7 +61,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (model == null)
-                    return Array.Empty<AgeGroupSpecificationItemViewModel>();
+                    return [];
 
                 var viewModel = model.Select(FromModel).Where(z => z != null).ToArray();
 

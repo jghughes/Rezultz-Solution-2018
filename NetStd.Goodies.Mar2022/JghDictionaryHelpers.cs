@@ -19,7 +19,7 @@ namespace NetStd.Goodies.Mar2022
             if (theDictionary == null)
                 throw new ArgumentNullException(nameof(theDictionary));
 
-            return !theDictionary.Any() ? Array.Empty<TValue>() : theDictionary.Where(kvp => kvp.Value != null).Select(kvp => kvp.Value).ToArray();
+            return !theDictionary.Any() ? [] : theDictionary.Where(kvp => kvp.Value != null).Select(kvp => kvp.Value).ToArray();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace NetStd.Goodies.Mar2022
             if (theDictionary == null)
                 throw new ArgumentNullException(nameof(theDictionary));
 
-            return !theDictionary.Any() ? Array.Empty<KeyValuePair<TKey, TValue>>() : theDictionary.ToArray();
+            return !theDictionary.Any() ? [] : theDictionary.ToArray();
         }
 
         /// <summary>

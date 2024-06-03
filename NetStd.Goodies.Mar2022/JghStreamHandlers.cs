@@ -24,7 +24,7 @@ namespace NetStd.Goodies.Mar2022
 
             try
             {
-                if (inputStream == null) return new byte[0];
+                if (inputStream == null) return [];
 
                 using (inputStream)
                 using (var memorystream = new MemoryStream())

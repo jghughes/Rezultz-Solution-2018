@@ -6,7 +6,7 @@
 
         public string FileContentsAsText { get; set; } = string.Empty;
 
-        public List<string> FileContentsAsLines { get; set; } = new();
+        public List<string> FileContentsAsLines { get; set; } = [];
 
         public string OutputFileName { get; set; } = string.Empty;
     }

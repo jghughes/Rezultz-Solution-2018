@@ -127,7 +127,7 @@ namespace RezultzPortal.Uwp.PageViewModels
                             CboLookupKindOfGunStartOnSelectionChangedCanExecute)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupKindOfGunStartVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupKindOfGunStartVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupGroupLabelForGroupStartVm = new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                         string.Empty,
@@ -135,49 +135,49 @@ namespace RezultzPortal.Uwp.PageViewModels
                         CboLookupGroupLabelForGroupStartOnSelectionChangedCanExecute)
                     {IsVisible = false, IsAuthorisedToOperate = false};
 
-                CboLookupGroupLabelForGroupStartVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupGroupLabelForGroupStartVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupDnxVm =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             StringsPortal.Dnx_status, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupDnxVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupDnxVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupAnomalousThresholdForTooManySplitsVm =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupAnomalousThresholdForTooManySplitsVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupAnomalousThresholdForTooManySplitsVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupAnomalousThresholdForTooFewSplitsVm =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupAnomalousThresholdForTooFewSplitsVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupAnomalousThresholdForTooFewSplitsVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupAnomalousThresholdForTooBriefSplitsVm =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupAnomalousThresholdForTooBriefSplitsVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupAnomalousThresholdForTooBriefSplitsVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupDeltaForCalculatingClusteredTimingMatEntriesVm =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupDeltaForCalculatingClusteredTimingMatEntriesVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupDeltaForCalculatingClusteredTimingMatEntriesVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupClusterSizeThresholdForCalculatingClusteredTimingMatEntriesVm =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupClusterSizeThresholdForCalculatingClusteredTimingMatEntriesVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupClusterSizeThresholdForCalculatingClusteredTimingMatEntriesVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
 
                 CboLookupOnlySubGroupOfSingleRaceInSplitIntervalsPerPersonDataGrid =
@@ -185,14 +185,14 @@ namespace RezultzPortal.Uwp.PageViewModels
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupOnlySubGroupOfSingleRaceInSplitIntervalsPerPersonDataGrid.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupOnlySubGroupOfSingleRaceInSplitIntervalsPerPersonDataGrid.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 CboLookupOnlySubGroupOfSingleRaceInTimeStampsDataGrid =
                     new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(
                             string.Empty, () => { }, () => false)
                         {IsAuthorisedToOperate = true};
 
-                CboLookupOnlySubGroupOfSingleRaceInTimeStampsDataGrid.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(_dangerouslyBriefSafetyMarginForBindingEngineMilliSec);
+                CboLookupOnlySubGroupOfSingleRaceInTimeStampsDataGrid.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
                 #endregion
 
@@ -225,7 +225,7 @@ namespace RezultzPortal.Uwp.PageViewModels
         private readonly ParticipantDatabase _participantDatabase = new();
 
 
-        private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 5; // virtually nothing because there are no Execute methods wired up to any of the Cbos
+        private const int DangerouslyBriefSafetyMarginForBindingEngineMilliSec = 5; // virtually nothing because there are no Execute methods wired up to any of the Cbos
 
         #endregion
 
@@ -2614,7 +2614,7 @@ namespace RezultzPortal.Uwp.PageViewModels
                 AcceptRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate = false;
 
                 RejectRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate = false;
-            } // always keep this defn identical to the same in AcceptItemBeingEditedButtonOnClickAsync()
+            } // always keep this definition identical to the same in AcceptItemBeingEditedButtonOnClickAsync()
 
             try
             {
@@ -2867,7 +2867,7 @@ namespace RezultzPortal.Uwp.PageViewModels
         private static TimeStampHubItem[] FilterAndInsertACommentInTimingMatEntriesThatOccurInTightClusters(TimeStampHubItem[] entries, double deltaSeconds, int clusterSizeThreshold)
         {
             if (entries == null)
-                return Array.Empty<TimeStampHubItem>();
+                return [];
 
             var timestampsFromFirstToLast = entries
                 .Where(z => z != null)
@@ -2887,7 +2887,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 JghListDictionary<int, TimeStampHubItem> listDictionaryOfBunches = new();
 
-                List<TimeStampHubItem> flattenedListOfBunchedTimeStampHubItems = new();
+                List<TimeStampHubItem> flattenedListOfBunchedTimeStampHubItems = [];
 
                 TimeSpan scratchPadIntervalDuration;
 

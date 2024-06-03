@@ -40,9 +40,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         public EntityLocationItem ContainerForMedia { get; set; } = new();
 
-        public EventProfileItem[] EventProfileItems { get; set; } = Array.Empty<EventProfileItem>();
+        public EventProfileItem[] EventProfileItems { get; set; } = [];
 
-        public MoreInformationItem[] MoreSeriesInformationItems { get; set; } = Array.Empty<MoreInformationItem>();
+        public MoreInformationItem[] MoreSeriesInformationItems { get; set; } = [];
 
         public EventSettingsItem DefaultEventSettingsForAllEvents { get; set; } = new();
 
@@ -125,7 +125,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (dto == null)
-                    return Array.Empty<SeriesProfileItem>();
+                    return [];
 
                 var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -195,7 +195,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (item == null)
-                    return Array.Empty<SeriesProfileDto>();
+                    return [];
 
                 var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

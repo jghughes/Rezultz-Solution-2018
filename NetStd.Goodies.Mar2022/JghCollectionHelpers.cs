@@ -65,14 +65,14 @@ namespace NetStd.Goodies.Mar2022
 
 	        if (items == null)
 	        {
-		        return Array.Empty<T>();
+		        return [];
 	        }
 
 	        var longList = items.Where(z => z != null).ToArray();
 
 	        if (!longList.Any())
 	        {
-		        return new T[0];
+		        return [];
 	        }
 
 	        var i = longList.Length - 1;

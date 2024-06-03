@@ -147,7 +147,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         #region ItemsSource
 
-        public ObservableCollection<T> ItemsSource { get; } = new();
+        public ObservableCollection<T> ItemsSource { get; } = [];
 
 		#endregion
 

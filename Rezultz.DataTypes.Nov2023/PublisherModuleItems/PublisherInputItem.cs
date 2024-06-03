@@ -20,7 +20,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         public SeriesProfileItem SeriesProfile { get; set; }
 
-        public PublisherImportFileTargetItem[] DatasetTargetsToBeProcessed { get; set; } = Array.Empty<PublisherImportFileTargetItem>();
+        public PublisherImportFileTargetItem[] DatasetTargetsToBeProcessed { get; set; } = [];
 
         public string NullChecksFailureMessage
         {
@@ -91,7 +91,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         try
         {
             if (dto == null)
-                return Array.Empty<PublisherInputItem>();
+                return [];
 
             var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -147,7 +147,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         try
         {
             if (item == null)
-                return Array.Empty<PublisherInputItemDto>();
+                return [];
 
             var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 
@@ -189,13 +189,13 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         public EntityLocationItem[] DeduceStorageLocations(string identifierOfDataset)
     {
         if (SeriesProfile == null || DatasetTargetsToBeProcessed == null || string.IsNullOrWhiteSpace(identifierOfDataset))
-            return Array.Empty<EntityLocationItem>();
+            return [];
 
         var accountName = SeriesProfile.ContainerForPublishingDatasetsToBeProcessed?.AccountName;
         var containerName = SeriesProfile.ContainerForPublishingDatasetsToBeProcessed?.ContainerName;
 
         if (string.IsNullOrWhiteSpace(accountName) || string.IsNullOrWhiteSpace(containerName))
-            return Array.Empty<EntityLocationItem>();
+            return [];
 
         var answer = DatasetTargetsToBeProcessed
             .Where(z => z.IdentifierOfDataset == identifierOfDataset)

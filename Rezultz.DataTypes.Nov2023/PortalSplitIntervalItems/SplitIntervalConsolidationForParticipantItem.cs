@@ -29,11 +29,11 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
         public TimeStampHubItem GunStartTimeStamp { get; set; }
 
-        public List<TimeStampHubItem> ListOfTimingMatTimeStamps { get; set; } = new();
+        public List<TimeStampHubItem> ListOfTimingMatTimeStamps { get; set; } = [];
 
-        public List<TimeStampHubItem> ConsolidatedListOfAllTimeStamps { get; set; } = new();
+        public List<TimeStampHubItem> ConsolidatedListOfAllTimeStamps { get; set; } = [];
 
-        public List<SplitIntervalAsPairOfTimeStampsItem> ListOfCalculatedPairedTimeStampIntervals { get; set; } = new();
+        public List<SplitIntervalAsPairOfTimeStampsItem> ListOfCalculatedPairedTimeStampIntervals { get; set; } = [];
 
         public string RaceGroupDeducedFromParticipant { get; set; } = string.Empty;
 

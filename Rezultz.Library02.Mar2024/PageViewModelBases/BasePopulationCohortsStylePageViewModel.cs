@@ -66,7 +66,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
             #region instantiate AllDataGridLineItemDisplayObjects
 
-            AllDataGridLineItemDisplayObjects = Array.Empty<PopulationCohortItemDisplayObject>();
+            AllDataGridLineItemDisplayObjects = [];
 
             #endregion
 
@@ -742,10 +742,10 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
                     EnumStrings.HistogramForEachSex => await repository.GetGenderCohortsFoundAsync(),
                     EnumStrings.HistogramForEachAgeGroup => await repository.GetAgeGroupCohortsFoundAsync(),
                     EnumStrings.HistogramForEachCity => await repository.GetCityCohortsFoundAsync(),
-                    _ => Array.Empty<PopulationCohortItem>()
+                    _ => []
                 };
 
-            cohortAnalysisLineItems ??= Array.Empty<PopulationCohortItem>();
+            cohortAnalysisLineItems ??= [];
 
             var rowCollection = cohortAnalysisLineItems
                 .Where(z => z != null)
@@ -841,7 +841,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         protected async Task<bool> ZeroiseAsync()
         {
-            AllDataGridLineItemDisplayObjects = Array.Empty<PopulationCohortItemDisplayObject>();
+            AllDataGridLineItemDisplayObjects = [];
 
             HeadersVm.Zeroise();
             FootersVm.Zeroise();

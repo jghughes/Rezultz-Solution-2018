@@ -1208,7 +1208,7 @@ namespace RezultzPortal.Uwp.PageViewModels
             var accountName = SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.LocationOfCustomDatasetsUploadedForProcessing.DatabaseAccountName;
             var containerName = SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.LocationOfCustomDatasetsUploadedForProcessing.DataContainerName;
             var datasetEntityName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('_',
-                $"{DateTime.Now.ToString(JghDateTime.SortablePattern)}___{EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson}"); // create a artificial but meaningful file name and assign to SingleEventResultsObtainedFromHubDescriptionOfOrigin
+                $"{DateTime.Now.ToString(JghDateTime.SortablePattern)}___{EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson}"); // create an artificial but meaningful file name and assign to SingleEventResultsObtainedFromHubDescriptionOfOrigin
 
             var uploadDidSucceed = await _raceResultsPublishingSvcAgent.UploadSourceDatasetToBeProcessedSubsequentlyAsync(EnumsForPublisherModule.TimestampsAsConsolidatedSplitIntervalsFromRemotePortalHubAsJson,
                 new EntityLocationItem(accountName, containerName, datasetEntityName),
@@ -1710,7 +1710,7 @@ namespace RezultzPortal.Uwp.PageViewModels
                 throw new JghAlertMessageException(missingDataReport);
             }
 
-            var dataTransferObjectsAsXml = JghSerialisation.ToXmlFromObject(dataTransferObjects, new[] {typeof(ResultDto[])});
+            var dataTransferObjectsAsXml = JghSerialisation.ToXmlFromObject(dataTransferObjects, [typeof(ResultDto[])]);
 
             var consolidationReport = $"{JghString.LeftAlign("Consolidation:", lhsWidthLess1)} {dataTransferObjects.Length} results created";
 
@@ -1963,7 +1963,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 var computedResultsDto = ResultItem.ToDataTransferObject(publisherOutputItem.ComputedResults);
 
-                var computedResultsAsXml = JghSerialisation.ToXmlFromObject(computedResultsDto, new[] {typeof(ResultDto)});
+                var computedResultsAsXml = JghSerialisation.ToXmlFromObject(computedResultsDto, [typeof(ResultDto)]);
 
                 ProcessingReportTextVm.Text = publisherOutputItem.ConversionReport;
 

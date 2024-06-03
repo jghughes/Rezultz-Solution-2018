@@ -911,10 +911,10 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                 #region null checks
 
                 if (string.IsNullOrWhiteSpace(searchPatternForDirectoryPath))
-                    return new string[0]; // no point bothering with anything further
+                    return []; // no point bothering with anything further
 
                 if (!JghFilePathValidator.IsValidNtfsDirectoryPath(searchPatternForDirectoryPath, false))
-                    return new string[0];
+                    return [];
                 // no point bothering with anything further NB. false deems wildcards to be valid
 
                 //var searchPatternWithoutWildCards = searchPatternForDirectoryPath.Replace('?', 'x').Replace('*', 'x'); // neutralise any wild card characters because the validator regards them as forbidden 
@@ -949,11 +949,11 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                     try
                     {
                         flattenedListOfAllDirectoryPathsThatStartWithAMatchToTheSearchPattern =
-                            new List<string>(store.GetDirectoryNames(searchPatternForDirectoryPath));
+                            [..store.GetDirectoryNames(searchPatternForDirectoryPath)];
                     }
                     catch (Exception)
                     {
-                        return Array.Empty<string>();
+                        return [];
                         // no point bothering with anything further. probably because the searchPattern is invalidly formatted
                     }
 
@@ -1038,14 +1038,14 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                 #region null checks
 
                 if (string.IsNullOrWhiteSpace(searchPatternForFileName))
-                    return new string[0]; // no point bothering with anything further
+                    return []; // no point bothering with anything further
 
 
                 var searchPatternWithoutWildCards = searchPatternForFileName.Replace('?', 'x').Replace('*', 'x');
                 // neutralise any wild card characters because the validator regards them as forbidden 
 
                 if (!JghFilePathValidator.IsValidNtfsFileOrFolderName(searchPatternWithoutWildCards))
-                    return new string[0]; // no point bothering with anything further
+                    return []; // no point bothering with anything further
 
                 #endregion
 
@@ -1059,7 +1059,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                 {
                     using var store = IsolatedStorageFile.GetUserStoreForAssembly();
 
-                    filePaths = new List<string>(store.GetFileNames(searchPatternForFileName));
+                    filePaths = [..store.GetFileNames(searchPatternForFileName)];
 
                     // Loop through the subdirectories, collect matches, and make separators consistent
 
@@ -1126,7 +1126,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
 
         private static List<string> GetFilePaths(string directoryPath, IsolatedStorageFile store)
         {
-            if (!store.DirectoryExists(directoryPath)) return new List<string>();
+            if (!store.DirectoryExists(directoryPath)) return [];
 
             var searchPattern = JghPath.CombineNoChecks(directoryPath, "*");
 
@@ -1137,7 +1137,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
 
         private static string[] GetDirectoryPaths(string directoryPath, IsolatedStorageFile store)
         {
-            if (!store.DirectoryExists(directoryPath)) return new string[0];
+            if (!store.DirectoryExists(directoryPath)) return [];
 
             #region first of all, enumerate first-level directories in this folder
 

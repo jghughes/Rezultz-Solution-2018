@@ -449,7 +449,7 @@ namespace NetStd.Goodies.Mar2022
         public static string[] ToTrimmedStrings(string[] inputStrings)
         {
             if (inputStrings == null)
-                return Array.Empty<string>();
+                return [];
 
             return inputStrings.Where(z => !string.IsNullOrWhiteSpace(z)).Select(x => x.Trim()).ToArray();
         }
@@ -457,7 +457,7 @@ namespace NetStd.Goodies.Mar2022
         public static string[] ToTrimmedLowerCaseStrings(string[] inputStrings)
         {
             if (inputStrings == null)
-                return Array.Empty<string>();
+                return [];
 
             return inputStrings.Where(z => !string.IsNullOrWhiteSpace(z)).Select(TmLr).ToArray();
         }
@@ -841,7 +841,7 @@ namespace NetStd.Goodies.Mar2022
             //    .ToList();
 
             if (!listOfTexts.Any())
-				return Array.Empty<string>();
+				return [];
 
 			// temporarily remove the last on the list because we need this to be disaggregated
 			lastItem = listOfTexts.Last();

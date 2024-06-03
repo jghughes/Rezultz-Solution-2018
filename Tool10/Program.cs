@@ -196,7 +196,7 @@ internal class Program
 
             #region save the list of babies for future reference
 
-            var arrayOfBabiesAsXmlText = JghSerialisation.ToXmlFromObject(babyParticipants.ToArray(), new[] {typeof(BabyParticipantDto)});
+            var arrayOfBabiesAsXmlText = JghSerialisation.ToXmlFromObject(babyParticipants.ToArray(), [typeof(BabyParticipantDto)]);
 
             SaveWorkToHardDriveAsXml(arrayOfBabiesAsXmlText, FolderForDeserialisedMasterList, FilenameForBabyParticipants, babyParticipants.Count);
 
@@ -248,7 +248,7 @@ internal class Program
 
             #region save save the list of "originating" HubItems for future reference
 
-            var originatingParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(ParticipantHubItem.ToDataTransferObject(originatingParticipantHubItems.ToArray()), new[] {typeof(ParticipantHubItem)});
+            var originatingParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(ParticipantHubItem.ToDataTransferObject(originatingParticipantHubItems.ToArray()), [typeof(ParticipantHubItem)]);
 
             SaveWorkToHardDriveAsXml(originatingParticipantHubItemAsXmlText, FolderForOriginatingParticipantHubItems, FilenameForOriginatingParticipantHubItems, originatingParticipantHubItems.Count);
 
@@ -256,7 +256,7 @@ internal class Program
 
             #region save save the list of "modified" HubItems for future reference
 
-            var modifiedParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(ParticipantHubItem.ToDataTransferObject(modifiedParticipantHubItems.ToArray()), new[] {typeof(ParticipantHubItem)});
+            var modifiedParticipantHubItemAsXmlText = JghSerialisation.ToXmlFromObject(ParticipantHubItem.ToDataTransferObject(modifiedParticipantHubItems.ToArray()), [typeof(ParticipantHubItem)]);
 
             SaveWorkToHardDriveAsXml(modifiedParticipantHubItemAsXmlText, FolderForModifiedParticipantHubItems, FileNameForModifiedParticipantHubItems, modifiedParticipantHubItems.Count);
 

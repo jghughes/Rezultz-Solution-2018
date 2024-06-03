@@ -70,7 +70,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
         conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
-        List<ResultItem> allComputedResults = new();
+        List<ResultItem> allComputedResults = [];
 
         try
         {
@@ -96,7 +96,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
             if (!myLapsFileTargets.Any())
                 throw new JghAlertMessageException("MyLaps file/s not specified. Please import one or more MyLaps files.");
 
-            List<MyLapsFile> myLapsFiles = new();
+            List<MyLapsFile> myLapsFiles = [];
 
             foreach (var target in myLapsFileTargets)
             {
@@ -171,13 +171,13 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
                 #region step 1 interpret ObtainedDatasetToBeProcessedAsRawString as csv data if we can
 
-                var allRowsOfCsvText = myLapsFile.FileContents.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
+                var allRowsOfCsvText = myLapsFile.FileContents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
 
                 var relevantRowsOfCsvText =
                     allRowsOfCsvText.Where(z => !string.IsNullOrWhiteSpace(z)).Where(z => z.Contains(','))
                         .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair of blank lines at the bottom of the file
 
-                List<string> relevantRowsWithoutEscapeLiterals = new();
+                List<string> relevantRowsWithoutEscapeLiterals = [];
 
                 foreach (var rowOfCsv in relevantRowsOfCsvText)
                 {
@@ -229,7 +229,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
                 var i = 1;
 
-                List<ResultItem> answerAsResultItems = new();
+                List<ResultItem> answerAsResultItems = [];
 
                 foreach (var row in rowsOfData)
                 {
@@ -409,7 +409,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
                 RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
                 ConversionReport = conversionReportSb.ToString(),
                 ConversionDidFail = true,
-                ComputedResults = Array.Empty<ResultItem>()
+                ComputedResults = []
             };
 
             return await Task.FromResult(answer2);

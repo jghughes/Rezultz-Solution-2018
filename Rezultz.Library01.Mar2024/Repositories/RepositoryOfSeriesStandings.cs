@@ -64,26 +64,26 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         #region repository backing fields
 
-        private string[] _pointsTableOfRaces = Array.Empty<string>();
-        private string[] _pointsTableOfGenders = Array.Empty<string>();
-        private string[] _pointsTableOfAgeGroups = Array.Empty<string>();
-        private string[] _pointsTableOfCities = Array.Empty<string>();
-        private string[] _pointsTableOfTeams = Array.Empty<string>();
-        private string[] _pointsTableOfUtilityClassifications = Array.Empty<string>();
+        private string[] _pointsTableOfRaces = [];
+        private string[] _pointsTableOfGenders = [];
+        private string[] _pointsTableOfAgeGroups = [];
+        private string[] _pointsTableOfCities = [];
+        private string[] _pointsTableOfTeams = [];
+        private string[] _pointsTableOfUtilityClassifications = [];
 
-        private string[] _tourTableOfRaces = Array.Empty<string>();
-        private string[] _tourTableOfGenders = Array.Empty<string>();
-        private string[] _tourTableOfAgeGroups = Array.Empty<string>();
-        private string[] _tourTableOfCities = Array.Empty<string>();
-        private string[] _tourTableOfTeams = Array.Empty<string>();
-        private string[] _tourTableOfUtilityClassifications = Array.Empty<string>();
+        private string[] _tourTableOfRaces = [];
+        private string[] _tourTableOfGenders = [];
+        private string[] _tourTableOfAgeGroups = [];
+        private string[] _tourTableOfCities = [];
+        private string[] _tourTableOfTeams = [];
+        private string[] _tourTableOfUtilityClassifications = [];
 
-        private SequenceContainerItem[] _pointsStandings = Array.Empty<SequenceContainerItem>();
-        private SequenceContainerItem[] _tourDurationStandings = Array.Empty<SequenceContainerItem>();
+        private SequenceContainerItem[] _pointsStandings = [];
+        private SequenceContainerItem[] _tourDurationStandings = [];
 
 
-        private SearchQueryItem[] _pointsSearchQuerySuggestions = Array.Empty<SearchQueryItem>();
-        private SearchQueryItem[] _tourDurationSearchQuerySuggestions = Array.Empty<SearchQueryItem>();
+        private SearchQueryItem[] _pointsSearchQuerySuggestions = [];
+        private SearchQueryItem[] _tourDurationSearchQuerySuggestions = [];
 
         private bool _repositoryIsInitialised;
 
@@ -313,7 +313,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -337,7 +337,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -361,7 +361,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -385,7 +385,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -986,7 +986,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (sequenceItems == null) return Array.Empty<SearchQueryItem>();
+                if (sequenceItems == null) return [];
 
                 var scratchpad = sequenceItems
                     .Where(z => z != null)

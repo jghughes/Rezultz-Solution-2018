@@ -118,7 +118,7 @@ namespace Tool05
                     var fileToBeProcessed = new FileItem
                     {
                         FileInfo = fileInfo,
-                        FileContentsAsLines = new List<string>(),
+                        FileContentsAsLines = [],
                         OutputFileName = fileInfo.Name
                     };
 
@@ -193,7 +193,7 @@ namespace Tool05
 
         #region variables
 
-        private static readonly List<FileItem> FileItemsToBeProcessed = new();
+        private static readonly List<FileItem> FileItemsToBeProcessed = [];
 
         #endregion
 
@@ -216,7 +216,7 @@ namespace Tool05
 
                     try
                     {
-                        publisherModuleProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, new[] { typeof(PublisherModuleProfileItemDto) });
+                        publisherModuleProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
 
                         JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: System.Xml de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
                     }
@@ -233,7 +233,7 @@ namespace Tool05
                     try
                     {
 
-                        var publishingProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(publisherModuleProfileDtoFromXml, new[] { typeof(PublisherModuleProfileItemDto) });
+                        var publishingProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(publisherModuleProfileDtoFromXml, [typeof(PublisherModuleProfileItemDto)]);
 
                         JghConsoleHelper.WriteLine();
                         JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
@@ -364,7 +364,7 @@ namespace Tool05
 
                     try
                     {
-                        computerProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, new[] { typeof(PublisherModuleProfileItemDto) });
+                        computerProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
 
                         JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: System de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
                     }
@@ -381,7 +381,7 @@ namespace Tool05
                     try
                     {
 
-                        var computerProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(computerProfileDtoFromXml, new[] { typeof(PublisherModuleProfileItemDto) });
+                        var computerProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(computerProfileDtoFromXml, [typeof(PublisherModuleProfileItemDto)]);
 
                         JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
                                           $"SUCCEEDED. System did not blow up re-serialising ComputerProfileDto to XML [{fileItem.FileInfo.Name}] ");
@@ -563,7 +563,7 @@ namespace Tool05
 
                     try
                     {
-                        JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, new[] { typeof(PublisherModuleProfileItemDto) });
+                        JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
                         JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: system XML serialiser de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
                     }
                     catch (Exception e)
@@ -585,7 +585,7 @@ namespace Tool05
                         JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
                         JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped ComputerProfileDto");
 
-                        var xmlFromObject = JghSerialisation.ToXmlFromObject(fileContentsAsDto, new[] { typeof(PublisherModuleProfileItemDto) });
+                        var xmlFromObject = JghSerialisation.ToXmlFromObject(fileContentsAsDto, [typeof(PublisherModuleProfileItemDto)]);
 
                         string xmlFromObjectAsString = xmlFromObject;
 
@@ -736,12 +736,12 @@ namespace Tool05
             static PublisherButtonProfileItemDto[] GetComputerGuiButtonProfileDtos(XElement? parentXe)
             {
                 if (parentXe == null)
-                    return Array.Empty<PublisherButtonProfileItemDto>();
+                    return [];
 
                 var buttonXElements = GetChildElements(parentXe, PublisherButtonProfileItemDto.XeGuiButtonProfile);
 
                 if (buttonXElements == null || !buttonXElements.Any())
-                    return Array.Empty<PublisherButtonProfileItemDto>();
+                    return [];
 
                 return buttonXElements.Select(thisButtonXe => new PublisherButtonProfileItemDto
                 {
@@ -760,7 +760,7 @@ namespace Tool05
         private static void SaveWorkToHardDriveAsXml(PublisherModuleProfileItemDto profileItem, FileItem fileItem)
 #pragma warning restore CS8321 // Local function is declared but never used
         {
-            var xmlFileContents = JghSerialisation.ToXmlFromObject(profileItem, new[] { typeof(PublisherModuleProfileItemDto) });
+            var xmlFileContents = JghSerialisation.ToXmlFromObject(profileItem, [typeof(PublisherModuleProfileItemDto)]);
 
             var pathOfXmlFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
 
@@ -779,7 +779,7 @@ namespace Tool05
 
             public string FileContentsAsText { get; set; } = string.Empty;
 
-            public List<string> FileContentsAsLines { get; set; } = new();
+            public List<string> FileContentsAsLines { get; set; } = [];
 
             public string OutputFileName { get; set; } = string.Empty;
         }

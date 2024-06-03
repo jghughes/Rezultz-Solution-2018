@@ -41,7 +41,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 		{
 			Label = label;
 
-			ItemsSource = Array.Empty<T>();
+			ItemsSource = [];
 
 			LastKnownGoodSelectedIndex = -1;
 
@@ -152,7 +152,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 			// N.B. private setter. 
 			// intent is that it is allowed to be assigned in the ctor and nowhere else. 
 
-			get => _backingstoreItemsSource ??= Array.Empty<T>();
+			get => _backingstoreItemsSource ??= [];
 			private set => SetProperty(ref _backingstoreItemsSource, value);
 		}
 
@@ -329,7 +329,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 			ExtinguishOnSelectionChangedCommand();
 
 			if (ItemsSource == null)
-				ItemsSource = Array.Empty<T>();
+				ItemsSource = [];
 
 			var temp = ItemsSource.ToList();
 
@@ -352,7 +352,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 		{
 			ExtinguishOnSelectionChangedCommand();
 
-			T[] temp = Array.Empty<T>();
+			T[] temp = [];
 
 			if (items != null)
 				temp = items.Where(z => z != null).ToArray();
@@ -513,7 +513,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
             ExtinguishOnSelectionChangedCommand();
 
-			ItemsSource = Array.Empty<T>();
+			ItemsSource = [];
 
 			SelectedIndex = -1;
 

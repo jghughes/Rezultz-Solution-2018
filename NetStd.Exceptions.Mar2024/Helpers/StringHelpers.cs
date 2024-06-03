@@ -143,7 +143,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
                 .ToList();
 
             if (!listOfTexts.Any())
-                return Array.Empty<string>();
+                return [];
 
             // temporarily remove the last on the list because we need this to be disaggregated
             lastItem = listOfTexts.Last();

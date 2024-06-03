@@ -17,7 +17,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
         UserName = userName ?? string.Empty;
         Password = password ?? string.Empty;
         AccessLevel = accessLevel ?? string.Empty;
-        ArrayOfAuthorisedWorkRoles = arrayOfAuthorisedWorkRoles ?? Array.Empty<string>();
+        ArrayOfAuthorisedWorkRoles = arrayOfAuthorisedWorkRoles ?? [];
     }
 
         #endregion
@@ -61,7 +61,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                 x.UserName,
                 x.Password,
                 x.AccessLevel,
-                arrayOfAuthorisedWorkRoles: string.IsNullOrWhiteSpace(x.AuthorisedWorkRoles) ? Array.Empty<string>() : x.AuthorisedWorkRoles.Split(','));
+                arrayOfAuthorisedWorkRoles: string.IsNullOrWhiteSpace(x.AuthorisedWorkRoles) ? [] : x.AuthorisedWorkRoles.Split(','));
 
             return answer;
         }
@@ -84,7 +84,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
         try
         {
             if (dto == null)
-                return Array.Empty<IdentityItem>();
+                return [];
 
             var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -141,7 +141,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
         try
         {
             if (item == null)
-                return Array.Empty<AuthorisedUserIdentityDto>();
+                return [];
 
             var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

@@ -23,11 +23,11 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         public OrganizerItem Organizer { get; set; } = new();
 
-        public IdentityItem[] AuthorisedIdentities { get; set; } = Array.Empty<IdentityItem>();
+        public IdentityItem[] AuthorisedIdentities { get; set; } = [];
 
-        public EntityLocationItem[] SeriesProfileFileLocations { get; set; }=Array.Empty<EntityLocationItem>();
+        public EntityLocationItem[] SeriesProfileFileLocations { get; set; }=[];
 
-        public SeriesProfileItem[] SeriesProfiles { get; set; } = Array.Empty<SeriesProfileItem>(); // this prop is used as a carrier - populated by the Results service - GetSeasonProfile() method
+        public SeriesProfileItem[] SeriesProfiles { get; set; } = []; // this prop is used as a carrier - populated by the Results service - GetSeasonProfile() method
 
 
         #endregion
@@ -78,7 +78,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (dto == null)
-                    return Array.Empty<SeasonProfileItem>();
+                    return [];
 
                 var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 

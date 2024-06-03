@@ -327,7 +327,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                 RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
                 ConversionReport = conversionReportSb.ToString(),
                 ConversionDidFail = true,
-                ComputedResults = Array.Empty<ResultItem>()
+                ComputedResults = []
             };
 
             return await Task.FromResult(answer2);
@@ -388,11 +388,11 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
             {"DNP", Symbols.SymbolDq}
         };
 
-        private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished => new()
-        {
+        private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished =>
+        [
             "ID",
             "Race_x0020_Gender"
-        };
+        ];
 
         private static class ParticipantMasterListXeNames
         {
@@ -670,11 +670,11 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
     {
-        List<ResultDto> answer = new();
+        List<ResultDto> answer = [];
 
         foreach (var element in arrayOfIndividualResultXes)
         {
-            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), new Type[] { typeof(ResultDto) });
+            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), [typeof(ResultDto)]);
 
             answer.Add(resultItem);
         }

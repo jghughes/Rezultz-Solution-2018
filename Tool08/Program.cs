@@ -111,7 +111,7 @@ namespace Tool08
                     var item = new FileItem
                     {
                         FileInfo = new FileInfo(InputFolderFromRezultz + tuple.Item1),
-                        FileContentsAsLines = new List<string>(),
+                        FileContentsAsLines = [],
                         OutputFileName = tuple.Item2
                     };
 
@@ -378,7 +378,7 @@ namespace Tool08
     {
         var resultsDto = ResultItem.ToDataTransferObject(resultItems);
 
-        return JghSerialisation.ToXmlFromObject(resultsDto, new[] {typeof(ResultDto)});
+        return JghSerialisation.ToXmlFromObject(resultsDto, [typeof(ResultDto)]);
     }
 
 
@@ -408,9 +408,9 @@ namespace Tool08
         private const string IdentifierOfResultsFromRezultzPortal = EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem;
 
         private static readonly Tuple<string, string>[] ArrayOfRezultzPortalFileNameTuples =
-    {
-        new("Kelso2023mtb-results-04.xml", "Kelso2023mtb-results-04----testOutput.xml")
-    }        ;
+        [
+            new("Kelso2023mtb-results-04.xml", "Kelso2023mtb-results-04----testOutput.xml")
+        ];
 
         private const int LhsWidth = 70;
 
@@ -434,9 +434,9 @@ namespace Tool08
 
         #region variables
 
-        private static readonly List<FileItem> FileOfResultsExportedFromRezultzPortal = new();
+        private static readonly List<FileItem> FileOfResultsExportedFromRezultzPortal = [];
 
-        private static readonly List<PublisherImportFileTargetItem> FilesToBeProcessedByPublisherModule = new();
+        private static readonly List<PublisherImportFileTargetItem> FilesToBeProcessedByPublisherModule = [];
 
         #endregion
     }

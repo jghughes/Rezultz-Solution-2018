@@ -60,7 +60,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             var lineItems = items;
 
             if (!lineItems.Any())
-                return Array.Empty<SequenceContainerItem>();
+                return [];
 
             try
             {
@@ -132,7 +132,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             var lineItems = items;
 
-            if (!lineItems.Any()) return Array.Empty<SequenceContainerItem>();
+            if (!lineItems.Any()) return [];
 
             try
             {
@@ -197,7 +197,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 var lineItems = items;
 
                 if (!lineItems.Any())
-                    return Array.Empty<SequenceContainerItem>();
+                    return [];
 
                 var dictionaryOfAllLineItems = lineItems.ConvertArrayOfSequenceContainersToDictionaryKeyedOnUniqueId();
 

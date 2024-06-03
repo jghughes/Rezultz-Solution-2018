@@ -545,10 +545,10 @@ namespace NetStd.Goodies.Mar2022
 		/// <summary>
 		/// </summary>
 		public static readonly char[] TrimEndChars =
-		{
-			(char) 0x9, (char) 0xA, (char) 0xB, (char) 0xC, (char) 0xD,
+        [
+            (char) 0x9, (char) 0xA, (char) 0xB, (char) 0xC, (char) 0xD,
 			(char) 0x20, (char) 0x85, (char) 0xA0
-		};
+        ];
 
 		/// <summary>
 		///     Platform specific invalid list of characters in a path.
@@ -558,13 +558,13 @@ namespace NetStd.Goodies.Mar2022
 		///     Note: This list is duplicated in CheckInvalidPathChars
 		/// </summary>
 		public static readonly char[] RealInvalidPathCharsWithWildCardsOk =
-		{
-			'\"', '<', '>', '|', '\0', (char) 1, (char) 2, (char) 3,
+        [
+            '\"', '<', '>', '|', '\0', (char) 1, (char) 2, (char) 3,
 			(char) 4, (char) 5, (char) 6, (char) 7, (char) 8, (char) 9, (char) 10, (char) 11, (char) 12, (char) 13,
 			(char) 14, (char) 15, (char) 16, (char) 17, (char) 18, (char) 19, (char) 20, (char) 21, (char) 22,
 			(char) 23,
 			(char) 24, (char) 25, (char) 26, (char) 27, (char) 28, (char) 29, (char) 30, (char) 31
-		};
+        ];
 
 		/// <summary>
 		///     Platform specific invalid list of characters in a path.
@@ -574,25 +574,25 @@ namespace NetStd.Goodies.Mar2022
 		///     Note: This list is duplicated in HasIllegalPathCharacters
 		/// </summary>
 		public static readonly char[] InvalidPathCharsWithWildCardsAlsoInvalid =
-		{
-			'\"', '<', '>', '|', '\0', (char) 1,
+        [
+            '\"', '<', '>', '|', '\0', (char) 1,
 			(char) 2, (char) 3, (char) 4, (char) 5, (char) 6, (char) 7, (char) 8, (char) 9, (char) 10, (char) 11,
 			(char) 12, (char) 13, (char) 14, (char) 15, (char) 16, (char) 17, (char) 18, (char) 19, (char) 20,
 			(char) 21,
 			(char) 22, (char) 23, (char) 24, (char) 25, (char) 26, (char) 27, (char) 28, (char) 29, (char) 30,
 			(char) 31,
 			'*', '?'
-		};
+        ];
 
 		public static readonly char[] InvalidFileNameChars =
-		{
-			'\"', '<', '>', '|', '\0', (char) 1, (char) 2, (char) 3,
+        [
+            '\"', '<', '>', '|', '\0', (char) 1, (char) 2, (char) 3,
 			(char) 4, (char) 5, (char) 6, (char) 7, (char) 8, (char) 9, (char) 10, (char) 11, (char) 12, (char) 13,
 			(char) 14, (char) 15, (char) 16, (char) 17, (char) 18, (char) 19, (char) 20, (char) 21, (char) 22,
 			(char) 23,
 			(char) 24, (char) 25, (char) 26, (char) 27, (char) 28, (char) 29, (char) 30, (char) 31, ':', '*', '?', '\\',
 			'/'
-		};
+        ];
 
 		public static readonly char PathSeparator = ';';
 

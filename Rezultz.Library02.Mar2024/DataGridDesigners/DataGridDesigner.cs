@@ -37,8 +37,8 @@ public class DataGridDesigner
 
     public DataGridDesigner()
     {
-        _knownTypesForSerialisation = new[]
-        {
+        _knownTypesForSerialisation =
+        [
             typeof(CboLookupItem),
             typeof(BlobSpecificationItem),
             typeof(EntityLocationItem),
@@ -65,7 +65,7 @@ public class DataGridDesigner
             typeof(SplitIntervalConsolidationForParticipantDisplayObject),
             typeof(XElement),
             typeof(byte[])
-        };
+        ];
 
         ZeroiseDesigner();
     }
@@ -87,7 +87,7 @@ public class DataGridDesigner
     public const string SpacerBetweenColumnsInPrintVersions = "   ";
 
     public static readonly string[] LabelsOfColumnsToBeLeftAligned =
-    {
+    [
         //UbiquitousFieldNames.FirstName,
         //UbiquitousFieldNames.MiddleInitial,
         //UbiquitousFieldNames.LastName,
@@ -113,10 +113,10 @@ public class DataGridDesigner
         ParticipantHubItemDto.XeIsSeries,
         ParticipantHubItemDto.XeSeries,
         ParticipantHubItemDto.XeEventIdentifiers
-    };
+    ];
 
     public static readonly string[] LabelsOfColumnsToBeUpperCase =
-    {
+    [
         //UbiquitousFieldNames.FirstName,
         //UbiquitousFieldNames.MiddleInitial,
         //UbiquitousFieldNames.LastName,
@@ -124,15 +124,15 @@ public class DataGridDesigner
         ResultDto.XeFirst,
         ResultDto.XeMiddle,
         ResultDto.XeLast,
-        ResultDto.XeFullName,
+        ResultDto.XeFullName
 
 
-    };
+    ];
 
     public static readonly string[] LabelsOfColumnsToBeNonSpecificCase =
-    {
+    [
         ResultDto.XeTeam
-    };
+    ];
 
     #endregion
 
@@ -155,15 +155,15 @@ public class DataGridDesigner
 
     private static Dictionary<int, string> _parentDictionaryOfTxxColumnHeaders;
 
-    private ResultItemDisplayObject[] _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects = Array.Empty<ResultItemDisplayObject>();
+    private ResultItemDisplayObject[] _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects = [];
 
-    private PopulationCohortItemDisplayObject[] _finalisedDataGridRowsOfPopulationCohortItemDisplayObjects = Array.Empty<PopulationCohortItemDisplayObject>();
+    private PopulationCohortItemDisplayObject[] _finalisedDataGridRowsOfPopulationCohortItemDisplayObjects = [];
 
-    private ParticipantHubItemDisplayObject[] _finalisedDataGridRowsOfParticipantHubItemDisplayObjects = Array.Empty<ParticipantHubItemDisplayObject>();
+    private ParticipantHubItemDisplayObject[] _finalisedDataGridRowsOfParticipantHubItemDisplayObjects = [];
 
-    private TimeStampHubItemDisplayObject[] _finalisedDataGridRowsOfTimeStampHubItemDisplayObjects = Array.Empty<TimeStampHubItemDisplayObject>();
+    private TimeStampHubItemDisplayObject[] _finalisedDataGridRowsOfTimeStampHubItemDisplayObjects = [];
 
-    private SplitIntervalConsolidationForParticipantDisplayObject[] _finalisedDataGridRowsOfSplitIntervalsPerPersonDisplayObjects = Array.Empty<SplitIntervalConsolidationForParticipantDisplayObject>();
+    private SplitIntervalConsolidationForParticipantDisplayObject[] _finalisedDataGridRowsOfSplitIntervalsPerPersonDisplayObjects = [];
 
     #endregion
 
@@ -207,15 +207,15 @@ public class DataGridDesigner
 
         DatagridTitleAndBlurbInformationItem = new MoreInformationItem(); // legitimate to be null for leaderboard but not for average EntriesInMemoryCacheTablePresenter times or series standings
 
-        _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects = Array.Empty<ResultItemDisplayObject>();
+        _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects = [];
 
-        _finalisedDataGridRowsOfPopulationCohortItemDisplayObjects = Array.Empty<PopulationCohortItemDisplayObject>();
+        _finalisedDataGridRowsOfPopulationCohortItemDisplayObjects = [];
 
-        _finalisedDataGridRowsOfParticipantHubItemDisplayObjects = Array.Empty<ParticipantHubItemDisplayObject>();
+        _finalisedDataGridRowsOfParticipantHubItemDisplayObjects = [];
 
-        _finalisedDataGridRowsOfTimeStampHubItemDisplayObjects = Array.Empty<TimeStampHubItemDisplayObject>();
+        _finalisedDataGridRowsOfTimeStampHubItemDisplayObjects = [];
 
-        _finalisedDataGridRowsOfSplitIntervalsPerPersonDisplayObjects = Array.Empty<SplitIntervalConsolidationForParticipantDisplayObject>();
+        _finalisedDataGridRowsOfSplitIntervalsPerPersonDisplayObjects = [];
 
 
         return true;
@@ -227,7 +227,7 @@ public class DataGridDesigner
         theSeriesProfile ??= new SeriesProfileItem();
         columnFormatEnum ??= string.Empty;
         dictionaryOfTxxColumnHeaders ??= new Dictionary<int, string>();
-        rowCollection ??= Array.Empty<ResultItemDisplayObject>();
+        rowCollection ??= [];
 
         DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects = false;
 
@@ -274,7 +274,7 @@ public class DataGridDesigner
         theSeriesProfile ??= new SeriesProfileItem();
         columnFormatEnum ??= string.Empty;
 
-        rowCollection ??= Array.Empty<ParticipantHubItemDisplayObject>();
+        rowCollection ??= [];
 
         DesignerIsInitialisedForParticipantHubItemDisplayObjects = false;
 
@@ -459,7 +459,7 @@ public class DataGridDesigner
         try
         {
             if (columnsToBeDisplayed == null)
-                return new ColumnSpecificationItem[] { };
+                return [];
 
             columnsToBeDisplayed = columnsToBeDisplayed.Where(z => z != null).ToList();
 
@@ -1265,13 +1265,13 @@ public class DataGridDesigner
         {
             #region null checks
 
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
 
-            dataGridRows ??= Array.Empty<T>();
+            dataGridRows ??= [];
 
             #endregion
 
-            List<ColumnSpecificationItem> list = new();
+            List<ColumnSpecificationItem> list = [];
 
             foreach (var columnSpecificationItem in columnSpecificationItems)
             {
@@ -1314,9 +1314,9 @@ public class DataGridDesigner
         {
             #region null checks
 
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
 
-            dataGridRows ??= Array.Empty<T>();
+            dataGridRows ??= [];
 
             var answerAsColumnSpecInventory =
                 columnSpecificationItems.Where(z => z != null).Select(z => z.ShallowMemberwiseCloneCopy).ToArray();
@@ -1497,7 +1497,7 @@ public class DataGridDesigner
                 throw new InvalidOperationException(
                     "Designer is already initialised. You are not allowed to initialise it more than once. Program error. Sorry.");
 
-            rowCollection ??= Array.Empty<ResultItemDisplayObject>();
+            rowCollection ??= [];
 
             var dataGridRows = rowCollection.Where(z => z != null).ToArray();
             // be sure to remove nulls here, before we do any array ops
@@ -1525,7 +1525,7 @@ public class DataGridDesigner
 
         try
         {
-            rowCollection ??= Array.Empty<PopulationCohortItemDisplayObject>();
+            rowCollection ??= [];
 
             if (DesignerIsInitialisedForPopulationCohortItemDisplayObjects)
                 throw new InvalidOperationException(
@@ -1558,7 +1558,7 @@ public class DataGridDesigner
 
         try
         {
-            rowCollection ??= Array.Empty<ParticipantHubItemDisplayObject>();
+            rowCollection ??= [];
 
             if (DesignerIsInitialisedForParticipantHubItemDisplayObjects)
                 throw new InvalidOperationException(
@@ -1591,7 +1591,7 @@ public class DataGridDesigner
 
         try
         {
-            rowCollection ??= Array.Empty<TimeStampHubItemDisplayObject>();
+            rowCollection ??= [];
 
             if (DesignerIsInitialisedForTimeStampHubItemDisplayObjects)
                 throw new InvalidOperationException(
@@ -1623,7 +1623,7 @@ public class DataGridDesigner
 
         try
         {
-            rowCollection ??= Array.Empty<SplitIntervalConsolidationForParticipantDisplayObject>();
+            rowCollection ??= [];
 
             if (DesignerIsInitialisedForSplitIntervalDisplayObjects)
                 throw new InvalidOperationException(
@@ -1890,9 +1890,9 @@ public class DataGridDesigner
         {
             #region null checks
 
-            displayObjects ??= Array.Empty<ResultItemDisplayObject>();
+            displayObjects ??= [];
 
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
 
             #endregion
 
@@ -2176,9 +2176,9 @@ public class DataGridDesigner
         {
             #region null checks
 
-            displayObject ??= Array.Empty<ParticipantHubItemDisplayObject>();
+            displayObject ??= [];
 
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
 
             #endregion
 
@@ -2330,9 +2330,9 @@ public class DataGridDesigner
         {
             #region null checks
 
-            displayObject ??= Array.Empty<TimeStampHubItemDisplayObject>();
+            displayObject ??= [];
 
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
 
             #endregion
 
@@ -2484,9 +2484,9 @@ public class DataGridDesigner
         {
             #region null checks
 
-            displayObject ??= Array.Empty<SplitIntervalConsolidationForParticipantDisplayObject>();
+            displayObject ??= [];
 
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
 
             #endregion
 
@@ -2764,7 +2764,7 @@ public class DataGridDesigner
             #region null checks
 
             typeOfRowItem ??= new T();
-            columnSpecificationItems ??= Array.Empty<ColumnSpecificationItem>();
+            columnSpecificationItems ??= [];
             nameToBeUsedForElement ??= "DummyName";
 
             #endregion
@@ -2802,11 +2802,11 @@ public class DataGridDesigner
     {
         columnSpecificationItem ??= new ColumnSpecificationItem();
 
-        labelsOfColumnSpecificationItemsToBeLeftAligned ??= Array.Empty<string>();
+        labelsOfColumnSpecificationItemsToBeLeftAligned ??= [];
 
-        labelsOfColumnSpecificationItemsToBeUpperCase ??= Array.Empty<string>();
+        labelsOfColumnSpecificationItemsToBeUpperCase ??= [];
 
-        labelsOfColumnSpecificationItemsToBeNonSpecificCase ??= Array.Empty<string>();
+        labelsOfColumnSpecificationItemsToBeNonSpecificCase ??= [];
 
         var columnSpecInProgress = columnSpecificationItem.ShallowMemberwiseCloneCopy;
 

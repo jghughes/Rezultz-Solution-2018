@@ -69,7 +69,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             //PopulationOfThingsToBeSearched = Array.Empty<T>();
 
-            AllSearchQueryItems = Array.Empty<SearchQueryItem>();
+            AllSearchQueryItems = [];
 
             SelectedSearchQueryItem = null;
 
@@ -242,7 +242,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             if (AllSearchQueryItems == null)
             {
-                filteredSearchQueryItems = Array.Empty<SearchQueryItem>();
+                filteredSearchQueryItems = [];
             }
             else
             {
@@ -255,9 +255,9 @@ namespace NetStd.ViewModels01.April2022.UserControls
                 else
                 {
                     if (searchBoxTextFragmentEnteredByUser == string.Empty)
-                        filteredSearchQueryItems = Array.Empty<SearchQueryItem>();
+                        filteredSearchQueryItems = [];
                     else if (searchBoxTextFragmentEnteredByUser.Length < MinimumLengthOfQuery)
-                        filteredSearchQueryItems = Array.Empty<SearchQueryItem>();
+                        filteredSearchQueryItems = [];
                     else
                         filteredSearchQueryItems = (from item in AllSearchQueryItems
                             where item != null
@@ -292,7 +292,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
                     NullifyWindowsSearchQuerySelectedSuggestionItem();
 
-                    return Array.Empty<SearchQueryItem>();
+                    return [];
                 }
 
                 if (AllSearchQueryItems == null)
@@ -332,7 +332,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
         public void PopulateItemsSource(SearchQueryItem[] searchQuerySuggestionItems)
         {
-            AllSearchQueryItems = searchQuerySuggestionItems ?? Array.Empty<SearchQueryItem>();
+            AllSearchQueryItems = searchQuerySuggestionItems ?? [];
 
             //PopulationOfThingsToBeSearched = populationOfThingsToBeSearched?.ToArray() ?? Array.Empty<T>();
         }
@@ -343,7 +343,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             ClearSearchQueryButtonVm.Zeroise();
 
-            AllSearchQueryItems = Array.Empty<SearchQueryItem>();
+            AllSearchQueryItems = [];
 
             SelectedSearchQueryItem = null;
 
@@ -356,7 +356,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
         public void ZeroiseItemsSources()
         {
-            AllSearchQueryItems = Array.Empty<SearchQueryItem>();
+            AllSearchQueryItems = [];
         }
 
         public void MakeVisibleIfThereAreThingsToBeSearched()

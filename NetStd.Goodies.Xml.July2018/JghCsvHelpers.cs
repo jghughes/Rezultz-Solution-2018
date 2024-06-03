@@ -100,7 +100,7 @@ namespace NetStd.Goodies.Xml.July2018
             }
             try
             {
-                List<string> constituentStrings = new List<string>();
+                List<string> constituentStrings = [];
 
                 foreach (string[] fields in rowsOfCsvStrings.Select(rowOfCommaSeparatedValues =>
                     rowOfCommaSeparatedValues.Split(',')))

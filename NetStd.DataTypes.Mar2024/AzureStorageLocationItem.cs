@@ -72,7 +72,7 @@ namespace NetStd.DataTypes.Mar2024
             try
             {
                 if (dto == null)
-                    return Array.Empty<AzureStorageLocationItem>();
+                    return [];
 
                 var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -130,7 +130,7 @@ namespace NetStd.DataTypes.Mar2024
             try
             {
                 if (item == null)
-                    return Array.Empty<AzureStorageLocationDto>();
+                    return [];
 
                 var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

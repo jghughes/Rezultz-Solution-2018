@@ -202,7 +202,7 @@ namespace NetStd.Goodies.Mar2022
         {
             get
             {
-                List<TValue> values = new();
+                List<TValue> values = [];
                 foreach (IEnumerable<TValue> list in _innerValues.Values)
                 {
                     values.AddRange(list);
@@ -346,7 +346,7 @@ namespace NetStd.Goodies.Mar2022
 
         private List<TValue> CreateNewList(TKey key)
         {
-            List<TValue> values = new();
+            List<TValue> values = [];
             _innerValues.Add(key, values);
 
             return values;

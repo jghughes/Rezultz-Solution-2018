@@ -41,19 +41,19 @@ namespace Tool06
         private const string OutputFolderForXmlResults = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\XmlVersions\";
 
         private static readonly Tuple<string, string>[] ArrayOfTimingDataFileNameTuples =
-    {
-        new("Expert Results.txt", "Kelso2023mtb-results-01-expert.xml"),
+        [
+            new("Expert Results.txt", "Kelso2023mtb-results-01-expert.xml"),
         new("Sport Results.txt", "Kelso2023mtb-results-01-sport.xml"),
         new("Novice Results.txt", "Kelso2023mtb-results-01-novice.xml")
-    }        ;
+        ];
 
         #endregion
 
         #region variables
 
-        private static readonly List<FileItem> FileItemsFromMyLaps = new();
+        private static readonly List<FileItem> FileItemsFromMyLaps = [];
 
-        private static readonly List<PublisherImportFileTargetItem> FilesForPublisherModuleToProcess = new();
+        private static readonly List<PublisherImportFileTargetItem> FilesForPublisherModuleToProcess = [];
 
         #endregion
 
@@ -177,7 +177,7 @@ namespace Tool06
                     var item = new FileItem
                     {
                         FileInfo = new FileInfo(InputFolderFromMyLaps + tuple.Item1),
-                        FileContentsAsLines = new List<string>(),
+                        FileContentsAsLines = [],
                         OutputFileName = tuple.Item2
                     };
 
@@ -398,12 +398,12 @@ namespace Tool06
             JghConsoleHelper.WriteLineFollowedByOne("ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync(....)");
             var outputOfProcessing = await RaceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync("21portal", "TEST MTB Series 2022", "Dummy event #13 August 16th", testSeriesProfile, importFileTargets);
             JghConsoleHelper.WriteLineFollowedByOne("answer:");
-            JghConsoleHelper.WriteLineWrappedInTwo(JghSerialisation.ToXmlFromObject(outputOfProcessing, new[] { typeof(PublisherOutputItem) }));
+            JghConsoleHelper.WriteLineWrappedInTwo(JghSerialisation.ToXmlFromObject(outputOfProcessing, [typeof(PublisherOutputItem)]));
             JghConsoleHelper.WriteLinePrecededByOne("Press enter to continue to next test.");
             JghConsoleHelper.ReadLine();
 
             var results = ResultItem.ToDataTransferObject(outputOfProcessing.ComputedResults);
-            var uploadFileContents = JghSerialisation.ToXmlFromObject(results, new[] { typeof(ResultDto) });
+            var uploadFileContents = JghSerialisation.ToXmlFromObject(results, [typeof(ResultDto)]);
             JghConsoleHelper.WriteLineFollowedByOne("SendFileOfCompletedResultsForSingleEventAsync(....)");
             var outcomeOfUploadOfResults = await RaceResultsPublishingSvcAgent.UploadPublishableResultsForSingleEventAsync(new EntityLocationItem("customertester", "testuploadcontainer", "mytestfile.xml"), uploadFileContents);
             JghConsoleHelper.WriteLineFollowedByOne($"answer = {outcomeOfUploadOfResults}");
@@ -468,7 +468,7 @@ namespace Tool06
     {
         ResultDto[] resultsDto = ResultItem.ToDataTransferObject(resultItems);
 
-        return JghSerialisation.ToXmlFromObject(resultsDto, new[] { typeof(ResultDto) });
+        return JghSerialisation.ToXmlFromObject(resultsDto, [typeof(ResultDto)]);
     }
 
         private static void SaveWorkToHardDriveAsXml(string resultsDtoAsXml)

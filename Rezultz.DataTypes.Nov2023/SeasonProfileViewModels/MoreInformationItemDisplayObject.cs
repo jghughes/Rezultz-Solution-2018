@@ -82,7 +82,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (model == null)
-                    return Array.Empty<MoreInformationItemDisplayObject>();
+                    return [];
 
                 var viewModel = model.Select(FromModel).Where(z => z != null).ToArray();
 
@@ -113,7 +113,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (viewModel == null)
-                    return Array.Empty<MoreInformationItem>();
+                    return [];
 
                 var model = viewModel.Select(ObtainSourceModel).Where(z => z != null).ToArray();
 

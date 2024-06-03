@@ -236,9 +236,9 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 if (contestantScratchPadKvp.Value.ConsolidatedListOfAllTimeStamps.Count() == 1)
                 {
-                    // ah ha. there is only one timestamp and therefore not even one interval
+                    // aha. there is only one timestamp and therefore not even one interval
 
-                    // and yet we have a timestamp.. if the timestamp is a gun start, we can surmise that contestant didn't finish
+                    // and yet we have a timestamp. if the timestamp is a gun start, we can surmise that contestant didn't finish
 
                     if (contestantScratchPadKvp.Value.ConsolidatedListOfAllTimeStamps[0].RecordingModeEnum is EnumStrings.KindOfEntryIsTimeStampForGunStartForEverybody or EnumStrings.KindOfEntryIsTimeStampForGunStartForGroup
                         or EnumStrings.KindOfEntryIsTimeStampForGunStartForSingleIndividual)
@@ -311,7 +311,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         private static SplitIntervalConsolidationForParticipantItem[] PopulatePseudoRanksForSubsetsOfRaceWithinEventAsync(IEnumerable<SplitIntervalConsolidationForParticipantItem> consolidatedSplitIntervalItems)
         {
             if (consolidatedSplitIntervalItems == null)
-                return Array.Empty<SplitIntervalConsolidationForParticipantItem>();
+                return [];
 
             var dictionaryOfRaces = new JghListDictionary<string, SplitIntervalConsolidationForParticipantItem>();
 
@@ -397,19 +397,19 @@ namespace Rezultz.Library01.Mar2024.Repositories
             double anomalousThresholdForTooBriefSplitMinutes)
         {
             if (!_repositoryIsBootstrapped)
-                return Array.Empty<SplitIntervalConsolidationForParticipantItem>();
+                return [];
 
             if (_dictionaryOfEveryBodyWhoCompeted == null)
-                return Array.Empty<SplitIntervalConsolidationForParticipantItem>();
+                return [];
 
             var rows = _dictionaryOfEveryBodyWhoCompeted.Select(z => z.Value).ToArray();
 
             if (!rows.Any())
-                return Array.Empty<SplitIntervalConsolidationForParticipantItem>();
+                return [];
 
             #region riffle through row collection to identify anomalies add comments to them
 
-            List<SplitIntervalConsolidationForParticipantItem> answer = new();
+            List<SplitIntervalConsolidationForParticipantItem> answer = [];
 
             foreach (var row in rows.Where(z => z != null))
             {
@@ -451,7 +451,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 #endregion
 
-                #region details of the attached particpant profile that are potential show stoppers
+                #region details of the attached participant profile that are potential show stoppers
 
                 if (row.Participant == null)
                 {
@@ -487,7 +487,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         public ResultDto[] GetDraftResultItemDataTransferObjectForAllContestantsInRankOrder()
         {
             if (!_repositoryIsBootstrapped)
-                return Array.Empty<ResultDto>();
+                return [];
 
             var temp = _dictionaryOfEveryBodyWhoCompeted.Select(z => z.Value).ToArray();
 

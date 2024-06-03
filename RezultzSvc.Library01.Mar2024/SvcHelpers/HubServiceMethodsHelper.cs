@@ -65,7 +65,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
             var counter = arrayOfItemsAsObject.Length;
 
-            List<Task<TimeStampHubItemDto>> uploadTasks = new();
+            List<Task<TimeStampHubItemDto>> uploadTasks = [];
 
             foreach (var itemAsObject in arrayOfItemsAsObject)
             {

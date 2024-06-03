@@ -60,9 +60,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
 
         public EntityLocationItemDisplayObject LocationOfMedia { get; set; } = new();
 
-        public EventItemDisplayObject[] ArrayOfEventItems { get; set; } = Array.Empty<EventItemDisplayObject>();
+        public EventItemDisplayObject[] ArrayOfEventItems { get; set; } = [];
 
-        public MoreInformationItemDisplayObject[] ArrayOfMoreSeriesInformationItems { get; set; } = Array.Empty<MoreInformationItemDisplayObject>();
+        public MoreInformationItemDisplayObject[] ArrayOfMoreSeriesInformationItems { get; set; } = [];
 
         public SettingsForEventItemViewModel DefaultSettingsForAllEvents { get; set; } = new();
 
@@ -141,7 +141,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (model == null)
-                    return Array.Empty<SeriesItemDisplayObject>();
+                    return [];
 
                 var viewModel = model.Select(FromModel).Where(z => z != null).ToArray();
 
@@ -172,7 +172,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (viewModel == null)
-                    return Array.Empty<SeriesProfileItem>();
+                    return [];
 
                 var answer = viewModel.Select(ObtainSourceModel).Where(z => z != null).ToArray();
 

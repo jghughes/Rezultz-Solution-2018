@@ -30,9 +30,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         public EventSettingsItem EventSettingsItem { get; set; } = new();
 
-        public EntityLocationItem[] LocationsOfPublishedResultsXmlFiles { get; set; } = Array.Empty<EntityLocationItem>();
+        public EntityLocationItem[] LocationsOfPublishedResultsXmlFiles { get; set; } = [];
 
-        public ResultItem[] ResultItemsForEventAsPublished { get; set; } = Array.Empty<ResultItem>(); // N.B - this is not an intrinsic prop. I lazily use it to be subsequently populated when results are to hand
+        public ResultItem[] ResultItemsForEventAsPublished { get; set; } = []; // N.B - this is not an intrinsic prop. I lazily use it to be subsequently populated when results are to hand
 
         public string HtmlDocumentNameForPostedResults { get; set; } = string.Empty;
 
@@ -96,7 +96,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (dto == null)
-                    return Array.Empty<EventProfileItem>();
+                    return [];
 
                 var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -164,7 +164,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (item == null)
-                    return Array.Empty<EventProfileDto>();
+                    return [];
 
                 var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

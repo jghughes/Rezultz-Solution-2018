@@ -116,7 +116,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         #region instantiate AllDataGridLineItemDisplayObjects
 
-        AllDataGridLineItemDisplayObjects = Array.Empty<ResultItemDisplayObject>();
+        AllDataGridLineItemDisplayObjects = [];
 
         #endregion
 
@@ -863,7 +863,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
             if (DataGridOfFavoritesVm?.SelectedItem == null) return;
 
             var favoritesToBeUpdated =
-                await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync() ?? Array.Empty<ThingWithNamesItem>();
+                await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync() ?? [];
 
             var pseudoItem = DataGridOfFavoritesVm?.SelectedItem;
 
@@ -954,7 +954,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
             if (DataGridOfFavoritesVm?.ItemsSource == null) return;
 
-            await ThingsPersistedInLocalStorage.SaveFavoritesListIdentitiesAsync(Array.Empty<ThingWithNamesItem>());
+            await ThingsPersistedInLocalStorage.SaveFavoritesListIdentitiesAsync([]);
 
             await FavoritesDataGridRefilterAsync();
 
@@ -1193,7 +1193,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
         if (population == null)
             throw new JghNullObjectInstanceException(nameof(population));
 
-        if (!population.Any()) return Array.Empty<ResultItemDisplayObject>();
+        if (!population.Any()) return [];
 
         var filterMask = CboLookUpCategoryFiltersObtainFilterMask();
 
@@ -1224,7 +1224,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         if (DisplayPodiumResultsOnlyToggleButtonVm.IsChecked)
         {
-            List<ResultItemDisplayObject> podiumOnly = new();
+            List<ResultItemDisplayObject> podiumOnly = [];
 
             foreach (var raceCboLookupItemVm in CboLookupRaceCategoryFilterVm.ItemsSource)
             foreach (var ageGroupCboLookupItemVm in CboLookupAgeGroupCategoryFilterVm.ItemsSource)
@@ -1286,7 +1286,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
         public static string[] AddLabelForSelectingAll(string labelForSelectingAll, string[] lookupTable)
     {
         if (lookupTable == null)
-            return Array.Empty<string>();
+            return [];
 
         // sort table
 
@@ -1652,7 +1652,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
         {
             if (personToBeAddedVm == null) return;
 
-            var favoritesToBeUpdated = (await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync())?.ToList() ?? new List<ThingWithNamesItem>();
+            var favoritesToBeUpdated = (await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync())?.ToList() ?? [];
 
             // add to favorites - note to self. don't make the mistake of preempting duplicates. there is no sure-fire way of knowing what is a duplicate and what is not between one event and the next. let the user delete.
             // for now i'm ignoring this advice, which hails from the Silverlight era. if it proves to still be valid, it's easy to comment out the numberOfPossibleMatches test
@@ -1686,7 +1686,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         private static ResultItemDisplayObject[] SortResultsInDesiredOrder(ResultItemDisplayObject[] rawInputItems, string columnFormatEnum)
     {
-        if (rawInputItems == null || !rawInputItems.Any()) return Array.Empty<ResultItemDisplayObject>();
+        if (rawInputItems == null || !rawInputItems.Any()) return [];
 
         ResultItemDisplayObject[] rowCollection;
 
@@ -1998,7 +1998,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         public async Task<bool> ZeroiseAsync()
     {
-        AllDataGridLineItemDisplayObjects = Array.Empty<ResultItemDisplayObject>();
+        AllDataGridLineItemDisplayObjects = [];
 
         HeadersVm.Zeroise();
         FootersVm.Zeroise();

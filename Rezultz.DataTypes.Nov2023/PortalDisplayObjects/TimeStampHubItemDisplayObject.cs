@@ -76,7 +76,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             try
             {
                 if (model == null)
-                    return Array.Empty<TimeStampHubItemDisplayObject>();
+                    return [];
 
                 var answer = model.Select(FromModel).Where(z => z != null).ToArray();
 
@@ -111,7 +111,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             try
             {
                 if (displayObject == null)
-                    return Array.Empty<SearchQueryItem>();
+                    return [];
 
                 var answer = displayObject.Select(ToSearchQuerySuggestionItem).Where(z => z != null).ToArray();
 

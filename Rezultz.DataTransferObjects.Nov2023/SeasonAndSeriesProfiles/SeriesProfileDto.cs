@@ -75,10 +75,10 @@ namespace Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles
         public EntityLocationDto MediaContainer { get; set; } = new();
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 15, Name = XeConstituentEventProfiles)]
-        public EventProfileDto[] EventProfileCollection { get; set; } = Array.Empty<EventProfileDto>();
+        public EventProfileDto[] EventProfileCollection { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 16, Name = XeMoreSeriesInformationItems)]
-        public MoreInformationDto[] SeriesInformationCollection { get; set; } = Array.Empty<MoreInformationDto>();
+        public MoreInformationDto[] SeriesInformationCollection { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 17, Name = XeEventSettingsDefaultsForAllEvents)]
         public DefaultEventSettingsDto DefaultSettingsForAllEvents { get; set; } = new();

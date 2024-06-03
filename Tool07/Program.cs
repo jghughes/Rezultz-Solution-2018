@@ -146,8 +146,8 @@ namespace Tool07
         public const string XeLastName = "Last";
         public const string XeFullName = "FullName";
 
-        private static readonly List<string> ListOfXeNames = new()
-        {
+        private static readonly List<string> ListOfXeNames =
+        [
             XeArrayOfResult,
             XeResult,
             XeFirst,
@@ -181,16 +181,16 @@ namespace Tool07
             XeMiddleInitial,
             XeLastName,
             XeFullName
-        };
+        ];
 
-        private static readonly List<string> ListOfTextToBeDeleted = new()
-        {
+        private static readonly List<string> ListOfTextToBeDeleted =
+        [
             "xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\"",
             "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"",
             "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"",
             "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
-            "p3:nil=\"true\" xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\" ",
-        };
+            "p3:nil=\"true\" xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\" "
+        ];
 
         #endregion
 
@@ -234,7 +234,7 @@ namespace Tool07
 
         var arrayOfResultDto = ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(dummyRows);
 
-        var yy = JghSerialisation.ToXmlFromObject(arrayOfResultDto, new[] {typeof(ResultDto)});
+        var yy = JghSerialisation.ToXmlFromObject(arrayOfResultDto, [typeof(ResultDto)]);
 
         var zz = ListOfTextToBeDeleted.Aggregate(yy, (current, textToBeDeleted) => current.Replace(textToBeDeleted, string.Empty));
 
@@ -325,11 +325,11 @@ namespace Tool07
 
         private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
     {
-        List<ResultDto> answer = new();
+        List<ResultDto> answer = [];
 
         foreach (var element in arrayOfIndividualResultXes)
         {
-            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), new[]{typeof(ResultDto)});
+            var resultItem = JghSerialisation.ToObjectFromXml<ResultDto>(element.ToString(), [typeof(ResultDto)]);
 
             answer.Add(resultItem);
         }

@@ -56,7 +56,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (dto == null)
-                    return Array.Empty<BlobSpecificationItem>();
+                    return [];
 
                 var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -111,7 +111,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
             try
             {
                 if (item == null)
-                    return Array.Empty<BlobSpecificationDto>();
+                    return [];
 
                 var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

@@ -70,12 +70,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
         public async Task<T[]> GetFromLocalStorageBackupAsync(string folderName, string fileName)
         {
             if (string.IsNullOrWhiteSpace(folderName) || string.IsNullOrWhiteSpace(fileName))
-                return Array.Empty<T>();
+                return [];
 
             var recoveredArray =
                 await _storageService.ReadSerializedObjectAsync<T[]>(
                     folderName,
-                    fileName) ?? Array.Empty<T>();
+                    fileName) ?? [];
 
             return recoveredArray;
         }

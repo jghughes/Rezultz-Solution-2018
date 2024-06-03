@@ -53,9 +53,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
 
         public SettingsForEventItemViewModel SettingsForEventItem { get; set; } = new();
 
-        public EntityLocationItemDisplayObject[] ArrayOfLocationOfPreprocessedResultsDataFiles { get; set; } = Array.Empty<EntityLocationItemDisplayObject>();
+        public EntityLocationItemDisplayObject[] ArrayOfLocationOfPreprocessedResultsDataFiles { get; set; } = [];
     
-        public ResultItemDisplayObject[] ArrayOfResultItemForEvent { get; set; } = Array.Empty<ResultItemDisplayObject>(); // N.B
+        public ResultItemDisplayObject[] ArrayOfResultItemForEvent { get; set; } = []; // N.B
 
         public string HtmlDocumentNameForPostedResults { get; set; } = string.Empty;
 
@@ -117,7 +117,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (model == null)
-                    return Array.Empty<EventItemDisplayObject>();
+                    return [];
 
                 var viewModel = model.Select(FromModel).Where(z => z != null).ToArray();
 
@@ -148,7 +148,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             try
             {
                 if (viewModel == null)
-                    return Array.Empty<EventProfileItem>();
+                    return [];
 
                 var answer = viewModel.Select(ObtainSourceModel).Where(z => z != null).ToArray();
 

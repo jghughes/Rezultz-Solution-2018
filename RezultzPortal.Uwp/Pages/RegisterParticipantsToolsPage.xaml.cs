@@ -361,14 +361,14 @@ namespace RezultzPortal.Uwp.Pages
         {
             case EnumStrings.AsCsvFile:
             {
-                var itemsWrappedInAParentXe = JghSerialisation.ToXElementWithoutWhiteSpaceFromObject(dataTransferObjects, new[] {typeof(T)});
+                var itemsWrappedInAParentXe = JghSerialisation.ToXElementWithoutWhiteSpaceFromObject(dataTransferObjects, [typeof(T)]);
                 var csvDocumentAsString = JghXElementHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(itemsWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }
             case EnumStrings.AsFlatFileXml:
             {
-                var itemsAsStringOfXml = JghSerialisation.ToXmlFromObject(dataTransferObjects, new[] {typeof(T)});
+                var itemsAsStringOfXml = JghSerialisation.ToXmlFromObject(dataTransferObjects, [typeof(T)]);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(itemsAsStringOfXml);
                 break;
             }

@@ -16,7 +16,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The resultant array</returns>
         public static T[] AddNoDuplicates<T>(T[] manyItems, T theItem) where T : class
         {
-            manyItems ??= Array.Empty<T>();
+            manyItems ??= [];
 
             if (theItem == null)
                 return manyItems;
@@ -284,7 +284,7 @@ namespace NetStd.Goodies.Mar2022
             where T : class, IHasCodeNameOfSuperset
         {
             if (manyItems == null || !manyItems.Any() || searchParameterOfSuperset == null)
-                return Array.Empty<T>();
+                return [];
 
             var candidates = (from thisItem in manyItems
                 where thisItem != null
@@ -302,7 +302,7 @@ namespace NetStd.Goodies.Mar2022
         public static T[] PopulateItemsInArrayWithSequentialIDsStartingWithOne<T>(T[] manyItems) where T : class, IHasItemID
         {
             if (manyItems == null || !manyItems.Any())
-                return new T[0];
+                return [];
 
             var i = 1;
             // NB don't start with zero. we use 0 to mean "all" in our filtering system. we use "-1" to mean "n/a"

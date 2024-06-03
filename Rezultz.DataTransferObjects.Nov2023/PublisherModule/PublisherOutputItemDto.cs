@@ -35,7 +35,7 @@ namespace Rezultz.DataTransferObjects.Nov2023.PublisherModule
         public bool ConversionDidFail { get; set; }
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 5, Name = XeComputedResults)]
-        public ResultDto[] ComputedResultsCollection { get; set; } = Array.Empty<ResultDto>();
+        public ResultDto[] ComputedResultsCollection { get; set; } = [];
 
         #endregion
     }

@@ -79,7 +79,7 @@ namespace NetStd.OnBoardServices02.July2018.UserSettingsForRezultz
         private const string NavigationContextQueryStringKey = "NavigationContextQueryStringKey";
 
         private readonly KeyValuePair<string, string>[] _defaultNavigationContextQueryString =
-            new KeyValuePair<string, string>[0];
+            [];
 
         public async Task<Dictionary<string, string>> GetNavigationContextQueryStringAsync()
         {
@@ -245,7 +245,7 @@ namespace NetStd.OnBoardServices02.July2018.UserSettingsForRezultz
 
         private const string FavoritesListIdentitiesKey = "FavoritesListIdentitiesKey";
 
-        private readonly ThingWithNamesItem[] _defaultFavoritesListIdentities = Array.Empty<ThingWithNamesItem>();
+        private readonly ThingWithNamesItem[] _defaultFavoritesListIdentities = [];
 
         public async Task<ThingWithNamesItem[]> GetFavoritesListIdentitiesAsync()
         {

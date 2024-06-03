@@ -39,10 +39,10 @@ namespace Rezultz.DataTransferObjects.Nov2023.PublisherModule
         public string OverviewOfModule { get; set; } = string.Empty;
 
         [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 6, Name = XeGuiButtonsForPullingDatasetsFromPortalHub)]
-        public PublisherButtonProfileItemDto[] GuiButtonProfilesForPullingDatasetsFromPortalHub { get; set; } = Array.Empty<PublisherButtonProfileItemDto>();
+        public PublisherButtonProfileItemDto[] GuiButtonProfilesForPullingDatasetsFromPortalHub { get; set; } = [];
 
         [DataMember(EmitDefaultValue = true, IsRequired = false, Order = 7, Name = XeGuiButtonsForBrowsingFileSystemForDatasets)]
-        public PublisherButtonProfileItemDto[] GuiButtonProfilesForBrowsingFileSystemForDatasets { get; set; } = Array.Empty<PublisherButtonProfileItemDto>();
+        public PublisherButtonProfileItemDto[] GuiButtonProfilesForBrowsingFileSystemForDatasets { get; set; } = [];
 
         #endregion
     }

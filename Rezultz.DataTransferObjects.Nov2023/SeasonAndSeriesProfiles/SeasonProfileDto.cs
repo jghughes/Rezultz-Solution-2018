@@ -43,13 +43,13 @@ namespace Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles
         public OrganizerDto Organizer { get; set; } = new();
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 7, Name = XeSeriesProfileFileLocations)]
-        public EntityLocationDto[] SeriesProfileFileLocationCollection { get; set; } = Array.Empty<EntityLocationDto>();
+        public EntityLocationDto[] SeriesProfileFileLocationCollection { get; set; } = [];
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 8, Name = XeSeriesProfiles)]
-        public SeriesProfileDto[] SeriesProfileCollection { get; set; } = Array.Empty<SeriesProfileDto>(); // list that becomes populated later according toSeriesProfileFileLocationCollection
+        public SeriesProfileDto[] SeriesProfileCollection { get; set; } = []; // list that becomes populated later according toSeriesProfileFileLocationCollection
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 9, Name = XeAuthorisedIdentities)]
-        public AuthorisedUserIdentityDto[] AuthorisedIdentityCollection { get; set; } = Array.Empty<AuthorisedUserIdentityDto>();
+        public AuthorisedUserIdentityDto[] AuthorisedIdentityCollection { get; set; } = [];
 
         #endregion
     }

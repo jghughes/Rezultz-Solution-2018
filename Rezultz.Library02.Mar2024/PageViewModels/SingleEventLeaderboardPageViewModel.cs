@@ -167,7 +167,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 #region populate CboLookUpMoreInfoItemPresenter 
 
                 var kindsOfMoreInfo =
-                    currentEvent.EventSettingsItem.MoreInformationItems ?? Array.Empty<MoreInformationItem>();
+                    currentEvent.EventSettingsItem.MoreInformationItems ?? [];
 
                 kindsOfMoreInfo = kindsOfMoreInfo
                     .Where(z => z != null)
@@ -588,7 +588,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 //await PopulateCboEventLookupAndRelatedInformationForTheFirstTimeAsync();
 
-                var listOfEventItems = GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem?.ArrayOfEventItems ?? Array.Empty<EventItemDisplayObject>();
+                var listOfEventItems = GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem?.ArrayOfEventItems ?? [];
 
                 listOfEventItems = listOfEventItems
                     .Where(z => z != null)

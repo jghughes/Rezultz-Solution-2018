@@ -129,7 +129,7 @@ namespace Tool03
                 var item = new FileItem
                 {
                     FileInfo = new FileInfo(InputFolderFromMyLaps + tuple.Item1),
-                    FileContentsAsLines = new List<string>(),
+                    FileContentsAsLines = [],
                     OutputFileName = tuple.Item2
                 };
 
@@ -228,13 +228,13 @@ namespace Tool03
         foreach (var fileItem in fileItems)
             try
             {
-                List<ResultDto> listOfComputedResultItemDataTransferObjects = new();
+                List<ResultDto> listOfComputedResultItemDataTransferObjects = [];
 
                 #region step 1 interpret myLapsTimingDataInCsvFormatAsString as csv data if we can
 
                 var myLapsTimingDataInCsvFormatAsString = fileItem.FileContentsAsText;
 
-                var allRowsOfCsvText = myLapsTimingDataInCsvFormatAsString.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
+                var allRowsOfCsvText = myLapsTimingDataInCsvFormatAsString.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
 
                 //List<string> allRowsOfCsvText = fileItem.FileContentsAsLines;
 
@@ -248,7 +248,7 @@ namespace Tool03
                     allRowsOfCsvText.Where(z => !string.IsNullOrWhiteSpace(z)).Where(z => z.Contains(','))
                         .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair at the bottom of the file
 
-                List<string> relevantRowsWithoutEscapeLiterals = new();
+                List<string> relevantRowsWithoutEscapeLiterals = [];
 
                 foreach (var rowOfCsv in relevantRowsOfCsvText)
                 {
@@ -448,7 +448,7 @@ namespace Tool03
 
         private static void SaveWorkToHardDriveAsXml(List<ResultDto> listOfOutputDto, FileItem fileItem)
     {
-        var xmlFileContents = JghSerialisation.ToXmlFromObject(listOfOutputDto.ToArray(), new[] {typeof(ResultDto[])});
+        var xmlFileContents = JghSerialisation.ToXmlFromObject(listOfOutputDto.ToArray(), [typeof(ResultDto[])]);
 
         var pathOfXmlFile = OutputFolderForXml + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
 
@@ -558,7 +558,7 @@ namespace Tool03
 
             if (purportedTimeSpanAsText.Contains('.')) // there is a fractional seconds component
             {
-                var oneOrTwoComponents = purportedTimeSpanAsText.Split(new[] {'.'}).Reverse().ToArray();
+                var oneOrTwoComponents = purportedTimeSpanAsText.Split(['.']).Reverse().ToArray();
 
                 if (!TryGetFrontComponentAsInteger(oneOrTwoComponents, out decimalSeconds))
                 {
@@ -571,7 +571,7 @@ namespace Tool03
             }
             else
             {
-                components = purportedTimeSpanAsText.Split(new[] {':'}).Reverse().ToArray();
+                components = purportedTimeSpanAsText.Split([':']).Reverse().ToArray();
             }
 
             #endregion
@@ -680,11 +680,11 @@ namespace Tool03
         private const string SeriesMetadataFileFromRezultz = @"series-Kelso2023-mtb.json";
         private const string ParticipantMasterFileNameFromRezultz = @"Participants+2023-07-18T12-16-20.json";
         private static readonly Tuple<string, string>[] ArrayOfTimingDataFileNameTuples =
-    {
-        new("Expert Results.txt", "Kelso2023mtb-results-01-expert.xml"),
+        [
+            new("Expert Results.txt", "Kelso2023mtb-results-01-expert.xml"),
         new("Sport Results.txt", "Kelso2023mtb-results-01-sport.xml"),
         new("Novice Results.txt", "Kelso2023mtb-results-01-novice.xml")
-    }        ;
+        ];
 
         private const int
             NumberOfRowsPrecedingRowOfFieldNames =
@@ -696,7 +696,7 @@ namespace Tool03
 
         #region variables
 
-        private static readonly List<FileItem> FileItemsFromMyLaps = new();
+        private static readonly List<FileItem> FileItemsFromMyLaps = [];
 
         #endregion
     }

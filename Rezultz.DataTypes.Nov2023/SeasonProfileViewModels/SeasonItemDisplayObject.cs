@@ -28,9 +28,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
 
         public OrganizerItemViewModel OrganizerItem { get; set; } = new();
 
-        public EntityLocationItemDisplayObject[] ArrayOfDatabaseLocationOfSeriesItems { get; set; } = Array.Empty<EntityLocationItemDisplayObject>();
+        public EntityLocationItemDisplayObject[] ArrayOfDatabaseLocationOfSeriesItems { get; set; } = [];
 
-        public SeriesItemDisplayObject[] ArrayOfSeriesItems { get; set; }= Array.Empty<SeriesItemDisplayObject>();
+        public SeriesItemDisplayObject[] ArrayOfSeriesItems { get; set; }= [];
 
         public int ID { get; set; } // not used. merely to satisfy required interface
 
@@ -92,7 +92,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             const string locus = "[FromModel]";
             try
             {
-                arrayOfModel ??= Array.Empty<SeasonProfileItem>();
+                arrayOfModel ??= [];
 
                 var arrayOfViewModel = arrayOfModel.Select(FromModel).Where(z => z != null).ToArray();
 

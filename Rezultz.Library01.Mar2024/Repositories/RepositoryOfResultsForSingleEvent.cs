@@ -45,7 +45,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         {
             _eventProfileToWhichThisBelongs = new();
             _repositoryIsInitialised = false;
-            _allProcessedResultsForThisEvent = Array.Empty<ResultItem>();
+            _allProcessedResultsForThisEvent = [];
             //_searchQuerySuggestions = Array.Empty<SearchQueryItem>();
             //_dictionaryOfTxxColumnHeaders = new Dictionary<int, string>();
         }
@@ -54,12 +54,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         #region repository backing fields
 
-        private string[] _tableOfRaces = Array.Empty<string>();
-        private string[] _tableOfGenders = Array.Empty<string>();
-        private string[] _tableOfAgeGroups = Array.Empty<string>();
-        private string[] _tableOfCities = Array.Empty<string>();
-        private string[] _tableOfTeams = Array.Empty<string>();
-        private string[] _tableOfUtilityClassifications = Array.Empty<string>();
+        private string[] _tableOfRaces = [];
+        private string[] _tableOfGenders = [];
+        private string[] _tableOfAgeGroups = [];
+        private string[] _tableOfCities = [];
+        private string[] _tableOfTeams = [];
+        private string[] _tableOfUtilityClassifications = [];
 
         private bool _repositoryIsInitialised;
 
@@ -288,7 +288,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -312,7 +312,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -336,7 +336,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -360,7 +360,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 if (_repositoryIsInitialised == false)
-                    return Array.Empty<PopulationCohortItem>();
+                    return [];
 
                 return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
@@ -392,7 +392,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             if (_repositoryIsInitialised == false)
                 return await Task.FromResult(Array.Empty<ResultItem>());
 
-            var aa = SelectPlacedResults() ?? Array.Empty<ResultItem>();
+            var aa = SelectPlacedResults() ?? [];
 
             var bb = SelectValidDnxResults()
                 .Where(item => item.DerivedData != null)
@@ -518,8 +518,8 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 thisItem.DerivedData.IsValidDuration = true;
 
-                List<double> listOfIntervalsInSeconds = new()
-                {
+                List<double> listOfIntervalsInSeconds =
+                [
                     JghTimeSpan.ToTotalSeconds(thisItem.T01),
                     JghTimeSpan.ToTotalSeconds(thisItem.T02),
                     JghTimeSpan.ToTotalSeconds(thisItem.T03),
@@ -535,7 +535,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                     JghTimeSpan.ToTotalSeconds(thisItem.T13),
                     JghTimeSpan.ToTotalSeconds(thisItem.T14),
                     JghTimeSpan.ToTotalSeconds(thisItem.T15)
-                };
+                ];
 
                 thisItem.DerivedData.TotalDurationFromAlgorithmInSeconds = listOfIntervalsInSeconds.Sum();
 

@@ -88,10 +88,10 @@ namespace Tool02
                         // clean up irritating null artifacts of system xml serialiser
 
                         Tuple<string, string>[] snippets2 =
-                        {
+                        [
                             new("p3:nil=\"true\"", string.Empty),
                             new("xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty)
-                        };
+                        ];
 
                         answerAsXml = snippets2.Aggregate(answerAsXml, (current, snippet) => current.Replace(snippet.Item1, snippet.Item2));
 

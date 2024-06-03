@@ -257,7 +257,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                 RanToCompletionMessage = ranToCompletionMsgSb.ToString(),
                 ConversionReport = conversionReportSb.ToString(),
                 ConversionDidFail = true,
-                ComputedResults = Array.Empty<ResultItem>()
+                ComputedResults = []
             };
 
             return await Task.FromResult(answer2);

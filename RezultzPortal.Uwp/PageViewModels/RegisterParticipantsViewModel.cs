@@ -1256,7 +1256,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         #region prepare data - rawEntriesInLocalStorageAsDisplayObjects
 
-        var rawEntriesInLocalStorage = await RepositoryOfHubStyleEntries.GetFromLocalStorageBackupAsync(localDataLocation.Item1, localDataLocation.Item2) ?? Array.Empty<ParticipantHubItem>();
+        var rawEntriesInLocalStorage = await RepositoryOfHubStyleEntries.GetFromLocalStorageBackupAsync(localDataLocation.Item1, localDataLocation.Item2) ?? [];
 
         var rawEntriesInLocalStorageAsDisplayObjects = rawEntriesInLocalStorage
             .Where(z => z != null)

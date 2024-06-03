@@ -219,7 +219,7 @@ namespace Tool04
 
                 JghConsoleHelper.WriteLine($"Deserializing text to array of ResultItemDataTransferObject for {rezultzFileItem.RezultzFileInfo.Name}");
 
-                var xx = JghSerialisation.ToObjectFromXml<ResultDto[]>(rezultzFileItem.RezultzFileContentsAsText, new[] {typeof(ResultDto)});
+                var xx = JghSerialisation.ToObjectFromXml<ResultDto[]>(rezultzFileItem.RezultzFileContentsAsText, [typeof(ResultDto)]);
 
                 rezultzFileItem.RezultzFileContentsAsResultsDataTransferObjects = xx.ToList();
 
@@ -330,8 +330,8 @@ namespace Tool04
                 summaryReportSb.AppendLine(message);
 
 
-                List<Tuple<ResultItem, double>> allDeltas = new();
-                List<MyLapsResultObject?> allMyLapsResultObjectForThisEvent = new();
+                List<Tuple<ResultItem, double>> allDeltas = [];
+                List<MyLapsResultObject?> allMyLapsResultObjectForThisEvent = [];
 
 
                 foreach (var myLapsFileItem in rezultzFileItem.ListOfMyLapsFileItems)
@@ -579,7 +579,7 @@ namespace Tool04
 
         #region variables
 
-        private static readonly List<RezultzFileItem> ListOfRezultzFileItemsBeingProcessed = new();
+        private static readonly List<RezultzFileItem> ListOfRezultzFileItemsBeingProcessed = [];
 
         #endregion
 
@@ -591,7 +591,7 @@ namespace Tool04
 
         var myLapsTimingDataInCsvFormatAsString = myLapsFileItem.MyLapsFileContentsAsText;
 
-        var allRowsOfCsvText = myLapsTimingDataInCsvFormatAsString.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
+        var allRowsOfCsvText = myLapsTimingDataInCsvFormatAsString.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
 
         if (string.IsNullOrWhiteSpace(myLapsTimingDataInCsvFormatAsString) && !allRowsOfCsvText.Any())
         {
@@ -604,7 +604,7 @@ namespace Tool04
             allRowsOfCsvText.Where(z => !string.IsNullOrWhiteSpace(z)).Where(z => z.Contains(','))
                 .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair at the bottom of the file
 
-        List<string> relevantRowsWithoutEscapeLiterals = new();
+        List<string> relevantRowsWithoutEscapeLiterals = [];
 
         foreach (var rowOfCsv in relevantRowsOfCsvText)
         {
@@ -717,7 +717,7 @@ namespace Tool04
 
         var myLapsTimingDataInCsvFormatAsString = myLapsFileItem.MyLapsFileContentsAsText;
 
-        var allRowsOfCsvText = myLapsTimingDataInCsvFormatAsString.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
+        var allRowsOfCsvText = myLapsTimingDataInCsvFormatAsString.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
 
 
         if (string.IsNullOrWhiteSpace(myLapsTimingDataInCsvFormatAsString) && !allRowsOfCsvText.Any())
@@ -731,7 +731,7 @@ namespace Tool04
             allRowsOfCsvText.Where(z => !string.IsNullOrWhiteSpace(z)).Where(z => z.Contains(','))
                 .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair at the bottom of the file
 
-        List<string> relevantRowsWithoutEscapeLiterals = new();
+        List<string> relevantRowsWithoutEscapeLiterals = [];
 
         foreach (var rowOfCsv in relevantRowsOfCsvText)
         {
@@ -954,7 +954,7 @@ namespace Tool04
         foreach (var outputItem in myLapsLineItem)
             myLapsLineObjectDTos.Add(new MyLapsResultObjectDto {BibNumber = outputItem.Bib, FullName = outputItem.FullName, RaceGroup = outputItem.RaceGroup, Duration = outputItem.Duration.ToString("G")});
 
-        var xmlFileContents = JghSerialisation.ToXmlFromObject(myLapsLineObjectDTos.ToArray(), new[] {typeof(List<MyLapsResultObjectDto>)});
+        var xmlFileContents = JghSerialisation.ToXmlFromObject(myLapsLineObjectDTos.ToArray(), [typeof(List<MyLapsResultObjectDto>)]);
 
         var pathOfXmlFile = OutputFolderForXml + @"\" + Path.GetFileNameWithoutExtension(fileItem.MyLapsFileInfo.Name) + "- MyLapsResultItems" + "." + StandardFileTypeSuffix.Xml;
 
@@ -1034,7 +1034,7 @@ namespace Tool04
 
             if (purportedTimeSpanAsText.Contains('.')) // there is a fractional seconds component
             {
-                var oneOrTwoComponents = purportedTimeSpanAsText.Split(new[] {'.'}).Reverse().ToArray();
+                var oneOrTwoComponents = purportedTimeSpanAsText.Split(['.']).Reverse().ToArray();
 
                 if (!TryGetFrontComponentAsInteger(oneOrTwoComponents, out decimalSeconds))
                 {
@@ -1046,7 +1046,7 @@ namespace Tool04
             }
             else
             {
-                components = purportedTimeSpanAsText.Split(new[] {':'}).Reverse().ToArray();
+                components = purportedTimeSpanAsText.Split([':']).Reverse().ToArray();
             }
 
             #endregion
@@ -1135,7 +1135,7 @@ namespace Tool04
 
         private static void SaveCulminationOfWorkDestinedForRezultzToHardDriveAsXml(List<ResultDto> listOfOutputDto, RezultzFileItem fileItem)
     {
-        var xmlFileContents = JghSerialisation.ToXmlFromObject(listOfOutputDto.ToArray(), new[] {typeof(ResultDto[])});
+        var xmlFileContents = JghSerialisation.ToXmlFromObject(listOfOutputDto.ToArray(), [typeof(ResultDto[])]);
 
         var pathOfXmlFile = OutputFolderForUploadToRezultz + @"\" + Path.GetFileNameWithoutExtension(fileItem.RezultzFileInfo.Name) + "-vMyLapsGunTimes" + "." + StandardFileTypeSuffix.Xml;
 

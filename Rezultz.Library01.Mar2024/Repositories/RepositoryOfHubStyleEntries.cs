@@ -33,9 +33,9 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private bool DictionaryOfMostRecentItemPerOriginatingItemGuidIsOutOfDate { get; set; }
 
-		private readonly List<T> _nastyLittleMirror = new();
+		private readonly List<T> _nastyLittleMirror = [];
 
-		private readonly List<T> _everythingOrderedByDescendingTimestamp = new();
+		private readonly List<T> _everythingOrderedByDescendingTimestamp = [];
 
 		private readonly ConcurrentDictionary<string, T> _dictionaryOfEverythingKeyedbyBothGuids = new();
 

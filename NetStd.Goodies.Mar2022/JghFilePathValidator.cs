@@ -1082,7 +1082,7 @@ namespace NetStd.Goodies.Mar2022
 			}
 			catch (Exception)
 			{
-				return new List<char>();
+				return [];
 			}
 
 			return answer;
@@ -1106,7 +1106,7 @@ namespace NetStd.Goodies.Mar2022
 			}
 			catch (Exception)
 			{
-				return new List<char>();
+				return [];
 			}
 
 			return answer;

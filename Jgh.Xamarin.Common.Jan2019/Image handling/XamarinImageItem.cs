@@ -16,14 +16,14 @@ namespace Jgh.Xamarin.Common.Jan2019.Image_handling
         {
             UriItem = new UriItem();
 
-            ImageSource = MapByteArrayToImageSource(new byte[0]); //i.e. non null
+            ImageSource = MapByteArrayToImageSource([]); //i.e. non null
         }
 
         public XamarinImageItem(UriItem uriItem)
         {
             UriItem = uriItem;
 
-            ImageSource = MapByteArrayToImageSource(new byte[0]); //i.e. non null
+            ImageSource = MapByteArrayToImageSource([]); //i.e. non null
         }
 
         #endregion

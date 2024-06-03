@@ -1609,7 +1609,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
             return;
         }
 
-        var listOfEventItems = CboLookupSeriesVm.CurrentItem?.ArrayOfEventItems ?? Array.Empty<EventItemDisplayObject>();
+        var listOfEventItems = CboLookupSeriesVm.CurrentItem?.ArrayOfEventItems ?? [];
 
         listOfEventItems = listOfEventItems
             .Where(z => z != null)

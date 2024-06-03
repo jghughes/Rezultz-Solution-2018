@@ -23,9 +23,9 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         public string CSharpModuleVersionNumber { get; set; } = string.Empty;
 
-        public PublisherButtonProfileItem[] GuiButtonProfilesForPullingDatasetsFromPortalHub { get; set; } = Array.Empty<PublisherButtonProfileItem>();
+        public PublisherButtonProfileItem[] GuiButtonProfilesForPullingDatasetsFromPortalHub { get; set; } = [];
 
-        public PublisherButtonProfileItem[] GuiButtonProfilesForBrowsingFileSystemForDatasets { get; set; } = Array.Empty<PublisherButtonProfileItem>();
+        public PublisherButtonProfileItem[] GuiButtonProfilesForBrowsingFileSystemForDatasets { get; set; } = [];
 
 
         #endregion
@@ -68,7 +68,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         try
         {
             if (dto == null)
-                return Array.Empty<PublisherModuleProfileItem>();
+                return [];
 
             var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -121,7 +121,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         try
         {
             if (item == null)
-                return Array.Empty<PublisherModuleProfileItemDto>();
+                return [];
 
             var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

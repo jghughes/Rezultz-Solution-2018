@@ -136,13 +136,13 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         #region fields
 
-        private ParticipantHubItem[] _diagnosedAsDuplicateNames = Array.Empty<ParticipantHubItem>();
+        private ParticipantHubItem[] _diagnosedAsDuplicateNames = [];
 
-        private ParticipantHubItem[] _diagnosedAsDuplicateIdentifiers = Array.Empty<ParticipantHubItem>();
+        private ParticipantHubItem[] _diagnosedAsDuplicateIdentifiers = [];
 
         private Dictionary<string, ParticipantHubItem> _backingStoreMasterDictionaryOfParticipantsKeyedByIdentifier = new();
 
-        private ParticipantHubItem[] _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers = Array.Empty<ParticipantHubItem>();
+        private ParticipantHubItem[] _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers = [];
 
         #endregion
 
@@ -226,11 +226,11 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private ParticipantHubItem[] DiagnoseDuplicateIdentifiers()
         {
-            List<ParticipantHubItem> answer = new();
+            List<ParticipantHubItem> answer = [];
 
             JghListDictionary<string, ParticipantHubItem> listDictionaryGroupedByIdentifier = HubItemBase.ToListDictionaryGroupedByBib(_backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => !z.MustDitchOriginatingItem).ToArray());
 
-            List<ParticipantHubItem> repeatedIdentifiers = new();
+            List<ParticipantHubItem> repeatedIdentifiers = [];
 
             foreach (var identifierKvp in listDictionaryGroupedByIdentifier)
                 if (identifierKvp.Value.Count > 1)
@@ -245,14 +245,14 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private ParticipantHubItem[] DiagnoseDuplicateNames()
         {
-            List<ParticipantHubItem> answer = new();
+            List<ParticipantHubItem> answer = [];
 
             JghListDictionary<string, ParticipantHubItem> listDictionaryGroupedByName = new();
 
             foreach (var item in _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => !z.MustDitchOriginatingItem))
                 listDictionaryGroupedByName.Add(JghString.Concat(item.LastName, item.FirstName, item.MiddleInitial), item);
 
-            List<ParticipantHubItem> repeatedNames = new();
+            List<ParticipantHubItem> repeatedNames = [];
 
             foreach (var nameKvp in listDictionaryGroupedByName)
                 if (nameKvp.Value.Count > 1)

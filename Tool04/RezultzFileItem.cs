@@ -8,10 +8,10 @@ namespace Tool04
 
         public string RezultzFileContentsAsText { get; set; } = string.Empty;
 
-        public List<ResultDto> RezultzFileContentsAsResultsDataTransferObjects { get; set; } = new();
+        public List<ResultDto> RezultzFileContentsAsResultsDataTransferObjects { get; set; } = [];
 
-        public List<MyLapsFileObject> ListOfMyLapsFileItems { get; set; } = new();
+        public List<MyLapsFileObject> ListOfMyLapsFileItems { get; set; } = [];
 
-        public List<ResultDto> ModifiedRezultzFileContentsAsResultsDataTransferObjects { get; set; } = new();
+        public List<ResultDto> ModifiedRezultzFileContentsAsResultsDataTransferObjects { get; set; } = [];
     }
 }

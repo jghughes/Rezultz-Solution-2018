@@ -127,7 +127,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
             get
             {
                 if (_listOfCompletedIntervals == null || _listOfCompletedIntervals.Count == 0)
-                    return new List<Interval>();
+                    return [];
 
                 return _listOfCompletedIntervals;
             }
@@ -184,7 +184,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
             get
             {
                 if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
-                    return new List<Interval>();
+                    return [];
 
                 return _listOfCompletedIntervals.OrderBy(z => z.DurationMillisecExcludingPauses).Take(100).ToList();
             }

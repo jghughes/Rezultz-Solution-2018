@@ -31,7 +31,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
 
             EventProfileToWhichThisPresenterRefers = null; // NB = null not new()
 
-            ArrayOfSexFilter = Array.Empty<CboLookupItem>();
+            ArrayOfSexFilter = [];
 
             DictionaryOfTxxColumnHeaders = new Dictionary<int, string>();
 
@@ -73,7 +73,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
 
         public CboLookupItem[] ArrayOfSexFilter
         {
-            get => _backingstoreArrayOfSexFilter ??= Array.Empty<CboLookupItem>();
+            get => _backingstoreArrayOfSexFilter ??= [];
             set => SetProperty(ref _backingstoreArrayOfSexFilter, value);
         }
 
@@ -115,7 +115,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
 
             EventProfileToWhichThisPresenterRefers = null; // NB = null not new()
 
-            ArrayOfSexFilter = Array.Empty<CboLookupItem>();
+            ArrayOfSexFilter = [];
 
             DictionaryOfTxxColumnHeaders = new Dictionary<int, string>();
 
@@ -151,7 +151,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
                 SeriesProfileToWhichThisPresenterRefers = seriesProfileToWhichThisPresenterRefers ?? new SeriesProfileItem();
                 EventProfileToWhichThisPresenterRefers = eventProfileToWhichThisPresenterRefers ?? new EventProfileItem();
 
-                ArrayOfSexFilter = arrayOfSexFilter ?? Array.Empty<CboLookupItem>();
+                ArrayOfSexFilter = arrayOfSexFilter ?? [];
                 DictionaryOfTxxColumnHeaders = txxColumnHeaders ?? new Dictionary<int, string>();
                 // Note. for a single event ArrayOfTxxColumnHeaders = IRepositoryOfIndividualResults.ArrayOfTxxColumnHeaders. for a series of events = RepositoryOfSeriesTotalStandings.TxxColumnHeadersLookupTableForSequenceOfEvents
 

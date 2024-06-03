@@ -6,5 +6,5 @@ internal class MyLapsFileItem
 
     public string MyLapsFileContentsAsText { get; set; } = string.Empty;
 
-    public List<MyLapsResultItem> MyLapsFileContentsAsMyLapsResultObjects { get; set; } = new();
+    public List<MyLapsResultItem> MyLapsFileContentsAsMyLapsResultObjects { get; set; } = [];
 }

@@ -302,7 +302,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
             try
             {
                 if (model == null)
-                    return Array.Empty<ResultItemDisplayObject>();
+                    return [];
 
                 var answer = model.Select(FromModel).Where(z => z != null).ToArray();
 
@@ -396,7 +396,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
             try
             {
                 if (sequenceContainerItem == null)
-                    return Array.Empty<ResultItemDisplayObject>();
+                    return [];
 
                 var answer = (from item in sequenceContainerItem where item!.MostRecentResultItemToWhichThisSequenceApplies != null select FromItemToSeriesPointsFormat(item, scoresToCountForPoints)).ToArray();
 
@@ -482,7 +482,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
             try
             {
                 if (sequenceContainerItem == null)
-                    return Array.Empty<ResultItemDisplayObject>();
+                    return [];
 
                 var answer = sequenceContainerItem.Where(z => z!.MostRecentResultItemToWhichThisSequenceApplies != null).Select(FromItemToSeriesTourDurationFormat).ToArray();
 

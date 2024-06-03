@@ -127,7 +127,7 @@ public class JghSerialisableException
         try
         {
             if (dto == null)
-                return Array.Empty<JghSerialisableException>();
+                return [];
 
             var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 

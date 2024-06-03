@@ -301,7 +301,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Collection of exceptions found, or empty if none.</returns>
         public static List<Exception> FindAllExceptionsOfSpecifiedType<T>(Exception ex) where T : Exception
         {
-            if (ex == null) return new List<Exception>();
+            if (ex == null) return [];
 
             var listOfE = ConvertHierarchyOfExceptionsToList(ex);
 
@@ -364,7 +364,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
 
         public static List<Exception> ConvertHierarchyOfExceptionsToList(Exception ex)
         {
-            if (ex == null) return new List<Exception>();
+            if (ex == null) return [];
 
             var listOfE = new List<Exception>();
 

@@ -15,7 +15,7 @@ namespace NetStd.Prism.July2018
 
         private readonly SynchronizationContext _synchronizationContext;
 
-        private readonly HashSet<string> _observedPropertiesExpressions = new();
+        private readonly HashSet<string> _observedPropertiesExpressions = [];
 
         /// <summary>
         /// Creates a new instance of a <see cref="DelegateCommandBase"/>, specifying both the execute action and the can execute function.

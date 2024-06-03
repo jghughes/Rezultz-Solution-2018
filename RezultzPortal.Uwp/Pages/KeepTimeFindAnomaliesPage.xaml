@@ -108,7 +108,7 @@
 
                 <StackPanel Grid.Column="0" Tag="Main buttons" Orientation="Vertical">
 
-                    <Button Content="Refresh screen"
+                    <Button Content="Apply filters"
                             ToolTipService.ToolTip="Refresh the display"
                             TabIndex="20"
                             DataContext="{Binding Path=RefreshDataGridOfSplitIntervalsPerPersonButtonVm}"

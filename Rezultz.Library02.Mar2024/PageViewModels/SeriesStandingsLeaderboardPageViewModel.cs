@@ -131,7 +131,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 #region load CboListOfMoreInfo a.k.a sundry kinds of season standings
 
-                var twoKindsOfSeasonStandings = currentSeries.MoreSeriesInformationItems ?? Array.Empty<MoreInformationItem>();
+                var twoKindsOfSeasonStandings = currentSeries.MoreSeriesInformationItems ?? [];
 
                 twoKindsOfSeasonStandings = twoKindsOfSeasonStandings
                     .Where(z => z != null)
@@ -201,7 +201,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 #region load dummy CboListOfSeries
 
-                await GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.RefillItemsSourceAsync(SeriesItemDisplayObject.FromModel(new[] {currentSeries}));
+                await GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.RefillItemsSourceAsync(SeriesItemDisplayObject.FromModel([currentSeries]));
                 await GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.ChangeSelectedIndexAsync(0); // default - only item on the list
                 // dummy required for the DisplayLeaderboardDataGridPresentation method in LeaderboardStylePageViewModelBase
 

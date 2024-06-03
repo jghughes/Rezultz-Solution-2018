@@ -120,7 +120,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 			try
 			{
 				if (splitInterval == null)
-					return Array.Empty<ResultDto>();
+					return [];
 
 				var answer = splitInterval.Select(ToResultItemDataTransferObject).Where(z => z != null).ToArray();
 

@@ -70,7 +70,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         try
         {
             if (dto == null)
-                return Array.Empty<PublisherImportFileTargetItem>();
+                return [];
 
             var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
 
@@ -124,7 +124,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         try
         {
             if (item == null)
-                return Array.Empty<PublisherFileImportTargetItemDto>();
+                return [];
 
             var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
 

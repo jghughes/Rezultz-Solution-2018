@@ -108,7 +108,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
             try
             {
                 if (model == null)
-                    return Array.Empty<PopulationCohortItemDisplayObject>();
+                    return [];
 
                 var answer = model.Select(FromModel).Where(z => z != null).ToArray();
 

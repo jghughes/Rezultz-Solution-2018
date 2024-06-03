@@ -27,7 +27,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 
 			EventProfileToWhichThisPresenterRefers = null; // NB = null not new()
 
-			ArrayOfSexFilter = Array.Empty<CboLookupItem>();
+			ArrayOfSexFilter = [];
 
 			PresentationServiceInstanceEnum = string.Empty;
 		}
@@ -67,7 +67,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 
 		public CboLookupItem[] ArrayOfSexFilter
 		{
-			get => _backingstoreArrayOfSexFilter ??= Array.Empty<CboLookupItem>();
+			get => _backingstoreArrayOfSexFilter ??= [];
 			set => SetProperty(ref _backingstoreArrayOfSexFilter, value);
 		}
 
@@ -97,7 +97,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 
 			EventProfileToWhichThisPresenterRefers = null; // NB = null not new()
 
-			ArrayOfSexFilter = Array.Empty<CboLookupItem>();
+			ArrayOfSexFilter = [];
 
 			PresentationServiceInstanceEnum = string.Empty;
 
@@ -131,7 +131,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 				SeriesProfileToWhichThisPresenterRefers = seriesProfileToWhichThisPresenterRefers ?? new SeriesProfileItem();
 				EventProfileToWhichThisPresenterRefers = eventProfileToWhichThisPresenterRefers ?? new EventProfileItem();
 
-				ArrayOfSexFilter = arrayOfSexFilter ?? Array.Empty<CboLookupItem>();
+				ArrayOfSexFilter = arrayOfSexFilter ?? [];
 
 				RowGroupingFormatEnum = rowGroupingEnum ?? string.Empty;
 				ColumnFormatEnum = columnFormatEnum ?? string.Empty;

@@ -22,15 +22,15 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
 
         public string OrganizerTwitterUri { get; set; } = string.Empty;
 
-        public MoreInformationItemDisplayObject[] ArrayOfMoreEventInformationItems { get; set; } = Array.Empty<MoreInformationItemDisplayObject>();
+        public MoreInformationItemDisplayObject[] ArrayOfMoreEventInformationItems { get; set; } = [];
 
-        public MoreInformationItemDisplayObject[] ArrayOfEventAnalysisItems { get; set; } = Array.Empty<MoreInformationItemDisplayObject>();
+        public MoreInformationItemDisplayObject[] ArrayOfEventAnalysisItems { get; set; } = [];
 
-        public RaceSpecificationItemDisplayObject[] ArrayOfRaceSpecificationItems { get; set; } = Array.Empty<RaceSpecificationItemDisplayObject>();
+        public RaceSpecificationItemDisplayObject[] ArrayOfRaceSpecificationItems { get; set; } = [];
 
-        public AgeGroupSpecificationItemViewModel[] ArrayOfAgeGroupSpecificationItems { get; set; } = Array.Empty<AgeGroupSpecificationItemViewModel>();
+        public AgeGroupSpecificationItemViewModel[] ArrayOfAgeGroupSpecificationItems { get; set; } = [];
 
-        public UriItemDisplayObject[] ArrayOfUriItems { get; set; } = Array.Empty<UriItemDisplayObject>();
+        public UriItemDisplayObject[] ArrayOfUriItems { get; set; } = [];
 
         #endregion
 

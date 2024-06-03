@@ -11,7 +11,7 @@ namespace NetStd.Prism.July2018
     /// </summary>
     public class CompositeCommand : ICommand
     {
-        private readonly List<ICommand> _registeredCommands = new();
+        private readonly List<ICommand> _registeredCommands = [];
         private readonly bool _monitorCommandActivity;
         private readonly EventHandler _onRegisteredCommandCanExecuteChangedHandler;
         private readonly SynchronizationContext _synchronizationContext;

@@ -287,10 +287,10 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                 #region null checks
 
                 if (!JghFilePathValidator.IsValidNtfsFileOrFolderName(fileName))
-                    return new T[0]; // no point bothering with anything further
+                    return []; // no point bothering with anything further
 
                 if (!JghFilePathValidator.IsValidNtfsDirectoryPath(directoryPath, true))
-                    return new T[0]; // no point bothering with anything further
+                    return []; // no point bothering with anything further
 
                 filePath = Path.Combine(directoryPath, fileName);
 
@@ -299,17 +299,17 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                 #region existence checks
 
                 if (!await DirectoryExistsAsync(directoryPath))
-                    return new T[0];
+                    return [];
 
                 if (!await FileExistsAsync(directoryPath, fileName))
-                    return new T[0];
+                    return [];
 
                 #endregion
 
                 var stringInStorage = await ReadTextFileAsync(directoryPath, fileName);
 
                 if (string.IsNullOrWhiteSpace(stringInStorage))
-                    return new T[0];
+                    return [];
 
                 var answer =
                     JghFreeFormXmlSerialisationHelpers

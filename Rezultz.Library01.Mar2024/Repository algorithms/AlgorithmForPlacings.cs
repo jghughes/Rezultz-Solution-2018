@@ -58,7 +58,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             if (groupingsOfPlacedResults == null)
             {
-                tcs.TrySetResult(Array.Empty<PopulationCohortItem>());
+                tcs.TrySetResult([]);
 
                 return tcs.Task;
             }
@@ -114,7 +114,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             if (groupingsOfPlacedResults == null)
             {
-                tcs.TrySetResult(Array.Empty<PopulationCohortItem>());
+                tcs.TrySetResult([]);
 
                 return tcs.Task;
             }
@@ -269,7 +269,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 				//var results = individuals;
 
 				if (!results.Any())
-					return Array.Empty<ResultItem>();
+					return [];
 
 				var dictionaryOfAllResults = results.ConvertArrayToDictionaryKeyedOnId();
 
@@ -335,7 +335,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 
 				if (!results.Any())
-					return Array.Empty<ResultItem>();
+					return [];
 
 				var dictionaryOfAllResults = results.ConvertArrayToDictionaryKeyedOnId();
 
@@ -401,7 +401,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 					throw new JghNullObjectInstanceException(nameof(results));
 
 				if (!results.Any())
-					return Array.Empty<ResultItem>();
+					return [];
 
 				var dictionaryOfAllResults = results.ConvertArrayToDictionaryKeyedOnId();
 

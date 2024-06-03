@@ -81,7 +81,7 @@ namespace Tool09
             {
                 var rawInputAsText = await File.ReadAllTextAsync(resultsFileInfo.FullName);
 
-                provisionalResultsFromPortal = JghSerialisation.ToObjectFromXml<ResultDto[]>(rawInputAsText, new[] {typeof(ResultDto)});
+                provisionalResultsFromPortal = JghSerialisation.ToObjectFromXml<ResultDto[]>(rawInputAsText, [typeof(ResultDto)]);
             }
             catch (Exception ex)
             {
