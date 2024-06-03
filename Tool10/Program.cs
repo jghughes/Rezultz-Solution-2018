@@ -4,6 +4,7 @@ using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.Exceptions.Mar2024.JghExceptions;
 using NetStd.Goodies.Mar2022;
 using NetStd.OnBoardServices01.July2018.Persistence;
+using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
@@ -153,15 +154,15 @@ internal class Program
             {
                 foreach (var rezultzFileItem in ListOfRezultzFileItemsBeingProcessed)
                 {
-                    if (!rezultzFileItem.RezultzFileInfo.Name.EndsWith($".{RequiredRezultzFileFormat}"))
+                    if (!rezultzFileItem.FileInfo.Name.EndsWith($".{RequiredInputFileFormat}"))
                     {
-                        JghConsoleHelper.WriteLine($"Skipping {rezultzFileItem.RezultzFileInfo.Name} because it's not a {RequiredRezultzFileFormat} file as you appear to have specified. Does this make sense?");
+                        JghConsoleHelper.WriteLine($"Skipping {rezultzFileItem.FileInfo.Name} because it's not a {RequiredInputFileFormat} file as you appear to have specified. Does this make sense?");
                         continue;
                     }
 
-                    JghConsoleHelper.WriteLine($"Deserializing text to array of ResultItemDataTransferObject for {rezultzFileItem.RezultzFileInfo.Name}");
+                    JghConsoleHelper.WriteLine($"Deserializing text to array of ResultItemDataTransferObject for {rezultzFileItem.FileInfo.Name}");
 
-                    var xx = JghSerialisation.ToObjectFromXml<ResultDto[]>(rezultzFileItem.RezultzFileContentsAsText, new[] { typeof(ResultDto) });
+                    var xx = JghSerialisation.ToObjectFromXml<ResultDto[]>(rezultzFileItem.FileContentsAsText, new[] { typeof(ResultDto) });
 
                     rezultzFileItem.RezultzFileContentsAsResultsDataTransferObjects = xx.ToList();
 
@@ -247,7 +248,7 @@ internal class Program
 
             #endregion
 
-            #region select XML files only, read them, and load their contents into one or more populated FileItems
+            #region select Participant XML files only, read them, and load their contents into one or more populated FileItems
 
             JghConsoleHelper.WriteLineWrappedByOne("Please wait. Processing files.");
 
@@ -530,6 +531,7 @@ internal class Program
 
     public static readonly IRepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem> RepositoryOfHubStyleEntries = new RepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem>(new IsolatedStorageService());
 
+    //public static readonly List<RezultzFileItem> ListOfRezultzFileItemsBeingProcessed;
     #endregion
 
     #region svc's available for use

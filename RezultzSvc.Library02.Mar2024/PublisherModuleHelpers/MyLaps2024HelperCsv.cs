@@ -11,16 +11,16 @@ using Rezultz.DataTypes.Nov2023.RezultzItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
-
-public class MyLaps2024HelperCsv
+namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
 {
+    public class MyLaps2024HelperCsv
+    {
 
-    #region primary method
+        #region primary method
 
-    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
-        Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
-        JghStringBuilder conversionReportSb, int lhsWidth)
+        public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
+            Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
+            JghStringBuilder conversionReportSb, int lhsWidth)
     {
         #region declarations
 
@@ -199,39 +199,39 @@ public class MyLaps2024HelperCsv
         return answerAsResultItems;
     }
 
-    #endregion
+        #endregion
 
-    #region headings in .csv columns
+        #region headings in .csv columns
 
-    private const string SrcXeBib = "Bib#"; // the repeating element of the array
-    private const string SrcXeGunTime = "Gun Time";
-    private const string SrcXeFullName = "Athlete";
-    private const string SrcXeGender = "Gender";
-    private const string SrcXeAge = "Age";
-    private const string SrcXeRaceGroup = "Race";
+        private const string SrcXeBib = "Bib#"; // the repeating element of the array
+        private const string SrcXeGunTime = "Gun Time";
+        private const string SrcXeFullName = "Athlete";
+        private const string SrcXeGender = "Gender";
+        private const string SrcXeAge = "Age";
+        private const string SrcXeRaceGroup = "Race";
 
-    private const string SrcValueDnf = "dnf"; // not a name. a value
+        private const string SrcValueDnf = "dnf"; // not a name. a value
 
-    #endregion
+        #endregion
 
-    #region settings
+        #region settings
 
-    private const int NumberOfRowsPrecedingRowOfColumnHeadings = 0;
-    // Note: The value of this constant of 0 is normal for csv files exported manually by Jgh from the Excel exported from MyLaps.
-    // It is 1 for csv files exported directly from MyLaps. They have some sort of title row before the field names row.
+        private const int NumberOfRowsPrecedingRowOfColumnHeadings = 0;
+        // Note: The value of this constant of 0 is normal for csv files exported manually by Jgh from the Excel exported from MyLaps.
+        // It is 1 for csv files exported directly from MyLaps. They have some sort of title row before the field names row.
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
+        private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
     {
         var textItem = JghArrayHelpers.SelectItemFromArrayByArrayIndex(arrayOfText, indexOfDataItem);
 
         return JghString.TmLr(textItem ?? string.Empty);
     }
 
-    public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
+        public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
     {
         var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;
 
@@ -258,7 +258,7 @@ public class MyLaps2024HelperCsv
         return answerAsRaceGroup;
     }
 
-    public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
+        public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
     {
         static bool TryGetFrontComponentAsInteger(string[] subStrings, out int firstValue)
         {
@@ -409,7 +409,7 @@ public class MyLaps2024HelperCsv
         }
     }
 
-    public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
+        public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
     {
         string answer;
 
@@ -421,5 +421,6 @@ public class MyLaps2024HelperCsv
         return answer;
     }
 
-    #endregion
+        #endregion
+    }
 }

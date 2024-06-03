@@ -3,27 +3,27 @@ using System.Linq;
 using NetStd.Exceptions.Mar2024.Helpers;
 using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 
-namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems;
-
-public class PublisherButtonProfileItem
+namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 {
-    #region props
+    public class PublisherButtonProfileItem
+    {
+        #region props
 
-    public string ShortDescriptionOfAssociatedDataset { get; set; } = string.Empty;
+        public string ShortDescriptionOfAssociatedDataset { get; set; } = string.Empty;
 
-    public string IdentifierOfAssociatedDataset { get; set; } = string.Empty;
+        public string IdentifierOfAssociatedDataset { get; set; } = string.Empty;
 
-    public string GuiButtonContent { get; set; } = string.Empty;
+        public string GuiButtonContent { get; set; } = string.Empty;
 
-    public string FileNameExtensionFiltersForBrowsingHardDrive { get; set; } = string.Empty; // comma separated list of file extensions
+        public string FileNameExtensionFiltersForBrowsingHardDrive { get; set; } = string.Empty; // comma separated list of file extensions
 
-    public string FileNameOfExampleOfAssociatedDataset { get; set; } = string.Empty;
+        public string FileNameOfExampleOfAssociatedDataset { get; set; } = string.Empty;
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public static PublisherButtonProfileItem FromDataTransferObject(PublisherButtonProfileItemDto dto)
+        public static PublisherButtonProfileItem FromDataTransferObject(PublisherButtonProfileItemDto dto)
     {
         const string failure = "Populating PublisherButtonProfileItem.";
         const string locus = "[FromDataTransferObject]";
@@ -54,7 +54,7 @@ public class PublisherButtonProfileItem
         #endregion
     }
 
-    public static PublisherButtonProfileItem[] FromDataTransferObject(PublisherButtonProfileItemDto[] dto)
+        public static PublisherButtonProfileItem[] FromDataTransferObject(PublisherButtonProfileItemDto[] dto)
     {
         const string failure = "Populating PublisherButtonProfileItem[].";
         const string locus = "[FromDataTransferObject]";
@@ -79,7 +79,7 @@ public class PublisherButtonProfileItem
         #endregion
     }
 
-    public static PublisherButtonProfileItemDto ToDataTransferObject(PublisherButtonProfileItem item)
+        public static PublisherButtonProfileItemDto ToDataTransferObject(PublisherButtonProfileItem item)
     {
         const string failure = "Populating PublisherButtonProfileItemDto.";
         const string locus = "[ToDataTransferObject]";
@@ -110,7 +110,7 @@ public class PublisherButtonProfileItem
         #endregion
     }
 
-    public static PublisherButtonProfileItemDto[] ToDataTransferObject(PublisherButtonProfileItem[] item)
+        public static PublisherButtonProfileItemDto[] ToDataTransferObject(PublisherButtonProfileItem[] item)
     {
         const string failure = "Populating PublisherButtonProfileItem[].";
         const string locus = "[ToDataTransferObject]";
@@ -135,5 +135,6 @@ public class PublisherButtonProfileItem
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

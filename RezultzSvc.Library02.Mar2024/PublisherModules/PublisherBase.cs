@@ -11,16 +11,16 @@ using Rezultz.DataTypes.Nov2023.PublisherModuleItems;
 // ReSharper disable IdentifierTypo
 #pragma warning disable CS8321 // Local function is declared but never used
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModules;
-
-public abstract class PublisherBase : IPublisher
+namespace RezultzSvc.Library02.Mar2024.PublisherModules
 {
-    private const string Locus2 = nameof(PublisherBase);
-    private const string Locus3 = "[RezultzSvc.Library02.Mar2024]]";
+    public abstract class PublisherBase : IPublisher
+    {
+        private const string Locus2 = nameof(PublisherBase);
+        private const string Locus3 = "[RezultzSvc.Library02.Mar2024]]";
 
-    public abstract void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile();
+        public abstract void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile();
 
-    public virtual PublisherModuleProfileItem ParseAssociatedProfile()
+        public virtual PublisherModuleProfileItem ParseAssociatedProfile()
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[ParseAssociatedProfile]";
@@ -58,17 +58,17 @@ public abstract class PublisherBase : IPublisher
 
     }
 
-    public abstract Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem);
+        public abstract Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem);
 
-    #region prop
+        #region prop
 
-    public XElement AssociatedProfileFile { get; set; }
+        public XElement AssociatedProfileFile { get; set; }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private static PublisherModuleProfileItemDto ManuallyDeserialiseXmlToPublisherProfileDto(string freeFormComputerProfileXmlFile)
+        private static PublisherModuleProfileItemDto ManuallyDeserialiseXmlToPublisherProfileDto(string freeFormComputerProfileXmlFile)
 
     {
         const string failure = "Unable to convert string data into ComputerProfileDto.";
@@ -212,6 +212,7 @@ public abstract class PublisherBase : IPublisher
         #endregion
     }
 
-    #endregion
+        #endregion
 
+    }
 }

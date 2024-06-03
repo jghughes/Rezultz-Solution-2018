@@ -33,28 +33,28 @@ using RezultzSvc.Agents.Mar2024.SvcAgents;
     as opposed to RezultzContentPageLoadingTemplate for page controls in Xamarin depending on which vm they have as their datacontext
 */
 
-namespace RezultzPortal.Uwp.PageViewModels;
-
-public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<ParticipantHubItem, ParticipantHubItemEditTemplateViewModel, ParticipantHubItemDisplayObject>
+namespace RezultzPortal.Uwp.PageViewModels
 {
-    private const string Locus2 = nameof(RegisterParticipantsViewModel);
-    private const string Locus3 = "[RezultzPortal.Uwp]";
+    public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<ParticipantHubItem, ParticipantHubItemEditTemplateViewModel, ParticipantHubItemDisplayObject>
+    {
+        private const string Locus2 = nameof(RegisterParticipantsViewModel);
+        private const string Locus3 = "[RezultzPortal.Uwp]";
 
-    #region fields
+        #region fields
 
-    private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 5; // virtually nothing because there are no Execute methods wired up to any of the Cbos
+        private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 5; // virtually nothing because there are no Execute methods wired up to any of the Cbos
 
-    #endregion
+        #endregion
 
-    #region ctor
+        #region ctor
 
-    public RegisterParticipantsViewModel(
-        IRegistrationSvcAgent registrationSvcAgent,
-        ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent,
-        IRepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem> repositoryOfHubStyleEntries,
-        ISessionState sessionState,
-        IThingsPersistedInLocalStorage thingsPersistedInLocalStorage, ILocalStorageService localStorageService)
-        : base(leaderboardResultsSvcAgent, repositoryOfHubStyleEntries, sessionState, thingsPersistedInLocalStorage, localStorageService)
+        public RegisterParticipantsViewModel(
+            IRegistrationSvcAgent registrationSvcAgent,
+            ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent,
+            IRepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem> repositoryOfHubStyleEntries,
+            ISessionState sessionState,
+            IThingsPersistedInLocalStorage thingsPersistedInLocalStorage, ILocalStorageService localStorageService)
+            : base(leaderboardResultsSvcAgent, repositoryOfHubStyleEntries, sessionState, thingsPersistedInLocalStorage, localStorageService)
     {
         const string failure = "Unable to construct object RegistrationPagesViewModel.";
         const string locus = "[ctor]";
@@ -103,15 +103,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         }
     }
 
-    #endregion
+        #endregion
 
-    #region global props
+        #region global props
 
-    private readonly IRegistrationSvcAgent _registrationSvcAgent;
+        private readonly IRegistrationSvcAgent _registrationSvcAgent;
 
-    private static IParticipantEntriesInMemoryCacheDataGridPresentationService ParticipantEntriesInMemoryCacheDataGridPresentationService
-    {
-        get
+        private static IParticipantEntriesInMemoryCacheDataGridPresentationService ParticipantEntriesInMemoryCacheDataGridPresentationService
+        {
+            get
         {
             try
             {
@@ -128,11 +128,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private static IParticipantEntriesInLocalStorageDataGridPresentationService ParticipantEntriesInLocalStorageDataGridPresentationService
-    {
-        get
+        private static IParticipantEntriesInLocalStorageDataGridPresentationService ParticipantEntriesInLocalStorageDataGridPresentationService
+        {
+            get
         {
             try
             {
@@ -149,26 +149,26 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    #region TextBox presenters
+        #region TextBox presenters
 
-    public TextBoxControlViewModel ForEnteringIndividualIdForParticipantProfileCreateTextVm { get; } = new(() => { }, () => true) {IsAuthorisedToOperate = true};
+        public TextBoxControlViewModel ForEnteringIndividualIdForParticipantProfileCreateTextVm { get; } = new(() => { }, () => true) {IsAuthorisedToOperate = true};
 
-    #endregion
+        #endregion
 
-    #region CheckBoxes etc - bool INPC
+        #region CheckBoxes etc - bool INPC
 
-    private bool _backingstoreMustDisplayPeopleWithDuplicateIdentifiers;
+        private bool _backingstoreMustDisplayPeopleWithDuplicateIdentifiers;
 
-    public bool MustDisplayPeopleWithDuplicateIdentifiers
-    {
-        get => _backingstoreMustDisplayPeopleWithDuplicateIdentifiers;
-        set
+        public bool MustDisplayPeopleWithDuplicateIdentifiers
+        {
+            get => _backingstoreMustDisplayPeopleWithDuplicateIdentifiers;
+            set
         {
             SetProperty(ref _backingstoreMustDisplayPeopleWithDuplicateIdentifiers, value);
 
@@ -183,15 +183,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 //MustDisplayParticipantsWhoChangedRaceGroupsOnly = false;
             }
         }
-    }
+        }
 
 
-    private bool _backingstoreMustDisplayDuplicatePeople;
+        private bool _backingstoreMustDisplayDuplicatePeople;
 
-    public bool MustDisplayDuplicatePeople
-    {
-        get => _backingstoreMustDisplayDuplicatePeople;
-        set
+        public bool MustDisplayDuplicatePeople
+        {
+            get => _backingstoreMustDisplayDuplicatePeople;
+            set
         {
             SetProperty(ref _backingstoreMustDisplayDuplicatePeople, value);
 
@@ -206,15 +206,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 //MustDisplayParticipantsWhoChangedRaceGroupsOnly = false;
             }
         }
-    }
+        }
 
 
-    private bool _backingstoreMustDisplayDitchedEntries;
+        private bool _backingstoreMustDisplayDitchedEntries;
 
-    public bool MustDisplayDitchedEntries
-    {
-        get => _backingstoreMustDisplayDitchedEntries;
-        set
+        public bool MustDisplayDitchedEntries
+        {
+            get => _backingstoreMustDisplayDitchedEntries;
+            set
         {
             SetProperty(ref _backingstoreMustDisplayDitchedEntries, value);
 
@@ -229,15 +229,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 //MustDisplayParticipantsWhoChangedRaceGroupsOnly = false;
             }
         }
-    }
+        }
 
 
-    private bool _backingstoreMustDisplayMasterList;
+        private bool _backingstoreMustDisplayMasterList;
 
-    public bool MustDisplayMasterList
-    {
-        get => _backingstoreMustDisplayMasterList;
-        set
+        public bool MustDisplayMasterList
+        {
+            get => _backingstoreMustDisplayMasterList;
+            set
         {
             SetProperty(ref _backingstoreMustDisplayMasterList, value);
 
@@ -252,15 +252,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 MustDisplayParticipantsWhoChangedRaceGroupsOnly = false;
             }
         }
-    }
+        }
 
 
-    private bool _backingstoreMustIncludeModifiedEntries;
+        private bool _backingstoreMustIncludeModifiedEntries;
 
-    public bool MustIncludeModifiedEntries
-    {
-        get => _backingstoreMustIncludeModifiedEntries;
-        set
+        public bool MustIncludeModifiedEntries
+        {
+            get => _backingstoreMustIncludeModifiedEntries;
+            set
         {
             SetProperty(ref _backingstoreMustIncludeModifiedEntries, value);
 
@@ -273,15 +273,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 MustExcludeModifiedEntries = false;
             //MustDisplayParticipantsWhoChangedRaceGroupsOnly = false;
         }
-    }
+        }
 
 
-    private bool _backingstoreMustExcludeModifiedEntries;
+        private bool _backingstoreMustExcludeModifiedEntries;
 
-    public bool MustExcludeModifiedEntries
-    {
-        get => _backingstoreMustExcludeModifiedEntries;
-        set
+        public bool MustExcludeModifiedEntries
+        {
+            get => _backingstoreMustExcludeModifiedEntries;
+            set
         {
             SetProperty(ref _backingstoreMustExcludeModifiedEntries, value);
 
@@ -296,15 +296,15 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
                 //MustDisplayParticipantsWhoChangedRaceGroupsOnly = false;
             }
         }
-    }
+        }
 
 
-    private bool _backingstoreMustDisplayParticipantsWhoChangedRaceGroupsOnly;
+        private bool _backingstoreMustDisplayParticipantsWhoChangedRaceGroupsOnly;
 
-    public bool MustDisplayParticipantsWhoChangedRaceGroupsOnly
-    {
-        get => _backingstoreMustDisplayParticipantsWhoChangedRaceGroupsOnly;
-        set
+        public bool MustDisplayParticipantsWhoChangedRaceGroupsOnly
+        {
+            get => _backingstoreMustDisplayParticipantsWhoChangedRaceGroupsOnly;
+            set
         {
             SetProperty(ref _backingstoreMustDisplayParticipantsWhoChangedRaceGroupsOnly, value);
 
@@ -315,40 +315,40 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
             //MustIncludeModifiedEntries = false;
             //MustDisplayModifiedEntriesOnly = false;
         }
-    }
+        }
 
 
-    private bool _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
+        private bool _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
 
-    public bool MustDisplayEditTemplateForRepositoryItemBeingEdited
-    {
-        get => _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
-        set => SetProperty(ref _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited, value);
-    }
+        public bool MustDisplayEditTemplateForRepositoryItemBeingEdited
+        {
+            get => _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
+            set => SetProperty(ref _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region Button Presenters
+        #region Button Presenters
 
-    public ButtonControlViewModel CreateParticipantProfileButtonVm { get; }
+        public ButtonControlViewModel CreateParticipantProfileButtonVm { get; }
 
-    public ButtonControlViewModel ExportConsolidatedParticipantDataFromLocalStorageButtonVm { get; }
+        public ButtonControlViewModel ExportConsolidatedParticipantDataFromLocalStorageButtonVm { get; }
 
-    #endregion
+        #endregion
 
-    #region Cbos
+        #region Cbos
 
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupOnlySubGroupOfSingleRaceInParticipantProfileDataGrid { get; protected set; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupOnlySubGroupOfSingleRaceInParticipantProfileDataGrid { get; protected set; }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region commands
+        #region commands
 
-    #region CheckConnectionToRezultzHubButtonOnClickAsync
+        #region CheckConnectionToRezultzHubButtonOnClickAsync
 
-    protected override async Task<string> CheckConnectionToRezultzHubButtonOnClickAsync()
+        protected override async Task<string> CheckConnectionToRezultzHubButtonOnClickAsync()
     {
         //const string failure = "Unable to do what this method does.";
         //const string locus = "[CheckConnectionToRezultzHubButtonOnClickAsync]";
@@ -368,11 +368,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         return StringsPortal.ServiceUpAndRunning;
     }
 
-    #endregion
+        #endregion
 
-    #region LaunchWorkSession
+        #region LaunchWorkSession
 
-    protected override async Task<string> LaunchWorkSessionButtonOnClickAsync()
+        protected override async Task<string> LaunchWorkSessionButtonOnClickAsync()
     {
         const string failure = "Unable to launch or re-launch work session from data preserved in local storage.";
         const string locus = "[LaunchWorkSessionButtonOnClickAsync]";
@@ -466,11 +466,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region PullAllItemsFromHubButtonOnClickAsync
+        #region PullAllItemsFromHubButtonOnClickAsync
 
-    protected override async Task<string> PullAllItemsFromHubButtonOnClickAsync()
+        protected override async Task<string> PullAllItemsFromHubButtonOnClickAsync()
     {
         const string failure = "Unable to pull all participant items from hub.";
         const string locus = "[PullAllItemsFromHubButtonOnClickAsync]";
@@ -556,16 +556,16 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region CreateParticipantProfileButtonOnClickAsync
+        #region CreateParticipantProfileButtonOnClickAsync
 
-    private bool CreateParticipantProfileButtonOnClickCanExecute()
+        private bool CreateParticipantProfileButtonOnClickCanExecute()
     {
         return CreateParticipantProfileButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void CreateParticipantProfileButtonOnClickExecuteAsync()
+        private async void CreateParticipantProfileButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[CreateParticipantProfileButtonOnClickExecuteAsync]";
@@ -607,7 +607,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    protected async Task<bool> CreateParticipantProfileButtonOnClickAsync()
+        protected async Task<bool> CreateParticipantProfileButtonOnClickAsync()
     {
         // NB. for creating Participants, the parameter is irrelevant. not used
 
@@ -683,11 +683,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         return await Task.FromResult(true);
     }
 
-    #endregion
+        #endregion
 
-    #region CommitDataInMemoryIntoLocalStorageButtonOnClickAsync
+        #region CommitDataInMemoryIntoLocalStorageButtonOnClickAsync
 
-    protected override async Task<string> CommitDataInMemoryIntoLocalStorageButtonOnClickAsync()
+        protected override async Task<string> CommitDataInMemoryIntoLocalStorageButtonOnClickAsync()
     {
         const string failure = "Unable to commit clock data into local storage.";
         const string locus = "[CommitDataInMemoryIntoLocalStorageButtonOnClickAsync]";
@@ -738,11 +738,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync
+        #region PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync
 
-    protected override async Task<string> PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync()
+        protected override async Task<string> PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync()
     {
         const string failure = "Unable to push data item to cloud (and commit locally).";
         const string locus = "[PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync]";
@@ -855,11 +855,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync
+        #region ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync
 
-    protected override async Task<string> ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync()
+        protected override async Task<string> ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync()
     {
         const string failure = "Unable to push data items to cloud";
         const string locus = "[ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync]";
@@ -967,11 +967,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region DeleteAllDataButtonOnClickAsync
+        #region DeleteAllDataButtonOnClickAsync
 
-    protected override async Task<string> DeleteAllDataButtonOnClickAsync()
+        protected override async Task<string> DeleteAllDataButtonOnClickAsync()
     {
         const string failure = "Unable to clear all data.";
         const string locus = "[DeleteAllDataButtonOnClickAsync]";
@@ -1023,11 +1023,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region DeleteAllDataInMemoryCacheButtonOnClickAsync
+        #region DeleteAllDataInMemoryCacheButtonOnClickAsync
 
-    protected override async Task<string> DeleteAllDataInMemoryCacheButtonOnClickAsync()
+        protected override async Task<string> DeleteAllDataInMemoryCacheButtonOnClickAsync()
     {
         const string failure = "Unable to clear all data.";
         const string locus = "[DeleteAllDataInMemoryCacheButtonOnClickAsync]";
@@ -1068,11 +1068,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region DeleteAllDataInLocalStorageButtonOnClickAsync
+        #region DeleteAllDataInLocalStorageButtonOnClickAsync
 
-    public override async Task<string> DeleteAllDataInLocalStorageButtonOnClickAsync()
+        public override async Task<string> DeleteAllDataInLocalStorageButtonOnClickAsync()
     {
         const string failure = "Unable to clear all data.";
         const string locus = "[DeleteAllDataInLocalStorageButtonOnClickAsync]";
@@ -1113,11 +1113,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region RefreshRepositoryDataGridAsync - heap powerful
+        #region RefreshRepositoryDataGridAsync - heap powerful
 
-    public override async Task RefreshRepositoryDataGridAsync()
+        public override async Task RefreshRepositoryDataGridAsync()
     {
         var currentSeries = SeriesItemDisplayObject.ObtainSourceModel(SeriesItemUponLaunchOfWorkSession);
         var currentEvent = EventItemDisplayObject.ObtainSourceModel(EventItemUponLaunchOfWorkSession);
@@ -1238,11 +1238,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region RefreshLocalStorageDataGridAsync
+        #region RefreshLocalStorageDataGridAsync
 
-    public override async Task RefreshLocalStorageDataGridAsync()
+        public override async Task RefreshLocalStorageDataGridAsync()
     {
         #region get ready
 
@@ -1290,20 +1290,20 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region RefreshRemoteHubDataGridAsync
+        #region RefreshRemoteHubDataGridAsync
 
-    public override Task RefreshRemoteHubDataGridAsync()
+        public override Task RefreshRemoteHubDataGridAsync()
     {
         throw new NotImplementedException("RefreshRemoteHubDataGridAsync() not implemented");
     }
 
-    #endregion
+        #endregion
 
-    #region RefreshAllDataGridsAndListViewsButtonOnClickAsync
+        #region RefreshAllDataGridsAndListViewsButtonOnClickAsync
 
-    public override async Task RefreshAllDataGridsAndListViewsAsync()
+        public override async Task RefreshAllDataGridsAndListViewsAsync()
     {
         await RefreshLocalStorageDataGridAsync(); // to be deleted? in the 2023 version of this app this is irrelevant.
 
@@ -1312,11 +1312,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         HeadlineItem = RepositoryOfHubStyleEntries.GetBestGuessHeadlineEntry();
     }
 
-    #endregion
+        #endregion
 
-    #region DataGridOfItemsInRepositoryOnSelectionChangedAsync - this is where we do template editing EditPage
+        #region DataGridOfItemsInRepositoryOnSelectionChangedAsync - this is where we do template editing EditPage
 
-    protected override async Task<bool> DataGridOfItemsInRepositoryOnSelectionChangedAsync()
+        protected override async Task<bool> DataGridOfItemsInRepositoryOnSelectionChangedAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DataGridOfItemsInRepositoryOnSelectionChangedAsync]";
@@ -1383,11 +1383,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region AcceptItemBeingEditedButtonOnClickAsync
+        #region AcceptItemBeingEditedButtonOnClickAsync
 
-    protected override async Task<string> AcceptItemBeingEditedButtonOnClickAsync()
+        protected override async Task<string> AcceptItemBeingEditedButtonOnClickAsync()
     {
         const string failure = "Unable to accept a modification into cache.";
         const string locus = "[AcceptItemBeingEditedButtonOnClickAsync]";
@@ -1505,11 +1505,11 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region RejectItemBeingEditedButtonOnClick
+        #region RejectItemBeingEditedButtonOnClick
 
-    protected override async Task<string> RejectItemBeingEditedButtonOnClickAsync()
+        protected override async Task<string> RejectItemBeingEditedButtonOnClickAsync()
     {
         const string failure = "Unable to reject an edited template of a data item.";
         const string locus = "[RejectItemBeingEditedButtonOnClick]";
@@ -1542,13 +1542,13 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private async Task PopulateCboLookupGroupLabelForGroupStartAsync(EventItemDisplayObject eventItemAtMomentOfInitialisation)
+        private async Task PopulateCboLookupGroupLabelForGroupStartAsync(EventItemDisplayObject eventItemAtMomentOfInitialisation)
     {
         var currentEvent = EventItemDisplayObject.ObtainSourceModel(eventItemAtMomentOfInitialisation);
 
@@ -1571,19 +1571,19 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         await CboLookupOnlySubGroupOfSingleRaceInParticipantProfileDataGrid.ChangeSelectedIndexAsync(0);
     }
 
-    protected override async Task ZeroiseDisplayOfSimpleElementsOfGuiAsync()
+        protected override async Task ZeroiseDisplayOfSimpleElementsOfGuiAsync()
     {
         await base.ZeroiseDisplayOfSimpleElementsOfGuiAsync();
 
         await ForEnteringIndividualIdForParticipantProfileCreateTextVm.ChangeTextAsync(string.Empty);
     }
 
-    protected override async Task PopulateCboLookupPrepopulatedCbosAsync()
+        protected override async Task PopulateCboLookupPrepopulatedCbosAsync()
     {
         await PopulateCboLookUpFileFormatsCboAsync(); // arbitrary location for this. ordinarily would do this in ctor but can't because async
     }
 
-    private async Task InsertACommentToHighlightAllModifiedEntriesAsync(ParticipantHubItemDisplayObject[] rawEntriesInRepositoryInMemoryAsDisplayObjects)
+        private async Task InsertACommentToHighlightAllModifiedEntriesAsync(ParticipantHubItemDisplayObject[] rawEntriesInRepositoryInMemoryAsDisplayObjects)
     {
         ParticipantHubItemDisplayObject InsertCommentIfSuperseded(ParticipantHubItemDisplayObject thisDisplayObject)
         {
@@ -1606,7 +1606,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         await JghParallel.SelectAsParallelWorkStealingAsync(rawEntriesInRepositoryInMemoryAsDisplayObjects, InsertCommentIfSuperseded, 10);
     }
 
-    public static Tuple<string, string> MakeDataLocationForParticipantDataInLocalStorage(SeriesProfileItem thisSeriesProfileItem)
+        public static Tuple<string, string> MakeDataLocationForParticipantDataInLocalStorage(SeriesProfileItem thisSeriesProfileItem)
     {
         #region null checks
 
@@ -1631,18 +1631,18 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         return answer;
     }
 
-    #endregion
+        #endregion
 
-    #region Gui stuff
+        #region Gui stuff
 
-    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = base.MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate();
 
         return answer;
     }
 
-    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         base.EvaluateVisibilityOfAllGuiControlsThatTouchData(makeVisible);
 
@@ -1652,7 +1652,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         CboLookupOnlySubGroupOfSingleRaceInParticipantProfileDataGrid.IsVisible = CboLookupOnlySubGroupOfSingleRaceInParticipantProfileDataGrid.ItemsSource.Any();
     }
 
-    protected override ButtonControlViewModel[] MakeListOfAllGuiButtonsThatTouchData()
+        protected override ButtonControlViewModel[] MakeListOfAllGuiButtonsThatTouchData()
     {
         var temp = base.MakeListOfAllGuiButtonsThatTouchData().ToList();
 
@@ -1662,7 +1662,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         return temp.ToArray();
     }
 
-    protected override TextBoxControlViewModel[] MakeListOfTextBoxControlViewModels()
+        protected override TextBoxControlViewModel[] MakeListOfTextBoxControlViewModels()
     {
         var temp = base.MakeListOfTextBoxControlViewModels().ToList();
 
@@ -1671,7 +1671,7 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         return temp.ToArray();
     }
 
-    protected override IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>[] MakeListOfCboViewModels()
+        protected override IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>[] MakeListOfCboViewModels()
     {
         var temp = base.MakeListOfCboViewModels().ToList();
 
@@ -1680,5 +1680,6 @@ public class RegisterParticipantsViewModel : HubItemPagesViewModelBase<Participa
         return temp.ToArray();
     }
 
-    #endregion
+        #endregion
+    }
 }

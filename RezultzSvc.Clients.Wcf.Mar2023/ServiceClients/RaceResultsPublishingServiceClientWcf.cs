@@ -14,22 +14,22 @@ using ServiceReference5;
 // ReSharper disable RedundantNameQualifier
 
 
-namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients;
-
-public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServiceClient
+namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
 {
-    private const string Locus2 = nameof(RaceResultsPublishingServiceClientWcf);
-    private const string Locus3 = "[RezultzSvc.Clients.Wcf.Mar2023]";
+    public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServiceClient
+    {
+        private const string Locus2 = nameof(RaceResultsPublishingServiceClientWcf);
+        private const string Locus3 = "[RezultzSvc.Clients.Wcf.Mar2023]";
 
-    #region field
+        #region field
 
-    private ServiceReference5.RaceResultsPublishingSvcClient _svcProxy;
+        private ServiceReference5.RaceResultsPublishingSvcClient _svcProxy;
 
-    #endregion
+        #endregion
 
-    #region ctor stuff
+        #region ctor stuff
 
-    public RaceResultsPublishingServiceClientWcf()
+        public RaceResultsPublishingServiceClientWcf()
     {
         const string failure = "Unable to instantiate RaceResultsPublishingServiceClientWcf.";
         const string locus = "[ctor]";
@@ -47,11 +47,11 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         }
     }
 
-    #endregion
+        #endregion
 
-    #region svc calls
+        #region svc calls
 
-    public async Task<bool> GetIfServiceIsAnsweringAsync(CancellationToken ct = default)
+        public async Task<bool> GetIfServiceIsAnsweringAsync(CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIfServiceIsAnsweringAsync]";
@@ -104,7 +104,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<string[]> GetServiceEndpointsInfoAsync(CancellationToken ct = default)
+        public async Task<string[]> GetServiceEndpointsInfoAsync(CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetServiceEndpointsInfoAsync]";
@@ -157,7 +157,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string fileNameFragment, CancellationToken ct)
+        public async Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string fileNameFragment, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync]";
@@ -214,7 +214,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<PublisherModuleProfileItemDto> GetPublisherModuleProfileItemAsync(string fileNameFragment, CancellationToken ct)
+        public async Task<PublisherModuleProfileItemDto> GetPublisherModuleProfileItemAsync(string fileNameFragment, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetPublisherModuleProfileItemAsync]";
@@ -277,7 +277,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct)
+        public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetFileNameFragmentsOfAllPublishingProfilesAsync]";
@@ -340,7 +340,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string fileNameWithExtension, CancellationToken ct)
+        public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string fileNameWithExtension, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIllustrativeExampleOfDatasetExpectedByPublisherAsync]";
@@ -403,7 +403,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct)
+        public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationDto storageLocation, string datasetAsRawString, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[SendFileOfRawDataToBeProcessedSubsequentlyAsync]";
@@ -460,7 +460,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<PublisherOutputItemDto> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct)
+        public async Task<PublisherOutputItemDto> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(PublisherInputItemDto publisherInputItemDto, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync]";
@@ -519,7 +519,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct)
+        public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationDto storageLocation, string completedResultsAsXml, CancellationToken ct)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[SendFileOfCompletedResultsForSingleEventAsync]";
@@ -584,11 +584,11 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region svc proxy methods
+        #region svc proxy methods
 
-    private void CreateSvcProxy()
+        private void CreateSvcProxy()
     {
         _svcProxy = new RaceResultsPublishingSvcClient(RaceResultsPublishingSvcClient.EndpointConfiguration.MyHttpsCustomBinaryBinding_IRaceResultsPublishingSvc);
         //when svc deployed to Azure and running over Https
@@ -598,7 +598,7 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
 
     }
 
-    private async Task CloseSvcProxy()
+        private async Task CloseSvcProxy()
     {
         //Closing the client gracefully closes the connection and cleans up resources at both ends of the wire
         //// see https://learn.microsoft.com/en-us/dotnet/framework/wcf/samples/use-close-abort-release-wcf-client-resources
@@ -629,5 +629,6 @@ public class RaceResultsPublishingServiceClientWcf : IRaceResultsPublishingServi
         _svcProxy = null;
     }
 
-    #endregion
+        #endregion
+    }
 }

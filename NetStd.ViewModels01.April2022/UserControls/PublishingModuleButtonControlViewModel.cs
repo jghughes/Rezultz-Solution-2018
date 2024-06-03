@@ -26,13 +26,13 @@ using NetStd.Prism.July2018;
 */
 
 
-namespace NetStd.ViewModels01.April2022.UserControls;
-
-public class PublishingModuleButtonControlViewModel : BindableBase, IHasIsAuthorisedToOperate, IHasIsVisible
+namespace NetStd.ViewModels01.April2022.UserControls
 {
-    #region ctor
+    public class PublishingModuleButtonControlViewModel : BindableBase, IHasIsAuthorisedToOperate, IHasIsVisible
+    {
+        #region ctor
 
-    public PublishingModuleButtonControlViewModel(Action executeAction, Func<bool> canExecuteFunc)
+        public PublishingModuleButtonControlViewModel(Action executeAction, Func<bool> canExecuteFunc)
     {
 
         executeAction ??= ExecuteNothing;
@@ -53,8 +53,8 @@ public class PublishingModuleButtonControlViewModel : BindableBase, IHasIsAuthor
 
     }
 
-    // use this ctor for accommodating a command parameter, in this example a string 
-    public PublishingModuleButtonControlViewModel(Action<string> executeAction, Func<string, bool> canExecuteFunc)
+        // use this ctor for accommodating a command parameter, in this example a string 
+        public PublishingModuleButtonControlViewModel(Action<string> executeAction, Func<string, bool> canExecuteFunc)
     {
         executeAction ??= ExecuteNothingGeneric;
 
@@ -72,174 +72,174 @@ public class PublishingModuleButtonControlViewModel : BindableBase, IHasIsAuthor
         OnClickCommand = _asInstantiatedDelegateCommand;
     }
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    private readonly DelegateCommand _asInstantiatedDelegateCommand;
-    private readonly DelegateCommand _delegateCommandThatDoesNothing = new(ExecuteNothing, CannotExecute);
+        private readonly DelegateCommand _asInstantiatedDelegateCommand;
+        private readonly DelegateCommand _delegateCommandThatDoesNothing = new(ExecuteNothing, CannotExecute);
 
-    private readonly DelegateCommand<string> _asInstantiatedDelegateCommandGeneric;
-    private readonly DelegateCommand<string> _delegateCommandThatDoesNothingGeneric = new(ExecuteNothingGeneric, CannotExecuteGeneric);
+        private readonly DelegateCommand<string> _asInstantiatedDelegateCommandGeneric;
+        private readonly DelegateCommand<string> _delegateCommandThatDoesNothingGeneric = new(ExecuteNothingGeneric, CannotExecuteGeneric);
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    #region Content
+        #region Content
 
-    private object _backingstoreContent;
+        private object _backingstoreContent;
 
-    public object Content
-    {
-        get => _backingstoreContent ??= new object();
-        set => SetProperty(ref _backingstoreContent, value);
-    }
+        public object Content
+        {
+            get => _backingstoreContent ??= new object();
+            set => SetProperty(ref _backingstoreContent, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetExampleBlobName
+        #region DatasetExampleBlobName
 
-    private string _backingstoreDatasetExampleBlobName;
+        private string _backingstoreDatasetExampleBlobName;
 
-    public string DatasetExampleBlobName
-    {
-        get => _backingstoreDatasetExampleBlobName ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetExampleBlobName, value);
-    }
+        public string DatasetExampleBlobName
+        {
+            get => _backingstoreDatasetExampleBlobName ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetExampleBlobName, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetExampleSnippet
+        #region DatasetExampleSnippet
 
-    private string _backingstoreDatasetExampleSnippet;
+        private string _backingstoreDatasetExampleSnippet;
 
-    public string DatasetExampleSnippet
-    {
-        get => _backingstoreDatasetExampleSnippet ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetExampleSnippet, value);
-    }
+        public string DatasetExampleSnippet
+        {
+            get => _backingstoreDatasetExampleSnippet ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetExampleSnippet, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetShortDescription
+        #region DatasetShortDescription
 
-    private string _backingstoreDatasetShortDescription;
+        private string _backingstoreDatasetShortDescription;
 
-    //[DataMember]
-    public string DatasetShortDescription
-    {
-        get => _backingstoreDatasetShortDescription ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetShortDescription, value);
-    }
+        //[DataMember]
+        public string DatasetShortDescription
+        {
+            get => _backingstoreDatasetShortDescription ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetShortDescription, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetFileNameExtensionFilters
+        #region DatasetFileNameExtensionFilters
 
-    private string _backingstoreDatasetFileNameExtensionFilters;
+        private string _backingstoreDatasetFileNameExtensionFilters;
 
-    public string DatasetFileNameExtensionFilters
-    {
-        get => _backingstoreDatasetFileNameExtensionFilters ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetFileNameExtensionFilters, value);
-    }
+        public string DatasetFileNameExtensionFilters
+        {
+            get => _backingstoreDatasetFileNameExtensionFilters ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetFileNameExtensionFilters, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetIdentifyingEnum
+        #region DatasetIdentifyingEnum
 
-    private string _backingstoreDatasetIdentifyingEnum;
+        private string _backingstoreDatasetIdentifyingEnum;
 
-    public string DatasetIdentifyingEnum
-    {
-        get => _backingstoreDatasetIdentifyingEnum ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetIdentifyingEnum, value);
-    }
+        public string DatasetIdentifyingEnum
+        {
+            get => _backingstoreDatasetIdentifyingEnum ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetIdentifyingEnum, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetFileNameForUpload
+        #region DatasetFileNameForUpload
 
-    private string _backingstoreDatasetFileNameForUpload;
+        private string _backingstoreDatasetFileNameForUpload;
 
-    public string DatasetFileNameForUpload
-    {
-        get => _backingstoreDatasetFileNameForUpload ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetFileNameForUpload, value);
-    }
+        public string DatasetFileNameForUpload
+        {
+            get => _backingstoreDatasetFileNameForUpload ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetFileNameForUpload, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetFileUploadOutcomeReport
+        #region DatasetFileUploadOutcomeReport
 
-    private string _backingstoreDatasetFileUploadOutcomeReport;
+        private string _backingstoreDatasetFileUploadOutcomeReport;
 
-    public string DatasetFileUploadOutcomeReport
-    {
-        get => _backingstoreDatasetFileUploadOutcomeReport ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetFileUploadOutcomeReport, value);
-    }
+        public string DatasetFileUploadOutcomeReport
+        {
+            get => _backingstoreDatasetFileUploadOutcomeReport ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetFileUploadOutcomeReport, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetAsRawString
+        #region DatasetAsRawString
 
-    private string _backingstoreDatasetAsRawString;
+        private string _backingstoreDatasetAsRawString;
 
-    public string DatasetAsRawString
-    {
-        get => _backingstoreDatasetAsRawString ??= string.Empty;
-        set => SetProperty(ref _backingstoreDatasetAsRawString, value);
-    }
+        public string DatasetAsRawString
+        {
+            get => _backingstoreDatasetAsRawString ??= string.Empty;
+            set => SetProperty(ref _backingstoreDatasetAsRawString, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region DatasetHasBeenUploaded
+        #region DatasetHasBeenUploaded
 
-    private bool _backingstoreDatasetHasBeenUploaded;
+        private bool _backingstoreDatasetHasBeenUploaded;
 
-    public bool DatasetHasBeenUploaded
-    {
-        get => _backingstoreDatasetHasBeenUploaded;
-        set => SetProperty(ref _backingstoreDatasetHasBeenUploaded, value);
-    }
+        public bool DatasetHasBeenUploaded
+        {
+            get => _backingstoreDatasetHasBeenUploaded;
+            set => SetProperty(ref _backingstoreDatasetHasBeenUploaded, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region IsVisible
+        #region IsVisible
 
-    private bool _backingstoreIsVisible;
+        private bool _backingstoreIsVisible;
 
-    public bool IsVisible
-    {
-        get => _backingstoreIsVisible;
-        set => SetProperty(ref _backingstoreIsVisible, value);
-    }
+        public bool IsVisible
+        {
+            get => _backingstoreIsVisible;
+            set => SetProperty(ref _backingstoreIsVisible, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region IsDesignated
+        #region IsDesignated
 
-    private bool _backingstoreIsDesignated;
+        private bool _backingstoreIsDesignated;
 
-    public bool IsDesignated
-    {
-        get => _backingstoreIsDesignated;
-        set => SetProperty(ref _backingstoreIsDesignated, value);
-    }
+        public bool IsDesignated
+        {
+            get => _backingstoreIsDesignated;
+            set => SetProperty(ref _backingstoreIsDesignated, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region IsAuthorisedToOperate - fires OnClickCommand.RaiseCanExecuteChanged()
+        #region IsAuthorisedToOperate - fires OnClickCommand.RaiseCanExecuteChanged()
 
 
-    private bool _backingstoreIsAuthorisedToOperate;
+        private bool _backingstoreIsAuthorisedToOperate;
 
-    public bool IsAuthorisedToOperate
-    {
-        get => _backingstoreIsAuthorisedToOperate;
-        set
+        public bool IsAuthorisedToOperate
+        {
+            get => _backingstoreIsAuthorisedToOperate;
+            set
         {
             var oldValue = _backingstoreIsAuthorisedToOperate;
 
@@ -250,53 +250,53 @@ public class PublishingModuleButtonControlViewModel : BindableBase, IHasIsAuthor
             if (oldValue != newValue)
                 OnClickCommand.RaiseCanExecuteChanged(); // genius
         }
-    }
+        }
 
-    private bool _capturedIsAuthorisedToOperateValue;
+        private bool _capturedIsAuthorisedToOperateValue;
 
-    #endregion
+        #endregion
 
-    #region OnClickCommand
+        #region OnClickCommand
 
-    // N.B. private _backingstore with a private setter. 
-    // slightly risky practice to allow this to be protected as opposed to private. intent is that it is allowed to be 
-    // assigned in the ctor and nowhere else. Internally it can be swapped in and out as a consequence 
-    // of ExtinguishOnClickCommand(), and RestoreOnClickCommand() 
-    // - both of which are private. this is a clever defensive approach
+        // N.B. private _backingstore with a private setter. 
+        // slightly risky practice to allow this to be protected as opposed to private. intent is that it is allowed to be 
+        // assigned in the ctor and nowhere else. Internally it can be swapped in and out as a consequence 
+        // of ExtinguishOnClickCommand(), and RestoreOnClickCommand() 
+        // - both of which are private. this is a clever defensive approach
 
-    private DelegateCommand _backingstoreOnClickCommand;
+        private DelegateCommand _backingstoreOnClickCommand;
 
-    public DelegateCommand OnClickCommand
-    {
-        get => _backingstoreOnClickCommand;
-        private set => SetProperty(ref _backingstoreOnClickCommand, value);
-    }
+        public DelegateCommand OnClickCommand
+        {
+            get => _backingstoreOnClickCommand;
+            private set => SetProperty(ref _backingstoreOnClickCommand, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region OnClickCommandWithParameter
+        #region OnClickCommandWithParameter
 
-    // N.B. private _backingstore with a private setter. 
-    // slightly risky practice to allow this to be protected as opposed to private. intent is that it is allowed to be 
-    // assigned in the ctor and nowhere else. Internally it can be swapped in and out as a consequence 
-    // of ExtinguishOnClickCommandGeneric(), and RestoreOnClickCommandGeneric() 
-    // - both of which are private. this is a clever defensive approach
+        // N.B. private _backingstore with a private setter. 
+        // slightly risky practice to allow this to be protected as opposed to private. intent is that it is allowed to be 
+        // assigned in the ctor and nowhere else. Internally it can be swapped in and out as a consequence 
+        // of ExtinguishOnClickCommandGeneric(), and RestoreOnClickCommandGeneric() 
+        // - both of which are private. this is a clever defensive approach
 
-    private DelegateCommand<string> _backingstoreOnClickCommandWithParameter;
+        private DelegateCommand<string> _backingstoreOnClickCommandWithParameter;
 
-    public DelegateCommand<string> OnClickCommandWithParameter
-    {
-        get => _backingstoreOnClickCommandWithParameter;
-        private set => SetProperty(ref _backingstoreOnClickCommandWithParameter, value);
-    }
+        public DelegateCommand<string> OnClickCommandWithParameter
+        {
+            get => _backingstoreOnClickCommandWithParameter;
+            private set => SetProperty(ref _backingstoreOnClickCommandWithParameter, value);
+        }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public bool Zeroise()
+        public bool Zeroise()
     {
         DatasetExampleSnippet = string.Empty;
         DatasetExampleBlobName = string.Empty;
@@ -319,53 +319,54 @@ public class PublishingModuleButtonControlViewModel : BindableBase, IHasIsAuthor
         return true;
     }
 
-    public void CaptureIsAuthorisedToOperateValue()
+        public void CaptureIsAuthorisedToOperateValue()
     {
         _capturedIsAuthorisedToOperateValue = _backingstoreIsAuthorisedToOperate;
     }
 
-    public void RestoreCapturedIsAuthorisedToOperateValue()
+        public void RestoreCapturedIsAuthorisedToOperateValue()
     {
         IsAuthorisedToOperate = _capturedIsAuthorisedToOperateValue;
     }
 
-    // unused for now. placeholder for the future, for whenever this class evolves to become self-referential 
-    private void ExtinguishOnClickCommand()
+        // unused for now. placeholder for the future, for whenever this class evolves to become self-referential 
+        private void ExtinguishOnClickCommand()
     {
         OnClickCommand = _delegateCommandThatDoesNothing;
         OnClickCommandWithParameter = _delegateCommandThatDoesNothingGeneric;
     }
 
-    // unused for now. paired with the above. see ItemsControlViewModel for a brilliant example 
-    private void RestoreOnClickCommand()
+        // unused for now. paired with the above. see ItemsControlViewModel for a brilliant example 
+        private void RestoreOnClickCommand()
     {
         OnClickCommand = _asInstantiatedDelegateCommand;
         OnClickCommandWithParameter = _asInstantiatedDelegateCommandGeneric;
     }
 
-    #endregion
+        #endregion
 
-    #region prism delegate command helpers
+        #region prism delegate command helpers
 
-    private static void ExecuteNothing()
+        private static void ExecuteNothing()
     {
         // do nothing
     }
 
-    private static void ExecuteNothingGeneric(string dummyCommandParameter)
+        private static void ExecuteNothingGeneric(string dummyCommandParameter)
     {
         // do nothing
     }
 
-    private static bool CannotExecute()
+        private static bool CannotExecute()
     {
         return false;
     }
 
-    private static bool CannotExecuteGeneric(string dummyCommandParameter)
+        private static bool CannotExecuteGeneric(string dummyCommandParameter)
     {
         return false;
     }
 
-    #endregion
+        #endregion
+    }
 }

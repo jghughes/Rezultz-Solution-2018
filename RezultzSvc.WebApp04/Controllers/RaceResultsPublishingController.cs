@@ -26,47 +26,47 @@ using RezultzSvc.WebApp04.Controller_Interfaces;
 //[ProducesResponseType(StatusCodes.Status501NotImplemented)]
 //[ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
 
-namespace RezultzSvc.WebApp04.Controllers;
-
-/// <summary>
-///     A REST API is best developed in a service-first manner. Use hard coded strings for the names of
-///     ApiController Route, HTTP action methods, and HTTP action parameters. Enable the API with Swagger to emit
-///     endpoint information and use Swagger in your browser to read the information. Copy the hard coded strings
-///     from Swagger into the URI strings used in your REST client to make HTTP calls to the API.
-///     The inspiration for this service comes from Microsoft's 2017 reference project on Github.
-///     https://github.com/microsoft/SmartHotel360-Backend/blob/master/Source/Backend/src/SmartHotel.Services.Bookings/Controllers/BookingsController.cs
-/// </summary>
-[ApiController]
-[Produces("application/json")]
-[Route(Routes.RaceResultsPublishingController)]
-public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPublishingController
+namespace RezultzSvc.WebApp04.Controllers
 {
-    #region ctor
+    /// <summary>
+    ///     A REST API is best developed in a service-first manner. Use hard coded strings for the names of
+    ///     ApiController Route, HTTP action methods, and HTTP action parameters. Enable the API with Swagger to emit
+    ///     endpoint information and use Swagger in your browser to read the information. Copy the hard coded strings
+    ///     from Swagger into the URI strings used in your REST client to make HTTP calls to the API.
+    ///     The inspiration for this service comes from Microsoft's 2017 reference project on Github.
+    ///     https://github.com/microsoft/SmartHotel360-Backend/blob/master/Source/Backend/src/SmartHotel.Services.Bookings/Controllers/BookingsController.cs
+    /// </summary>
+    [ApiController]
+    [Produces("application/json")]
+    [Route(Routes.RaceResultsPublishingController)]
+    public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPublishingController
+    {
+        #region ctor
 
-    public RaceResultsPublishingController(ILogger<RaceResultsPublishingController> logger)
+        public RaceResultsPublishingController(ILogger<RaceResultsPublishingController> logger)
     {
         Logger1 = logger;
 
         _raceResultsPublishingServiceMethodsHelper = new RaceResultsPublishingServiceMethodsHelper();
     }
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    public ILogger<RaceResultsPublishingController> Logger1 { get; }
+        public ILogger<RaceResultsPublishingController> Logger1 { get; }
 
-    private readonly RaceResultsPublishingServiceMethodsHelper _raceResultsPublishingServiceMethodsHelper;
+        private readonly RaceResultsPublishingServiceMethodsHelper _raceResultsPublishingServiceMethodsHelper;
 
-    #endregion
+        #endregion
 
-    #region actions
+        #region actions
 
-    [HttpGet(Routes.GetIfPublisherIdIsRecognised)]
-    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync([FromQuery(Name = QueryParameters.FileNameFragment)] string fileNameFragment)
+        [HttpGet(Routes.GetIfPublisherIdIsRecognised)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync([FromQuery(Name = QueryParameters.FileNameFragment)] string fileNameFragment)
     {
         try
         {
@@ -88,11 +88,11 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    [HttpGet(Routes.GetPublisherModuleProfile)]
-    [ProducesResponseType(typeof(PublisherModuleProfileItemDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetPublisherModuleProfileItemAsync([FromQuery(Name = QueryParameters.FileNameFragment)] string fileNameFragment)
+        [HttpGet(Routes.GetPublisherModuleProfile)]
+        [ProducesResponseType(typeof(PublisherModuleProfileItemDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetPublisherModuleProfileItemAsync([FromQuery(Name = QueryParameters.FileNameFragment)] string fileNameFragment)
     {
         try
         {
@@ -118,11 +118,11 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    [HttpGet(Routes.GetAllPublisherModuleId)]
-    [ProducesResponseType(typeof(string[]), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetFileNameFragmentsOfAllPublishingProfilesAsync()
+        [HttpGet(Routes.GetAllPublisherModuleId)]
+        [ProducesResponseType(typeof(string[]), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFileNameFragmentsOfAllPublishingProfilesAsync()
     {
         try
         {
@@ -146,11 +146,11 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    [HttpGet(Routes.GetIllustrativeExampleOfRawDataset)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetIllustrativeExampleOfDatasetExpectedForProcessingAsync([FromQuery(Name = QueryParameters.FileNameWithExtension)] string fileNameWithExtension)
+        [HttpGet(Routes.GetIllustrativeExampleOfRawDataset)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetIllustrativeExampleOfDatasetExpectedForProcessingAsync([FromQuery(Name = QueryParameters.FileNameWithExtension)] string fileNameWithExtension)
     {
         try
         {
@@ -174,11 +174,11 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    [HttpPost(Routes.ComputeResultsForSingleEvent)]
-    [ProducesResponseType(typeof(PublisherOutputItemDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync([FromBody] PublisherInputItemDto publisherInputItemDto)
+        [HttpPost(Routes.ComputeResultsForSingleEvent)]
+        [ProducesResponseType(typeof(PublisherOutputItemDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync([FromBody] PublisherInputItemDto publisherInputItemDto)
     {
         try
         {
@@ -206,14 +206,14 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    [HttpPut(Routes.SaveFileToBeProcessedSubsequently)]
-    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UploadFileToBeProcessedSubsequentlyAsync([FromQuery(Name = QueryParameters.DatasetIdentifier)] string identifierOfDataset,
-        [FromQuery(Name = QueryParameters.Account)] string accountName,
-        [FromQuery(Name = QueryParameters.Container)] string containerName,
-        [FromQuery(Name = QueryParameters.FileNameWithExtension)] string datasetFileName, [FromBody] string datasetAsRawString)
+        [HttpPut(Routes.SaveFileToBeProcessedSubsequently)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UploadFileToBeProcessedSubsequentlyAsync([FromQuery(Name = QueryParameters.DatasetIdentifier)] string identifierOfDataset,
+            [FromQuery(Name = QueryParameters.Account)] string accountName,
+            [FromQuery(Name = QueryParameters.Container)] string containerName,
+            [FromQuery(Name = QueryParameters.FileNameWithExtension)] string datasetFileName, [FromBody] string datasetAsRawString)
     {
         try
         {
@@ -239,13 +239,13 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    [HttpPut(Routes.PublishFileOfCompletedResultsForSingleEvent)]
-    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UploadFileOfCompletedResultsForSingleEventAsync([FromQuery(Name = QueryParameters.Account)] string accountName,
-        [FromQuery(Name = QueryParameters.Container)] string containerName,
-        [FromQuery(Name = QueryParameters.FileNameWithExtension)] string datasetFileNameWithExtension, [FromBody] string completedResultsAsRawStringOfXml)
+        [HttpPut(Routes.PublishFileOfCompletedResultsForSingleEvent)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExceptionDto), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UploadFileOfCompletedResultsForSingleEventAsync([FromQuery(Name = QueryParameters.Account)] string accountName,
+            [FromQuery(Name = QueryParameters.Container)] string containerName,
+            [FromQuery(Name = QueryParameters.FileNameWithExtension)] string datasetFileNameWithExtension, [FromBody] string completedResultsAsRawStringOfXml)
     {
         try
         {
@@ -271,5 +271,6 @@ public class RaceResultsPublishingController : ControllerBaseJgh, IRaceResultsPu
         }
     }
 
-    #endregion
+        #endregion
+    }
 }

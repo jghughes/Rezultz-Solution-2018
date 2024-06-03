@@ -15,31 +15,31 @@ using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles;
 
-namespace RezultzSvc.Library01.Mar2024.SvcHelpers;
-
-public class LeaderboardResultsServiceMethodsHelper
+namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 {
-    private const string Locus2 = nameof(LeaderboardResultsServiceMethodsHelper);
-    private const string Locus3 = "[RezultzSvc.Library01.Mar2024]";
+    public class LeaderboardResultsServiceMethodsHelper
+    {
+        private const string Locus2 = nameof(LeaderboardResultsServiceMethodsHelper);
+        private const string Locus3 = "[RezultzSvc.Library01.Mar2024]";
 
-    #region fields
+        #region fields
 
-    private readonly AzureStorageServiceMethodsHelper _azureStorageServiceMethodsHelperInstance;
+        private readonly AzureStorageServiceMethodsHelper _azureStorageServiceMethodsHelperInstance;
 
-    #endregion
+        #endregion
 
-    #region ctor
+        #region ctor
 
-    public LeaderboardResultsServiceMethodsHelper()
+        public LeaderboardResultsServiceMethodsHelper()
     {
         _azureStorageServiceMethodsHelperInstance = new AzureStorageServiceMethodsHelper(new AzureStorageAccessor());
     }
 
-    #endregion
+        #endregion
 
-    #region svc methods
+        #region svc methods
 
-    public async Task<bool> GetIfSeasonIdIsRecognisedAsync(string profileFileNameFragment)
+        public async Task<bool> GetIfSeasonIdIsRecognisedAsync(string profileFileNameFragment)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(GetIfSeasonIdIsRecognisedAsync);
@@ -68,12 +68,12 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    /// <summary>
-    ///     Returns deep copy of SeasonProfileItem document, inclusive of constituent Series data
-    /// </summary>
-    /// <param name="profileFileNameFragment"></param>
-    /// <returns></returns>
-    public async Task<SeasonProfileDto> GetSeasonProfileAsync(string profileFileNameFragment)
+        /// <summary>
+        ///     Returns deep copy of SeasonProfileItem document, inclusive of constituent Series data
+        /// </summary>
+        /// <param name="profileFileNameFragment"></param>
+        /// <returns></returns>
+        public async Task<SeasonProfileDto> GetSeasonProfileAsync(string profileFileNameFragment)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(GetSeasonProfileAsync);
@@ -132,13 +132,13 @@ public class LeaderboardResultsServiceMethodsHelper
     }
 
 
-    /// <summary>
-    ///     Returns shallow copies of all SeasonProfileItem documents in
-    ///     the StorageHierarchyEntryPoint container, each of them
-    ///     exclusive of constituent Series Season
-    /// </summary>
-    /// <returns></returns>
-    public async Task<SeasonProfileDto[]> GetAllSeasonProfilesAsync(CancellationToken ct)
+        /// <summary>
+        ///     Returns shallow copies of all SeasonProfileItem documents in
+        ///     the StorageHierarchyEntryPoint container, each of them
+        ///     exclusive of constituent Series Season
+        /// </summary>
+        /// <returns></returns>
+        public async Task<SeasonProfileDto[]> GetAllSeasonProfilesAsync(CancellationToken ct)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(GetAllSeasonProfilesAsync);
@@ -191,12 +191,12 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    /// <summary>
-    ///     Returns serialised EventItem inclusive of constituent ArrayOfResultItemForEvent[]
-    /// </summary>
-    /// <param name="eventProfileDto"></param>
-    /// <returns></returns>
-    public async Task<EventProfileDto> PopulateSingleEventWithResultsAsync(EventProfileDto eventProfileDto)
+        /// <summary>
+        ///     Returns serialised EventItem inclusive of constituent ArrayOfResultItemForEvent[]
+        /// </summary>
+        /// <param name="eventProfileDto"></param>
+        /// <returns></returns>
+        public async Task<EventProfileDto> PopulateSingleEventWithResultsAsync(EventProfileDto eventProfileDto)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(PopulateSingleEventWithResultsAsync);
@@ -221,13 +221,13 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    /// <summary>
-    ///     Returns serialised SeriesItem inclusive of all constituent results for all events.
-    ///     This version of the method does the remote I/O concurrently.
-    /// </summary>
-    /// <param name="seriesProfileDto"></param>
-    /// <returns></returns>
-    public async Task<SeriesProfileDto> PopulateAllEventsInSingleSeriesWithAllResultsAsync(SeriesProfileDto seriesProfileDto)
+        /// <summary>
+        ///     Returns serialised SeriesItem inclusive of all constituent results for all events.
+        ///     This version of the method does the remote I/O concurrently.
+        /// </summary>
+        /// <param name="seriesProfileDto"></param>
+        /// <returns></returns>
+        public async Task<SeriesProfileDto> PopulateAllEventsInSingleSeriesWithAllResultsAsync(SeriesProfileDto seriesProfileDto)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(PopulateAllEventsInSingleSeriesWithAllResultsAsync);
@@ -281,11 +281,11 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private async Task<SeriesProfileDto[]> PopulateSeasonItemWithSeriesItemDataTransferObjects(SeasonProfileDto seasonData, string failure, string locus)
+        private async Task<SeriesProfileDto[]> PopulateSeasonItemWithSeriesItemDataTransferObjects(SeasonProfileDto seasonData, string failure, string locus)
     {
         try
         {
@@ -316,7 +316,7 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    private async Task<SeriesProfileDto> GetSeriesItemAsync(EntityLocationDto databaseOfSeriesItemDocument, string failure, string locus)
+        private async Task<SeriesProfileDto> GetSeriesItemAsync(EntityLocationDto databaseOfSeriesItemDocument, string failure, string locus)
     {
         if (databaseOfSeriesItemDocument == null) throw new ArgumentNullException(nameof(databaseOfSeriesItemDocument));
 
@@ -356,7 +356,7 @@ public class LeaderboardResultsServiceMethodsHelper
         }
     }
 
-    private async Task<EventProfileDto> InsertPreprocessedResultsIntoEventItemAsync(EventProfileDto eventDataTransferObject)
+        private async Task<EventProfileDto> InsertPreprocessedResultsIntoEventItemAsync(EventProfileDto eventDataTransferObject)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(InsertPreprocessedResultsIntoEventItemAsync);
@@ -428,7 +428,7 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    private bool IsManifestlyInvalidSeasonItemDocument(SeasonProfileDto thisSeasonData, out string errorMessage)
+        private bool IsManifestlyInvalidSeasonItemDocument(SeasonProfileDto thisSeasonData, out string errorMessage)
     {
         var failure = "Unable to do what this method does";
         const string locus = nameof(PopulateSingleEventWithResultsAsync);
@@ -485,5 +485,6 @@ public class LeaderboardResultsServiceMethodsHelper
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

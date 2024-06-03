@@ -2,21 +2,21 @@
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 
-namespace Tool09;
-
-internal class Program
+namespace Tool09
 {
-    private const string Description = "This console program (Tool09) reads up to four .csv files of MyLaps timing data and compares them to a file of Portal split interval data, looking for missing people.";
+    internal class Program
+    {
+        private const string Description = "This console program (Tool09) reads up to four .csv files of MyLaps timing data and compares them to a file of Portal split interval data, looking for missing people.";
 
-    #region variables
+        #region variables
 
-    private static readonly PortalTimingSystemFileBeingAnalysedItem ResultsPortalTimingSystemFileBeingAnalysed = new();
+        private static readonly PortalTimingSystemFileBeingAnalysedItem ResultsPortalTimingSystemFileBeingAnalysed = new();
 
-    #endregion
+        #endregion
 
-    #region the MEAT
+        #region the MEAT
 
-    private static async Task Main()
+        private static async Task Main()
     {
         #region intro
 
@@ -210,11 +210,11 @@ internal class Program
         }
     }
 
-    #endregion
+        #endregion
 
-    #region helper methods
+        #region helper methods
 
-    private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
+        private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
     {
         var pathOfXmlFile = outPutFolder + @"\" + outPutFilename;
 
@@ -225,17 +225,18 @@ internal class Program
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Items saved", 20)} : {numberOfItems}");
     }
 
-    #endregion
+        #endregion
 
-    #region constants
+        #region constants
 
-    private const int LhsWidth = 53;
-    private const string RequiredInputFileFormat = "xml";
+        private const int LhsWidth = 53;
+        private const string RequiredInputFileFormat = "xml";
 
-    private const string InputFolderOfSplitIntervalsFromPortal = InputFolderFromMyLaps;
-    private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\H1E2versionCsv\";
+        private const string InputFolderOfSplitIntervalsFromPortal = InputFolderFromMyLaps;
+        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\H1E2versionCsv\";
 
-    private const string NameOfPortalRezultzFile = @"DraftResultsForLeaderboard.xml";
+        private const string NameOfPortalRezultzFile = @"DraftResultsForLeaderboard.xml";
 
-    #endregion
+        #endregion
+    }
 }

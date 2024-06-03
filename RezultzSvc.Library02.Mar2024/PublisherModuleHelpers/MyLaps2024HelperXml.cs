@@ -15,15 +15,15 @@ using Rezultz.Library01.Mar2024.Repositories;
 
 // ReSharper disable InconsistentNaming
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
-
-public class MyLaps2024HelperXml
+namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
 {
-    #region primary method
+    public class MyLaps2024HelperXml
+    {
+        #region primary method
 
-    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
-        Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
-        JghStringBuilder conversionReportSb, int lhsWidth)
+        public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
+            Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
+            JghStringBuilder conversionReportSb, int lhsWidth)
     {
         #region declarations
 
@@ -165,25 +165,25 @@ public class MyLaps2024HelperXml
         return answerAsResultItems;
     }
 
-    #endregion
+        #endregion
 
-    #region xelements in xml files originating from Access and before that from MyLaps Excel spreadsheets from Andrew
+        #region xelements in xml files originating from Access and before that from MyLaps Excel spreadsheets from Andrew
 
-    private const string SrcXeBib = "Bib_x0023_"; // the repeating element of the array
-    private const string SrcXeGunTime = "Gun_x0020_Time";
-    private const string SrcXeOverall = "Overall";
-    private const string SrcXeFullName = "Athlete";
-    private const string SrcXeGender = "Gender";
-    private const string SrcXeAge = "Age";
-    private const string SrcXeRaceGroup = "Race";
+        private const string SrcXeBib = "Bib_x0023_"; // the repeating element of the array
+        private const string SrcXeGunTime = "Gun_x0020_Time";
+        private const string SrcXeOverall = "Overall";
+        private const string SrcXeFullName = "Athlete";
+        private const string SrcXeGender = "Gender";
+        private const string SrcXeAge = "Age";
+        private const string SrcXeRaceGroup = "Race";
 
-    private const string SrcValueDnf = "DNF"; // not a name. a value
+        private const string SrcValueDnf = "DNF"; // not a name. a value
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
+        public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
     {
         var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;
 
@@ -210,14 +210,14 @@ public class MyLaps2024HelperXml
         return answerAsRaceGroup;
     }
 
-    public static string GetTmlrValueOfXElementOrStringEmpty(string name, XElement xE)
+        public static string GetTmlrValueOfXElementOrStringEmpty(string name, XElement xE)
     {
         var textItem = xE.Elements(name).FirstOrDefault();
 
         return JghString.TmLr(textItem?.Value ?? string.Empty);
     }
 
-    public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
+        public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
     {
         static bool TryGetFrontComponentAsInteger(string[] subStrings, out int firstValue)
         {
@@ -368,7 +368,7 @@ public class MyLaps2024HelperXml
         }
     }
 
-    public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
+        public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
     {
         string answer;
 
@@ -380,5 +380,6 @@ public class MyLaps2024HelperXml
         return answer;
     }
 
-    #endregion
+        #endregion
+    }
 }

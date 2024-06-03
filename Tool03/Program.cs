@@ -7,16 +7,16 @@ using Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
 
-namespace Tool03;
-
-internal class Program
+namespace Tool03
 {
-    private const string Description = "This program reads one or more files of MyLaps data (in problematic CSV format)." +
-                                       " It tediously converts the data into ResultDto items, relying on the participant master list" +
-                                       " from RezultzHub and parameters for the specified event from the SeriesProfile to plug gaps in the (incomplete) MyLaps data." +
-                                       " Finallly, it exports the manicured file/s of publishable XML results for the event for upload to Azure.";
+    internal class Program
+    {
+        private const string Description = "This program reads one or more files of MyLaps data (in problematic CSV format)." +
+                                           " It tediously converts the data into ResultDto items, relying on the participant master list" +
+                                           " from RezultzHub and parameters for the specified event from the SeriesProfile to plug gaps in the (incomplete) MyLaps data." +
+                                           " Finallly, it exports the manicured file/s of publishable XML results for the event for upload to Azure.";
 
-    private static void Main()
+        private static void Main()
     {
         JghConsoleHelper.WriteLineFollowedByOne(Description);
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder for Rezultz stuff", LhsWidth)} : {InputFolderFromRezultz}");
@@ -212,10 +212,10 @@ internal class Program
         }
     }
 
-    #region main methods
+        #region main methods
 
-    private static void Main01(List<FileItem> fileItems, DateTime dateOfEvent, List<ParticipantHubItemDto> masterListOfParticipantHubItemDTo, SeriesProfileDto seriesMetadataItemDto,
-        int numberOfRowsPreceedingRowOfFieldNames)
+        private static void Main01(List<FileItem> fileItems, DateTime dateOfEvent, List<ParticipantHubItemDto> masterListOfParticipantHubItemDTo, SeriesProfileDto seriesMetadataItemDto,
+            int numberOfRowsPreceedingRowOfFieldNames)
     {
         var ageGroupSpecificationItems = GetAgeGroupSpecificationItems(seriesMetadataItemDto);
 
@@ -442,11 +442,11 @@ internal class Program
             }
     }
 
-    #endregion
+        #endregion
 
-    #region helper methods
+        #region helper methods
 
-    private static void SaveWorkToHardDriveAsXml(List<ResultDto> listOfOutputDto, FileItem fileItem)
+        private static void SaveWorkToHardDriveAsXml(List<ResultDto> listOfOutputDto, FileItem fileItem)
     {
         var xmlFileContents = JghSerialisation.ToXmlFromObject(listOfOutputDto.ToArray(), new[] {typeof(ResultDto[])});
 
@@ -457,7 +457,7 @@ internal class Program
         JghConsoleHelper.WriteLine($"Records saved to {pathOfXmlFile}");
     }
 
-    private static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
+        private static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
     {
         var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;
 
@@ -484,14 +484,14 @@ internal class Program
         return answer;
     }
 
-    private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
+        private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
     {
         var textItem = JghArrayHelpers.SelectItemFromArrayByArrayIndex(arrayOfText, indexOfDataItem);
 
         return JghString.TmLr(textItem ?? string.Empty);
     }
 
-    private static AgeGroupSpecificationItem[] GetAgeGroupSpecificationItems(SeriesProfileDto seriesMetaDataItemDto)
+        private static AgeGroupSpecificationItem[] GetAgeGroupSpecificationItems(SeriesProfileDto seriesMetaDataItemDto)
     {
         var arrayOfAgeGroupSpecificationItemDto = seriesMetaDataItemDto.DefaultSettingsForAllEvents.AgeGroupSpecifications;
 
@@ -500,7 +500,7 @@ internal class Program
         return ageGroupSpecificationItems;
     }
 
-    private static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
+        private static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
     {
         static bool TryGetFrontComponentAsInteger(string[] subStrings, out int firstValue)
         {
@@ -656,7 +656,7 @@ internal class Program
         }
     }
 
-    private static void WriteOneLineReport(int index, ResultDto dtoItem, string inputDuration)
+        private static void WriteOneLineReport(int index, ResultDto dtoItem, string inputDuration)
     {
         if (string.IsNullOrWhiteSpace(inputDuration))
             JghConsoleHelper.WriteLine($"{index,-3}  {dtoItem.Bib,-3}  {dtoItem.First,-15} {dtoItem.Last,-15}  {dtoItem.T01,-15}  {dtoItem.DnxString,-3}");
@@ -664,39 +664,40 @@ internal class Program
             JghConsoleHelper.WriteLine($"{index,-3}  {dtoItem.Bib,-3}  {dtoItem.First,-15} {dtoItem.Last,-15}  {dtoItem.T01,-15}  {dtoItem.DnxString,-3}  [{inputDuration,-15}]");
     }
 
-    #endregion
+        #endregion
 
-    #region constants
+        #region constants
 
-    private const int LhsWidth = 30;
+        private const int LhsWidth = 30;
 
-    private const string AdvertisedDateOfEvent06 = "2023-07-04";
+        private const string AdvertisedDateOfEvent06 = "2023-07-04";
 
-    private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\";
-    private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\";
-    private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\XmlVersions\";
+        private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\";
+        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\";
+        private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\XmlVersions\";
 
-    private const string RequiredMyLapsFileFormat = "txt"; // "txt" or "csv"
-    private const string SeriesMetadataFileFromRezultz = @"series-Kelso2023-mtb.json";
-    private const string ParticipantMasterFileNameFromRezultz = @"Participants+2023-07-18T12-16-20.json";
-    private static readonly Tuple<string, string>[] ArrayOfTimingDataFileNameTuples =
+        private const string RequiredMyLapsFileFormat = "txt"; // "txt" or "csv"
+        private const string SeriesMetadataFileFromRezultz = @"series-Kelso2023-mtb.json";
+        private const string ParticipantMasterFileNameFromRezultz = @"Participants+2023-07-18T12-16-20.json";
+        private static readonly Tuple<string, string>[] ArrayOfTimingDataFileNameTuples =
     {
         new("Expert Results.txt", "Kelso2023mtb-results-01-expert.xml"),
         new("Sport Results.txt", "Kelso2023mtb-results-01-sport.xml"),
         new("Novice Results.txt", "Kelso2023mtb-results-01-novice.xml")
-    };
+    }        ;
 
-    private const int
-        NumberOfRowsPrecedingRowOfFieldNames =
-            0; // 0 is normal for csv files exported manually by Jgh from the Excel exported from MyLaps. 1 for csv files exported directly from MyLaps. they have some sort of title row before the field names row.
-    //int numberOfRowsPrecedingRowOfFieldNames = 1; // Oddity when the csv file is exported directly from MyLaps. they have some sort of title row before the field names row.
+        private const int
+            NumberOfRowsPrecedingRowOfFieldNames =
+                0; // 0 is normal for csv files exported manually by Jgh from the Excel exported from MyLaps. 1 for csv files exported directly from MyLaps. they have some sort of title row before the field names row.
+        //int numberOfRowsPrecedingRowOfFieldNames = 1; // Oddity when the csv file is exported directly from MyLaps. they have some sort of title row before the field names row.
 
 
-    #endregion
+        #endregion
 
-    #region variables
+        #region variables
 
-    private static readonly List<FileItem> FileItemsFromMyLaps = new();
+        private static readonly List<FileItem> FileItemsFromMyLaps = new();
 
-    #endregion
+        #endregion
+    }
 }

@@ -1,12 +1,13 @@
-﻿namespace Tool06;
-
-internal class FileItem
+﻿namespace Tool06
 {
-    public FileInfo FileInfo { get; set; } = new("DummyFileName.txt");
+    internal class FileItem
+    {
+        public FileInfo FileInfo { get; set; } = new("DummyFileName.txt");
 
-    public string FileContentsAsText { get; set; } = string.Empty;
+        public string FileContentsAsText { get; set; } = string.Empty;
 
-    public List<string> FileContentsAsLines { get; set; } = new();
+        public List<string> FileContentsAsLines { get; set; } = new();
 
-    public string OutputFileName { get; set; } = string.Empty;
+        public string OutputFileName { get; set; } = string.Empty;
+    }
 }

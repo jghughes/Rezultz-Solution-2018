@@ -9,22 +9,22 @@ using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using RezultzSvc.Agents.Mar2024.Bases;
 using RezultzSvc.ClientInterfaces.Mar2024.Clients;
 
-namespace RezultzSvc.Agents.Mar2024.SvcAgents;
-
-public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishingSvcAgent
+namespace RezultzSvc.Agents.Mar2024.SvcAgents
 {
-    private const string Locus2 = "[RaceResultsPublishingSvcAgent]";
-    private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
+    public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishingSvcAgent
+    {
+        private const string Locus2 = "[RaceResultsPublishingSvcAgent]";
+        private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
 
-    #region fields
+        #region fields
 
-    private readonly IRaceResultsPublishingServiceClient _myServiceClient;
+        private readonly IRaceResultsPublishingServiceClient _myServiceClient;
 
-    #endregion
+        #endregion
 
-    #region ctor stuff
+        #region ctor stuff
 
-    public RaceResultsPublishingSvcAgent(IRaceResultsPublishingServiceClient serviceClientInstance)
+        public RaceResultsPublishingSvcAgent(IRaceResultsPublishingServiceClient serviceClientInstance)
     {
         const string failure = "Unable to instantiate service agent.";
         const string locus = "[RaceResultsPublishingSvcAgent]";
@@ -41,11 +41,11 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public async Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string fileNameFragment, CancellationToken ct = default)
+        public async Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string fileNameFragment, CancellationToken ct = default)
     {
         const string failure = "Unable to determine if filename of file containing profile of publishing module is recognised.";
         const string locus = "[GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync]";
@@ -62,7 +62,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<PublisherModuleProfileItem> GetPublishingProfileAsync(string fileNameFragment, CancellationToken ct = default)
+        public async Task<PublisherModuleProfileItem> GetPublishingProfileAsync(string fileNameFragment, CancellationToken ct = default)
     {
         const string failure = "Unable to obtain XML file containing profile of publisher module.";
         const string locus = "[GetPublisherModuleProfileItemAsync]";
@@ -81,7 +81,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct = default)
+        public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct = default)
     {
         const string failure = "Unable to get file name fragments.";
         const string locus = "[GetFileNameFragmentsOfAllPublishingProfilesAsync]";
@@ -98,7 +98,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string entityFileName, CancellationToken ct = default)
+        public async Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string entityFileName, CancellationToken ct = default)
     {
         const string failure = "Unable to get example of input dataset.";
         const string locus = "[GetIllustrativeExampleOfDatasetExpectedByPublisherAsync]";
@@ -115,7 +115,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
+        public async Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
     {
         const string failure = "Unable to upload input dataset.";
         const string locus = "[SendFileOfRawDataToBeProcessedSubsequentlyAsync]";
@@ -134,8 +134,8 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<PublisherOutputItem> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, 
-        string eventLabelAsEventIdentifier, SeriesProfileItem seriesProfile, PublisherImportFileTargetItem[] filesToBeFetchedForProcessing, CancellationToken ct = default)
+        public async Task<PublisherOutputItem> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, 
+            string eventLabelAsEventIdentifier, SeriesProfileItem seriesProfile, PublisherImportFileTargetItem[] filesToBeFetchedForProcessing, CancellationToken ct = default)
     {
         const string failure = "Unable to process datasets.";
         const string locus = "[ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync]";
@@ -165,7 +165,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
+        public async Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default)
     {
         const string failure = "Unable to upload completed results.";
         const string locus = "[SendFileOfCompletedResultsForSingleEventAsync]";
@@ -184,6 +184,7 @@ public class RaceResultsPublishingSvcAgent : SvcAgentBase, IRaceResultsPublishin
         }
     }
 
-    #endregion
+        #endregion
 
+    }
 }

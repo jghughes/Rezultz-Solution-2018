@@ -36,25 +36,25 @@ using RezultzSvc.Agents.Mar2024.SvcAgents;
 // ReSharper disable UnusedMethodReturnValue.Local
 
 
-namespace RezultzPortal.Uwp.PageViewModels;
-
-public class PublishSingleEventResultsViewModel : BaseViewViewModel
+namespace RezultzPortal.Uwp.PageViewModels
 {
-    private const string Locus2 = nameof(PublishSingleEventResultsViewModel);
-    private const string Locus3 = "[RezultzPortal.Uwp]";
+    public class PublishSingleEventResultsViewModel : BaseViewViewModel
+    {
+        private const string Locus2 = nameof(PublishSingleEventResultsViewModel);
+        private const string Locus3 = "[RezultzPortal.Uwp]";
 
-    //private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
+        //private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
 
-    #region ctor
+        #region ctor
 
-    // NB public, not protected
-    public PublishSingleEventResultsViewModel(
-        IRaceResultsPublishingSvcAgent raceResultsPublishingSvcAgent,
-        ITimeKeepingSvcAgent timeKeepingSvcAgent,
-        IRegistrationSvcAgent registrationSvcAgent,
-        ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent,
-        IThingsPersistedInLocalStorage thingsPersistedInLocalStorage,
-        ILocalStorageService localStorageService)
+        // NB public, not protected
+        public PublishSingleEventResultsViewModel(
+            IRaceResultsPublishingSvcAgent raceResultsPublishingSvcAgent,
+            ITimeKeepingSvcAgent timeKeepingSvcAgent,
+            IRegistrationSvcAgent registrationSvcAgent,
+            ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent,
+            IThingsPersistedInLocalStorage thingsPersistedInLocalStorage,
+            ILocalStorageService localStorageService)
     {
         const string failure = "Unable to construct object PublishSingleEventResultsViewModel.";
         const string locus = "[ctor]";
@@ -148,11 +148,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         }
     }
 
-    #endregion
+        #endregion
 
-    #region event handler - INPC
+        #region event handler - INPC
 
-    private void SeasonProfileAndIdentityValidationVmINotifyPropertyChangedEventHandler(object o, PropertyChangedEventArgs e)
+        private void SeasonProfileAndIdentityValidationVmINotifyPropertyChangedEventHandler(object o, PropertyChangedEventArgs e)
     {
         if (e.PropertyName
             is nameof(SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem)
@@ -168,74 +168,74 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         }
     }
 
-    #endregion
+        #endregion
 
-    #region EnumStrings
+        #region EnumStrings
 
-    private enum EnumForResultsDatabaseDestinations
-    {
-        Draft,
+        private enum EnumForResultsDatabaseDestinations
+        {
+            Draft,
 
-        Publish
-        //Post
-    }
+            Publish
+            //Post
+        }
 
-    #endregion
+        #endregion
 
-    #region strings
+        #region strings
 
-    private const string Filename_not_recognised = "ID (filename) of publishing module not recognised.";
+        private const string Filename_not_recognised = "ID (filename) of publishing module not recognised.";
 
-    private const string Working____validating = "Working .... validating";
+        private const string Working____validating = "Working .... validating";
 
-    private const string FilenameIsBlankErrorMessage = "ID (filename) is incorrect. ID is blank.";
-    private const string XmlFilename_not_yet_entered = "not yet submitted";
-    private const string XmlFileName_cleared = "Profile cleared";
-    private const string FilenameSuccessfullyConfirmed = "Publishing module loaded.";
+        private const string FilenameIsBlankErrorMessage = "ID (filename) is incorrect. ID is blank.";
+        private const string XmlFilename_not_yet_entered = "not yet submitted";
+        private const string XmlFileName_cleared = "Profile cleared";
+        private const string FilenameSuccessfullyConfirmed = "Publishing module loaded.";
 
-    #endregion
+        #endregion
 
-    #region const
+        #region const
 
-    private const int lhsWidth = 30;
+        private const int lhsWidth = 30;
 
-    private const int lhsWidthPlus1 = lhsWidth + 1;
-    private const int lhsWidthPlus2 = lhsWidth + 2;
-    private const int lhsWidthPlus3 = lhsWidth + 3;
-    private const int lhsWidthPlus5 = lhsWidth + 5;
+        private const int lhsWidthPlus1 = lhsWidth + 1;
+        private const int lhsWidthPlus2 = lhsWidth + 2;
+        private const int lhsWidthPlus3 = lhsWidth + 3;
+        private const int lhsWidthPlus5 = lhsWidth + 5;
 
-    private const int lhsWidthLess1 = lhsWidth - 1;
-    private const int lhsWidthLess3 = lhsWidth - 3;
-    private const int lhsWidthLess4 = lhsWidth - 4;
-    private const int lhsWidthLess5 = lhsWidth - 5;
-    private const int lhsWidthLess6 = lhsWidth - 6;
+        private const int lhsWidthLess1 = lhsWidth - 1;
+        private const int lhsWidthLess3 = lhsWidth - 3;
+        private const int lhsWidthLess4 = lhsWidth - 4;
+        private const int lhsWidthLess5 = lhsWidth - 5;
+        private const int lhsWidthLess6 = lhsWidth - 6;
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    private StringBuilder _sbFriendlyLogOfActivity = new();
-    private StringBuilder _sbFriendlyLogOfBlobAndFileTransfers = new();
+        private StringBuilder _sbFriendlyLogOfActivity = new();
+        private StringBuilder _sbFriendlyLogOfBlobAndFileTransfers = new();
 
-    public NextThingToDo NextThingToDoEnum;
+        public NextThingToDo NextThingToDoEnum;
 
-    public enum NextThingToDo
-    {
-        MakeControlsForCleanAndRefreshOfPublishingSequenceActive,
-        MakeControlsForLaunchingWorkSessionActive,
-        MakeControlsForBrowsingForLocalFilesAndDownloadingDataFromRemoteHubActive,
-        MakeControlsForPreprocessingActive,
-        MakeControlsForPublishingActive,
-        MakeControlsForPullingConvertingAndUploadingDeactivated
-    }
+        public enum NextThingToDo
+        {
+            MakeControlsForCleanAndRefreshOfPublishingSequenceActive,
+            MakeControlsForLaunchingWorkSessionActive,
+            MakeControlsForBrowsingForLocalFilesAndDownloadingDataFromRemoteHubActive,
+            MakeControlsForPreprocessingActive,
+            MakeControlsForPublishingActive,
+            MakeControlsForPullingConvertingAndUploadingDeactivated
+        }
 
-    #endregion
+        #endregion
 
-    #region global props
+        #region global props
 
-    protected static IAlertMessageService AlertMessageService
-    {
-        get
+        protected static IAlertMessageService AlertMessageService
+        {
+            get
         {
             try
             {
@@ -251,11 +251,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    protected static IProgressIndicatorViewModel GlobalProgressIndicatorVm
-    {
-        get
+        protected static IProgressIndicatorViewModel GlobalProgressIndicatorVm
+        {
+            get
         {
             try
             {
@@ -270,136 +270,136 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private readonly IRaceResultsPublishingSvcAgent _raceResultsPublishingSvcAgent;
-    private readonly ITimeKeepingSvcAgent _timeKeepingSvcAgent;
-    private readonly IRegistrationSvcAgent _registrationSvcAgent;
+        private readonly IRaceResultsPublishingSvcAgent _raceResultsPublishingSvcAgent;
+        private readonly ITimeKeepingSvcAgent _timeKeepingSvcAgent;
+        private readonly IRegistrationSvcAgent _registrationSvcAgent;
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    #region validation vm
+        #region validation vm
 
-    public SeasonProfileAndIdentityValidationViewModel SeasonProfileAndIdentityValidationVm { get; }
+        public SeasonProfileAndIdentityValidationViewModel SeasonProfileAndIdentityValidationVm { get; }
 
-    public ProgressIndicatorViewModelXamarin PublishingProfileValidationProgressIndicatorVm { get; } = new();
+        public ProgressIndicatorViewModelXamarin PublishingProfileValidationProgressIndicatorVm { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region simple props
+        #region simple props
 
-    public bool WorkSessionIsLaunched;
+        public bool WorkSessionIsLaunched;
 
-    public bool ThisViewModelIsInitialised;
+        public bool ThisViewModelIsInitialised;
 
-    public PublisherModuleProfileItem PublishingModuleProfile { get; private set; }
+        public PublisherModuleProfileItem PublishingModuleProfile { get; private set; }
 
-    public string EnumStringForTimestampsFromHub = "TimestampsEnum";
-    public string EnumStringForParticipantsFromHub = "ParticipantsEnum";
-    public string EnumStringForDraftLeaderboardFromHub = "DraftLeaderboardEnum";
-    public string EnumStringForComputedLeaderboard = "ComputedLeaderboardEnum";
+        public string EnumStringForTimestampsFromHub = "TimestampsEnum";
+        public string EnumStringForParticipantsFromHub = "ParticipantsEnum";
+        public string EnumStringForDraftLeaderboardFromHub = "DraftLeaderboardEnum";
+        public string EnumStringForComputedLeaderboard = "ComputedLeaderboardEnum";
 
-    public string EnumStringForLogOfFileTransfers = "LogOfFileTransfersEnum";
-    public string EnumStringForProcessingReport = "ProcessingReportEnum";
+        public string EnumStringForLogOfFileTransfers = "LogOfFileTransfersEnum";
+        public string EnumStringForProcessingReport = "ProcessingReportEnum";
 
-    //public string EnumStringForImportedFile01 = "ImportedFile01Enum";
-    //public string EnumStringForImportedFile02 = "ImportedFile02Enum";
-    //public string EnumStringForImportedFile03 = "ImportedFile03Enum";
-    //public string EnumStringForImportedFile04 = "ImportedFile04Enum";
-    //public string EnumStringForImportedFile05 = "ImportedFile05Enum";
+        //public string EnumStringForImportedFile01 = "ImportedFile01Enum";
+        //public string EnumStringForImportedFile02 = "ImportedFile02Enum";
+        //public string EnumStringForImportedFile03 = "ImportedFile03Enum";
+        //public string EnumStringForImportedFile04 = "ImportedFile04Enum";
+        //public string EnumStringForImportedFile05 = "ImportedFile05Enum";
 
-    public string SuccessfullyComputedLeaderboardAsXml { get; set; } = string.Empty;
+        public string SuccessfullyComputedLeaderboardAsXml { get; set; } = string.Empty;
 
-    #endregion
+        #endregion
 
-    #region PublishingModuleValidationUserControlIsVisible
+        #region PublishingModuleValidationUserControlIsVisible
 
-    private bool _backingstorePublishingModuleValidationUserControlIsVisible;
+        private bool _backingstorePublishingModuleValidationUserControlIsVisible;
 
-    public bool PublishingModuleValidationUserControlIsVisible
-    {
-        get => _backingstorePublishingModuleValidationUserControlIsVisible;
-        set => SetProperty(ref _backingstorePublishingModuleValidationUserControlIsVisible, value);
-    }
+        public bool PublishingModuleValidationUserControlIsVisible
+        {
+            get => _backingstorePublishingModuleValidationUserControlIsVisible;
+            set => SetProperty(ref _backingstorePublishingModuleValidationUserControlIsVisible, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region headers and footers
+        #region headers and footers
 
-    public HeaderOrFooterViewModel FootersVm { get; } = new();
+        public HeaderOrFooterViewModel FootersVm { get; } = new();
 
-    public HeaderOrFooterViewModel HeadersVm { get; } = new();
+        public HeaderOrFooterViewModel HeadersVm { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region TextBox presenters
+        #region TextBox presenters
 
-    public TextBoxControlViewModel TextBoxForEnteringPublishingProfileFileNameFragmentVm { get; }
+        public TextBoxControlViewModel TextBoxForEnteringPublishingProfileFileNameFragmentVm { get; }
 
-    #endregion
+        #endregion
 
-    #region TextBlock presenters
+        #region TextBlock presenters
 
-    public TextBlockControlViewModel CSharpPublisherModuleCodeNameTextVm { get; } = new() { IsVisible = true };
-    public TextBlockControlViewModel CSharpPublisherModuleVersionNumberTextVm { get; } = new() { IsVisible = true };
-    public TextBlockControlViewModel CSharpPublisherModuleVeryShortDescriptionTextVm { get; } = new() { IsVisible = true };
-    public TextBlockControlViewModel CSharpPublisherModuleShortDescriptionTextVm { get; } = new() { IsVisible = true };
-    public TextBlockControlViewModel CSharpPublisherModuleGeneralOverviewTextVm { get; } = new() { IsVisible = true };
+        public TextBlockControlViewModel CSharpPublisherModuleCodeNameTextVm { get; } = new() { IsVisible = true };
+        public TextBlockControlViewModel CSharpPublisherModuleVersionNumberTextVm { get; } = new() { IsVisible = true };
+        public TextBlockControlViewModel CSharpPublisherModuleVeryShortDescriptionTextVm { get; } = new() { IsVisible = true };
+        public TextBlockControlViewModel CSharpPublisherModuleShortDescriptionTextVm { get; } = new() { IsVisible = true };
+        public TextBlockControlViewModel CSharpPublisherModuleGeneralOverviewTextVm { get; } = new() { IsVisible = true };
 
-    public TextBlockControlViewModel ProcessingReportTextVm { get; } = new();
-    public TextBlockControlViewModel SavedFileNameOfProcessingReportTextVm { get; } = new();
+        public TextBlockControlViewModel ProcessingReportTextVm { get; } = new();
+        public TextBlockControlViewModel SavedFileNameOfProcessingReportTextVm { get; } = new();
 
-    public TextBlockControlViewModel OutcomeOfProcessingOperationTextVm { get; } = new();
+        public TextBlockControlViewModel OutcomeOfProcessingOperationTextVm { get; } = new();
 
-    public TextBlockControlViewModel SavedFileNameOfSuccessfullyProcessedLeaderboardTextVm { get; } = new();
-    public TextBlockControlViewModel RanToCompletionMessageForPreviewLeaderboardTextVm { get; } = new();
-    public TextBlockControlViewModel RanToCompletionMessageForPublishedLeaderboardTextVm { get; } = new();
+        public TextBlockControlViewModel SavedFileNameOfSuccessfullyProcessedLeaderboardTextVm { get; } = new();
+        public TextBlockControlViewModel RanToCompletionMessageForPreviewLeaderboardTextVm { get; } = new();
+        public TextBlockControlViewModel RanToCompletionMessageForPublishedLeaderboardTextVm { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region Button presenters
+        #region Button presenters
 
-    public ButtonControlViewModel CheckConnectionToRezultzHubButtonVm { get; }
-    public ButtonControlViewModel CheckAvailabilityOfPublishingServiceButtonVm { get; }
+        public ButtonControlViewModel CheckConnectionToRezultzHubButtonVm { get; }
+        public ButtonControlViewModel CheckAvailabilityOfPublishingServiceButtonVm { get; }
 
-    public ButtonControlViewModel SubmitPublishingProfileFileNameForValidationButtonVm { get; }
-    public ButtonControlViewModel ClearPublishingProfileFileNameButtonVm { get; }
+        public ButtonControlViewModel SubmitPublishingProfileFileNameForValidationButtonVm { get; }
+        public ButtonControlViewModel ClearPublishingProfileFileNameButtonVm { get; }
 
-    public ButtonControlViewModel LaunchWorkSessionButtonVm { get; }
-    public ButtonControlViewModel CleanAndRefreshPublishingSequenceButtonVm { get; }
+        public ButtonControlViewModel LaunchWorkSessionButtonVm { get; }
+        public ButtonControlViewModel CleanAndRefreshPublishingSequenceButtonVm { get; }
 
-    public PublishingModuleButtonControlViewModel PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm { get; }
-    public PublishingModuleButtonControlViewModel PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm { get; }
-    public PublishingModuleButtonControlViewModel PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm { get; }
+        public PublishingModuleButtonControlViewModel PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm { get; }
+        public PublishingModuleButtonControlViewModel PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm { get; }
+        public PublishingModuleButtonControlViewModel PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm { get; }
 
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 { get; }
-    public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 { get; }
 
-    public ButtonControlViewModel ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm { get; }
+        public ButtonControlViewModel ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm { get; }
 
-    public ButtonControlViewModel ExportProcessingReportToHardDriveButtonVm { get; }
-    public ButtonControlViewModel ExportLeaderboardToHardDriveButtonVm { get; }
-    public ButtonControlViewModel UploadLeaderboardToPreviewStorageButtonVm { get; }
-    public ButtonControlViewModel UploadLeaderboardToPublishedStorageButtonVm { get; }
+        public ButtonControlViewModel ExportProcessingReportToHardDriveButtonVm { get; }
+        public ButtonControlViewModel ExportLeaderboardToHardDriveButtonVm { get; }
+        public ButtonControlViewModel UploadLeaderboardToPreviewStorageButtonVm { get; }
+        public ButtonControlViewModel UploadLeaderboardToPublishedStorageButtonVm { get; }
 
-    #endregion
+        #endregion
 
-    #region CboLookupItem presenters
+        #region CboLookupItem presenters
 
-    public ItemDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupItemOfWorkingsForDisplayVm { get; }
+        public ItemDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupItemOfWorkingsForDisplayVm { get; }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region methods called directly or indirectly AFTER page to which this vm is the data context has completed loading
+        #region methods called directly or indirectly AFTER page to which this vm is the data context has completed loading
 
-    public async Task<string> BeInitialisedFromPageCodeBehindOrchestrateAsync()
+        public async Task<string> BeInitialisedFromPageCodeBehindOrchestrateAsync()
     {
         var failure = StringsForXamlPages.UnableToInitialiseViewmodel;
         const string locus = nameof(BeInitialisedFromPageCodeBehindOrchestrateAsync);
@@ -435,7 +435,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> BeInitialisedFromPageCodeBehindAsync()
+        private async Task<string> BeInitialisedFromPageCodeBehindAsync()
     {
         const string failure = "Unable to initialise contents of page.";
         const string locus = "[BeInitialisedFromPageCodeBehindAsync]";
@@ -470,7 +470,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         }
     }
 
-    private async Task PopulateCboLookupItemOfWorkingsForDisplayVmAsync()
+        private async Task PopulateCboLookupItemOfWorkingsForDisplayVmAsync()
     {
         await CboLookupItemOfWorkingsForDisplayVm.ZeroiseItemsSourceAsync();
 
@@ -485,18 +485,18 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         CboLookupItemOfWorkingsForDisplayVm.MakeAuthorisedToOperateIfItemsSourceIsAny();
     }
 
-    #endregion
+        #endregion
 
-    #region commands
+        #region commands
 
-    #region CheckConnectionToRezultzHubButtonOnClickAsync
+        #region CheckConnectionToRezultzHubButtonOnClickAsync
 
-    protected virtual bool CheckConnectionToRezultzHubButtonOnClickCanExecute()
+        protected virtual bool CheckConnectionToRezultzHubButtonOnClickCanExecute()
     {
         return CheckConnectionToRezultzHubButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void CheckConnectionToRezultzHubButtonOnClickExecuteAsync()
+        private async void CheckConnectionToRezultzHubButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CheckConnectionToRezultzHubButtonOnClickExecuteAsync]";
@@ -541,7 +541,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    public async Task<string> CheckConnectionToRezultzHubButtonOnClickAsync()
+        public async Task<string> CheckConnectionToRezultzHubButtonOnClickAsync()
     {
         //const string failure = "Unable to do what this method does.";
         //const string locus = "[CheckConnectionToRezultzHubButtonOnClickAsync]";
@@ -561,16 +561,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return StringsPortal.ServiceUpAndRunning;
     }
 
-    #endregion
+        #endregion
 
-    #region CheckAvailabilityOfPublishingServiceButtonOnClickAsync
+        #region CheckAvailabilityOfPublishingServiceButtonOnClickAsync
 
-    protected virtual bool CheckAvailabilityOfPublishingServiceButtonOnClickCanExecute()
+        protected virtual bool CheckAvailabilityOfPublishingServiceButtonOnClickCanExecute()
     {
         return CheckAvailabilityOfPublishingServiceButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void CheckAvailabilityOfPublishingServiceButtonOnClickExecuteAsync()
+        private async void CheckAvailabilityOfPublishingServiceButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CheckAvailabilityOfPublishingServiceButtonOnClickExecuteAsync]";
@@ -615,7 +615,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    public async Task<string> CheckAvailabilityOfPublishingServiceButtonOnClickAsync()
+        public async Task<string> CheckAvailabilityOfPublishingServiceButtonOnClickAsync()
     {
         //const string failure = "Unable to do what this method does.";
         //const string locus = "[CheckAvailabilityOfPublishingServiceButtonOnClickAsync]";
@@ -635,16 +635,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return StringsPortal.ServiceUpAndRunning;
     }
 
-    #endregion
+        #endregion
 
-    #region TextBoxForEnteringPublishingProfileFileNameOnTextChangedExecute
+        #region TextBoxForEnteringPublishingProfileFileNameOnTextChangedExecute
 
-    private bool TextBoxForEnteringPublishingProfileFileNameOnTextChangedCanExecute()
+        private bool TextBoxForEnteringPublishingProfileFileNameOnTextChangedCanExecute()
     {
         return TextBoxForEnteringPublishingProfileFileNameFragmentVm.IsAuthorisedToOperate;
     }
 
-    private void TextBoxForEnteringPublishingProfileFileNameOnTextChangedExecuteAsync()
+        private void TextBoxForEnteringPublishingProfileFileNameOnTextChangedExecuteAsync()
     {
         if (!TextBoxForEnteringPublishingProfileFileNameOnTextChangedCanExecute())
             return;
@@ -652,16 +652,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         SubmitPublishingProfileFileNameForValidationButtonVm.IsAuthorisedToOperate = true;
     }
 
-    #endregion
+        #endregion
 
-    #region SubmitPublishingProfileFileNameForValidationButtonOnClickAsync
+        #region SubmitPublishingProfileFileNameForValidationButtonOnClickAsync
 
-    protected bool SubmitPublishingProfileFileNameForValidationButtonOnClickCanExecute()
+        protected bool SubmitPublishingProfileFileNameForValidationButtonOnClickCanExecute()
     {
         return SubmitPublishingProfileFileNameForValidationButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void SubmitPublishingProfileFileNameForValidationButtonOnClickExecuteAsync()
+        private async void SubmitPublishingProfileFileNameForValidationButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[SubmitPublishingProfileFileNameForValidationButtonOnClickExecuteAsync]";
@@ -706,7 +706,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> SubmitPublishingProfileFileNameForValidationButtonOnClickAsync()
+        private async Task<string> SubmitPublishingProfileFileNameForValidationButtonOnClickAsync()
     {
         const string failure = "Unable to submit module file name and/or successfully obtain module profile.";
         const string locus = "[SubmitPublishingProfileFileNameForValidationButtonOnClickAsync]";
@@ -776,16 +776,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region ClearPublishingProfileFileNameButtonOnClickAsync
+        #region ClearPublishingProfileFileNameButtonOnClickAsync
 
-    protected bool ClearPublishingProfileFileNameButtonOnClickCanExecute()
+        protected bool ClearPublishingProfileFileNameButtonOnClickCanExecute()
     {
         return ClearPublishingProfileFileNameButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void ClearPublishingProfileFileNameButtonOnClickExecuteAsync()
+        private async void ClearPublishingProfileFileNameButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[ClearPublishingProfileFileNameButtonOnClickExecuteAsync]";
@@ -822,23 +822,23 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> ClearPublishingProfileFileNameButtonOnClickAsync()
+        private async Task<string> ClearPublishingProfileFileNameButtonOnClickAsync()
     {
         await ZeroisePublishingProfileAsync();
 
         return XmlFileName_cleared;
     }
 
-    #endregion
+        #endregion
 
-    #region LaunchWorkSessionButtonVmOnClickAsync
+        #region LaunchWorkSessionButtonVmOnClickAsync
 
-    protected virtual bool LaunchWorkSessionButtonVmOnClickCanExecute()
+        protected virtual bool LaunchWorkSessionButtonVmOnClickCanExecute()
     {
         return LaunchWorkSessionButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void LaunchWorkSessionButtonVmOnClickExecuteAsync()
+        private async void LaunchWorkSessionButtonVmOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[LaunchWorkSessionButtonVmOnClickExecuteAsync]";
@@ -884,7 +884,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    public async Task<string> LaunchWorkSessionButtonVmOnClickAsync()
+        public async Task<string> LaunchWorkSessionButtonVmOnClickAsync()
     {
         const string failure = "Unable to clear or initialise data fields.";
         const string locus = "[LaunchWorkSessionButtonVmOnClickAsync]";
@@ -945,16 +945,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region CleanAndRefreshPublishingSequenceButtonOnClickAsync
+        #region CleanAndRefreshPublishingSequenceButtonOnClickAsync
 
-    protected virtual bool CleanAndRefreshPublishingSequenceButtonOnClickCanExecute()
+        protected virtual bool CleanAndRefreshPublishingSequenceButtonOnClickCanExecute()
     {
         return CleanAndRefreshPublishingSequenceButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void CleanAndRefreshPublishingSequenceButtonOnClickExecuteAsync()
+        private async void CleanAndRefreshPublishingSequenceButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CleanAndRefreshPublishingSequenceButtonOnClickExecuteAsync]";
@@ -999,7 +999,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    public async Task<string> CleanAndRefreshPublishingSequenceButtonOnClickAsync()
+        public async Task<string> CleanAndRefreshPublishingSequenceButtonOnClickAsync()
     {
         const string failure = "Unable to clear or initialise data fields.";
         const string locus = "[CleanAndRefreshPublishingSequenceButtonOnClickAsync]";
@@ -1035,16 +1035,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync
+        #region PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync
 
-    protected virtual bool PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickCanExecute()
+        protected virtual bool PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickCanExecute()
     {
         return PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickExecuteAsync()
+        private async void PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickExecuteAsync]";
@@ -1088,7 +1088,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync()
+        private async Task<string> PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
         const string locus = "[PullTimestampsFromRezultzHubAndUploadAsSourceDataButtonVmOnClickAsync]";
@@ -1276,16 +1276,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync
+        #region PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync
 
-    protected virtual bool PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickCanExecute()
+        protected virtual bool PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickCanExecute()
     {
         return PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickExecuteAsync()
+        private async void PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PullParticipantsRezultzHubAndUploadButtonOnClickExecuteAsync]";
@@ -1329,7 +1329,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync()
+        private async Task<string> PullParticipantsFromRezultzHubAndUploadAsSourceDataButtonOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
         const string locus = "[PullParticipantsRezultzHubAndUploadButtonOnClickAsync]";
@@ -1509,16 +1509,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync
+        #region PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync
 
-    protected virtual bool PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickCanExecute()
+        protected virtual bool PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickCanExecute()
     {
         return PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync()
+        private async void PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync]";
@@ -1562,7 +1562,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync()
+        private async Task<string> PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
         const string locus = "[PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickAsync]";
@@ -1797,18 +1797,18 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    // commands/click-events for all BrowseHardDriveForFileAndUploadAsSourceDataButtons are to be found in the page code-behind
+        // commands/click-events for all BrowseHardDriveForFileAndUploadAsSourceDataButtons are to be found in the page code-behind
 
-    #region ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync
+        #region ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync
 
-    protected virtual bool ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute()
+        protected virtual bool ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute()
     {
         return ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickExecuteAsync()
+        private async void ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PullResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsButtonOnClickExecuteAsync]";
@@ -1854,7 +1854,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync()
+        private async Task<string> ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickAsync()
     {
         #region local helpers
 
@@ -2010,16 +2010,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region UploadLeaderboardToPreviewStorageButtonOnClickAsync
+        #region UploadLeaderboardToPreviewStorageButtonOnClickAsync
 
-    protected virtual bool UploadLeaderboardToPreviewStorageButtonOnClickCanExecute()
+        protected virtual bool UploadLeaderboardToPreviewStorageButtonOnClickCanExecute()
     {
         return UploadLeaderboardToPreviewStorageButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void UploadLeaderboardToPreviewStorageButtonOnClickExecuteAsync()
+        private async void UploadLeaderboardToPreviewStorageButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[UploadLeaderboardToPreviewStorageButtonOnClickExecuteAsync]";
@@ -2063,7 +2063,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> UploadLeaderboardToPreviewStorageButtonOnClickAsync()
+        private async Task<string> UploadLeaderboardToPreviewStorageButtonOnClickAsync()
     {
         const string failure = "Unable to execute button click method.";
         const string locus = "[UploadLeaderboardToPreviewStorageButtonOnClickAsync]";
@@ -2097,16 +2097,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region UploadLeaderboardToPublishedStorageButtonOnClickAsync
+        #region UploadLeaderboardToPublishedStorageButtonOnClickAsync
 
-    protected virtual bool UploadLeaderboardToPublishedStorageButtonOnClickCanExecute()
+        protected virtual bool UploadLeaderboardToPublishedStorageButtonOnClickCanExecute()
     {
         return UploadLeaderboardToPublishedStorageButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void UploadLeaderboardToPublishedStorageButtonOnClickExecuteAsync()
+        private async void UploadLeaderboardToPublishedStorageButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[UploadLeaderboardToPublishedStorageButtonOnClickExecuteAsync]";
@@ -2152,7 +2152,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private async Task<string> UploadLeaderboardToPublishedStorageButtonOnClickAsync()
+        private async Task<string> UploadLeaderboardToPublishedStorageButtonOnClickAsync()
     {
         const string failure = "Unable to upload converted data to production data storage location.";
         const string locus = "[UploadLeaderboardToPublishedStorageButtonOnClickAsync]";
@@ -2186,16 +2186,16 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region CboLookupItemOfWorkingsOnSelectionChangedAsync
+        #region CboLookupItemOfWorkingsOnSelectionChangedAsync
 
-    private bool CboLookupItemOfWorkingsOnSelectionChangedCanExecute()
+        private bool CboLookupItemOfWorkingsOnSelectionChangedCanExecute()
     {
         return CboLookupItemOfWorkingsForDisplayVm.IsAuthorisedToOperate;
     }
 
-    private async void CboLookupItemOfWorkingsOnSelectionChangedExecuteAsync()
+        private async void CboLookupItemOfWorkingsOnSelectionChangedExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CboLookupItemOfWorkingsOnSelectionChangedExecuteAsync]";
@@ -2224,7 +2224,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private void CboLookupItemOfWorkingsOnSelectionChangedAsync()
+        private void CboLookupItemOfWorkingsOnSelectionChangedAsync()
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[CboLookupItemOfWorkingsOnSelectionChangedAsync]";
@@ -2244,24 +2244,24 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region delegate and delegate methods
+        #region delegate and delegate methods
 
-    //private string MakeControlsForLaunchingWorkSessionActive()
-    //{
-    //    NextThingToDoEnum = NextThingToDo.MakeControlsForLaunchingWorkSessionActive;
+        //private string MakeControlsForLaunchingWorkSessionActive()
+        //{
+        //    NextThingToDoEnum = NextThingToDo.MakeControlsForLaunchingWorkSessionActive;
 
-    //    EnlivenGui();
+        //    EnlivenGui();
 
-    //    return string.Empty;
-    //}
+        //    return string.Empty;
+        //}
 
-    private delegate bool ConfigureDatasetImportButtonDelegate(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm);
+        private delegate bool ConfigureDatasetImportButtonDelegate(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm);
 
-    private string ConfigurePublisherDatasetImportButtons(ConfigureDatasetImportButtonDelegate configureButtonVmMethod)
+        private string ConfigurePublisherDatasetImportButtons(ConfigureDatasetImportButtonDelegate configureButtonVmMethod)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[ConfigurePublisherDatasetImportButtons]";
@@ -2335,7 +2335,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         #endregion
     }
 
-    private bool DatasetImportButtonZeroise(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
+        private bool DatasetImportButtonZeroise(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
         if (buttonProfile == null || buttonVm == null)
             return true;
@@ -2345,7 +2345,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    private bool DatasetImportButtonInitialiseFromProfile(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
+        private bool DatasetImportButtonInitialiseFromProfile(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
         if (buttonProfile == null || buttonVm == null)
             return true;
@@ -2365,7 +2365,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    private bool DatasetImportButtonPurgePreviouslyObtainedDataset(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
+        private bool DatasetImportButtonPurgePreviouslyObtainedDataset(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
         if (buttonProfile == null || buttonVm == null)
             return true;
@@ -2379,7 +2379,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    private bool DatasetImportButtonIsAuthorisedToOperateToTrue(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
+        private bool DatasetImportButtonIsAuthorisedToOperateToTrue(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
         if (buttonProfile == null || buttonVm == null)
             return true;
@@ -2389,7 +2389,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    private bool DatasetImportButtonIsAuthorisedToOperateToFalse(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
+        private bool DatasetImportButtonIsAuthorisedToOperateToFalse(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
         if (buttonProfile == null || buttonVm == null)
             return true;
@@ -2399,7 +2399,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    private bool DatasetImportButtonIsDesignatedToIsVisible(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
+        private bool DatasetImportButtonIsDesignatedToIsVisible(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
         if (buttonProfile == null || buttonVm == null)
             return true;
@@ -2410,11 +2410,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    public string PopulatePublishingProfileRelatedTextFields()
+        public string PopulatePublishingProfileRelatedTextFields()
     {
         if (PublishingModuleProfile == null)
         {
@@ -2440,7 +2440,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return messageOk;
     }
 
-    public async Task ZeroisePublishingProfileAsync()
+        public async Task ZeroisePublishingProfileAsync()
     {
         PublishingModuleProfile = null;
         _publisherModuleProfileItemUponLaunchOfWorkSession = null;
@@ -2455,7 +2455,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         TextBoxForEnteringPublishingProfileFileNameFragmentVm.Label = XmlFilename_not_yet_entered;
     }
 
-    public async Task ZeroisePublishingSequence()
+        public async Task ZeroisePublishingSequence()
     {
         ConfigurePublisherDatasetImportButtons(DatasetImportButtonZeroise);
 
@@ -2475,7 +2475,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         await PopulateCboLookupItemOfWorkingsForDisplayVmAsync();
     }
 
-    public async Task CleanAndRefreshPublishingSequenceAsync()
+        public async Task CleanAndRefreshPublishingSequenceAsync()
     {
         ConfigurePublisherDatasetImportButtons(DatasetImportButtonPurgePreviouslyObtainedDataset);
 
@@ -2494,7 +2494,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         await PopulateCboLookupItemOfWorkingsForDisplayVmAsync();
     }
 
-    private async Task<bool> FetchExamplesOfDatasetsAssociatedWithButtonsAsync()
+        private async Task<bool> FetchExamplesOfDatasetsAssociatedWithButtonsAsync()
     {
         var inputButtonMs = MakeListOfDatasetInputButtonVms();
 
@@ -2504,7 +2504,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return true;
     }
 
-    private async Task<string> UploadProcessedArrayOfResultItemAsync(string successfullyPreprocessedData, EnumForResultsDatabaseDestinations kindOfDestinationEnum)
+        private async Task<string> UploadProcessedArrayOfResultItemAsync(string successfullyPreprocessedData, EnumForResultsDatabaseDestinations kindOfDestinationEnum)
     {
         var startDateTime = DateTime.UtcNow;
 
@@ -2654,7 +2654,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return ranToCompletionMsgSb.ToString();
     }
 
-    public void AppendToConversionReportLog(string message)
+        public void AppendToConversionReportLog(string message)
     {
         _sbFriendlyLogOfActivity.AppendLine($"{DateTime.Now:HH:mm:ss}    {message}");
 
@@ -2663,7 +2663,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         if (xx != null) xx.Blurb = _sbFriendlyLogOfActivity.ToString();
     }
 
-    public void UpdateLogOfFilesThatWereTransferred(string blobNameOrFileName, string descriptionOfTransferAction, string descriptionOfDestination, string descriptionOfSizeAsBytes)
+        public void UpdateLogOfFilesThatWereTransferred(string blobNameOrFileName, string descriptionOfTransferAction, string descriptionOfDestination, string descriptionOfSizeAsBytes)
     {
         _sbFriendlyLogOfBlobAndFileTransfers.AppendLine($"<{blobNameOrFileName}> {descriptionOfTransferAction} <{descriptionOfDestination}>  ({descriptionOfSizeAsBytes})");
 
@@ -2672,11 +2672,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         if (xx != null) xx.Blurb = _sbFriendlyLogOfBlobAndFileTransfers.ToString();
     }
 
-    #endregion
+        #endregion
 
-    #region page access gatekeeping
+        #region page access gatekeeping
 
-    protected void ThrowIfWorkSessionNotReadyForLaunch()
+        protected void ThrowIfWorkSessionNotReadyForLaunch()
     {
         if (!SeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
@@ -2691,7 +2691,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             throw new JghAlertMessageException(StringsPortal.PublishingProfileNotFound);
     }
 
-    public void ThrowIfWorkSessionNotProperlyInitialised()
+        public void ThrowIfWorkSessionNotProperlyInitialised()
     {
         if (!ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.WorkSessionNotLaunched);
@@ -2715,11 +2715,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
             throw new JghAlertMessageException(StringsPortal.WorkSessionNotLaunched);
     }
 
-    #endregion
+        #endregion
 
-    #region Gui stuff
+        #region Gui stuff
 
-    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         foreach (var controlVm in MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate())
             if (controlVm is IHasIsAuthorisedToOperate vm)
@@ -2788,7 +2788,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         }
     }
 
-    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         // Note: makeVisible is irrelevant in this method because at the time of writing we don't
         // toggle any visibilities when we call DeadenGui() and EnlivenGui() in every Command
@@ -2819,7 +2819,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         CboLookupItemOfWorkingsForDisplayVm.IsVisible = readyToGo && WorkSessionIsLaunched;
     }
 
-    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -2851,7 +2851,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return answer;
     }
 
-    public List<PublishingModuleButtonControlViewModel> MakeListOfDatasetInputButtonVms()
+        public List<PublishingModuleButtonControlViewModel> MakeListOfDatasetInputButtonVms()
     {
         var answer = new List<PublishingModuleButtonControlViewModel>
         {
@@ -2869,19 +2869,19 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return answer;
     }
 
-    #endregion
+        #endregion
 
-    #region GenesisAsLastKnownGood
+        #region GenesisAsLastKnownGood
 
-    private SeasonProfileItem _seasonProfileItemUponLaunchOfWorkSession;
-    private IdentityItem _identityItemUponLaunchOfWorkSession;
-    private PublisherModuleProfileItem _publisherModuleProfileItemUponLaunchOfWorkSession;
+        private SeasonProfileItem _seasonProfileItemUponLaunchOfWorkSession;
+        private IdentityItem _identityItemUponLaunchOfWorkSession;
+        private PublisherModuleProfileItem _publisherModuleProfileItemUponLaunchOfWorkSession;
 
-    private SeriesItemDisplayObject _seriesItemUponLaunchOfWorkSession;
-    private EventItemDisplayObject _eventItemUponLaunchOfWorkSession;
-    public EntityLocationItemDisplayObject BlobTargetOfPublishedResultsUponLaunchOfWorkSession;
+        private SeriesItemDisplayObject _seriesItemUponLaunchOfWorkSession;
+        private EventItemDisplayObject _eventItemUponLaunchOfWorkSession;
+        public EntityLocationItemDisplayObject BlobTargetOfPublishedResultsUponLaunchOfWorkSession;
 
-    protected void SaveGenesisOfThisViewModelAsLastKnownGood()
+        protected void SaveGenesisOfThisViewModelAsLastKnownGood()
     {
         _seasonProfileItemUponLaunchOfWorkSession = SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem;
         _identityItemUponLaunchOfWorkSession = SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem;
@@ -2892,7 +2892,7 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         _publisherModuleProfileItemUponLaunchOfWorkSession = PublishingModuleProfile;
     }
 
-    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         if (_seasonProfileItemUponLaunchOfWorkSession != SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem)
             return true;
@@ -2916,13 +2916,13 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return false;
     }
 
-    public void ThrowIfLastKnownGoodGenesisOfThisViewModelHasChanged()
+        public void ThrowIfLastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         if (LastKnownGoodGenesisOfThisViewModelHasChanged())
             throw new JghAlertMessageException(LastKnownGoodGenesisOfThisViewModelHasChangedReason());
     }
 
-    public string LastKnownGoodGenesisOfThisViewModelHasChangedReason()
+        public string LastKnownGoodGenesisOfThisViewModelHasChangedReason()
     {
         var prefix = "You have changed your work session particulars.  Please re-launch the work session if you wish to continue.";
 
@@ -3018,13 +3018,13 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return answer;
     }
 
-    public void ThrowIfLastKnownGoodGenesisOfThisViewModeIsNull()
+        public void ThrowIfLastKnownGoodGenesisOfThisViewModeIsNull()
     {
         if (LastKnownGoodGenesisOfThisViewModelIsNull())
             throw new JghAlertMessageException(LastKnownGoodGenesisOfThisViewModelIsNullReason());
     }
 
-    public bool LastKnownGoodGenesisOfThisViewModelIsNull()
+        public bool LastKnownGoodGenesisOfThisViewModelIsNull()
     {
         if (_seasonProfileItemUponLaunchOfWorkSession == null)
             return true;
@@ -3050,10 +3050,11 @@ public class PublishSingleEventResultsViewModel : BaseViewViewModel
         return false;
     }
 
-    public string LastKnownGoodGenesisOfThisViewModelIsNullReason()
+        public string LastKnownGoodGenesisOfThisViewModelIsNullReason()
     {
         return StringsPortal.Must_complete_launch_of_work_session;
     }
 
-    #endregion
+        #endregion
+    }
 }

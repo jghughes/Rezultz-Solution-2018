@@ -24,15 +24,15 @@ using RezultzPortal.Uwp.DependencyInjection;
 using RezultzPortal.Uwp.PageViewModels;
 using RezultzPortal.Uwp.Strings;
 
-namespace RezultzPortal.Uwp.Pages;
-
-public sealed partial class PublishSingleEventResultsLaunchPage
+namespace RezultzPortal.Uwp.Pages
 {
-    private const string Locus2 = nameof(PublishSingleEventResultsLaunchPage);
-    private const string Locus3 = "[RezultzPortal.Uwp]";
+    public sealed partial class PublishSingleEventResultsLaunchPage
+    {
+        private const string Locus2 = nameof(PublishSingleEventResultsLaunchPage);
+        private const string Locus3 = "[RezultzPortal.Uwp]";
 
 
-    public PublishSingleEventResultsLaunchPage()
+        public PublishSingleEventResultsLaunchPage()
     {
         Loaded += OnPageHasCompletedLoading;
 
@@ -41,13 +41,13 @@ public sealed partial class PublishSingleEventResultsLaunchPage
         NavigationCacheMode = NavigationCacheMode.Enabled;
     }
 
-    private PublishSingleEventResultsViewModel PagesViewModel => DataContext as PublishSingleEventResultsViewModel;
+        private PublishSingleEventResultsViewModel PagesViewModel => DataContext as PublishSingleEventResultsViewModel;
 
-    private static DependencyInjectionLocator DependencyLocator => Application.Current.Resources[StringsForXamlPages.DependencyInjectionLocator] as DependencyInjectionLocator;
+        private static DependencyInjectionLocator DependencyLocator => Application.Current.Resources[StringsForXamlPages.DependencyInjectionLocator] as DependencyInjectionLocator;
 
-    private static IProgressIndicatorViewModel GlobalProgressIndicatorVm
-    {
-        get
+        private static IProgressIndicatorViewModel GlobalProgressIndicatorVm
+        {
+            get
         {
             try
             {
@@ -62,11 +62,11 @@ public sealed partial class PublishSingleEventResultsLaunchPage
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private static IRaceResultsPublishingSvcAgent GlobalRaceResultsPublishingSvcAgent
-    {
-        get
+        private static IRaceResultsPublishingSvcAgent GlobalRaceResultsPublishingSvcAgent
+        {
+            get
         {
             try
             {
@@ -81,9 +81,9 @@ public sealed partial class PublishSingleEventResultsLaunchPage
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    protected override async void OnPageHasCompletedLoading(object sender, RoutedEventArgs e)
+        protected override async void OnPageHasCompletedLoading(object sender, RoutedEventArgs e)
     {
         const string failure = StringsForXamlPages.ExceptionCaughtAtPageLevel;
         const string locus = $"[{nameof(OnPageHasCompletedLoading)}]";
@@ -117,14 +117,14 @@ public sealed partial class PublishSingleEventResultsLaunchPage
         }
     }
 
-    protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
     {
         DependencyLocator.DeRegisterIAlertMessageServiceProvider();
 
         base.OnNavigatingFrom(e);
     }
 
-    private async void BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick(object sender, RoutedEventArgs e)
     {
         const string failure = "Unable to import and upload file.";
         const string locus = "[BtnBrowseHardDriveForFileAndUploadAsSourceData_OnClick]";
@@ -308,7 +308,7 @@ public sealed partial class PublishSingleEventResultsLaunchPage
         #endregion
     }
 
-    private async void BtnSaveProcessingReportToHardDrive_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnSaveProcessingReportToHardDrive_OnClick(object sender, RoutedEventArgs e)
     {
         const string failure = "Unable to save file.";
         const string locus = "[BtnSaveProcessingReportToHardDrive_OnClick]";
@@ -441,7 +441,7 @@ public sealed partial class PublishSingleEventResultsLaunchPage
         #endregion
     }
 
-    private async void BtnSaveSuccessfullyComputedLeaderboardToHardDrive_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnSaveSuccessfullyComputedLeaderboardToHardDrive_OnClick(object sender, RoutedEventArgs e)
     {
         const string failure = "Unable to save file.";
         const string locus = "[BtnSaveSuccessfullyComputedLeaderboardToHardDrive_OnClick]";
@@ -577,7 +577,7 @@ public sealed partial class PublishSingleEventResultsLaunchPage
         #endregion
     }
 
-    private async Task<string> SaveFileToHardDriveAsync(StorageFile file, byte[] bytesToBeSaved, int countOfLineItems)
+        private async Task<string> SaveFileToHardDriveAsync(StorageFile file, byte[] bytesToBeSaved, int countOfLineItems)
     {
         const string failure = "Unable to save file.";
         const string locus = "[SaveFileToHardDriveAsync]";
@@ -639,5 +639,6 @@ public sealed partial class PublishSingleEventResultsLaunchPage
         }
 
         #endregion
+    }
     }
 }

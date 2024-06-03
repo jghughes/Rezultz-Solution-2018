@@ -28,25 +28,25 @@ using Rezultz.Library02.Mar2024.ValidationViewModels;
 
 using RezultzPortal.Uwp.Strings;
 
-namespace RezultzPortal.Uwp.PageViewModelBases;
-
-public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateViewModel, THubItemDisplayObject> : BaseViewViewModel, ISearchService
-    where THubItem : class, IHubItem, IHasCollectionLineItemPropertiesV2, new()
-    where THubItemEditTemplateViewModel : class, INotifyPropertyChanged, IHasGuid, IHasWasTouched, IHasAnyEditTemplateEntryChangedExecuteAction, IHasIsAuthorisedToOperate, IHasZeroiseAsync, new()
-    where THubItemDisplayObject : class, INotifyPropertyChanged, IHasCollectionLineItemPropertiesV2, new()
+namespace RezultzPortal.Uwp.PageViewModelBases
 {
-    private const string Locus2 = nameof(HubItemPagesViewModelBase<THubItem, THubItemEditTemplateViewModel, THubItemDisplayObject>);
-    private const string Locus3 = "[RezultzPortal.Uwp]";
+    public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateViewModel, THubItemDisplayObject> : BaseViewViewModel, ISearchService
+        where THubItem : class, IHubItem, IHasCollectionLineItemPropertiesV2, new()
+        where THubItemEditTemplateViewModel : class, INotifyPropertyChanged, IHasGuid, IHasWasTouched, IHasAnyEditTemplateEntryChangedExecuteAction, IHasIsAuthorisedToOperate, IHasZeroiseAsync, new()
+        where THubItemDisplayObject : class, INotifyPropertyChanged, IHasCollectionLineItemPropertiesV2, new()
+    {
+        private const string Locus2 = nameof(HubItemPagesViewModelBase<THubItem, THubItemEditTemplateViewModel, THubItemDisplayObject>);
+        private const string Locus3 = "[RezultzPortal.Uwp]";
 
-    private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
+        private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
 
 
-    #region ctor
+        #region ctor
 
-    protected HubItemPagesViewModelBase(ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent,
-        IRepositoryOfHubStyleEntriesWithStorageBackup<THubItem> repositoryOfHubStyleEntries,
-        ISessionState sessionState,
-        IThingsPersistedInLocalStorage thingsPersistedInLocalStorage, ILocalStorageService localStorageService)
+        protected HubItemPagesViewModelBase(ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent,
+            IRepositoryOfHubStyleEntriesWithStorageBackup<THubItem> repositoryOfHubStyleEntries,
+            ISessionState sessionState,
+            IThingsPersistedInLocalStorage thingsPersistedInLocalStorage, ILocalStorageService localStorageService)
     {
         const string failure = "Unable to construct object HubItemPagesViewModelBase.";
         const string locus = "[ctor]";
@@ -175,21 +175,21 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         }
     }
 
-    #endregion
+        #endregion
 
-    #region PropertyChangedEvent event handler
+        #region PropertyChangedEvent event handler
 
-    public void AnyINotifyPropertyChangedEventHandlerWiredToSeasonProfileAndIdentityValidationVm(object o, PropertyChangedEventArgs e)
+        public void AnyINotifyPropertyChangedEventHandlerWiredToSeasonProfileAndIdentityValidationVm(object o, PropertyChangedEventArgs e)
     {
         if (e.PropertyName is nameof(SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem) or nameof(SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem))
             EvaluateVisibilityOfAllGuiControlsThatTouchData(true); // makeVisible is arbitrary in this method because at the time of writing it makes no diff if it's true or false
     }
 
-    #endregion
+        #endregion
 
-    #region methods called directly or indirectly on arrival to page to which this vm is the data context each time by page-loaded event
+        #region methods called directly or indirectly on arrival to page to which this vm is the data context each time by page-loaded event
 
-    public async Task<string> BeInitialisedFromPageCodeBehindOrchestrateAsync()
+        public async Task<string> BeInitialisedFromPageCodeBehindOrchestrateAsync()
     {
         var failure = StringsForXamlPages.UnableToInitialiseViewmodel;
         const string locus = nameof(BeInitialisedFromPageCodeBehindOrchestrateAsync);
@@ -227,7 +227,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    private async Task BeInitialisedFromPageCodeBehindAsync()
+        private async Task BeInitialisedFromPageCodeBehindAsync()
     {
         await ZeroiseDisplayOfSimpleElementsOfGuiAsync();
 
@@ -244,16 +244,16 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         ThisViewModelIsInitialised = true;
     }
 
-    #endregion
+        #endregion
 
-    #region global props
+        #region global props
 
-    protected readonly ISessionState SessionState;
-    protected readonly IThingsPersistedInLocalStorage ThingsPersistedInLocalStorage;
+        protected readonly ISessionState SessionState;
+        protected readonly IThingsPersistedInLocalStorage ThingsPersistedInLocalStorage;
 
-    protected static IAlertMessageService AlertMessageService
-    {
-        get
+        protected static IAlertMessageService AlertMessageService
+        {
+            get
         {
             try
             {
@@ -269,11 +269,11 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    protected static IProgressIndicatorViewModel GlobalProgressIndicatorVm
-    {
-        get
+        protected static IProgressIndicatorViewModel GlobalProgressIndicatorVm
+        {
+            get
         {
             try
             {
@@ -288,182 +288,182 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    public readonly IRepositoryOfHubStyleEntriesWithStorageBackup<THubItem> RepositoryOfHubStyleEntries;
+        public readonly IRepositoryOfHubStyleEntriesWithStorageBackup<THubItem> RepositoryOfHubStyleEntries;
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    public CancellationTokenSource PullAllItemsFromHubCts { get; set; }
-    public CancellationTokenSource PushDataIncrementallyFromMemoryToRemoteHubCts { get; set; }
-    public CancellationTokenSource ForcePushAllDataInMemoryToRemoteHubCts { get; set; }
+        public CancellationTokenSource PullAllItemsFromHubCts { get; set; }
+        public CancellationTokenSource PushDataIncrementallyFromMemoryToRemoteHubCts { get; set; }
+        public CancellationTokenSource ForcePushAllDataInMemoryToRemoteHubCts { get; set; }
 
-    #region simple props
+        #region simple props
 
-    public bool ThisViewModelIsInitialised;
+        public bool ThisViewModelIsInitialised;
 
-    public bool WorkSessionIsLaunched;
+        public bool WorkSessionIsLaunched;
 
-    protected int ButtonClickCounter;
+        protected int ButtonClickCounter;
 
-    protected readonly StringBuilder SbFriendlyLogOfActivity = new();
+        protected readonly StringBuilder SbFriendlyLogOfActivity = new();
 
-    protected readonly StringBuilder SbFriendlyLogOfBlobAndFileTransfers = new();
+        protected readonly StringBuilder SbFriendlyLogOfBlobAndFileTransfers = new();
 
-    #endregion
+        #endregion
 
-    #region SeasonProfileAndIdentityValidationVm
+        #region SeasonProfileAndIdentityValidationVm
 
-    public SeasonProfileAndIdentityValidationViewModel SeasonProfileAndIdentityValidationVm { get; }
+        public SeasonProfileAndIdentityValidationViewModel SeasonProfileAndIdentityValidationVm { get; }
 
-    #endregion
+        #endregion
 
-    #region headers and footers
+        #region headers and footers
 
-    public HeaderOrFooterViewModel FootersVm { get; } = new();
+        public HeaderOrFooterViewModel FootersVm { get; } = new();
 
-    public HeaderOrFooterViewModel HeadersVm { get; } = new();
+        public HeaderOrFooterViewModel HeadersVm { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region HeadlineItem
+        #region HeadlineItem
 
-    private THubItem _backingstoreHeadlineItem = new();
+        private THubItem _backingstoreHeadlineItem = new();
 
-    public THubItem HeadlineItem
-    {
-        get => _backingstoreHeadlineItem;
-        set => SetProperty(ref _backingstoreHeadlineItem, value);
-    }
+        public THubItem HeadlineItem
+        {
+            get => _backingstoreHeadlineItem;
+            set => SetProperty(ref _backingstoreHeadlineItem, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region EditTemplateVm
+        #region EditTemplateVm
 
-    public THubItemEditTemplateViewModel EditTemplateForRepositoryItemBeingEdited { get; } = new();
+        public THubItemEditTemplateViewModel EditTemplateForRepositoryItemBeingEdited { get; } = new();
 
-    protected THubItemEditTemplateViewModel LastKnownGoodEditTemplateForRepositoryItemBeingEdited = new();
+        protected THubItemEditTemplateViewModel LastKnownGoodEditTemplateForRepositoryItemBeingEdited = new();
 
-    #endregion
+        #endregion
 
-    #region TextBox presenters
+        #region TextBox presenters
 
-    public TextBoxControlViewModel ForEnteringMultipleIdentifiersForDataGridRowFilter { get; } = new(() => { }, () => true) {IsAuthorisedToOperate = true};
+        public TextBoxControlViewModel ForEnteringMultipleIdentifiersForDataGridRowFilter { get; } = new(() => { }, () => true) {IsAuthorisedToOperate = true};
 
-    public TextBoxControlViewModel ForEnteringMultipleUserNamesOfPeopleWhoDidTheDataEntriesForDataGridRowFilter { get; } = new(() => { }, () => true) {IsAuthorisedToOperate = true};
+        public TextBoxControlViewModel ForEnteringMultipleUserNamesOfPeopleWhoDidTheDataEntriesForDataGridRowFilter { get; } = new(() => { }, () => true) {IsAuthorisedToOperate = true};
 
-    #endregion
+        #endregion
 
-    #region TextBlock presenters
+        #region TextBlock presenters
 
-    public TextBlockControlViewModel ForDisplayingLogOfFilesThatWereTransferredTextVm { get; } = new();
+        public TextBlockControlViewModel ForDisplayingLogOfFilesThatWereTransferredTextVm { get; } = new();
 
-    public TextBlockControlViewModel ForDisplayingLogOfActivityTextVm { get; } = new();
+        public TextBlockControlViewModel ForDisplayingLogOfActivityTextVm { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region CheckBoxes - bool INPC
+        #region CheckBoxes - bool INPC
 
-    private bool _backingstoreMustDisplayAbridgedColumnsOnly;
+        private bool _backingstoreMustDisplayAbridgedColumnsOnly;
 
-    public bool MustDisplayAbridgedColumnsOnly
-    {
-        get => _backingstoreMustDisplayAbridgedColumnsOnly;
-        set => SetProperty(ref _backingstoreMustDisplayAbridgedColumnsOnly, value);
-    }
+        public bool MustDisplayAbridgedColumnsOnly
+        {
+            get => _backingstoreMustDisplayAbridgedColumnsOnly;
+            set => SetProperty(ref _backingstoreMustDisplayAbridgedColumnsOnly, value);
+        }
 
-    private bool _backingstoreMustDisplayCommentedRowsOnly;
+        private bool _backingstoreMustDisplayCommentedRowsOnly;
 
-    public bool MustDisplayCommentedRowsOnly
-    {
-        get => _backingstoreMustDisplayCommentedRowsOnly;
-        set => SetProperty(ref _backingstoreMustDisplayCommentedRowsOnly, value);
-    }
+        public bool MustDisplayCommentedRowsOnly
+        {
+            get => _backingstoreMustDisplayCommentedRowsOnly;
+            set => SetProperty(ref _backingstoreMustDisplayCommentedRowsOnly, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region Button presenters
+        #region Button presenters
 
-    public ButtonControlViewModel CheckConnectionToRezultzHubButtonVm { get; }
+        public ButtonControlViewModel CheckConnectionToRezultzHubButtonVm { get; }
 
-    public ButtonControlViewModel LaunchWorkSessionButtonVm { get; }
+        public ButtonControlViewModel LaunchWorkSessionButtonVm { get; }
 
-    public ButtonControlViewModel PullAllItemsFromHubButtonVm { get; } // todo in xaml
-    public ButtonControlViewModel PullAllItemsFromHubCancelButtonVm { get; }
-    public ButtonControlViewModel PullAllItemsFromHubProtectionButtonVm { get; }
+        public ButtonControlViewModel PullAllItemsFromHubButtonVm { get; } // todo in xaml
+        public ButtonControlViewModel PullAllItemsFromHubCancelButtonVm { get; }
+        public ButtonControlViewModel PullAllItemsFromHubProtectionButtonVm { get; }
 
-    public ButtonControlViewModel PushDataIncrementallyFromMemoryToRemoteHubButtonVm { get; }
-    public ButtonControlViewModel PushDataIncrementallyFromMemoryToRemoteHubCancelButtonVm { get; }
+        public ButtonControlViewModel PushDataIncrementallyFromMemoryToRemoteHubButtonVm { get; }
+        public ButtonControlViewModel PushDataIncrementallyFromMemoryToRemoteHubCancelButtonVm { get; }
 
-    public ButtonControlViewModel ForcePushAllDataInMemoryToRemoteHubButtonVm { get; }
-    public ButtonControlViewModel ForcePushAllDataInMemoryToRemoteHubCancelButtonVm { get; }
+        public ButtonControlViewModel ForcePushAllDataInMemoryToRemoteHubButtonVm { get; }
+        public ButtonControlViewModel ForcePushAllDataInMemoryToRemoteHubCancelButtonVm { get; }
 
-    public ButtonControlViewModel CommitDataInMemoryIntoLocalStorageButtonVm { get; }
+        public ButtonControlViewModel CommitDataInMemoryIntoLocalStorageButtonVm { get; }
 
-    public ButtonControlViewModel DeleteAllDataButtonVm { get; }
+        public ButtonControlViewModel DeleteAllDataButtonVm { get; }
 
-    public ButtonControlViewModel DeleteAllDataInMemoryButtonVm { get; }
+        public ButtonControlViewModel DeleteAllDataInMemoryButtonVm { get; }
 
-    public ButtonControlViewModel DeleteAllDataInLocalStorageButtonVm { get; }
+        public ButtonControlViewModel DeleteAllDataInLocalStorageButtonVm { get; }
 
-    public ButtonControlViewModel DeleteAllDataInMemoryProtectionButtonVm { get; }
+        public ButtonControlViewModel DeleteAllDataInMemoryProtectionButtonVm { get; }
 
-    public ButtonControlViewModel AcceptRepositoryItemBeingEditedButtonVm { get; }
+        public ButtonControlViewModel AcceptRepositoryItemBeingEditedButtonVm { get; }
 
-    public ButtonControlViewModel RejectRepositoryItemBeingEditedButtonVm { get; }
+        public ButtonControlViewModel RejectRepositoryItemBeingEditedButtonVm { get; }
 
-    public ButtonControlViewModel RefreshRepositoryDataGridButtonVm { get; }
+        public ButtonControlViewModel RefreshRepositoryDataGridButtonVm { get; }
 
-    public ButtonControlViewModel RefreshLocalStorageDataGridButtonVm { get; }
+        public ButtonControlViewModel RefreshLocalStorageDataGridButtonVm { get; }
 
-    public ButtonControlViewModel RefreshRemoteHubDataGridButtonVm { get; }
+        public ButtonControlViewModel RefreshRemoteHubDataGridButtonVm { get; }
 
-    public ButtonControlViewModel RefreshAllDataGridsAndListViewsButtonVm { get; }
+        public ButtonControlViewModel RefreshAllDataGridsAndListViewsButtonVm { get; }
 
-    #endregion
+        #endregion
 
-    #region Cbo presenters
+        #region Cbo presenters
 
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpFileFormatsVm { get; protected set; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpFileFormatsVm { get; protected set; }
 
-    #endregion
+        #endregion
 
-    #region SearchFunction
+        #region SearchFunction
 
-    public SearchViewModel SearchFunctionVm { get; } = new("search", 2, 9, null, null);
+        public SearchViewModel SearchFunctionVm { get; } = new("search", 2, 9, null, null);
 
-    #endregion
+        #endregion
 
-    #region DataGridDesigners
+        #region DataGridDesigners
 
-    public DataGridDesigner DataGridDesignerForItemsInRepository { get; } = new();
+        public DataGridDesigner DataGridDesignerForItemsInRepository { get; } = new();
 
-    public DataGridDesigner DataGridDesignerForItemsInLocalStorage { get; } = new();
+        public DataGridDesigner DataGridDesignerForItemsInLocalStorage { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region DataGridViewModels
+        #region DataGridViewModels
 
-    public DataGridViewModel<THubItemDisplayObject> DataGridOfItemsInRepository { get; }
+        public DataGridViewModel<THubItemDisplayObject> DataGridOfItemsInRepository { get; }
 
-    public DataGridViewModel<THubItemDisplayObject> DataGridOfItemsInLocalStorage { get; }
+        public DataGridViewModel<THubItemDisplayObject> DataGridOfItemsInLocalStorage { get; }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region commands
+        #region commands
 
-    #region CheckConnectionToRezultzHubButtonOnClickAsync
+        #region CheckConnectionToRezultzHubButtonOnClickAsync
 
-    protected virtual bool CheckConnectionToRezultzHubButtonOnClickCanExecute()
+        protected virtual bool CheckConnectionToRezultzHubButtonOnClickCanExecute()
     {
         return CheckConnectionToRezultzHubButtonVm.IsAuthorisedToOperate;
     }
 
-    protected async void CheckConnectionToRezultzHubButtonOnClickExecuteAsync()
+        protected async void CheckConnectionToRezultzHubButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CheckConnectionToRezultzHubButtonOnClickExecuteAsync]";
@@ -508,18 +508,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> CheckConnectionToRezultzHubButtonOnClickAsync();
+        protected abstract Task<string> CheckConnectionToRezultzHubButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region LaunchWorkSessionButtonOnClickAsync
+        #region LaunchWorkSessionButtonOnClickAsync
 
-    private bool InitialiseWorkSessionButtonOnClickCanExecute()
+        private bool InitialiseWorkSessionButtonOnClickCanExecute()
     {
         return LaunchWorkSessionButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void LaunchWorkSessionButtonOnClickExecuteAsync()
+        private async void LaunchWorkSessionButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[LaunchWorkSessionButtonOnClickExecuteAsync]";
@@ -563,18 +563,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> LaunchWorkSessionButtonOnClickAsync();
+        protected abstract Task<string> LaunchWorkSessionButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region PullAllItemsFromHubButtonOnClickAsync
+        #region PullAllItemsFromHubButtonOnClickAsync
 
-    private bool PullAllItemsFromHubButtonOnClickCanExecute()
+        private bool PullAllItemsFromHubButtonOnClickCanExecute()
     {
         return PullAllItemsFromHubButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PullAllItemsFromHubButtonOnClickExecuteAsync()
+        private async void PullAllItemsFromHubButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[PullAllItemsFromHubButtonOnClickExecuteAsync]";
@@ -618,18 +618,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> PullAllItemsFromHubButtonOnClickAsync();
+        protected abstract Task<string> PullAllItemsFromHubButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region PullAllItemsFromHubCancelButtonOnClickAsync
+        #region PullAllItemsFromHubCancelButtonOnClickAsync
 
-    private bool PullAllItemsFromHubCancelButtonOnClickCanExecute()
+        private bool PullAllItemsFromHubCancelButtonOnClickCanExecute()
     {
         return true;
     }
 
-    private void PullAllItemsFromHubCancelButtonOnClickExecuteAsync()
+        private void PullAllItemsFromHubCancelButtonOnClickExecuteAsync()
     {
         try
         {
@@ -641,16 +641,16 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         }
     }
 
-    #endregion
+        #endregion
 
-    #region PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync
+        #region PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync
 
-    private bool PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickCanExecute()
+        private bool PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickCanExecute()
     {
         return PushDataIncrementallyFromMemoryToRemoteHubButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickExecuteAsync()
+        private async void PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickExecuteAsync]";
@@ -694,19 +694,19 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    // ReSharper disable once UnusedParameter.Local
-    protected abstract Task<string> PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync();
+        // ReSharper disable once UnusedParameter.Local
+        protected abstract Task<string> PushDataIncrementallyFromMemoryToRemoteHubButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region PushDataIncrementallyFromMemoryToRemoteHubCancelButtonOnClickAsync
+        #region PushDataIncrementallyFromMemoryToRemoteHubCancelButtonOnClickAsync
 
-    private bool PushDataIncrementallyFromMemoryToRemoteHubCancelButtonOnClickCanExecute()
+        private bool PushDataIncrementallyFromMemoryToRemoteHubCancelButtonOnClickCanExecute()
     {
         return true;
     }
 
-    private void PushDataIncrementallyFromMemoryToRemoteHubCancelButtonOnClickExecuteAsync()
+        private void PushDataIncrementallyFromMemoryToRemoteHubCancelButtonOnClickExecuteAsync()
     {
         try
         {
@@ -718,16 +718,16 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         }
     }
 
-    #endregion
+        #endregion
 
-    #region ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync
+        #region ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync
 
-    private bool ForcePushAllDataInMemoryToRemoteHubButtonOnClickCanExecute()
+        private bool ForcePushAllDataInMemoryToRemoteHubButtonOnClickCanExecute()
     {
         return ForcePushAllDataInMemoryToRemoteHubButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void ForcePushAllDataInMemoryToRemoteHubButtonOnClickExecuteAsync()
+        private async void ForcePushAllDataInMemoryToRemoteHubButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[ForcePushAllDataInMemoryToRemoteHubButtonOnClickExecuteAsync]";
@@ -771,19 +771,19 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    // ReSharper disable once UnusedParameter.Local
-    protected abstract Task<string> ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync();
+        // ReSharper disable once UnusedParameter.Local
+        protected abstract Task<string> ForcePushAllDataInMemoryToRemoteHubButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region ForcePushAllDataInMemoryToRemoteHubCancelButtonOnClickAsync
+        #region ForcePushAllDataInMemoryToRemoteHubCancelButtonOnClickAsync
 
-    private bool ForcePushAllDataInMemoryToRemoteHubCancelButtonOnClickCanExecute()
+        private bool ForcePushAllDataInMemoryToRemoteHubCancelButtonOnClickCanExecute()
     {
         return true;
     }
 
-    private void ForcePushAllDataInMemoryToRemoteHubCancelButtonOnClickExecuteAsync()
+        private void ForcePushAllDataInMemoryToRemoteHubCancelButtonOnClickExecuteAsync()
     {
         try
         {
@@ -795,16 +795,16 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         }
     }
 
-    #endregion
+        #endregion
 
-    #region CommitDataInMemoryIntoLocalStorageButtonOnClickAsync
+        #region CommitDataInMemoryIntoLocalStorageButtonOnClickAsync
 
-    private bool CommitDataInMemoryIntoLocalStorageButtonOnClickCanExecute()
+        private bool CommitDataInMemoryIntoLocalStorageButtonOnClickCanExecute()
     {
         return CommitDataInMemoryIntoLocalStorageButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void CommitDataInMemoryIntoLocalStorageButtonOnClickExecuteAsync()
+        private async void CommitDataInMemoryIntoLocalStorageButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[CommitDataInMemoryIntoLocalStorageButtonOnClickExecuteAsync]";
@@ -848,18 +848,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> CommitDataInMemoryIntoLocalStorageButtonOnClickAsync();
+        protected abstract Task<string> CommitDataInMemoryIntoLocalStorageButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region DeleteAllDataButtonOnClickAsync
+        #region DeleteAllDataButtonOnClickAsync
 
-    private bool DeleteAllDataButtonOnClickCanExecute()
+        private bool DeleteAllDataButtonOnClickCanExecute()
     {
         return DeleteAllDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void DeleteAllDataButtonOnClickExecuteAsync()
+        private async void DeleteAllDataButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DeleteAllDataButtonOnClickExecuteAsync]";
@@ -903,18 +903,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> DeleteAllDataButtonOnClickAsync();
+        protected abstract Task<string> DeleteAllDataButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region DeleteAllDataInMemoryCacheButtonOnClickAsync
+        #region DeleteAllDataInMemoryCacheButtonOnClickAsync
 
-    private bool DeleteAllDataInMemoryCacheButtonOnClickCanExecute()
+        private bool DeleteAllDataInMemoryCacheButtonOnClickCanExecute()
     {
         return DeleteAllDataInMemoryButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void DeleteAllDataInMemoryCacheButtonOnClickExecuteAsync()
+        private async void DeleteAllDataInMemoryCacheButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DeleteAllDataInMemoryCacheButtonOnClickExecuteAsync]";
@@ -958,18 +958,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> DeleteAllDataInMemoryCacheButtonOnClickAsync();
+        protected abstract Task<string> DeleteAllDataInMemoryCacheButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region DeleteAllDataInLocalStorageButtonOnClickAsync
+        #region DeleteAllDataInLocalStorageButtonOnClickAsync
 
-    private bool DeleteAllDataInLocalStorageButtonOnClickCanExecute()
+        private bool DeleteAllDataInLocalStorageButtonOnClickCanExecute()
     {
         return DeleteAllDataInLocalStorageButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void DeleteAllDataInLocalStorageButtonOnClickExecuteAsync()
+        private async void DeleteAllDataInLocalStorageButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DeleteAllDataInLocalStorageButtonOnClickExecuteAsync]";
@@ -1013,18 +1013,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public abstract Task<string> DeleteAllDataInLocalStorageButtonOnClickAsync();
+        public abstract Task<string> DeleteAllDataInLocalStorageButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region DataGridOfItemsInRepositoryOnSelectionChangedAsync
+        #region DataGridOfItemsInRepositoryOnSelectionChangedAsync
 
-    private bool DataGridOfItemsInRepositoryOnSelectionChangedCanExecute()
+        private bool DataGridOfItemsInRepositoryOnSelectionChangedCanExecute()
     {
         return DataGridOfItemsInRepository.IsAuthorisedToOperate;
     }
 
-    private async void DataGridOfItemsInRepositoryOnSelectionChangedExecuteAsync()
+        private async void DataGridOfItemsInRepositoryOnSelectionChangedExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DataGridOfItemsInRepositoryOnSelectionChangedExecuteAsync]";
@@ -1062,18 +1062,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<bool> DataGridOfItemsInRepositoryOnSelectionChangedAsync();
+        protected abstract Task<bool> DataGridOfItemsInRepositoryOnSelectionChangedAsync();
 
-    #endregion
+        #endregion
 
-    #region AcceptItemBeingEditedButtonOnClickAsync
+        #region AcceptItemBeingEditedButtonOnClickAsync
 
-    private bool AcceptItemBeingEditedButtonOnClickCanExecute()
+        private bool AcceptItemBeingEditedButtonOnClickCanExecute()
     {
         return AcceptRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void AcceptItemBeingEditedButtonOnClickExecuteAsync()
+        private async void AcceptItemBeingEditedButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[AcceptItemBeingEditedButtonOnClickExecuteAsync]";
@@ -1117,18 +1117,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> AcceptItemBeingEditedButtonOnClickAsync();
+        protected abstract Task<string> AcceptItemBeingEditedButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region RejectItemBeingEditedButtonOnClick
+        #region RejectItemBeingEditedButtonOnClick
 
-    private bool RejectItemBeingEditedButtonOnClickCanExecute()
+        private bool RejectItemBeingEditedButtonOnClickCanExecute()
     {
         return RejectRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RejectItemBeingEditedButtonOnClickExecuteAsync()
+        private async void RejectItemBeingEditedButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RejectItemBeingEditedButtonOnClickExecuteAsync]";
@@ -1172,18 +1172,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected abstract Task<string> RejectItemBeingEditedButtonOnClickAsync();
+        protected abstract Task<string> RejectItemBeingEditedButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region RefreshRepositoryDataGridAsync
+        #region RefreshRepositoryDataGridAsync
 
-    private bool RefreshRepositoryDataGridButtonOnClickCanExecute()
+        private bool RefreshRepositoryDataGridButtonOnClickCanExecute()
     {
         return RefreshRepositoryDataGridButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RefreshRepositoryDataGridButtonOnClickExecuteAsync()
+        private async void RefreshRepositoryDataGridButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshRepositoryDataGridButtonOnClickExecuteAsync]";
@@ -1216,7 +1216,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public async Task<string> RefreshRepositoryDataGridButtonOnClickOrchestrateAsync()
+        public async Task<string> RefreshRepositoryDataGridButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshRepositoryDataGridButtonOnClickOrchestrateAsync]";
@@ -1250,7 +1250,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected async Task<string> RefreshRepositoryDataGridButtonOnClickAsync()
+        protected async Task<string> RefreshRepositoryDataGridButtonOnClickAsync()
     {
         const string failure = "Unable to clean and refresh all data.";
         const string locus = "[RefreshRepositoryDataGridButtonOnClickAsync]";
@@ -1272,18 +1272,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public abstract Task RefreshRepositoryDataGridAsync();
+        public abstract Task RefreshRepositoryDataGridAsync();
 
-    #endregion
+        #endregion
 
-    #region RefreshLocalStorageDataGridAsync
+        #region RefreshLocalStorageDataGridAsync
 
-    private bool RefreshLocalStorageDataGridButtonOnClickCanExecute()
+        private bool RefreshLocalStorageDataGridButtonOnClickCanExecute()
     {
         return RefreshLocalStorageDataGridButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RefreshLocalStorageDataGridButtonOnClickExecuteAsync()
+        private async void RefreshLocalStorageDataGridButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshLocalStorageDataGridButtonOnClickExecuteAsync]";
@@ -1316,7 +1316,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public async Task<string> RefreshLocalStorageDataGridButtonOnClickOrchestrateAsync()
+        public async Task<string> RefreshLocalStorageDataGridButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshLocalStorageDataGridButtonOnClickOrchestrateAsync]";
@@ -1350,7 +1350,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected async Task<string> RefreshLocalStorageDataGridButtonOnClickAsync()
+        protected async Task<string> RefreshLocalStorageDataGridButtonOnClickAsync()
     {
         const string failure = "Unable to clean and refresh all data.";
         const string locus = "[RefreshLocalStorageDataGridButtonOnClickAsync]";
@@ -1372,18 +1372,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public abstract Task RefreshLocalStorageDataGridAsync();
+        public abstract Task RefreshLocalStorageDataGridAsync();
 
-    #endregion
+        #endregion
 
-    #region RefreshRemoteHubDataGridAsync
+        #region RefreshRemoteHubDataGridAsync
 
-    private bool RefreshRemoteHubDataGridButtonOnClickCanExecute()
+        private bool RefreshRemoteHubDataGridButtonOnClickCanExecute()
     {
         return RefreshRemoteHubDataGridButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RefreshRemoteHubDataGridButtonOnClickExecuteAsync()
+        private async void RefreshRemoteHubDataGridButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshRemoteHubDataGridButtonOnClickExecuteAsync]";
@@ -1416,7 +1416,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public async Task<string> RefreshRemoteHubDataGridButtonOnClickOrchestrateAsync()
+        public async Task<string> RefreshRemoteHubDataGridButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshRemoteHubDataGridButtonOnClickOrchestrateAsync]";
@@ -1450,7 +1450,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected async Task<string> RefreshRemoteHubDataGridButtonOnClickAsync()
+        protected async Task<string> RefreshRemoteHubDataGridButtonOnClickAsync()
     {
         const string failure = "Unable to clean and refresh all data.";
         const string locus = "[RefreshRemoteHubDataGridButtonOnClickAsync]";
@@ -1472,18 +1472,18 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public abstract Task RefreshRemoteHubDataGridAsync();
+        public abstract Task RefreshRemoteHubDataGridAsync();
 
-    #endregion
+        #endregion
 
-    #region RefreshAllDataGridsAndListViewsButtonOnClickAsync
+        #region RefreshAllDataGridsAndListViewsButtonOnClickAsync
 
-    private bool RefreshAllDataGridsAndListViewsButtonOnClickCanExecute()
+        private bool RefreshAllDataGridsAndListViewsButtonOnClickCanExecute()
     {
         return RefreshAllDataGridsAndListViewsButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RefreshAllDataGridsAndListViewsButtonOnClickExecuteAsync()
+        private async void RefreshAllDataGridsAndListViewsButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshAllDataGridsAndListViewsButtonOnClickExecuteAsync]";
@@ -1516,7 +1516,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public async Task<string> RefreshAllDataGridsAndListViewsButtonOnClickOrchestrateAsync()
+        public async Task<string> RefreshAllDataGridsAndListViewsButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[RefreshAllDataGridsAndListViewsButtonOnClickOrchestrateAsync]";
@@ -1550,7 +1550,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    protected async Task<string> RefreshAllDataGridsAndListViewsButtonOnClickAsync()
+        protected async Task<string> RefreshAllDataGridsAndListViewsButtonOnClickAsync()
     {
         const string failure = "Unable to clean and refresh all data.";
         const string locus = "[RefreshAllDataGridsAndListViewsButtonOnClickAsync]";
@@ -1572,21 +1572,21 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    public abstract Task RefreshAllDataGridsAndListViewsAsync();
+        public abstract Task RefreshAllDataGridsAndListViewsAsync();
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region search
+        #region search
 
-    public virtual async Task<string[]> OnShortlistOfQuerySuggestionsRequestedFromTheSearchUniverseAsync(
-        string queryText)
+        public virtual async Task<string[]> OnShortlistOfQuerySuggestionsRequestedFromTheSearchUniverseAsync(
+            string queryText)
     {
         return await SearchFunctionVm.GetQueriesThatSatisfyUserEnteredHint(queryText);
     }
 
-    public virtual async Task<bool> OnFinalSearchQuerySubmittedAsTextAsync(string finalQuerySubmitted)
+        public virtual async Task<bool> OnFinalSearchQuerySubmittedAsTextAsync(string finalQuerySubmitted)
     {
         const string failure = "Unable to complete search operation.";
         const string locus = "[OnFinalSearchQuerySubmittedAsTextAsync]";
@@ -1612,17 +1612,17 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         return await Task.FromResult(true);
     }
 
-    /// <summary>
-    ///     Action taken as the final step of DoSearchOperationButtonOnClickAsync.
-    ///     Since this LeaderboardStylePageViewModelBase is the base class
-    ///     for classes that have access to the universe of all individual results and
-    ///     a favorites list in storage in which search findings are saved, this implementation takes the
-    ///     first of the discovered result items, adds it to the list of favorites and displays
-    ///     the new list of favorites in FavoritesDataGridPresentation.
-    /// </summary>
-    /// <param name="discoveredQueryItems">The discovered result items.</param>
-    /// <returns>true</returns>
-    public async Task OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync(SearchQueryItem[] discoveredQueryItems)
+        /// <summary>
+        ///     Action taken as the final step of DoSearchOperationButtonOnClickAsync.
+        ///     Since this LeaderboardStylePageViewModelBase is the base class
+        ///     for classes that have access to the universe of all individual results and
+        ///     a favorites list in storage in which search findings are saved, this implementation takes the
+        ///     first of the discovered result items, adds it to the list of favorites and displays
+        ///     the new list of favorites in FavoritesDataGridPresentation.
+        /// </summary>
+        /// <param name="discoveredQueryItems">The discovered result items.</param>
+        /// <returns>true</returns>
+        public async Task OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync(SearchQueryItem[] discoveredQueryItems)
     {
         const string failure = "Unable to take action in response to selection of item.";
         const string locus = "[OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync]";
@@ -1672,11 +1672,11 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    protected virtual async Task ZeroiseDisplayOfSimpleElementsOfGuiAsync()
+        protected virtual async Task ZeroiseDisplayOfSimpleElementsOfGuiAsync()
     {
         HeadersVm.Zeroise();
         FootersVm.Zeroise();
@@ -1694,9 +1694,9 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         //await EditTemplateForRepositoryItemBeingEdited.ZeroiseAsync(); // on balance prefer not to do this. it's nice for what we just did to remain visible
     }
 
-    protected abstract Task PopulateCboLookupPrepopulatedCbosAsync();
+        protected abstract Task PopulateCboLookupPrepopulatedCbosAsync();
 
-    protected async Task PopulateCboLookUpFileFormatsCboAsync()
+        protected async Task PopulateCboLookUpFileFormatsCboAsync()
     {
         var kindsOfMoreInfoVm = new CboLookupItemDisplayObject[]
         {
@@ -1714,14 +1714,14 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         CboLookUpFileFormatsVm.SaveSelectedIndexAsLastKnownGood();
     }
 
-    public void UpdateLogOfActivity(string message)
+        public void UpdateLogOfActivity(string message)
     {
         SbFriendlyLogOfActivity.AppendLine(message);
 
         ForDisplayingLogOfActivityTextVm.Text = SbFriendlyLogOfActivity.ToString();
     }
 
-    public void UpdateLogOfFilesThatWereTransferred(string blobNameOrFileName, string descriptionOfTransferAction, string descriptionOfDestination, string descriptionOfSizeAsBytes)
+        public void UpdateLogOfFilesThatWereTransferred(string blobNameOrFileName, string descriptionOfTransferAction, string descriptionOfDestination, string descriptionOfSizeAsBytes)
     {
         SbFriendlyLogOfBlobAndFileTransfers.AppendLine(
             $"'{blobNameOrFileName}' {descriptionOfTransferAction} '{descriptionOfDestination}'  {descriptionOfSizeAsBytes}");
@@ -1730,11 +1730,11 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
             SbFriendlyLogOfBlobAndFileTransfers.ToString();
     }
 
-    #endregion
+        #endregion
 
-    #region Gui stuff
+        #region Gui stuff
 
-    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -1758,7 +1758,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         return answer;
     }
 
-    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         DataGridOfItemsInRepository.IsAuthorisedToOperate = true;
 
@@ -1782,12 +1782,12 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         //SearchFunctionVm.IsAuthorisedToOperate = SearchFunctionVm.PopulationOfThingsToBeSearched.Any();
     }
 
-    public void MakeAcceptItemBeingEditedButtonVmAuthorisedToOperate()
+        public void MakeAcceptItemBeingEditedButtonVmAuthorisedToOperate()
     {
         AcceptRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate = true;
     }
 
-    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         HeadersVm.IsVisible = !HeadersVm.IsEmpty;
         FootersVm.IsVisible = !FootersVm.IsEmpty;
@@ -1817,7 +1817,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         CboLookUpFileFormatsVm.IsVisible = true;
     }
 
-    protected virtual ButtonControlViewModel[] MakeListOfAllGuiButtonsThatTouchData()
+        protected virtual ButtonControlViewModel[] MakeListOfAllGuiButtonsThatTouchData()
     {
         var answer = new[]
         {
@@ -1845,7 +1845,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         return answer;
     }
 
-    protected virtual TextBoxControlViewModel[] MakeListOfTextBoxControlViewModels()
+        protected virtual TextBoxControlViewModel[] MakeListOfTextBoxControlViewModels()
     {
         var answer = new[]
         {
@@ -1856,7 +1856,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         return answer;
     }
 
-    protected virtual IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>[] MakeListOfCboViewModels()
+        protected virtual IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>[] MakeListOfCboViewModels()
     {
         var answer = new[]
         {
@@ -1866,17 +1866,17 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         return answer;
     }
 
-    #endregion
+        #endregion
 
-    #region GenesisAsLastKnownGood
+        #region GenesisAsLastKnownGood
 
-    protected SeasonProfileItem SeasonProfileItemUponLaunchOfWorkSession;
-    protected IdentityItem IdentityItemUponLaunchOfWorkSession;
+        protected SeasonProfileItem SeasonProfileItemUponLaunchOfWorkSession;
+        protected IdentityItem IdentityItemUponLaunchOfWorkSession;
 
-    protected SeriesItemDisplayObject SeriesItemUponLaunchOfWorkSession;
-    protected EventItemDisplayObject EventItemUponLaunchOfWorkSession;
+        protected SeriesItemDisplayObject SeriesItemUponLaunchOfWorkSession;
+        protected EventItemDisplayObject EventItemUponLaunchOfWorkSession;
 
-    protected void SaveGenesisOfThisViewModelAsLastKnownGood()
+        protected void SaveGenesisOfThisViewModelAsLastKnownGood()
     {
         SeasonProfileItemUponLaunchOfWorkSession = SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem;
         IdentityItemUponLaunchOfWorkSession = SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem;
@@ -1884,7 +1884,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         EventItemUponLaunchOfWorkSession = SeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem;
     }
 
-    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         if (SeasonProfileItemUponLaunchOfWorkSession != SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem)
             return true;
@@ -1902,7 +1902,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
         return false;
     }
 
-    public void ThrowIfLastKnownGoodGenesisOfThisViewModeIsNull()
+        public void ThrowIfLastKnownGoodGenesisOfThisViewModeIsNull()
     {
         bool LastKnownGoodGenesisOfThisViewModelIsNull()
         {
@@ -1925,7 +1925,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
             throw new JghAlertMessageException(StringsPortal.Must_complete_launch_of_work_session);
     }
 
-    public void ThrowIfLastKnownGoodGenesisOfThisViewModelHasChanged()
+        public void ThrowIfLastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         string LastKnownGoodGenesisOfThisViewModelHasChangedReason()
         {
@@ -1986,11 +1986,11 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
             throw new JghAlertMessageException(LastKnownGoodGenesisOfThisViewModelHasChangedReason());
     }
 
-    #endregion
+        #endregion
 
-    #region page access gatekeeping
+        #region page access gatekeeping
 
-    public void ThrowIfWorkSessionNotReadyForLaunch()
+        public void ThrowIfWorkSessionNotReadyForLaunch()
     {
         if (!SeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
@@ -2005,7 +2005,7 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
             throw new JghAlertMessageException(StringsPortal.SelectedEventIsNull);
     }
 
-    public void ThrowIfWorkSessionNotProperlyInitialised()
+        public void ThrowIfWorkSessionNotProperlyInitialised()
     {
         if (!ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.WorkSessionNotLaunched);
@@ -2029,5 +2029,6 @@ public abstract class HubItemPagesViewModelBase<THubItem, THubItemEditTemplateVi
             throw new JghAlertMessageException(StringsPortal.WorkSessionNotLaunched);
     }
 
-    #endregion
+        #endregion
+    }
 }

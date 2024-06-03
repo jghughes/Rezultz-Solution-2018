@@ -1,74 +1,75 @@
-﻿namespace Tool09;
-
-public static class JghConsoleHelper
+﻿namespace Tool09
 {
-
-    #region methods
-
-    public static void Write(string text)
+    public static class JghConsoleHelper
     {
-        Console.Write(text);
-    }
 
-    public static string ReadLine()
-    {
-        return Console.ReadLine() ?? string.Empty;
-    }
+        #region methods
 
-    public static void WriteLine()
-    {
-        Console.WriteLine();
-    }
+        public static void Write(string text)
+        {
+            Console.Write(text);
+        }
 
-    public static void WriteLine(string line)
-    {
-        Console.WriteLine(line);
-    }
+        public static string ReadLine()
+        {
+            return Console.ReadLine() ?? string.Empty;
+        }
+
+        public static void WriteLine()
+        {
+            Console.WriteLine();
+        }
+
+        public static void WriteLine(string line)
+        {
+            Console.WriteLine(line);
+        }
 
 
     
-    public static void WriteLinePrecededByTwo(string line)
-    {
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine(line);
+        public static void WriteLinePrecededByTwo(string line)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(line);
+        }
+
+        public static void WriteLinePrecededByOne(string line)
+        {
+            Console.WriteLine();
+            Console.WriteLine(line);
+        }
+
+        public static void WriteLineFollowedByTwo(string line)
+        {
+            Console.WriteLine(line);
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void WriteLineFollowedByOne(string line)
+        {
+            Console.WriteLine(line);
+            Console.WriteLine();
+        }
+
+        public static void WriteLineWrappedByOne(string line)
+        {
+            Console.WriteLine();
+            Console.WriteLine(line);
+            Console.WriteLine();
+        }
+
+        public static void WriteLineWrappedByTwo(string line)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(line);
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+
+        #endregion
     }
-
-    public static void WriteLinePrecededByOne(string line)
-    {
-        Console.WriteLine();
-        Console.WriteLine(line);
-    }
-
-    public static void WriteLineFollowedByTwo(string line)
-    {
-        Console.WriteLine(line);
-        Console.WriteLine();
-        Console.WriteLine();
-    }
-
-    public static void WriteLineFollowedByOne(string line)
-    {
-        Console.WriteLine(line);
-        Console.WriteLine();
-    }
-
-    public static void WriteLineWrappedByOne(string line)
-    {
-        Console.WriteLine();
-        Console.WriteLine(line);
-        Console.WriteLine();
-    }
-
-    public static void WriteLineWrappedByTwo(string line)
-    {
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine(line);
-        Console.WriteLine();
-        Console.WriteLine();
-    }
-
-
-    #endregion
 }

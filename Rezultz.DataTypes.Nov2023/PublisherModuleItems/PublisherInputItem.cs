@@ -6,25 +6,25 @@ using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 
-namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems;
-
-public class PublisherInputItem
+namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 {
-    #region props
-
-    public string FileNameFragmentOfAssociatedPublishingProfile { get; set; }
-
-    public string SeriesLabelAsEventIdentifier { get; set; }
-
-    public string EventLabelAsEventIdentifier { get; set; }
-
-    public SeriesProfileItem SeriesProfile { get; set; }
-
-    public PublisherImportFileTargetItem[] DatasetTargetsToBeProcessed { get; set; } = Array.Empty<PublisherImportFileTargetItem>();
-
-    public string NullChecksFailureMessage
+    public class PublisherInputItem
     {
-        get
+        #region props
+
+        public string FileNameFragmentOfAssociatedPublishingProfile { get; set; }
+
+        public string SeriesLabelAsEventIdentifier { get; set; }
+
+        public string EventLabelAsEventIdentifier { get; set; }
+
+        public SeriesProfileItem SeriesProfile { get; set; }
+
+        public PublisherImportFileTargetItem[] DatasetTargetsToBeProcessed { get; set; } = Array.Empty<PublisherImportFileTargetItem>();
+
+        public string NullChecksFailureMessage
+        {
+            get
         {
             var sb = new JghStringBuilder();
 
@@ -45,14 +45,14 @@ public class PublisherInputItem
 
             return sb.ToString();
         }
-    }
+        }
 
-    #endregion
+        #endregion
 
 
-    #region methods
+        #region methods
 
-    public static PublisherInputItem FromDataTransferObject(PublisherInputItemDto itemDto)
+        public static PublisherInputItem FromDataTransferObject(PublisherInputItemDto itemDto)
     {
         const string failure = "Populating PublisherInputItem.";
         const string locus = "[FromDataTransferObject]";
@@ -83,7 +83,7 @@ public class PublisherInputItem
         #endregion
     }
 
-    public static PublisherInputItem[] FromDataTransferObject(PublisherInputItemDto[] dto)
+        public static PublisherInputItem[] FromDataTransferObject(PublisherInputItemDto[] dto)
     {
         const string failure = "Populating PublisherInputItem[].";
         const string locus = "[FromDataTransferObject]";
@@ -108,7 +108,7 @@ public class PublisherInputItem
         #endregion
     }
 
-    public static PublisherInputItemDto ToDataTransferObject(PublisherInputItem item)
+        public static PublisherInputItemDto ToDataTransferObject(PublisherInputItem item)
     {
         const string failure = "Populating PublisherInputItemDto.";
         const string locus = "[ToDataTransferObject]";
@@ -139,7 +139,7 @@ public class PublisherInputItem
         #endregion
     }
 
-    public static PublisherInputItemDto[] ToDataTransferObject(PublisherInputItem[] item)
+        public static PublisherInputItemDto[] ToDataTransferObject(PublisherInputItem[] item)
     {
         const string failure = "Populating PublisherInputItemDto[].";
         const string locus = "[ToDataTransferObject]";
@@ -164,7 +164,7 @@ public class PublisherInputItem
         #endregion
     }
 
-    public EntityLocationItem DeduceStorageLocation(string identifierOfDataset)
+        public EntityLocationItem DeduceStorageLocation(string identifierOfDataset)
     {
         if (SeriesProfile == null || DatasetTargetsToBeProcessed == null || string.IsNullOrWhiteSpace(identifierOfDataset))
             return null;
@@ -186,7 +186,7 @@ public class PublisherInputItem
         return answer;
     }
 
-    public EntityLocationItem[] DeduceStorageLocations(string identifierOfDataset)
+        public EntityLocationItem[] DeduceStorageLocations(string identifierOfDataset)
     {
         if (SeriesProfile == null || DatasetTargetsToBeProcessed == null || string.IsNullOrWhiteSpace(identifierOfDataset))
             return Array.Empty<EntityLocationItem>();
@@ -206,6 +206,7 @@ public class PublisherInputItem
         return answer.ToArray();
     }
 
-    #endregion
+        #endregion
 
+    }
 }

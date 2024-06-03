@@ -25,30 +25,30 @@ using Rezultz.Uwp.UserControls_DataGrid;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Rezultz.Uwp.UserControls;
-
-public sealed partial class PageContentsForLeaderboardStylePageUserControl
+namespace Rezultz.Uwp.UserControls
 {
-    private const string Locus2 = nameof(PageContentsForLeaderboardStylePageUserControl);
-    private const string Locus3 = "[Rezultz.Uwp]";
+    public sealed partial class PageContentsForLeaderboardStylePageUserControl
+    {
+        private const string Locus2 = nameof(PageContentsForLeaderboardStylePageUserControl);
+        private const string Locus3 = "[Rezultz.Uwp]";
 
 
-    public PageContentsForLeaderboardStylePageUserControl()
+        public PageContentsForLeaderboardStylePageUserControl()
     {
         InitializeComponent();
 
         XamlElementSplitView.IsPaneOpen = false;
     }
 
-    private BaseLeaderboardStylePageViewModel ViewModel => DataContext as BaseLeaderboardStylePageViewModel;
+        private BaseLeaderboardStylePageViewModel ViewModel => DataContext as BaseLeaderboardStylePageViewModel;
 
-    public FavoritesDataGridPresentationServiceUserControl MyFavoritesDataGridUserControl => XamlElementFavoritesDataGridPresentationServiceUserControl;
-    public LeaderboardDataGridPresentationServiceUserControl MyLeaderboardDataGridUserControl => XamlElementLeaderboardDataGridPresentationServiceUserControl;
+        public FavoritesDataGridPresentationServiceUserControl MyFavoritesDataGridUserControl => XamlElementFavoritesDataGridPresentationServiceUserControl;
+        public LeaderboardDataGridPresentationServiceUserControl MyLeaderboardDataGridUserControl => XamlElementLeaderboardDataGridPresentationServiceUserControl;
 
 
-    private static IAlertMessageService AlertMessageService
-    {
-        get
+        private static IAlertMessageService AlertMessageService
+        {
+            get
         {
             try
             {
@@ -64,11 +64,11 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private static IProgressIndicatorViewModel GlobalProgressIndicatorVm
-    {
-        get
+        private static IProgressIndicatorViewModel GlobalProgressIndicatorVm
+        {
+            get
         {
             try
             {
@@ -83,9 +83,9 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private void BtnToggleVisibilityOfSplitViewPane_OnClick(object sender, RoutedEventArgs e)
+        private void BtnToggleVisibilityOfSplitViewPane_OnClick(object sender, RoutedEventArgs e)
     {
         if (XamlElementSplitView.IsPaneOpen)
             XamlElementSplitView.IsPaneOpen = false;
@@ -94,7 +94,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
     }
 
 
-    private async void MyAutoSuggestBox_OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private async void MyAutoSuggestBox_OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
         const string failure = "Unable to save file.";
         const string locus = "[MyAutoSuggestBox_OnTextChanged]";
@@ -130,7 +130,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         #endregion
     }
 
-    private void MyAutoSuggestBox_OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        private void MyAutoSuggestBox_OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
     {
         // nothing much i can think of. i don't need to do anything behind the scenes.
         // Anyhow, here is how you obtain the SelectedItem for whatever purpose you might choose in future
@@ -139,7 +139,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         var theSelectedSearchSuggestion = (string) args.SelectedItem;
     }
 
-    private async void MyAutoSuggestBox_OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        private async void MyAutoSuggestBox_OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         const string failure = "Unable to respond to submission of search query.";
         const string locus = "[MyAutoSuggestBox_OnQuerySubmitted]";
@@ -175,7 +175,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         #endregion
     }
 
-    private async void BtnExportChosenData_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnExportChosenData_OnClick(object sender, RoutedEventArgs e)
     {
         const string failure = "Unable to save file.";
         const string locus = "[BtnExportChosenData_OnClick]";
@@ -328,7 +328,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         #endregion
     }
 
-    private static FileSavePicker CreateFileSavePicker(string desiredFileFormatEnum, string fileNamePrefix)
+        private static FileSavePicker CreateFileSavePicker(string desiredFileFormatEnum, string fileNamePrefix)
     {
         const string failure = "Unable to populate save file dialogue.";
         const string locus = "[CreateFileSavePicker]";
@@ -377,7 +377,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         return fileSavePicker;
     }
 
-    private async Task<StorageFile> PickSaveFile(FileSavePicker fileSavePicker)
+        private async Task<StorageFile> PickSaveFile(FileSavePicker fileSavePicker)
     {
         const string failure = "Unable to select a filename.";
         const string locus = "[PickSaveFile]";
@@ -408,7 +408,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         return file;
     }
 
-    private static async Task<byte[]> GenerateAnswerAsBytes(string desiredFileFormatEnumString, DataGridDesigner printer)
+        private static async Task<byte[]> GenerateAnswerAsBytes(string desiredFileFormatEnumString, DataGridDesigner printer)
     {
         const string failure = "Unable to generate contents of file.";
         const string locus = "[GenerateAnswerAsBytes]";
@@ -461,7 +461,7 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         return answerAsBytes;
     }
 
-    private async Task<bool> SaveFileToHardDriveAsync(StorageFile file, byte[] bytesToBeSaved)
+        private async Task<bool> SaveFileToHardDriveAsync(StorageFile file, byte[] bytesToBeSaved)
     {
         const string failure = "Unable to save file.";
         const string locus = "[SaveFileToHardDriveAsync]";
@@ -509,30 +509,31 @@ public sealed partial class PageContentsForLeaderboardStylePageUserControl
         return true;
     }
 
-    private static void AddFileTypesForHtm(FileSavePicker savePicker)
+        private static void AddFileTypesForHtm(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".htm";
         savePicker.FileTypeChoices.Add("Web page", new List<string> {".htm"});
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
     }
 
-    private static void AddFileTypesForText(FileSavePicker savePicker)
+        private static void AddFileTypesForText(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".txt";
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
     }
 
-    private static void AddFileTypesForCsv(FileSavePicker savePicker)
+        private static void AddFileTypesForCsv(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".csv";
         savePicker.FileTypeChoices.Add("Comma separated values data", new List<string> {".csv"});
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
     }
 
-    private static void AddFileTypesForXml(FileSavePicker savePicker)
+        private static void AddFileTypesForXml(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".xml";
         savePicker.FileTypeChoices.Add("XML data", new List<string> {".xml"});
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
+    }
     }
 }

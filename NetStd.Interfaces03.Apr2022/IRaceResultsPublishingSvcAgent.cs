@@ -4,41 +4,42 @@ using NetStd.DataTypes.Mar2024;
 using Rezultz.DataTypes.Nov2023.PublisherModuleItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 
-namespace NetStd.Interfaces03.Apr2022;
-
-public interface IRaceResultsPublishingSvcAgent : ISvcAgentBase
+namespace NetStd.Interfaces03.Apr2022
 {
-    public Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string fileNameFragment, CancellationToken ct = default);
+    public interface IRaceResultsPublishingSvcAgent : ISvcAgentBase
+    {
+        public Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string fileNameFragment, CancellationToken ct = default);
 
-    public Task<PublisherModuleProfileItem> GetPublishingProfileAsync(string fileNameFragment, CancellationToken ct = default);
+        public Task<PublisherModuleProfileItem> GetPublishingProfileAsync(string fileNameFragment, CancellationToken ct = default);
 
-    public Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct = default);
+        public Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync(CancellationToken ct = default);
 
-    public Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string entityFileName, CancellationToken ct = default);
+        public Task<string> GetIllustrativeExampleOfSourceDatasetExpectedByPublishingServiceAsync(string entityFileName, CancellationToken ct = default);
 
-    public Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
+        public Task<bool> UploadSourceDatasetToBeProcessedSubsequentlyAsync(string identifierOfDataset, EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
 
-    public Task<PublisherOutputItem> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, string eventLabelAsEventIdentifier,
-        SeriesProfileItem seriesProfile, PublisherImportFileTargetItem[] filesToBeFetchedForProcessing, CancellationToken ct = default);
+        public Task<PublisherOutputItem> ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync(string fileNameFragmentOfAssociatedPublishingProfile, string seriesLabelAsEventIdentifier, string eventLabelAsEventIdentifier,
+            SeriesProfileItem seriesProfile, PublisherImportFileTargetItem[] filesToBeFetchedForProcessing, CancellationToken ct = default);
 
-    public Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
+        public Task<bool> UploadPublishableResultsForSingleEventAsync(EntityLocationItem storageLocation, string datasetAsRawString, CancellationToken ct = default);
 
-    #region old
+        #region old
 
-    //public Task<bool> GetIfConversionModuleSpecificationFilenameIsRecognisedAsync(string nameOfXmlSpecificationFileEnteredByUser, CancellationToken ct = default);
+        //public Task<bool> GetIfConversionModuleSpecificationFilenameIsRecognisedAsync(string nameOfXmlSpecificationFileEnteredByUser, CancellationToken ct = default);
 
-    //public Task<string[]> GetConversionModuleSpecificationFileNamesAsync(CancellationToken ct = default);
+        //public Task<string[]> GetConversionModuleSpecificationFileNamesAsync(CancellationToken ct = default);
 
-    //public Task<PublisherModuleProfileItem> GetConversionModuleSpecificationItemAsync(string nameOfXmlSpecificationFileEnteredByUser, CancellationToken ct = default);
+        //public Task<PublisherModuleProfileItem> GetConversionModuleSpecificationItemAsync(string nameOfXmlSpecificationFileEnteredByUser, CancellationToken ct = default);
 
-    //public Task<PublisherModuleProfileItem[]> GetConversionModuleSpecificationItemArrayAsync(CancellationToken ct);
+        //public Task<PublisherModuleProfileItem[]> GetConversionModuleSpecificationItemArrayAsync(CancellationToken ct);
 
-    //public Task<ComputerOutputItem> ConvertDatasetsToArrayOfResultItemDataTransferObjectsAsync(
-    //    ComputerDatasetTargetItem[] arrayOfDatasetToBeProcessed,
-    //    PublisherModuleProfileItem computerProfileItem,
-    //    SeriesProfileItem seriesProfileItem,
-    //    string eventLabelServingAsEventIdentifier,
-    //    CancellationToken ct = default);
+        //public Task<ComputerOutputItem> ConvertDatasetsToArrayOfResultItemDataTransferObjectsAsync(
+        //    ComputerDatasetTargetItem[] arrayOfDatasetToBeProcessed,
+        //    PublisherModuleProfileItem computerProfileItem,
+        //    SeriesProfileItem seriesProfileItem,
+        //    string eventLabelServingAsEventIdentifier,
+        //    CancellationToken ct = default);
 
-    #endregion
+        #endregion
+    }
 }

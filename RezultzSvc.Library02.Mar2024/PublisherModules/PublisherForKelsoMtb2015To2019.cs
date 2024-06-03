@@ -19,30 +19,30 @@ using RezultzSvc.Library02.Mar2024.SvcHelpers;
 
 // ReSharper disable UnusedVariable
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModules;
-
-/// <summary>
-///     Interprets the self-standing data in a single self-standing XML file exported from Access from
-///     Simon Holden and AJ Leeming and does extensive field-mapping, arithmetic, reformatting, and renaming
-///     to comply with Rezultz 2018 inputEntity API. Does not require any separate participant data or series metadata.
-///     Specified in
-///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-15mtb.xml
-///     At the time of writing, the conversion module profile file specifies just a single PublisherButtonProfileItem.
-///     The DatasetIdentifier is 'FileFromSimonHoldenAsXml', this is the button that the user clicks to browse the hard
-///     drive
-///     for the file that Simon originates in Access and this is the dataset that is expected here.
-/// </summary>
-public class PublisherForKelsoMtb2015To2019 : PublisherBase
+namespace RezultzSvc.Library02.Mar2024.PublisherModules
 {
-    private const string Locus2 = nameof(PublisherForKelsoMtb2015To2019);
-    private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
+    /// <summary>
+    ///     Interprets the self-standing data in a single self-standing XML file exported from Access from
+    ///     Simon Holden and AJ Leeming and does extensive field-mapping, arithmetic, reformatting, and renaming
+    ///     to comply with Rezultz 2018 inputEntity API. Does not require any separate participant data or series metadata.
+    ///     Specified in
+    ///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-15mtb.xml
+    ///     At the time of writing, the conversion module profile file specifies just a single PublisherButtonProfileItem.
+    ///     The DatasetIdentifier is 'FileFromSimonHoldenAsXml', this is the button that the user clicks to browse the hard
+    ///     drive
+    ///     for the file that Simon originates in Access and this is the dataset that is expected here.
+    /// </summary>
+    public class PublisherForKelsoMtb2015To2019 : PublisherBase
+    {
+        private const string Locus2 = nameof(PublisherForKelsoMtb2015To2019);
+        private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
-    public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
+        public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
     {
         throw new NotImplementedException(); // nothing required at time of writing
     }
 
-    public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
+        public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
     {
         const string failure = "Unable to compute results for specified event based on datasets loaded.";
         const string locus = "[DoAllTranslationsAndComputationsToGenerateResultsAsync()]";
@@ -279,67 +279,67 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    #region const
+        #region const
 
-    private const string sourceFileXAttribute = "sourcefile";
+        private const string sourceFileXAttribute = "sourcefile";
 
-    private const string IdentifierOfResultsFromAccessFromAJ = "FileFromSimonHoldenAsXml"; // the identifier here originates from the publisher profile file. Must be kept in sync
+        private const string IdentifierOfResultsFromAccessFromAJ = "FileFromSimonHoldenAsXml"; // the identifier here originates from the publisher profile file. Must be kept in sync
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
+        private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
 
-    #endregion
+        #endregion
 
-    #region field name mappings
+        #region field name mappings
 
-    private static class FieldNames
-    {
-        public const string WeirdKelsoClockTime = "WeirdKelsoClockTime";
-        public const string WeirdKelsoClockTimeOffset = "WeirdKelsoClockTimeOffset";
-        public const string TrophyPoints = "TrohyPoints";
+        private static class FieldNames
+        {
+            public const string WeirdKelsoClockTime = "WeirdKelsoClockTime";
+            public const string WeirdKelsoClockTimeOffset = "WeirdKelsoClockTimeOffset";
+            public const string TrophyPoints = "TrohyPoints";
 
-    }
+        }
 
-    private static Dictionary<string, string> XElementNameMappingDictionary => new()
-    {
-        {"plate", ResultDto.XeBib},
-        {"first_name", ResultDto.XeFirst},
-        {"last_name", ResultDto.XeLast},
-        {"gender", ResultDto.XeSex},
-        {"Class_Race", ResultDto.XeRace},
-        {"age_category", ResultDto.XeAgeGroup},
-        {"Time_Text", FieldNames.WeirdKelsoClockTime},
-        {"TmAdjustment", FieldNames.WeirdKelsoClockTimeOffset},
-        {"Notes", ResultDto.XeDnxString},
-        {"isseries", ResultDto.XeIsSeries},
-        {"city", ResultDto.XeCity}
-    };
+        private static Dictionary<string, string> XElementNameMappingDictionary => new()
+        {
+            {"plate", ResultDto.XeBib},
+            {"first_name", ResultDto.XeFirst},
+            {"last_name", ResultDto.XeLast},
+            {"gender", ResultDto.XeSex},
+            {"Class_Race", ResultDto.XeRace},
+            {"age_category", ResultDto.XeAgeGroup},
+            {"Time_Text", FieldNames.WeirdKelsoClockTime},
+            {"TmAdjustment", FieldNames.WeirdKelsoClockTimeOffset},
+            {"Notes", ResultDto.XeDnxString},
+            {"isseries", ResultDto.XeIsSeries},
+            {"city", ResultDto.XeCity}
+        };
 
-    private static Dictionary<string, string> XElementValueMappingDictionary => new()
-    {
-        {"", ""}
-    };
+        private static Dictionary<string, string> XElementValueMappingDictionary => new()
+        {
+            {"", ""}
+        };
 
-    private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished => new()
-    {
-        "event",
-        "checked_in",
-        "Time_Text",
-        "TmAdjustment",
-        FieldNames.WeirdKelsoClockTime,
-        FieldNames.WeirdKelsoClockTimeOffset
-    };
+        private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished => new()
+        {
+            "event",
+            "checked_in",
+            "Time_Text",
+            "TmAdjustment",
+            FieldNames.WeirdKelsoClockTime,
+            FieldNames.WeirdKelsoClockTimeOffset
+        };
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    // ReSharper disable once UnusedMember.Local
-    private static string MapXElementValues(string xmlFileContentsAsPlainText,
-        Dictionary<string, string> mappingDictionary)
+        // ReSharper disable once UnusedMember.Local
+        private static string MapXElementValues(string xmlFileContentsAsPlainText,
+            Dictionary<string, string> mappingDictionary)
     {
         var failure = "Unable to map XElement names in accordance with mapping dictionary.";
         const string locus = "[MapXElementNames]";
@@ -383,8 +383,8 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static string MapXElementNames(string xmlFileContentsAsPlainText,
-        Dictionary<string, string> mappingDictionary)
+        private static string MapXElementNames(string xmlFileContentsAsPlainText,
+            Dictionary<string, string> mappingDictionary)
     {
         var failure = "Unable to map XElement names in accordance with mapping dictionary.";
         const string locus = "[MapXElementNames]";
@@ -429,9 +429,9 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    // ReSharper disable once UnusedMethodReturnValue.Local
-    private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
-        string nameOfRepeatingChildElement)
+        // ReSharper disable once UnusedMethodReturnValue.Local
+        private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
+            string nameOfRepeatingChildElement)
     {
         var failure = "Unable to extract child elements from parent Xml document.";
         const string locus = "[ExtractListOfIndividualResults]";
@@ -474,7 +474,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static XElement[] GiveChildrenTheCorrectNameForRezultzApi(XContainer parentXContainer)
+        private static XElement[] GiveChildrenTheCorrectNameForRezultzApi(XContainer parentXContainer)
     {
         var failure = "Unable to change name of repeating child elements to comply with Rezultz API.";
         const string locus = "[GiveChildrenTheCorrectNameForRezultzApi]";
@@ -508,7 +508,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static IEnumerable<XElement> TranslateIsSeriesField(IEnumerable<XElement> resultElements)
+        private static IEnumerable<XElement> TranslateIsSeriesField(IEnumerable<XElement> resultElements)
     {
         var failure = "Unable to determine if participant is registered for the series or not.";
         const string locus = "[TranslateIsSeriesField]";
@@ -553,7 +553,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static IEnumerable<XElement> TranslateDnxField(IEnumerable<XElement> resultElements)
+        private static IEnumerable<XElement> TranslateDnxField(IEnumerable<XElement> resultElements)
     {
         var failure = "Unable to determine if participant has a valid Dnx entry or not. (DNF, DNS, TBD";
         const string locus = "[TranslateDnxField]";
@@ -605,7 +605,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static IEnumerable<XElement> CalculateChipField(IEnumerable<XElement> resultElements)
+        private static IEnumerable<XElement> CalculateChipField(IEnumerable<XElement> resultElements)
     {
         var failure =
             "Unable to determine a participant's chip time (derived from gun-time and start-time offset).";
@@ -675,10 +675,10 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    /// <summary>
-    /// Note: this method is deprecated. It was written in 2015 and has been replaced by a more sophisticated method that uses a points scale table.
-    /// </summary>
-    private static XElement[] InsertTrophyPtsField(IEnumerable<XElement> resultElements)
+        /// <summary>
+        /// Note: this method is deprecated. It was written in 2015 and has been replaced by a more sophisticated method that uses a points scale table.
+        /// </summary>
+        private static XElement[] InsertTrophyPtsField(IEnumerable<XElement> resultElements)
     {
         var failure = "Unable to insert the points allocted for a win in the participant's race.";
         const string locus = "[InsertTrophyPtsField]";
@@ -748,8 +748,8 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static XElement[] RemoveSuperfluousFields(IEnumerable<XElement> resultElements,
-        List<string> namesOfSuperfluousElements)
+        private static XElement[] RemoveSuperfluousFields(IEnumerable<XElement> resultElements,
+            List<string> namesOfSuperfluousElements)
     {
         var failure =
             "Unable to remove superfluous fields in the inputEntity data i.e. those not required by the Rezultz API.";
@@ -802,7 +802,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static XElement ParsePlainTextIntoXml(string inputText)
+        private static XElement ParsePlainTextIntoXml(string inputText)
     {
         var failure = "Unable to parse text into xml.";
         const string locus = "[ParsePlainTextIntoXml]";
@@ -829,7 +829,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static bool IsSuperficiallyValidKelsoTimeText(string text)
+        private static bool IsSuperficiallyValidKelsoTimeText(string text)
     {
         var failure =
             "Unable to confirm if the Kelso field is a valid time field or not in terms of its own standard format.";
@@ -848,7 +848,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         }
     }
 
-    private static bool ElementValueIsDnxSymbol(XElement dnxElement)
+        private static bool ElementValueIsDnxSymbol(XElement dnxElement)
     {
         const string failure = " Unable to determine if value of element is a valid Dnx symbol.";
         const string locus = "[ElementValueIsDnxSymbol]";
@@ -874,8 +874,8 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         }
     }
 
-    private static TimeSpan AdjustGunTimeForStartTimeOffset(XElement gunTimeElement,
-        XElement startTimeOffSetElement)
+        private static TimeSpan AdjustGunTimeForStartTimeOffset(XElement gunTimeElement,
+            XElement startTimeOffSetElement)
     {
         var failure = "Unable to adjust gun time for start time offset.";
         const string locus = "[AdjustGunTimeForStartTimeOffset]";
@@ -905,7 +905,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         #endregion
     }
 
-    private static TimeSpan ConvertElementValueFromKelsoTimeTextToTimespan(XElement timeTextXElement)
+        private static TimeSpan ConvertElementValueFromKelsoTimeTextToTimespan(XElement timeTextXElement)
     {
         var failure = "Unable to convert text purporting to be a valid time to typeof C# Timespan.";
         const string locus = "[ConvertElementValueFromKelsoTimeTextToTimespan]";
@@ -967,7 +967,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         }
     }
 
-    private ResultItem[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
+        private ResultItem[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
     {
         List<ResultItem> answer = new();
 
@@ -993,7 +993,7 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         return answer.ToArray();
     }
 
-    private static string WriteOneLineReport(int index, ResultItem dtoItem, string inputDuration)
+        private static string WriteOneLineReport(int index, ResultItem dtoItem, string inputDuration)
     {
         string answer;
 
@@ -1005,5 +1005,6 @@ public class PublisherForKelsoMtb2015To2019 : PublisherBase
         return answer;
     }
 
-    #endregion
+        #endregion
+    }
 }

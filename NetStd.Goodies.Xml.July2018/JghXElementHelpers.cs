@@ -8,29 +8,30 @@ using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Exceptions.Mar2024.JghExceptions;
 using NetStd.Goodies.Mar2022;
 
-namespace NetStd.Goodies.Xml.July2018;
-// N.B. be sure not to improve these to be extension methods and invoke them as such. I did so, and it came back to bite me because of the occurance of nulls. lesson learned.
-
-public static class JghXElementHelpers
+namespace NetStd.Goodies.Xml.July2018
 {
-    private const string Locus2 = nameof(JghXElementHelpers);
-    private const string Locus3 = "[NetStd.Goodies.Xml.July2018]";
+    // N.B. be sure not to improve these to be extension methods and invoke them as such. I did so, and it came back to bite me because of the occurance of nulls. lesson learned.
 
-    public const string JghTimeNowFormat = "dddd MMMM dd, yyyy  hh:mm tt";
+    public static class JghXElementHelpers
+    {
+        private const string Locus2 = nameof(JghXElementHelpers);
+        private const string Locus3 = "[NetStd.Goodies.Xml.July2018]";
 
-    public static string AsTmLr(string someString)
+        public const string JghTimeNowFormat = "dddd MMMM dd, yyyy  hh:mm tt";
+
+        public static string AsTmLr(string someString)
     {
         return someString?.Trim().ToLowerInvariant() ?? string.Empty;
     }
 
-    public static string AsTmlr(XElement someElement)
+        public static string AsTmlr(XElement someElement)
     {
         return someElement == null
             ? string.Empty
             : AsTmLr(someElement.Value);
     }
 
-    public static string AsTrimmedString(XElement someElement)
+        public static string AsTrimmedString(XElement someElement)
     {
         // NB don't use TmLr here. this method must'nt suppress case. We want to retain case sensitivity
 
@@ -41,7 +42,7 @@ public static class JghXElementHelpers
                 : someElement.Value.Trim();
     }
 
-    public static int AsInt32(XElement someElement)
+        public static int AsInt32(XElement someElement)
     {
         if (someElement == null) return 0;
 
@@ -54,7 +55,7 @@ public static class JghXElementHelpers
         return conversionSucceeded ? parseResult : 0;
     }
 
-    public static long AsInt64(XElement someElement)
+        public static long AsInt64(XElement someElement)
     {
         if (someElement == null) return 0;
 
@@ -66,7 +67,7 @@ public static class JghXElementHelpers
         return conversionSucceeded ? parseResult : 0;
     }
 
-    public static double AsDouble(XElement someElement)
+        public static double AsDouble(XElement someElement)
     {
         if (someElement == null) return 0;
 
@@ -78,7 +79,7 @@ public static class JghXElementHelpers
         return conversionSucceeded ? parseResult : 0;
     }
 
-    public static bool AsBool(XElement someElement)
+        public static bool AsBool(XElement someElement)
     {
         if (someElement == null) return false;
 
@@ -88,7 +89,7 @@ public static class JghXElementHelpers
         return AsBool(someElement.Value);
     }
 
-    private static bool AsBool(string value)
+        private static bool AsBool(string value)
     {
         if (string.IsNullOrWhiteSpace(value)) return false;
 
@@ -97,7 +98,7 @@ public static class JghXElementHelpers
     }
 
 
-    public static string AsTimespanString(XElement someElement)
+        public static string AsTimespanString(XElement someElement)
     {
         if (someElement == null) return null;
 
@@ -109,7 +110,7 @@ public static class JghXElementHelpers
         return conversionSucceeded ? parseResult.ToString("G") : null;
     }
 
-    public static DateTime AsDateTime(XElement someElement)
+        public static DateTime AsDateTime(XElement someElement)
     {
         var zz = DateTime.MaxValue;
 
@@ -123,7 +124,7 @@ public static class JghXElementHelpers
         return conversionSucceeded ? parseResult : zz;
     }
 
-    public static string AsStringRepresentingBestGuessTypeOrBlankIfZero(XElement someElement)
+        public static string AsStringRepresentingBestGuessTypeOrBlankIfZero(XElement someElement)
     {
         if (someElement == null)
             return null;
@@ -135,7 +136,7 @@ public static class JghXElementHelpers
             JghFormatSpecifiers.DecimalFormat2Dp);
     }
 
-    public static string ChildElementValueAsString(XElement parentXe, string nameOfChild)
+        public static string ChildElementValueAsString(XElement parentXe, string nameOfChild)
     {
         var childXe = parentXe?.Element(nameOfChild);
 
@@ -147,17 +148,17 @@ public static class JghXElementHelpers
         return value.Trim();
     }
 
-    public static string NameOfElementOrBlankIfElementIsNull(XElement somElement)
+        public static string NameOfElementOrBlankIfElementIsNull(XElement somElement)
     {
         return somElement?.Name.ToString() ?? string.Empty;
     }
 
-    public static XElement ElementOrDummyIfNull(XElement someElement)
+        public static XElement ElementOrDummyIfNull(XElement someElement)
     {
         return someElement ?? new XElement("Dummy", "dummy");
     }
 
-    public static string TransformXElementContainingSimpleChildrenToRowOfCsvForExcel(XElement inputXElement, bool mustTransformElementNamesNotValues)
+        public static string TransformXElementContainingSimpleChildrenToRowOfCsvForExcel(XElement inputXElement, bool mustTransformElementNamesNotValues)
     {
         const string failure = "Unable to transform xml XElement to string of comma separated values.";
         const string locus = "[TransformXElementContainingSimpleChildrenToRowOfCsvForExcel]";
@@ -245,7 +246,7 @@ public static class JghXElementHelpers
         }
     }
 
-    public static string TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(XElement parentElementContainingListOfChildElements)
+        public static string TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(XElement parentElementContainingListOfChildElements)
     {
         const string failure = "Unable to transform xml data into the contents for a comma separated file.";
         const string locus = "[TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel]";
@@ -292,7 +293,7 @@ public static class JghXElementHelpers
         #endregion
     }
 
-    public static byte[] TransformXElementToBytesUtf8(XElement inputXElement, SaveOptions saveOption)
+        public static byte[] TransformXElementToBytesUtf8(XElement inputXElement, SaveOptions saveOption)
     {
         const string failure = "Unable to transform xml XElement to string then byte array";
         const string locus = "[TransformXElementToBytesUtf8]";
@@ -315,7 +316,7 @@ public static class JghXElementHelpers
         return answerAsBytes;
     }
 
-    public static byte[] TransformXDocumentToBytesUtf8(XDocument inputXDocument, SaveOptions saveOption)
+        public static byte[] TransformXDocumentToBytesUtf8(XDocument inputXDocument, SaveOptions saveOption)
     {
         const string failure = "Unable to transform xml XDocument to string then byte array";
         const string locus = "[TransformXDocumentToBytesUtf8]";
@@ -338,7 +339,7 @@ public static class JghXElementHelpers
         return answerAsBytes;
     }
 
-    public static XElement TransformBytesToXElement(byte[] inputByteArray)
+        public static XElement TransformBytesToXElement(byte[] inputByteArray)
     {
         var failure = "Unable to transform bytes to xml XElement.";
         const string locus = "[TransformXDocumentToBytesUtf8]";
@@ -365,8 +366,8 @@ public static class JghXElementHelpers
         return answerAsXElement;
     }
 
-    public static XElement WrapXElementInNewParentElement(string desiredNameOfNewParentXElement,
-        XElement inputXElement)
+        public static XElement WrapXElementInNewParentElement(string desiredNameOfNewParentXElement,
+            XElement inputXElement)
     {
         const string failure = "Unable to wrap xml XElement in new parent.";
         const string locus = "[WrapXElementInNewParentElement]";
@@ -392,8 +393,8 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XElement WrapCollectionOfXElementsInNewParent(string desiredNameOfNewParentXElement,
-        IEnumerable<XElement> inputCollectionOfXElements)
+        public static XElement WrapCollectionOfXElementsInNewParent(string desiredNameOfNewParentXElement,
+            IEnumerable<XElement> inputCollectionOfXElements)
     {
         const string failure = "Unable to wrap collection of xml XElements in new parent.";
         const string locus = "[WrapCollectionOfXElementsInNewParent]";
@@ -421,8 +422,8 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XElement WrapCollectionOfXElementsInNewParentWithNoAttributes(string desiredNameOfNewParentXElement,
-        IEnumerable<XElement> inputCollectionOfXElements)
+        public static XElement WrapCollectionOfXElementsInNewParentWithNoAttributes(string desiredNameOfNewParentXElement,
+            IEnumerable<XElement> inputCollectionOfXElements)
     {
         const string failure = "Unable to wrap collection of xml XElements in new parent.";
         const string locus = "[WrapCollectionOfXElementsInNewParent]";
@@ -448,7 +449,7 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XDocument WrapXElementInNewXDocument(string desiredNameOfNewParent, XElement inputXElement)
+        public static XDocument WrapXElementInNewXDocument(string desiredNameOfNewParent, XElement inputXElement)
     {
         const string failure = "Unable to wrap xml XElement in new parent as an XDocument.";
         const string locus = "[WrapXElementInNewXDocument]";
@@ -474,8 +475,8 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XDocument WrapCollectionOfXElementsInNewXDocument(string desiredNameOfXDocumentRootElement,
-        IEnumerable<XElement> inputCollectionOfXElements)
+        public static XDocument WrapCollectionOfXElementsInNewXDocument(string desiredNameOfXDocumentRootElement,
+            IEnumerable<XElement> inputCollectionOfXElements)
     {
         const string failure = "Unable to wrap collection of xml XElements in new parent as an XDocument.";
         const string locus = "[WrapCollectionOfXElementsInNewXDocument]";
@@ -505,7 +506,7 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XElement RemoveDescendantsHavingSystemDefaultValues(XElement inputXElement)
+        public static XElement RemoveDescendantsHavingSystemDefaultValues(XElement inputXElement)
     {
         const string failure =
             "Unable to remove redundant xml descendants with default values such as whitespace, 0, false, and time zero.";
@@ -530,7 +531,7 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XElement RenameChild(XElement parentXElement, string oldNameOfChild, string desiredNewNameOfChild)
+        public static XElement RenameChild(XElement parentXElement, string oldNameOfChild, string desiredNewNameOfChild)
     {
         const string failure = "Unable to rename one or more child xml elements";
         const string locus = "[RemoveDescendantsHavingSystemDefaultValues]";
@@ -564,7 +565,7 @@ public static class JghXElementHelpers
         }
     }
 
-    public static XElement RemoveUnwantedChildren(XElement element, string[] namesOfChildrenToBeRemoved)
+        public static XElement RemoveUnwantedChildren(XElement element, string[] namesOfChildrenToBeRemoved)
     {
         const string failure = "Unable to delete unwanted children in xml XElement.";
         const string locus = "[RemoveUnwantedChildren]";
@@ -593,7 +594,7 @@ public static class JghXElementHelpers
         #endregion
     }
 
-    public static XElement RemoveUnwantedChildrenButOnlyIfEmpty(XElement element, string[] namesOfChildrenToBeRemoved)
+        public static XElement RemoveUnwantedChildrenButOnlyIfEmpty(XElement element, string[] namesOfChildrenToBeRemoved)
     {
         const string failure = "Unable to delete unwanted children in xml XElement.";
         const string locus = "[RemoveUnwantedChildrenButOnlyIfEmpty]";
@@ -620,5 +621,6 @@ public static class JghXElementHelpers
         }
 
         #endregion
+    }
     }
 }

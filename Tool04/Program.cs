@@ -5,17 +5,17 @@ using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTypes.Nov2023.RezultzItems;
 
-namespace Tool04;
-
-internal class Program
+namespace Tool04
 {
-    private const string Description =
-        "This program reads one or more XML files of published results data from the Portal." +
-        " For every ResultItemDto in each of those files, it overwrites the T01 field" +
-        " with the corresponding field obtained from the three associated MyLaps data files (in CSV format)." +
-        " Then it exports tidied up file/s of XML.";
+    internal class Program
+    {
+        private const string Description =
+            "This program reads one or more XML files of published results data from the Portal." +
+            " For every ResultItemDto in each of those files, it overwrites the T01 field" +
+            " with the corresponding field obtained from the three associated MyLaps data files (in CSV format)." +
+            " Then it exports tidied up file/s of XML.";
 
-    private static Task Main()
+        private static Task Main()
     {
         JghConsoleHelper.WriteLineWrappedInTwo("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
@@ -203,7 +203,7 @@ internal class Program
         return Task.CompletedTask;
     }
 
-    private static void Main01()
+        private static void Main01()
     {
         #region step 1 populate the list of RezultzFileItems with resultDto file contents
 
@@ -542,50 +542,50 @@ internal class Program
         #endregion
     }
 
-    #region constants
+        #region constants
 
-    private const int LhsWidth = 50;
+        private const int LhsWidth = 50;
 
-    private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\PublishedPreprocessedResults\";
-    private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\Event03-04-06-08FromMyLaps\";
-    private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffByJohn\Event03-04-06-08FromRezultzEditedWithTimesFromMyLaps\";
-    private const string OutputFolderForUploadToRezultz = @"C:\Users\johng\holding pen\StuffByJohn\Event03-04-06-08FromRezultzEditedWithTimesFromMyLaps\ForUploadToRezultz\";
-
-
-    private const string RequiredMyLapsFileFormat = "csv"; // "csv"
-    private const string RequiredRezultzFileFormat = "xml"; // "xml"
-
-    private static readonly JghListDictionary<string, string> DictionaryOfPreprocessedRezultzFiles = new()
-    {
-        {"Kelso2023mtb-results-03.xml", "Expert03.csv"},
-        {"Kelso2023mtb-results-03.xml", "Novice03.csv"},
-        {"Kelso2023mtb-results-03.xml", "Sport03.csv"},
-        {"Kelso2023mtb-results-04.xml", "Expert04.csv"},
-        {"Kelso2023mtb-results-04.xml", "Novice04.csv"},
-        {"Kelso2023mtb-results-04.xml", "Sport04.csv"},
-        {"Kelso2023mtb-results-06.xml", "Expert06.csv"},
-        {"Kelso2023mtb-results-06.xml", "Novice06.csv"},
-        {"Kelso2023mtb-results-06.xml", "Sport06.csv"},
-        {"Kelso2023mtb-results-08.xml", "Expert08.csv"},
-        {"Kelso2023mtb-results-08.xml", "Novice08.csv"},
-        {"Kelso2023mtb-results-08.xml", "Sport08.csv"}
-    };
-
-    private const int NumberOfRowsPrecedingRowOfFieldNames = 1; // Oddity when the csv file is exported directly from MyLaps. they have some sort of title row before the field names row.
-    //private const int NumberOfRowsPrecedingRowOfFieldNames = 0; // 0 is normal for csv files exported from Excel. 1 for csv files exported directly from MyLaps. they have some sort of title row before the field names row.
+        private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\PublishedPreprocessedResults\";
+        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\Event03-04-06-08FromMyLaps\";
+        private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffByJohn\Event03-04-06-08FromRezultzEditedWithTimesFromMyLaps\";
+        private const string OutputFolderForUploadToRezultz = @"C:\Users\johng\holding pen\StuffByJohn\Event03-04-06-08FromRezultzEditedWithTimesFromMyLaps\ForUploadToRezultz\";
 
 
-    #endregion
+        private const string RequiredMyLapsFileFormat = "csv"; // "csv"
+        private const string RequiredRezultzFileFormat = "xml"; // "xml"
 
-    #region variables
+        private static readonly JghListDictionary<string, string> DictionaryOfPreprocessedRezultzFiles = new()
+        {
+            {"Kelso2023mtb-results-03.xml", "Expert03.csv"},
+            {"Kelso2023mtb-results-03.xml", "Novice03.csv"},
+            {"Kelso2023mtb-results-03.xml", "Sport03.csv"},
+            {"Kelso2023mtb-results-04.xml", "Expert04.csv"},
+            {"Kelso2023mtb-results-04.xml", "Novice04.csv"},
+            {"Kelso2023mtb-results-04.xml", "Sport04.csv"},
+            {"Kelso2023mtb-results-06.xml", "Expert06.csv"},
+            {"Kelso2023mtb-results-06.xml", "Novice06.csv"},
+            {"Kelso2023mtb-results-06.xml", "Sport06.csv"},
+            {"Kelso2023mtb-results-08.xml", "Expert08.csv"},
+            {"Kelso2023mtb-results-08.xml", "Novice08.csv"},
+            {"Kelso2023mtb-results-08.xml", "Sport08.csv"}
+        };
 
-    private static readonly List<RezultzFileItem> ListOfRezultzFileItemsBeingProcessed = new();
+        private const int NumberOfRowsPrecedingRowOfFieldNames = 1; // Oddity when the csv file is exported directly from MyLaps. they have some sort of title row before the field names row.
+        //private const int NumberOfRowsPrecedingRowOfFieldNames = 0; // 0 is normal for csv files exported from Excel. 1 for csv files exported directly from MyLaps. they have some sort of title row before the field names row.
 
-    #endregion
 
-    #region helpers
+        #endregion
 
-    private static void VerifyMLapsCsvGunDurations(MyLapsFileObject myLapsFileItem, int numberOfRowsPrecedingRowOfFieldNames)
+        #region variables
+
+        private static readonly List<RezultzFileItem> ListOfRezultzFileItemsBeingProcessed = new();
+
+        #endregion
+
+        #region helpers
+
+        private static void VerifyMLapsCsvGunDurations(MyLapsFileObject myLapsFileItem, int numberOfRowsPrecedingRowOfFieldNames)
     {
         #region step 1 interpret the MyLaps file format if we can
 
@@ -709,7 +709,7 @@ internal class Program
         JghConsoleHelper.WriteLine($"Verifications ran to completion. Out of a total of {totalCount} records, {successCount} Gun Times were valid and {failureCount} were not.");
     }
 
-    private static List<MyLapsResultObject> TranslateMyLapsCsvFileContentsToMyLapsResultObjects(MyLapsFileObject myLapsFileItem)
+        private static List<MyLapsResultObject> TranslateMyLapsCsvFileContentsToMyLapsResultObjects(MyLapsFileObject myLapsFileItem)
     {
         var candidateAnswer = new List<MyLapsResultObject>();
 
@@ -850,7 +850,7 @@ internal class Program
         return candidateAnswer;
     }
 
-    private static bool DetermineIfIsNothingNecessaryToDoKindOfMatch(ResultItem resultItem)
+        private static bool DetermineIfIsNothingNecessaryToDoKindOfMatch(ResultItem resultItem)
     {
         if (!string.IsNullOrWhiteSpace(resultItem.DnxString)) return true;
 
@@ -859,7 +859,7 @@ internal class Program
         return false;
     }
 
-    private static string FigureOutReasonIfMatchDoesNotExist(ResultItem resultItem, IReadOnlyCollection<MyLapsResultObject?> myLapsResultObjects, out MyLapsResultObject matchingMyLapsResultObject)
+        private static string FigureOutReasonIfMatchDoesNotExist(ResultItem resultItem, IReadOnlyCollection<MyLapsResultObject?> myLapsResultObjects, out MyLapsResultObject matchingMyLapsResultObject)
     {
         #region debug
 
@@ -947,7 +947,7 @@ internal class Program
         return "Problem. Correctly matching record not seen in MyLapsFile for an unexpected reason. Please investigate.";
     }
 
-    private static void SaveFileOfPopulatedMyLapsResultItemsToHardDriveAsXml(List<MyLapsResultObject> myLapsLineItem, MyLapsFileObject fileItem)
+        private static void SaveFileOfPopulatedMyLapsResultItemsToHardDriveAsXml(List<MyLapsResultObject> myLapsLineItem, MyLapsFileObject fileItem)
     {
         var myLapsLineObjectDTos = new List<MyLapsResultObjectDto>();
 
@@ -963,14 +963,14 @@ internal class Program
         JghConsoleHelper.WriteLine($"{myLapsLineObjectDTos.Count} records saved in {pathOfXmlFile}");
     }
 
-    private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
+        private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
     {
         var textItem = JghArrayHelpers.SelectItemFromArrayByArrayIndex(arrayOfText, indexOfDataItem);
 
         return JghString.TmLr(textItem ?? string.Empty);
     }
 
-    private static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
+        private static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
     {
         //if (purportedTimeSpanAsText == "59:26.8")
         //{
@@ -1127,13 +1127,13 @@ internal class Program
         }
     }
 
-    private static void ConsoleWriteOneLineMyLapsResultItemConversionReport(int index, MyLapsResultObject dtoItem, TimeSpan calculatedDuration)
+        private static void ConsoleWriteOneLineMyLapsResultItemConversionReport(int index, MyLapsResultObject dtoItem, TimeSpan calculatedDuration)
     {
         if (calculatedDuration != TimeSpan.MinValue)
             JghConsoleHelper.WriteLine($"{index,-3}  {dtoItem.Bib,-3}  {dtoItem.FullName,-25} {dtoItem.RaceGroup,-10} Calculated T01: {calculatedDuration,-15:G}");
     }
 
-    private static void SaveCulminationOfWorkDestinedForRezultzToHardDriveAsXml(List<ResultDto> listOfOutputDto, RezultzFileItem fileItem)
+        private static void SaveCulminationOfWorkDestinedForRezultzToHardDriveAsXml(List<ResultDto> listOfOutputDto, RezultzFileItem fileItem)
     {
         var xmlFileContents = JghSerialisation.ToXmlFromObject(listOfOutputDto.ToArray(), new[] {typeof(ResultDto[])});
 
@@ -1144,5 +1144,6 @@ internal class Program
         JghConsoleHelper.WriteLine($"Records saved to {pathOfXmlFile}");
     }
 
-    #endregion
+        #endregion
+    }
 }

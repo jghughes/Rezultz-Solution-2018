@@ -6,17 +6,17 @@ using NetStd.Exceptions.Mar2024.JghExceptions;
 using NetStd.Interfaces03.Apr2022;
 using RezultzSvc.ClientInterfaces.Mar2024.ClientBase;
 
-namespace RezultzSvc.Agents.Mar2024.Bases;
-
-public class SvcAgentBase : ISvcAgentBase
+namespace RezultzSvc.Agents.Mar2024.Bases
 {
-    private const string Locus2 = nameof(SvcAgentBase);
-    private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
+    public class SvcAgentBase : ISvcAgentBase
+    {
+        private const string Locus2 = nameof(SvcAgentBase);
+        private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
 
 
-    #region ctor stuff
+        #region ctor stuff
 
-    public SvcAgentBase()
+        public SvcAgentBase()
     {
         const string failure = "Unable to instantiate service agent.";
         const string locus = "[SvcAgentBase]";
@@ -31,17 +31,17 @@ public class SvcAgentBase : ISvcAgentBase
         }
     }
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    internal IServiceClientBase ClientBase { get; set; }
+        internal IServiceClientBase ClientBase { get; set; }
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public async Task<bool> ThrowIfNoServiceConnectionAsync(CancellationToken ct = default)
+        public async Task<bool> ThrowIfNoServiceConnectionAsync(CancellationToken ct = default)
     {
         const string failure = "Testing service availability.";
         const string locus = "[ThrowIfNoServiceConnectionAsync]";
@@ -61,7 +61,7 @@ public class SvcAgentBase : ISvcAgentBase
         }
     }
 
-    public async Task<bool> GetIfServiceIsAnsweringAsync(CancellationToken ct = default)
+        public async Task<bool> GetIfServiceIsAnsweringAsync(CancellationToken ct = default)
     {
         const string failure = "Unable to determine if remote server is answering.";
         const string locus = "[GetIfServiceIsAnsweringAsync]";
@@ -78,7 +78,7 @@ public class SvcAgentBase : ISvcAgentBase
         }
     }
 
-    public async Task<string[]> GetServiceEndpointsInfoAsync(CancellationToken ct = default)
+        public async Task<string[]> GetServiceEndpointsInfoAsync(CancellationToken ct = default)
     {
         const string failure = "Unable to obtain details of service endpoints on server.";
         const string locus = "[GetServiceEndpointsInfoAsync]";
@@ -95,5 +95,6 @@ public class SvcAgentBase : ISvcAgentBase
         }
     }
 
-    #endregion
+        #endregion
+    }
 }

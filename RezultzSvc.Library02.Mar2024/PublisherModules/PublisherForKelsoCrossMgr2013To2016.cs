@@ -18,31 +18,31 @@ using RezultzSvc.Library02.Mar2024.SvcHelpers;
 
 // ReSharper disable InconsistentNaming
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModules;
-
-/// <summary>
-///     Interpret and translate raw CX inputEntity data from Simon Holden from CrossMgr software exported in USAC format.
-///     Requires a separate participant list file and a CX points scale file from Simon.
-///     Does extensive analysis, arithmetic, reformatting and renaming to comply with Rezultz 2018 inputEntity API
-///     Specified in
-///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-13cx.xml
-///     At time of writing, the conversion module specification file specifies
-///     three PublisherButtonProfileItem. The three DatasetIdentifier are
-///     "CustomParticipantListAsXml" and "CrossMgrTimingDataAsXml" and "PointsScaleAsXml".
-///     These are the buttons that the user clicks to browse the hard drive and import the required xml files
-///     and these are the datasets expected here.
-/// </summary>
-public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
+namespace RezultzSvc.Library02.Mar2024.PublisherModules
 {
-    private const string Locus2 = nameof(PublisherForKelsoCrossMgr2013To2016);
-    private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
+    /// <summary>
+    ///     Interpret and translate raw CX inputEntity data from Simon Holden from CrossMgr software exported in USAC format.
+    ///     Requires a separate participant list file and a CX points scale file from Simon.
+    ///     Does extensive analysis, arithmetic, reformatting and renaming to comply with Rezultz 2018 inputEntity API
+    ///     Specified in
+    ///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-13cx.xml
+    ///     At time of writing, the conversion module specification file specifies
+    ///     three PublisherButtonProfileItem. The three DatasetIdentifier are
+    ///     "CustomParticipantListAsXml" and "CrossMgrTimingDataAsXml" and "PointsScaleAsXml".
+    ///     These are the buttons that the user clicks to browse the hard drive and import the required xml files
+    ///     and these are the datasets expected here.
+    /// </summary>
+    public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
+    {
+        private const string Locus2 = nameof(PublisherForKelsoCrossMgr2013To2016);
+        private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
-    public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
+        public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
     {
         throw new NotImplementedException(); // nothing required at time of writing
     }
 
-    public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
+        public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
     {
         const string failure = "Unable to compute results for specified event based on datasets loaded.";
         const string locus = "[DoAllTranslationsAndComputationsToGenerateResultsAsync()]";
@@ -341,87 +341,87 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    #region const
+        #region const
 
-    private const string sourceFileXAttribute = "sourcefile";
-    private const string IdentifierOfCrossMgrTimingData = "CrossMgrTimingDataAsXml";
-    private const string IdentifierOfParticipantList = "CustomParticipantListAsXml";
+        private const string sourceFileXAttribute = "sourcefile";
+        private const string IdentifierOfCrossMgrTimingData = "CrossMgrTimingDataAsXml";
+        private const string IdentifierOfParticipantList = "CustomParticipantListAsXml";
 
-    private const string IdentifierOfPointsScale = "PointsScaleAsXml";
-    // the identifiers above are defined in the XML publishing profile file. Must be kept in sync
+        private const string IdentifierOfPointsScale = "PointsScaleAsXml";
+        // the identifiers above are defined in the XML publishing profile file. Must be kept in sync
 
-    private const string XePlaceString = "place";
-    private const string XePointsAwardedString = "points-awarded"; // dummy placeholder - deprecated since 2013 when this publisher was written
-    #endregion
+        private const string XePlaceString = "place";
+        private const string XePointsAwardedString = "points-awarded"; // dummy placeholder - deprecated since 2013 when this publisher was written
+        #endregion
 
-    #region fields
+        #region fields
 
-    private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
+        private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
 
-    #endregion
+        #endregion
 
-    #region field name mappings
+        #region field name mappings
 
-    private static Dictionary<string, string> XElementNameMappingDictionary => new()
-    {
-        // for now 8 laps seems to be enough
+        private static Dictionary<string, string> XElementNameMappingDictionary => new()
+        {
+            // for now 8 laps seems to be enough
 
-        {"Race_x0020_Date", RaceSpecificationDto.XeAdvertisedStartDateTime},
-        {"Race_x0020_Discipline", RaceSpecificationDto.XeDiscipline},
-        {"Rider_x0020_Bib_x0020__x0023_", ResultDto.XeBib},
-        {"Rider_x0020_Place", XePlaceString},
-        {"Race_x0020_Category", ResultDto.XeRace},
-        {"Rider_x0020_Time", "dummy"},
-        {"Race_x0020_Distance", RaceSpecificationDto.XeDistanceOfCourseKm},
-        {"Rider_x0020_Lap_x0020_1", ResultDto.XeT01},
-        {"Rider_x0020_Lap_x0020_2", ResultDto.XeT02},
-        {"Rider_x0020_Lap_x0020_3", ResultDto.XeT03},
-        {"Rider_x0020_Lap_x0020_4", ResultDto.XeT04},
-        {"Rider_x0020_Lap_x0020_5", ResultDto.XeT05},
-        {"Rider_x0020_Lap_x0020_6", ResultDto.XeT06},
-        {"Rider_x0020_Lap_x0020_7", ResultDto.XeT07},
-        {"Rider_x0020_Lap_x0020_8", ResultDto.XeT08}
-    };
+            {"Race_x0020_Date", RaceSpecificationDto.XeAdvertisedStartDateTime},
+            {"Race_x0020_Discipline", RaceSpecificationDto.XeDiscipline},
+            {"Rider_x0020_Bib_x0020__x0023_", ResultDto.XeBib},
+            {"Rider_x0020_Place", XePlaceString},
+            {"Race_x0020_Category", ResultDto.XeRace},
+            {"Rider_x0020_Time", "dummy"},
+            {"Race_x0020_Distance", RaceSpecificationDto.XeDistanceOfCourseKm},
+            {"Rider_x0020_Lap_x0020_1", ResultDto.XeT01},
+            {"Rider_x0020_Lap_x0020_2", ResultDto.XeT02},
+            {"Rider_x0020_Lap_x0020_3", ResultDto.XeT03},
+            {"Rider_x0020_Lap_x0020_4", ResultDto.XeT04},
+            {"Rider_x0020_Lap_x0020_5", ResultDto.XeT05},
+            {"Rider_x0020_Lap_x0020_6", ResultDto.XeT06},
+            {"Rider_x0020_Lap_x0020_7", ResultDto.XeT07},
+            {"Rider_x0020_Lap_x0020_8", ResultDto.XeT08}
+        };
 
-    private static Dictionary<string, string> XElementValueMappingDictionary => new()
-    {
-        {"DNP", Symbols.SymbolDq}
-    };
+        private static Dictionary<string, string> XElementValueMappingDictionary => new()
+        {
+            {"DNP", Symbols.SymbolDq}
+        };
 
-    private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished => new()
-    {
-        "ID",
-        "Race_x0020_Gender"
-    };
+        private static List<string> XElementsThatCanBeDeletedAsTheFinalStepAfterConversionIsFinished => new()
+        {
+            "ID",
+            "Race_x0020_Gender"
+        };
 
-    private static class ParticipantMasterListXeNames
-    {
-        // gender not required because it's in the master list of participants
+        private static class ParticipantMasterListXeNames
+        {
+            // gender not required because it's in the master list of participants
 
-        public const string Bib = "Bib"; // primary key
-        public const string First = "first";
-        public const string Last = "last";
-        public const string Gender = "gender";
-        public const string AgeCategory = "age_category";
-        public const string Series = "Series";
-        public const string City = "city";
-    }
+            public const string Bib = "Bib"; // primary key
+            public const string First = "first";
+            public const string Last = "last";
+            public const string Gender = "gender";
+            public const string AgeCategory = "age_category";
+            public const string Series = "Series";
+            public const string City = "city";
+        }
 
-    private static class PointsScaleXeNames
-    {
-        // ReSharper disable once UnusedMember.Local
-        public const string PointsScaleChildren = "PointsScaleLineItem";
+        private static class PointsScaleXeNames
+        {
+            // ReSharper disable once UnusedMember.Local
+            public const string PointsScaleChildren = "PointsScaleLineItem";
 
-        public const string Points = "Points";
-        public const string Place = "Place"; // primary key
-        public const string Race = "Race";
-    }
+            public const string Points = "Points";
+            public const string Place = "Place"; // primary key
+            public const string Race = "Race";
+        }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private static string MapXElementValues(string xmlFileContentsAsPlainText, Dictionary<string, string> mappingDictionary)
+        private static string MapXElementValues(string xmlFileContentsAsPlainText, Dictionary<string, string> mappingDictionary)
     {
         var failure = "Unable to map XElement names in accordance with mapping dictionary.";
         const string locus = "[MapXElementNames]";
@@ -464,8 +464,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static string MapXElementNames(string xmlFileContentsAsPlainText,
-        Dictionary<string, string> mappingDictionary)
+        private static string MapXElementNames(string xmlFileContentsAsPlainText,
+            Dictionary<string, string> mappingDictionary)
     {
         var failure = "Unable to map XElement names in accordance with mapping dictionary.";
         const string locus = "[MapXElementNames]";
@@ -509,8 +509,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
-        string nameOfRepeatingChildElement)
+        private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
+            string nameOfRepeatingChildElement)
     {
         var failure = "Unable to extract child elements from parent Xml document.";
         const string locus = "[ExtractListOfIndividualResults]";
@@ -552,7 +552,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static XElement[] GiveChildrenTheCorrectNameForRezultzApi(XContainer parentXContainer)
+        private static XElement[] GiveChildrenTheCorrectNameForRezultzApi(XContainer parentXContainer)
     {
         var failure = "Unable to change name of repeating child elements to comply with Rezultz API.";
         const string locus = "[GiveChildrenTheCorrectNameForRezultzApi]";
@@ -586,8 +586,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static XElement[] RemoveSuperfluousFields(IEnumerable<XElement> resultElements,
-        List<string> namesOfSuperfluousElements)
+        private static XElement[] RemoveSuperfluousFields(IEnumerable<XElement> resultElements,
+            List<string> namesOfSuperfluousElements)
     {
         var failure =
             "Unable to remove superfluous fields in the inputEntity data i.e. those not required by the Rezultz API.";
@@ -641,7 +641,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static XElement ParsePlainTextIntoXml(string inputText)
+        private static XElement ParsePlainTextIntoXml(string inputText)
     {
         var failure = "Unable to parse text into xml.";
         const string locus = "[ParsePlainTextIntoXml]";
@@ -668,7 +668,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
+        private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
     {
         List<ResultDto> answer = new();
 
@@ -682,8 +682,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         return answer.ToArray();
     }
 
-    private static XElement[] AddParticipantParticulars(List<XElement> listOfIndividualResultsXe,
-        List<XElement> participantMasterListLineItems, out string errorMessage)
+        private static XElement[] AddParticipantParticulars(List<XElement> listOfIndividualResultsXe,
+            List<XElement> participantMasterListLineItems, out string errorMessage)
     {
         #region null value error handling
 
@@ -820,15 +820,15 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    /// <summary>
-    /// Note: this method is deprecated. It was written in 2013 and has been replaced by a more sophisticated method that uses a points scale table.
-    /// </summary>
-    /// <param name="listOfIndividualResultsXe"></param>
-    /// <param name="pointsScaleLineItems"></param>
-    /// <param name="errorMessage"></param>
-    /// <returns></returns>
-    private static XElement[] AddPointsAwarded(List<XElement> listOfIndividualResultsXe,
-        List<XElement> pointsScaleLineItems, out string errorMessage)
+        /// <summary>
+        /// Note: this method is deprecated. It was written in 2013 and has been replaced by a more sophisticated method that uses a points scale table.
+        /// </summary>
+        /// <param name="listOfIndividualResultsXe"></param>
+        /// <param name="pointsScaleLineItems"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        private static XElement[] AddPointsAwarded(List<XElement> listOfIndividualResultsXe,
+            List<XElement> pointsScaleLineItems, out string errorMessage)
     {
         #region example of individual result Xe
 
@@ -937,8 +937,8 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         #endregion
     }
 
-    private static bool IsMatchingRaceCodeAndPlaceCode(XContainer pointScaleLineItemXe, string raceCode,
-        string placeCode)
+        private static bool IsMatchingRaceCodeAndPlaceCode(XContainer pointScaleLineItemXe, string raceCode,
+            string placeCode)
     {
         #region example of points scale Xe
 
@@ -969,7 +969,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         return JghString.AreEqualIgnoreOrdinalCase(placeXe.Value, placeCode);
     }
 
-    private static bool IsMatchingBibCode(XContainer participantXe, string bibCode)
+        private static bool IsMatchingBibCode(XContainer participantXe, string bibCode)
     {
         #region example of participant Xe
 
@@ -1000,7 +1000,7 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
 
 
 
-    private static string WriteOneLineReport(int index, ResultItem result, string inputDuration)
+        private static string WriteOneLineReport(int index, ResultItem result, string inputDuration)
     {
         string answer;
 
@@ -1012,5 +1012,6 @@ public class PublisherForKelsoCrossMgr2013To2016 : PublisherBase
         return answer;
     }
 
-    #endregion
+        #endregion
+    }
 }

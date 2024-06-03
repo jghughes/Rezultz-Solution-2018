@@ -26,15 +26,15 @@ using RezultzPortal.Uwp.DependencyInjection;
 using RezultzPortal.Uwp.PageViewModels;
 using RezultzPortal.Uwp.Strings;
 
-namespace RezultzPortal.Uwp.Pages;
-
-public sealed partial class RegisterParticipantsToolsPage
+namespace RezultzPortal.Uwp.Pages
 {
-    private const string Locus2 = nameof(RegisterParticipantsToolsPage);
-    private const string Locus3 = "[RezultzPortal.Uwp]";
+    public sealed partial class RegisterParticipantsToolsPage
+    {
+        private const string Locus2 = nameof(RegisterParticipantsToolsPage);
+        private const string Locus3 = "[RezultzPortal.Uwp]";
 
 
-    public RegisterParticipantsToolsPage()
+        public RegisterParticipantsToolsPage()
     {
         Loaded += OnPageHasCompletedLoading;
 
@@ -46,13 +46,13 @@ public sealed partial class RegisterParticipantsToolsPage
     }
 
 
-    private RegisterParticipantsViewModel ViewModel => DataContext as RegisterParticipantsViewModel;
+        private RegisterParticipantsViewModel ViewModel => DataContext as RegisterParticipantsViewModel;
 
-    private static DependencyInjectionLocator DependencyLocator => Application.Current.Resources[StringsForXamlPages.DependencyInjectionLocator] as DependencyInjectionLocator;
+        private static DependencyInjectionLocator DependencyLocator => Application.Current.Resources[StringsForXamlPages.DependencyInjectionLocator] as DependencyInjectionLocator;
 
-    private static IProgressIndicatorViewModel GlobalProgressIndicatorVm
-    {
-        get
+        private static IProgressIndicatorViewModel GlobalProgressIndicatorVm
+        {
+            get
         {
             try
             {
@@ -67,11 +67,11 @@ public sealed partial class RegisterParticipantsToolsPage
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    public IRepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem> RepositoryOfParticipantHubItemEntries
-    {
-        get
+        public IRepositoryOfHubStyleEntriesWithStorageBackup<ParticipantHubItem> RepositoryOfParticipantHubItemEntries
+        {
+            get
         {
             try
             {
@@ -87,9 +87,9 @@ public sealed partial class RegisterParticipantsToolsPage
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    protected override async void OnPageHasCompletedLoading(object sender, RoutedEventArgs e)
+        protected override async void OnPageHasCompletedLoading(object sender, RoutedEventArgs e)
     {
         const string failure = StringsForXamlPages.ExceptionCaughtAtPageLevel;
         const string locus = $"[{nameof(OnPageHasCompletedLoading)}]";
@@ -117,14 +117,14 @@ public sealed partial class RegisterParticipantsToolsPage
         }
     }
 
-    protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
     {
         DependencyLocator.DeRegisterIAlertMessageServiceProvider();
 
         base.OnNavigatingFrom(e);
     }
 
-    private async void BtnExportChosenData_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnExportChosenData_OnClick(object sender, RoutedEventArgs e)
     {
         const string failure = "Unable to save file.";
         const string locus = "[BtnExportChosenData_OnClick]";
@@ -280,7 +280,7 @@ public sealed partial class RegisterParticipantsToolsPage
         #endregion
     }
 
-    private static FileSavePicker CreateFileSavePicker(string desiredFileFormatEnum, string fileNamePrefix)
+        private static FileSavePicker CreateFileSavePicker(string desiredFileFormatEnum, string fileNamePrefix)
     {
         const string failure = "Unable to populate save file dialogue.";
         const string locus = "[CreateFileSavePicker]";
@@ -318,7 +318,7 @@ public sealed partial class RegisterParticipantsToolsPage
         return fileSavePicker;
     }
 
-    private async Task<StorageFile> PickSaveFile(FileSavePicker fileSavePicker)
+        private async Task<StorageFile> PickSaveFile(FileSavePicker fileSavePicker)
     {
         const string failure = "Unable to select a filename.";
         const string locus = "[PickSaveFile]";
@@ -349,7 +349,7 @@ public sealed partial class RegisterParticipantsToolsPage
         return file;
     }
 
-    private static async Task<byte[]> GenerateAnswerAsBytes<T>(string desiredFileFormatEnum, T[] dataTransferObjects)
+        private static async Task<byte[]> GenerateAnswerAsBytes<T>(string desiredFileFormatEnum, T[] dataTransferObjects)
     {
         const string failure = "Unable to generate contents of file.";
         const string locus = "[GenerateAnswerAsBytes]";
@@ -387,7 +387,7 @@ public sealed partial class RegisterParticipantsToolsPage
         return await Task.FromResult(answerAsBytes);
     }
 
-    private static async Task<byte[]> GenerateAnswerAsBytes(string desiredFileFormatEnum, DataGridDesigner printer)
+        private static async Task<byte[]> GenerateAnswerAsBytes(string desiredFileFormatEnum, DataGridDesigner printer)
     {
         const string failure = "Unable to generate contents of file.";
         const string locus = "[GenerateAnswerAsBytes]";
@@ -422,7 +422,7 @@ public sealed partial class RegisterParticipantsToolsPage
         return answerAsBytes;
     }
 
-    private async Task SaveFileToHardDriveAsync(StorageFile file, byte[] bytesToBeSaved, int countOfLineItems)
+        private async Task SaveFileToHardDriveAsync(StorageFile file, byte[] bytesToBeSaved, int countOfLineItems)
     {
         const string failure = "Unable to save file.";
         const string locus = "[SaveFileToHardDriveAsync]";
@@ -479,24 +479,25 @@ public sealed partial class RegisterParticipantsToolsPage
         #endregion
     }
 
-    private static void AddFileTypesForCsv(FileSavePicker savePicker)
+        private static void AddFileTypesForCsv(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".csv";
         savePicker.FileTypeChoices.Add("Comma separated values data", new List<string> {".csv"});
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
     }
 
-    private static void AddFileTypesForXml(FileSavePicker savePicker)
+        private static void AddFileTypesForXml(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".xml";
         savePicker.FileTypeChoices.Add("XML data", new List<string> {".xml"});
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
     }
 
-    private static void AddFileTypesForJson(FileSavePicker savePicker)
+        private static void AddFileTypesForJson(FileSavePicker savePicker)
     {
         savePicker.DefaultFileExtension = @".json";
         savePicker.FileTypeChoices.Add("JSON data", new List<string> {".json"});
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
+    }
     }
 }

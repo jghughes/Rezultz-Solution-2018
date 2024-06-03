@@ -10,22 +10,22 @@ using RezultzSvc.ClientInterfaces.Mar2024.Clients;
 
 // ReSharper disable UnassignedGetOnlyAutoProperty
 
-namespace RezultzSvc.Agents.Mar2024.SvcAgents;
-
-public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAgent
+namespace RezultzSvc.Agents.Mar2024.SvcAgents
 {
-    private const string Locus2 = nameof(LeaderboardResultsSvcAgent);
-    private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
+    public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAgent
+    {
+        private const string Locus2 = nameof(LeaderboardResultsSvcAgent);
+        private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
 
-    #region fields
+        #region fields
 
-    private readonly ILeaderboardResultsServiceClient _myServiceClient;
+        private readonly ILeaderboardResultsServiceClient _myServiceClient;
 
-    #endregion
+        #endregion
 
-    #region ctor stuff
+        #region ctor stuff
 
-    public LeaderboardResultsSvcAgent(ILeaderboardResultsServiceClient serviceClientInstance)
+        public LeaderboardResultsSvcAgent(ILeaderboardResultsServiceClient serviceClientInstance)
     {
         const string failure = "Unable to instantiate service agent.";
         const string locus = "[LeaderboardResultsSvcAgent]";
@@ -42,11 +42,11 @@ public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAg
         }
     }
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public async Task<bool> GetIfFileNameOfSeasonProfileIsRecognisedAsync(string profileFileNameFragment, CancellationToken ct = default)
+        public async Task<bool> GetIfFileNameOfSeasonProfileIsRecognisedAsync(string profileFileNameFragment, CancellationToken ct = default)
     {
         const string failure = "Unable to determine if filename of file containing profile of season is recognised.";
         const string locus = "[GetIfFileNameOfSeasonProfileIsRecognisedAsync]";
@@ -63,13 +63,13 @@ public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAg
         }
     }
 
-    /// <summary>
-    ///     Returns deep copy of SeasonProfileItem document, inclusive of constituent Series data
-    /// </summary>
-    /// <param name="profileFileNameFragment"></param>
-    /// <param name="ct"></param>
-    /// <returns></returns>
-    public async Task<SeasonProfileItem> GetSeasonProfileAsync(string profileFileNameFragment, CancellationToken ct = default)
+        /// <summary>
+        ///     Returns deep copy of SeasonProfileItem document, inclusive of constituent Series data
+        /// </summary>
+        /// <param name="profileFileNameFragment"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<SeasonProfileItem> GetSeasonProfileAsync(string profileFileNameFragment, CancellationToken ct = default)
     {
         const string failure = "Unable to obtain file containing profile of season.";
         const string locus = "[GetSeasonProfileAsync]";
@@ -88,13 +88,13 @@ public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAg
         }
     }
 
-    /// <summary>
-    ///     Returns shallow copies of all SeasonProfileItem documents in
-    ///     the StorageHierarchyEntryPoint container, each of them
-    ///     exclusive of constituent Series data
-    /// </summary>
-    /// <returns></returns>
-    public async Task<SeasonProfileItem[]> GetAllSeasonProfilesAsync(CancellationToken ct = default)
+        /// <summary>
+        ///     Returns shallow copies of all SeasonProfileItem documents in
+        ///     the StorageHierarchyEntryPoint container, each of them
+        ///     exclusive of constituent Series data
+        /// </summary>
+        /// <returns></returns>
+        public async Task<SeasonProfileItem[]> GetAllSeasonProfilesAsync(CancellationToken ct = default)
     {
         const string failure = "Unable to obtain files containing profiles of all seasons.";
         const string locus = "[GetAllSeasonProfilesAsync]";
@@ -113,7 +113,7 @@ public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAg
         }
     }
 
-    public async Task<EventProfileItem> PopulateSingleEventWithResultsAsync(string databaseAccount, string dataContainer, EventProfileItem eventProfile, CancellationToken ct = default)
+        public async Task<EventProfileItem> PopulateSingleEventWithResultsAsync(string databaseAccount, string dataContainer, EventProfileItem eventProfile, CancellationToken ct = default)
     {
         const string failure = "Unable to obtain results for specified event.";
         const string locus = "[PopulateSingleEventWithResultsAsync]";
@@ -138,7 +138,7 @@ public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAg
         }
     }
 
-    public async Task<SeriesProfileItem> PopulateAllEventsInSingleSeriesWithAllResultsAsync(string databaseAccount, string dataContainer, SeriesProfileItem seriesProfile, CancellationToken ct = default)
+        public async Task<SeriesProfileItem> PopulateAllEventsInSingleSeriesWithAllResultsAsync(string databaseAccount, string dataContainer, SeriesProfileItem seriesProfile, CancellationToken ct = default)
     {
         const string failure = "Unable to obtain results for all events in specified series.";
         const string locus = "[PopulateAllEventsInSingleSeriesWithAllResultsAsync]";
@@ -166,5 +166,6 @@ public class LeaderboardResultsSvcAgent : SvcAgentBase, ILeaderboardResultsSvcAg
         }
     }
 
-    #endregion
+        #endregion
+    }
 }

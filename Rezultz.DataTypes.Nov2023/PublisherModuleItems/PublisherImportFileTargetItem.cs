@@ -3,38 +3,38 @@ using System.Linq;
 using NetStd.Exceptions.Mar2024.Helpers;
 using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 
-namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems;
-
-public class PublisherImportFileTargetItem
+namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 {
+    public class PublisherImportFileTargetItem
+    {
 
-    #region ctor
+        #region ctor
 
 
-    public PublisherImportFileTargetItem(string identifierOfDataset, string fileName)
+        public PublisherImportFileTargetItem(string identifierOfDataset, string fileName)
     {
         IdentifierOfDataset = identifierOfDataset ?? string.Empty;
         FileName = fileName ?? string.Empty;
     }
 
-    public PublisherImportFileTargetItem()
+        public PublisherImportFileTargetItem()
     {
     }
 
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    public string IdentifierOfDataset { get; set; } = string.Empty;
+        public string IdentifierOfDataset { get; set; } = string.Empty;
 
-    public string FileName { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public static PublisherImportFileTargetItem FromDataTransferObject(PublisherFileImportTargetItemDto importTargetItemDto)
+        public static PublisherImportFileTargetItem FromDataTransferObject(PublisherFileImportTargetItemDto importTargetItemDto)
     {
         const string failure = "Populating PublisherImportFileTargetItem.";
         const string locus = "[FromDataTransferObject]";
@@ -62,7 +62,7 @@ public class PublisherImportFileTargetItem
         #endregion
     }
 
-    public static PublisherImportFileTargetItem[] FromDataTransferObject(PublisherFileImportTargetItemDto[] dto)
+        public static PublisherImportFileTargetItem[] FromDataTransferObject(PublisherFileImportTargetItemDto[] dto)
     {
         const string failure = "Populating PublisherImportFileTargetItem[].";
         const string locus = "[FromDataTransferObject]";
@@ -87,7 +87,7 @@ public class PublisherImportFileTargetItem
         #endregion
     }
 
-    public static PublisherFileImportTargetItemDto ToDataTransferObject(PublisherImportFileTargetItem targetItem)
+        public static PublisherFileImportTargetItemDto ToDataTransferObject(PublisherImportFileTargetItem targetItem)
     {
         const string failure = "Populating PublisherFileImportTargetItemDto.";
         const string locus = "[ToDataTransferObject]";
@@ -116,7 +116,7 @@ public class PublisherImportFileTargetItem
         #endregion
     }
 
-    public static PublisherFileImportTargetItemDto[] ToDataTransferObject(PublisherImportFileTargetItem[] item)
+        public static PublisherFileImportTargetItemDto[] ToDataTransferObject(PublisherImportFileTargetItem[] item)
     {
         const string failure = "Populating PublisherFileImportTargetItemDto[].";
         const string locus = "[ToDataTransferObject]";
@@ -141,5 +141,6 @@ public class PublisherImportFileTargetItem
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

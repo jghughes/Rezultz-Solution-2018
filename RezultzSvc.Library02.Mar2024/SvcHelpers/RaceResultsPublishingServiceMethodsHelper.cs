@@ -12,22 +12,22 @@ using NetStd.Goodies.Mar2022;
 using Rezultz.DataTypes.Nov2023.PublisherModuleItems;
 using RezultzSvc.Library02.Mar2024.Factory;
 
-namespace RezultzSvc.Library02.Mar2024.SvcHelpers;
-
-public class RaceResultsPublishingServiceMethodsHelper
+namespace RezultzSvc.Library02.Mar2024.SvcHelpers
 {
-    private const string Locus2 = nameof(RaceResultsPublishingServiceMethodsHelper);
-    private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
+    public class RaceResultsPublishingServiceMethodsHelper
+    {
+        private const string Locus2 = nameof(RaceResultsPublishingServiceMethodsHelper);
+        private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
-    #region fields
+        #region fields
 
-    private readonly AzureStorageServiceMethodsHelper _azureStorage = new(new AzureStorageAccessor());
+        private readonly AzureStorageServiceMethodsHelper _azureStorage = new(new AzureStorageAccessor());
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private async Task<XElement> GetPublisherProfileAsXElementAsync(string fileNameFragment)
+        private async Task<XElement> GetPublisherProfileAsXElementAsync(string fileNameFragment)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetPublisherProfileAsXElementAsync]";
@@ -92,11 +92,11 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region svc methods
+        #region svc methods
 
-    public async Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string xmlFileNameFragment)
+        public async Task<bool> GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync(string xmlFileNameFragment)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIfFileNameFragmentOfPublishingProfileIsRecognisedAsync]";
@@ -126,7 +126,7 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    public async Task<PublisherModuleProfileItem> GetPublisherModuleProfileItemAsync(string xmlFileNameFragment)
+        public async Task<PublisherModuleProfileItem> GetPublisherModuleProfileItemAsync(string xmlFileNameFragment)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetPublisherModuleProfileItemAsync]";
@@ -154,7 +154,7 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync()
+        public async Task<string[]> GetFileNameFragmentsOfAllPublishingProfilesAsync()
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetFileNameFragmentsOfAllPublishingProfilesAsync]";
@@ -195,7 +195,7 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    public async Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string fileNameWithExtension)
+        public async Task<string> GetIllustrativeExampleOfDatasetExpectedByPublisherAsync(string fileNameWithExtension)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIllustrativeExampleOfDatasetExpectedByPublisherAsync]";
@@ -237,7 +237,7 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    public async Task<bool> UploadDatasetAsBytesAsync(string accountName, string containerName, string fileNameWithExtension, byte[] datasetContentsAsStringAsUncompressedBytes)
+        public async Task<bool> UploadDatasetAsBytesAsync(string accountName, string containerName, string fileNameWithExtension, byte[] datasetContentsAsStringAsUncompressedBytes)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[UploadDatasetAsBytesAsync]";
@@ -272,7 +272,7 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    public async Task<PublisherOutputItem> ConvertPreviouslyUploadedDatasetsToResultsForSingleEventAsync(PublisherInputItem publisherInputItem)
+        public async Task<PublisherOutputItem> ConvertPreviouslyUploadedDatasetsToResultsForSingleEventAsync(PublisherInputItem publisherInputItem)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[ConvertPreviouslyUploadedDatasetsToResultsForSingleEventAsync]";
@@ -300,5 +300,6 @@ public class RaceResultsPublishingServiceMethodsHelper
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

@@ -9,14 +9,14 @@ using RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService;
 
 // ReSharper disable UnusedMember.Local
 
-namespace Tool08;
-
-internal class Program
+namespace Tool08
 {
-    private const string Description = "This console program (Tool08) is a scratchpad for testing RaceResultsPublishingSvcAgent, their injected Wcf or Mvc clients and services," +
-                                       " and the C# publisher profile and module [PublisherForRezultzPortalTimingSystem2021]";
+    internal class Program
+    {
+        private const string Description = "This console program (Tool08) is a scratchpad for testing RaceResultsPublishingSvcAgent, their injected Wcf or Mvc clients and services," +
+                                           " and the C# publisher profile and module [PublisherForRezultzPortalTimingSystem2021]";
 
-    private static async Task Main()
+        private static async Task Main()
     {
         #region intro
 
@@ -333,7 +333,7 @@ internal class Program
 
     }
 
-    private static async Task Main01(string seriesLabel, string eventLabel, SeriesProfileItem seriesProfileItem)
+        private static async Task Main01(string seriesLabel, string eventLabel, SeriesProfileItem seriesProfileItem)
     {
         JghConsoleHelper.WriteLineFollowedByOne("RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() ....");
 
@@ -372,9 +372,9 @@ internal class Program
 
     }
 
-    #region helper methods
+        #region helper methods
 
-    private static string ConvertOutputToResultsDtoXmlFileContents(ResultItem[] resultItems)
+        private static string ConvertOutputToResultsDtoXmlFileContents(ResultItem[] resultItems)
     {
         var resultsDto = ResultItem.ToDataTransferObject(resultItems);
 
@@ -382,7 +382,7 @@ internal class Program
     }
 
 
-    private static void SaveWorkToHardDriveAsXml(string resultsDtoAsXml)
+        private static void SaveWorkToHardDriveAsXml(string resultsDtoAsXml)
     {
         var outPutFileName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', DateTime.Now.ToString(JghDateTime.SortablePattern)) + "______ResultsSynthesisedByPublishingSvc" + "." + StandardFileTypeSuffix.Xml;
         
@@ -395,48 +395,49 @@ internal class Program
         JghConsoleHelper.WriteLineFollowedByOne($"{JghString.LeftAlign("FileName", 30)} : {outPutFileName}");
     }
 
-    #endregion
+        #endregion
 
-    #region constants
+        #region constants
 
-    private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\PublishedPreprocessedResults\";
+        private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\PublishedPreprocessedResults\";
 
-    private const string RequiredRezultzPortalFileFormat = "xml";
+        private const string RequiredRezultzPortalFileFormat = "xml";
 
-    private const string OutputFolderForXmlResults = @"C:\Users\johng\holding pen\StuffByJohn\Output\";
+        private const string OutputFolderForXmlResults = @"C:\Users\johng\holding pen\StuffByJohn\Output\";
 
-    private const string IdentifierOfResultsFromRezultzPortal = EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem;
+        private const string IdentifierOfResultsFromRezultzPortal = EnumsForPublisherModule.ResultItemsAsXmlFromPortalNativeTimingSystem;
 
-    private static readonly Tuple<string, string>[] ArrayOfRezultzPortalFileNameTuples =
+        private static readonly Tuple<string, string>[] ArrayOfRezultzPortalFileNameTuples =
     {
         new("Kelso2023mtb-results-04.xml", "Kelso2023mtb-results-04----testOutput.xml")
-    };
+    }        ;
 
-    private const int LhsWidth = 70;
+        private const int LhsWidth = 70;
 
-    #endregion
+        #endregion
 
-    #region svc's available for use
+        #region svc's available for use
 
-    private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientMvc());
-    private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientMvc());
-    private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientMvc());
-    private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientMvc());
-    private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientMvc());
+        private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientMvc());
+        private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientMvc());
+        private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientMvc());
+        private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientMvc());
+        private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientMvc());
 
-    //private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientWcf());
-    //private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientWcf());
-    //private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientWcf());
-    //private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientWcf());
-    //private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientWcf());
+        //private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientWcf());
+        //private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientWcf());
+        //private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientWcf());
+        //private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientWcf());
+        //private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientWcf());
 
-    #endregion
+        #endregion
 
-    #region variables
+        #region variables
 
-    private static readonly List<FileItem> FileOfResultsExportedFromRezultzPortal = new();
+        private static readonly List<FileItem> FileOfResultsExportedFromRezultzPortal = new();
 
-    private static readonly List<PublisherImportFileTargetItem> FilesToBeProcessedByPublisherModule = new();
+        private static readonly List<PublisherImportFileTargetItem> FilesToBeProcessedByPublisherModule = new();
 
-    #endregion
+        #endregion
+    }
 }

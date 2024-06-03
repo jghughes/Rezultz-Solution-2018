@@ -1,15 +1,15 @@
 ﻿using CoreWCF;
 using CoreWCF.Channels;
 
-namespace RezultzSvc.WebApp03;
-
-public static class BindingConfigs
+namespace RezultzSvc.WebApp03
 {
-    // Note: the endpoint names are discretionary, but they must be unique. The Svc client wizard uses them to generate titles for the EndpointConfiguration enums in Reference.cs in the client project.
+    public static class BindingConfigs
+    {
+        // Note: the endpoint names are discretionary, but they must be unique. The Svc client wizard uses them to generate titles for the EndpointConfiguration enums in Reference.cs in the client project.
 
-    #region bindings
+        #region bindings
 
-    public static BasicHttpBinding GetHttpTextBinding()
+        public static BasicHttpBinding GetHttpTextBinding()
     {
 
         var answer = new BasicHttpBinding(BasicHttpSecurityMode.None)
@@ -26,7 +26,7 @@ public static class BindingConfigs
         return answer;
     }
 
-    public static BasicHttpBinding GetHttpsTextBinding()
+        public static BasicHttpBinding GetHttpsTextBinding()
     {
 
         var answer = new BasicHttpBinding(BasicHttpSecurityMode.Transport)
@@ -43,7 +43,7 @@ public static class BindingConfigs
         return answer;
     }
 
-    public static CustomBinding GetCustomBindingWithHttpsBinaryEncoding()
+        public static CustomBinding GetCustomBindingWithHttpsBinaryEncoding()
     {
         var answer = new CustomBinding
         {
@@ -66,6 +66,7 @@ public static class BindingConfigs
     }
 
 
-    #endregion
+        #endregion
 
+    }
 }

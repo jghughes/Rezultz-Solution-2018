@@ -14,22 +14,22 @@ using RezultzSvc.ClientInterfaces.Mar2024.Clients;
 
 // ReSharper disable InconsistentNaming
 
-namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService;
-
-/// <summary>
-///     A MVC API is best developed in a service-first manner. Use hard coded strings for the names of
-///     ApiController Route, HTTP action methods, and HTTP action parameters. Enable the API with Swagger to emit
-///     endpoint information and use Swagger in your browser to read the information. Copy the hard coded strings
-///     from Swagger into the URI strings used in your MVC client to make HTTP calls to the API.
-/// </summary>
-public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceClient
+namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService
 {
-    private const string Locus2 = nameof(AzureStorageServiceClientMvc);
-    private const string Locus3 = "[RezultzSvc.Clients.Mvc.Mar2023]";
+    /// <summary>
+    ///     A MVC API is best developed in a service-first manner. Use hard coded strings for the names of
+    ///     ApiController Route, HTTP action methods, and HTTP action parameters. Enable the API with Swagger to emit
+    ///     endpoint information and use Swagger in your browser to read the information. Copy the hard coded strings
+    ///     from Swagger into the URI strings used in your MVC client to make HTTP calls to the API.
+    /// </summary>
+    public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceClient
+    {
+        private const string Locus2 = nameof(AzureStorageServiceClientMvc);
+        private const string Locus3 = "[RezultzSvc.Clients.Mvc.Mar2023]";
 
-    #region ctor stuff
+        #region ctor stuff
 
-    public AzureStorageServiceClientMvc()
+        public AzureStorageServiceClientMvc()
     {
         const string failure = "Unable to instantiate AzureStorageServiceClientMvc.";
         const string locus = "[AzureStorageServiceClientMvc]";
@@ -44,11 +44,11 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         }
     }
 
-    #endregion
+        #endregion
 
-    #region actions
+        #region actions
 
-    public async Task<bool> GetIfContainerExistsAsync(string account, string container, CancellationToken ct = default)
+        public async Task<bool> GetIfContainerExistsAsync(string account, string container, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIfContainerExistsAsync]";
@@ -104,7 +104,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<string[]> GetNamesOfBlobsInContainerAsync(string account, string container, string requiredSubstring, bool mustPrintDescriptionAsOpposedToBlobName, CancellationToken ct = default)
+        public async Task<string[]> GetNamesOfBlobsInContainerAsync(string account, string container, string requiredSubstring, bool mustPrintDescriptionAsOpposedToBlobName, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetNamesOfBlobsInContainerAsync]";
@@ -163,7 +163,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<bool> GetIfBlobExistsAsync(string account, string container, string blob, CancellationToken ct = default)
+        public async Task<bool> GetIfBlobExistsAsync(string account, string container, string blob, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetIfBlobExistsAsync]";
@@ -221,7 +221,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<string> GetAbsoluteUriOfBlobAsync(string account, string container, string blob, CancellationToken ct = default)
+        public async Task<string> GetAbsoluteUriOfBlobAsync(string account, string container, string blob, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[GetAbsoluteUriOfBlockBlobAsync]";
@@ -279,7 +279,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<bool> DeleteBlockBlobIfExistsAsync(string account, string container, string blob, CancellationToken ct = default)
+        public async Task<bool> DeleteBlockBlobIfExistsAsync(string account, string container, string blob, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[DeleteBlockBlobIfExistsAsync]";
@@ -337,7 +337,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<bool> UploadBytesToBlockBlobAsync(string account, string container, string blob, bool createContainerIfNotExist, byte[] bytesToUpload, CancellationToken ct = default)
+        public async Task<bool> UploadBytesToBlockBlobAsync(string account, string container, string blob, bool createContainerIfNotExist, byte[] bytesToUpload, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[UploadBytesToBlockBlobAsync]";
@@ -397,7 +397,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<bool> UploadStringToBlockBlobAsync(string account, string container, string blob, bool createContainerIfNotExist, string stringToUpload, CancellationToken ct = default)
+        public async Task<bool> UploadStringToBlockBlobAsync(string account, string container, string blob, bool createContainerIfNotExist, string stringToUpload, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[UploadStringToBlockBlobAsync]";
@@ -458,7 +458,7 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    public async Task<byte[]> DownloadBlockBlobAsBytesAsync(string account, string container, string blob, CancellationToken ct = default)
+        public async Task<byte[]> DownloadBlockBlobAsBytesAsync(string account, string container, string blob, CancellationToken ct = default)
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[DownloadBlockBlobAsBytesAsync]";
@@ -516,5 +516,6 @@ public class AzureStorageServiceClientMvc : ClientBaseMvc, IAzureStorageServiceC
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

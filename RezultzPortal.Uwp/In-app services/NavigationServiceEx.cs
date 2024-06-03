@@ -6,20 +6,20 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace RezultzPortal.Uwp.In_app_services;
-
-public class NavigationServiceEx
+namespace RezultzPortal.Uwp.In_app_services
 {
-    private const string Locus = "[RezultzPortal.Uwp.Services]";
-
-    private readonly Dictionary<string, Type> _pages = new();
-
-    private Frame _frame;
-    private object _lastParamUsed;
-
-    public Frame Frame
+    public class NavigationServiceEx
     {
-        get
+        private const string Locus = "[RezultzPortal.Uwp.Services]";
+
+        private readonly Dictionary<string, Type> _pages = new();
+
+        private Frame _frame;
+        private object _lastParamUsed;
+
+        public Frame Frame
+        {
+            get
         {
             if (_frame == null)
             {
@@ -30,23 +30,23 @@ public class NavigationServiceEx
             return _frame;
         }
 
-        set
+            set
         {
             UnregisterFrameEvents();
             _frame = value;
             RegisterFrameEvents();
         }
-    }
+        }
 
-    public bool CanGoBack => Frame.CanGoBack;
+        public bool CanGoBack => Frame.CanGoBack;
 
-    public bool CanGoForward => Frame.CanGoForward;
+        public bool CanGoForward => Frame.CanGoForward;
 
-    public event NavigatedEventHandler Navigated;
+        public event NavigatedEventHandler Navigated;
 
-    public event NavigationFailedEventHandler NavigationFailed;
+        public event NavigationFailedEventHandler NavigationFailed;
 
-    public bool GoBack()
+        public bool GoBack()
     {
         if (CanGoBack)
         {
@@ -57,12 +57,12 @@ public class NavigationServiceEx
         return false;
     }
 
-    public void GoForward()
+        public void GoForward()
     {
         Frame.GoForward();
     }
 
-    public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
+        public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
     {
         Type page;
 
@@ -90,7 +90,7 @@ public class NavigationServiceEx
         return false;
     }
 
-    public void Configure(string key, Type pageType)
+        public void Configure(string key, Type pageType)
     {
         lock (_pages)
         {
@@ -115,7 +115,7 @@ public class NavigationServiceEx
         }
     }
 
-    public string GetNameOfRegisteredPage(Type page)
+        public string GetNameOfRegisteredPage(Type page)
     {
         lock (_pages)
         {
@@ -132,7 +132,7 @@ public class NavigationServiceEx
         }
     }
 
-    private void RegisterFrameEvents()
+        private void RegisterFrameEvents()
     {
         if (_frame != null)
         {
@@ -141,7 +141,7 @@ public class NavigationServiceEx
         }
     }
 
-    private void UnregisterFrameEvents()
+        private void UnregisterFrameEvents()
     {
         if (_frame != null)
         {
@@ -150,13 +150,14 @@ public class NavigationServiceEx
         }
     }
 
-    private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
     {
         NavigationFailed?.Invoke(sender, e);
     }
 
-    private void Frame_Navigated(object sender, NavigationEventArgs e)
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
     {
         Navigated?.Invoke(sender, e);
+    }
     }
 }

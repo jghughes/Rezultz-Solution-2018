@@ -28,22 +28,22 @@ using Rezultz.Library02.Mar2024.DataGridViewmodels;
 using Rezultz.Library02.Mar2024.Strings;
 using Rezultz.Library02.Mar2024.ValidationViewModels;
 
-namespace Rezultz.Library02.Mar2024.PageViewModelBases;
-
-public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISearchService
+namespace Rezultz.Library02.Mar2024.PageViewModelBases
 {
-    private const string Locus2 = nameof(BaseLeaderboardStylePageViewModel);
-    private const string Locus3 = "[Rezultz.Library02.Mar2024]";
+    public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISearchService
+    {
+        private const string Locus2 = nameof(BaseLeaderboardStylePageViewModel);
+        private const string Locus3 = "[Rezultz.Library02.Mar2024]";
 
-    private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
+        private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
 
-    #region ctor
+        #region ctor
 
-    protected BaseLeaderboardStylePageViewModel(IAzureStorageSvcAgent azureStorageSvcAgent,
-        ISessionState sessionState,
-        IThingsPersistedInLocalStorage thingsPersistedInLocalStorage,
-        ISeasonProfileAndIdentityValidationViewModel globalSeasonProfileAndIdentityValidationViewModel
-    )
+        protected BaseLeaderboardStylePageViewModel(IAzureStorageSvcAgent azureStorageSvcAgent,
+            ISessionState sessionState,
+            IThingsPersistedInLocalStorage thingsPersistedInLocalStorage,
+            ISeasonProfileAndIdentityValidationViewModel globalSeasonProfileAndIdentityValidationViewModel
+        )
     {
         #region assign ctor IOC injections
 
@@ -135,11 +135,11 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region methods called on arrival to page to which this vm is the data context each time by page-loaded event
+        #region methods called on arrival to page to which this vm is the data context each time by page-loaded event
 
-    public async Task<string> BeInitialisedFromPageCodeBehindOrchestrateAsync()
+        public async Task<string> BeInitialisedFromPageCodeBehindOrchestrateAsync()
     {
         var failure = Strings2017.Unable_to_complete_computations_and_calculations_to_load_page_;
         const string locus = nameof(BeInitialisedFromPageCodeBehindOrchestrateAsync);
@@ -177,38 +177,38 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region type
+        #region type
 
-    public class RaceCategorySelectorFilterMask : IHasRaceCategoryFilterMaskProperties
+        public class RaceCategorySelectorFilterMask : IHasRaceCategoryFilterMaskProperties
 
-    {
-        public string RaceGroup { get; set; }
-        public string Gender { get; set; }
-        public string AgeGroup { get; set; }
-        public string City { get; set; }
-        public string Team { get; set; }
-        public string UtilityClassification { get; set; }
-    }
+        {
+            public string RaceGroup { get; set; }
+            public string Gender { get; set; }
+            public string AgeGroup { get; set; }
+            public string City { get; set; }
+            public string Team { get; set; }
+            public string UtilityClassification { get; set; }
+        }
 
-    #endregion
+        #endregion
 
-    #region constants
+        #region constants
 
-    private static readonly Uri DefaultUri = new("http://undefined");
+        private static readonly Uri DefaultUri = new("http://undefined");
 
-    private const string DefaultTargetName = @"_blank";
+        private const string DefaultTargetName = @"_blank";
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    protected bool MustDisplayFavoritesDatagrid;
+        protected bool MustDisplayFavoritesDatagrid;
 
-    private static IFavoritesDataGridPresentationService FavoritesDataGridPresentationServiceInstance
-    {
-        get
+        private static IFavoritesDataGridPresentationService FavoritesDataGridPresentationServiceInstance
+        {
+            get
         {
             try
             {
@@ -224,11 +224,11 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private static ILeaderboardDataGridPresentationService LeaderboardDataGridPresentationServiceInstance
-    {
-        get
+        private static ILeaderboardDataGridPresentationService LeaderboardDataGridPresentationServiceInstance
+        {
+            get
         {
             try
             {
@@ -244,19 +244,19 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    #endregion
+        #endregion
 
-    #region global props
+        #region global props
 
-    protected readonly ISessionState SessionState;
+        protected readonly ISessionState SessionState;
 
-    protected readonly ISeasonProfileAndIdentityValidationViewModel GlobalSeasonProfileAndIdentityValidationVm;
+        protected readonly ISeasonProfileAndIdentityValidationViewModel GlobalSeasonProfileAndIdentityValidationVm;
 
-    protected static IAlertMessageService AlertMessageService
-    {
-        get
+        protected static IAlertMessageService AlertMessageService
+        {
+            get
         {
             try
             {
@@ -272,13 +272,13 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    protected readonly IThingsPersistedInLocalStorage ThingsPersistedInLocalStorage;
+        protected readonly IThingsPersistedInLocalStorage ThingsPersistedInLocalStorage;
 
-    protected static IProgressIndicatorViewModel GlobalProgressIndicatorVm
-    {
-        get
+        protected static IProgressIndicatorViewModel GlobalProgressIndicatorVm
+        {
+            get
         {
             try
             {
@@ -293,140 +293,140 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    private readonly IAzureStorageSvcAgent _azureStorageSvcAgent;
+        private readonly IAzureStorageSvcAgent _azureStorageSvcAgent;
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    #region Miscellaneous
+        #region Miscellaneous
 
-    public bool ThisViewModelIsInitialised { get; protected set; }
+        public bool ThisViewModelIsInitialised { get; protected set; }
 
-    public HeaderOrFooterViewModel HeadersVm { get; } = new();
+        public HeaderOrFooterViewModel HeadersVm { get; } = new();
 
-    public HeaderOrFooterViewModel FootersVm { get; } = new();
+        public HeaderOrFooterViewModel FootersVm { get; } = new();
 
-    protected ResultItemDisplayObject[] AllDataGridLineItemDisplayObjects { get; set; }
+        protected ResultItemDisplayObject[] AllDataGridLineItemDisplayObjects { get; set; }
 
-    #endregion
+        #endregion
 
-    #region formatting enums
+        #region formatting enums
 
-    // set in derived class ctor for flexibilty for the future, but invariably EnumStrings.RowsAreUnGrouped
-    protected string LeaderboardListRowGroupingEnum { get; set; }
+        // set in derived class ctor for flexibilty for the future, but invariably EnumStrings.RowsAreUnGrouped
+        protected string LeaderboardListRowGroupingEnum { get; set; }
 
-    // set in derived class ctor for flexibilty for the future, but invariably EnumStrings.RowsAreUnGrouped
-    protected string FavoritesListRowGroupingEnum { private get; set; }
+        // set in derived class ctor for flexibilty for the future, but invariably EnumStrings.RowsAreUnGrouped
+        protected string FavoritesListRowGroupingEnum { private get; set; }
 
-    // set in derived class ctor
-    public string LeaderboardColumnFormatEnum { get; set; }
-    // set somewhere in derived class. EnumStrings.OrdinaryResultsColumnFormat, EnumStrings.SeriesTotalPointsColumnFormat, EnumStrings.SeriesTourDurationColumnFormat or EnumStrings.AverageSplitTimesColumnFormat
+        // set in derived class ctor
+        public string LeaderboardColumnFormatEnum { get; set; }
+        // set somewhere in derived class. EnumStrings.OrdinaryResultsColumnFormat, EnumStrings.SeriesTotalPointsColumnFormat, EnumStrings.SeriesTourDurationColumnFormat or EnumStrings.AverageSplitTimesColumnFormat
 
-    #endregion
+        #endregion
 
-    #region Buttons
+        #region Buttons
 
-    public ButtonControlViewModel LoadSourceDataButtonVm { get; }
+        public ButtonControlViewModel LoadSourceDataButtonVm { get; }
 
-    public ButtonControlViewModel RefreshScreenButtonVm { get; }
+        public ButtonControlViewModel RefreshScreenButtonVm { get; }
 
-    public ButtonControlViewModel DisplayPodiumResultsOnlyToggleButtonVm { get; }
+        public ButtonControlViewModel DisplayPodiumResultsOnlyToggleButtonVm { get; }
 
-    public ButtonControlViewModel AddPersonToFavoritesButtonVm { get; }
+        public ButtonControlViewModel AddPersonToFavoritesButtonVm { get; }
 
-    public ButtonControlViewModel DeletePersonFromFavoritesButtonVm { get; }
+        public ButtonControlViewModel DeletePersonFromFavoritesButtonVm { get; }
 
-    public ButtonControlViewModel DeleteAllFavoritesButtonVm { get; }
+        public ButtonControlViewModel DeleteAllFavoritesButtonVm { get; }
 
-    public ButtonControlViewModel ToggleFavoritesGridVisibilityButtonVm { get; }
+        public ButtonControlViewModel ToggleFavoritesGridVisibilityButtonVm { get; }
 
-    public ButtonControlViewModel ExportFavoritesButtonVm { get; }
+        public ButtonControlViewModel ExportFavoritesButtonVm { get; }
 
-    public ButtonControlViewModel ExportSingleEventLeaderboardButtonVm { get; }
+        public ButtonControlViewModel ExportSingleEventLeaderboardButtonVm { get; }
 
-    public ButtonControlViewModel PostLeaderboardAsHtmlToPublicDataStorageButtonVm { get; }
+        public ButtonControlViewModel PostLeaderboardAsHtmlToPublicDataStorageButtonVm { get; }
 
-    public ButtonWithHyperlinkControlViewModel NavigateToPostedLeaderboardHyperlinkButtonVm { get; } = new(() => { }, () => false) {NavigateUri = DefaultUri, TargetName = DefaultTargetName};
+        public ButtonWithHyperlinkControlViewModel NavigateToPostedLeaderboardHyperlinkButtonVm { get; } = new(() => { }, () => false) {NavigateUri = DefaultUri, TargetName = DefaultTargetName};
 
-    #endregion
+        #endregion
 
-    #region Cbos
+        #region Cbos
 
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupRaceCategoryFilterVm { get; }
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupGenderCategoryFilterVm { get; }
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupAgeGroupCategoryFilterVm { get; }
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupCityCategoryFilterVm { get; }
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupTeamCategoryFilterVm { get; }
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupUtilityClassificationCategoryFilterVm { get; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupRaceCategoryFilterVm { get; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupGenderCategoryFilterVm { get; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupAgeGroupCategoryFilterVm { get; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupCityCategoryFilterVm { get; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupTeamCategoryFilterVm { get; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookupUtilityClassificationCategoryFilterVm { get; }
 
-    public IndexDrivenCollectionViewModel<MoreInformationItemDisplayObject> CboLookupMoreInfoItemVm { get; protected set; }
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpFileFormatsVm { get; protected set; }
+        public IndexDrivenCollectionViewModel<MoreInformationItemDisplayObject> CboLookupMoreInfoItemVm { get; protected set; }
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpFileFormatsVm { get; protected set; }
 
-    //public IndexDrivenCollectionViewModel<DatabaseTargetItemViewModel> CboLookupBlobNameToPublishResultsVm { get; protected set; }
+        //public IndexDrivenCollectionViewModel<DatabaseTargetItemViewModel> CboLookupBlobNameToPublishResultsVm { get; protected set; }
 
-    #endregion
+        #endregion
 
-    #region SearchFunction
+        #region SearchFunction
 
-    public SearchViewModel SearchFunctionVm { get; } = new("search", 2, 9, null, null);
+        public SearchViewModel SearchFunctionVm { get; } = new("search", 2, 9, null, null);
 
-    #endregion
+        #endregion
 
-    #region DataGridVms
+        #region DataGridVms
 
-    public LeaderboardStyleDataGridViewModel DataGridOfFavoritesVm { get; }
+        public LeaderboardStyleDataGridViewModel DataGridOfFavoritesVm { get; }
 
-    public LeaderboardStyleDataGridViewModel DataGridOfLeaderboardVm { get; }
+        public LeaderboardStyleDataGridViewModel DataGridOfLeaderboardVm { get; }
 
-    #endregion
+        #endregion
 
-    #region DataGridDesigners
+        #region DataGridDesigners
 
-    public DataGridDesigner DataGridDesignerForFavorites { get; } = new();
+        public DataGridDesigner DataGridDesignerForFavorites { get; } = new();
 
-    public DataGridDesigner DataGridDesignerForLeaderboard { get; } = new();
+        public DataGridDesigner DataGridDesignerForLeaderboard { get; } = new();
 
-    #endregion
+        #endregion
 
-    #region TxxColumnHeadersLookupTable
+        #region TxxColumnHeadersLookupTable
 
-    private Dictionary<int, string> _backingstoreTxxColumnHeadersLookupTable = new();
+        private Dictionary<int, string> _backingstoreTxxColumnHeadersLookupTable = new();
 
-    public Dictionary<int, string> TxxColumnHeadersLookupTable
-    {
-        get => _backingstoreTxxColumnHeadersLookupTable ??= new Dictionary<int, string>();
-        set => SetProperty(ref _backingstoreTxxColumnHeadersLookupTable, value);
-    }
+        public Dictionary<int, string> TxxColumnHeadersLookupTable
+        {
+            get => _backingstoreTxxColumnHeadersLookupTable ??= new Dictionary<int, string>();
+            set => SetProperty(ref _backingstoreTxxColumnHeadersLookupTable, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region ImageUriVms
+        #region ImageUriVms
 
-    public IndexDrivenCollectionViewModel<UriItemDisplayObject> PageImagesInSkyscraperRightVm { get; } = new("Skyscraper right image album", () => { }, () => true);
+        public IndexDrivenCollectionViewModel<UriItemDisplayObject> PageImagesInSkyscraperRightVm { get; } = new("Skyscraper right image album", () => { }, () => true);
 
-    #endregion
+        #endregion
 
-    #region SocialMediaConnectionsVm
+        #region SocialMediaConnectionsVm
 
-    public SocialMediaConnectionsViewModel SocialMediaConnectionsVm { get; } = new();
+        public SocialMediaConnectionsViewModel SocialMediaConnectionsVm { get; } = new();
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region commands
+        #region commands
 
-    #region LoadSourceDataButtonOnClickAsync - heap powerful
+        #region LoadSourceDataButtonOnClickAsync - heap powerful
 
-    private bool LoadSourceDataButtonOnClickCanExecute()
+        private bool LoadSourceDataButtonOnClickCanExecute()
     {
         return LoadSourceDataButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void LoadSourceDataButtonOnClickExecuteAsync()
+        private async void LoadSourceDataButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[LoadSourceDataButtonOnClickExecuteAsync]";
@@ -481,18 +481,18 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    protected abstract Task<string> LoadSourceDataButtonOnClickAsync();
+        protected abstract Task<string> LoadSourceDataButtonOnClickAsync();
 
-    #endregion
+        #endregion
 
-    #region RefreshScreenButtonOnClickAsync - heap powerful
+        #region RefreshScreenButtonOnClickAsync - heap powerful
 
-    private bool RefreshScreenButtonOnClickCanExecute()
+        private bool RefreshScreenButtonOnClickCanExecute()
     {
         return RefreshScreenButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RefreshScreenButtonOnClickExecuteAsync()
+        private async void RefreshScreenButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[RefreshScreenButtonOnClickExecuteAsync]";
@@ -525,7 +525,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    public async Task<string> RefreshScreenButtonOnClickOrchestrateAsync()
+        public async Task<string> RefreshScreenButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[RefreshScreenButtonOnClickOrchestrateAsync]";
@@ -559,7 +559,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    protected async Task<string> RefreshScreenButtonOnClickAsync()
+        protected async Task<string> RefreshScreenButtonOnClickAsync()
     {
         // end of the line in the drill down sequence from series to event to race to filter results by selected category
 
@@ -687,44 +687,44 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region LeaderboardDataGridPresenterOnSelectionChanged - mickey mouse
+        #region LeaderboardDataGridPresenterOnSelectionChanged - mickey mouse
 
-    protected bool LeaderboardDataGridPresenterOnSelectionChangedCanExecute()
+        protected bool LeaderboardDataGridPresenterOnSelectionChangedCanExecute()
     {
         return true;
     }
 
-    private void LeaderboardDataGridPresenterOnSelectionChangedExecute()
+        private void LeaderboardDataGridPresenterOnSelectionChangedExecute()
     {
         EvaluateGui();
     }
 
-    #endregion
+        #endregion
 
-    #region FavoritesDatagridPresenterOnSelectionChanged - mickey mouse
+        #region FavoritesDatagridPresenterOnSelectionChanged - mickey mouse
 
-    protected bool FavoritesDataGridPresenterOnSelectionChangedCanExecute()
+        protected bool FavoritesDataGridPresenterOnSelectionChangedCanExecute()
     {
         return true;
     }
 
-    private void FavoritesDataGridPresenterOnSelectionChangedExecute()
+        private void FavoritesDataGridPresenterOnSelectionChangedExecute()
     {
         EvaluateGui();
     }
 
-    #endregion
+        #endregion
 
-    #region AddPersonToFavoritesButtonOnClickAsync
+        #region AddPersonToFavoritesButtonOnClickAsync
 
-    private bool AddPersonToFavoritesButtonOnClickCanExecute()
+        private bool AddPersonToFavoritesButtonOnClickCanExecute()
     {
         return AddPersonToFavoritesButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void AddPersonToFavoritesButtonOnClickExecuteAsync()
+        private async void AddPersonToFavoritesButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[AddPersonToFavoritesButtonOnClickExecuteAsync]";
@@ -767,7 +767,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    private async Task AddPersonToFavoritesButtonOnClickAsync()
+        private async Task AddPersonToFavoritesButtonOnClickAsync()
     {
         const string failure = "Unable to add person to favorites.";
         const string locus = "[AddPersonToFavoritesButtonOnClickAsync]";
@@ -799,16 +799,16 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region DeletePersonFromFavoritesButtonOnClickAsync
+        #region DeletePersonFromFavoritesButtonOnClickAsync
 
-    private bool DeletePersonFromFavoritesButtonOnClickCanExecute()
+        private bool DeletePersonFromFavoritesButtonOnClickCanExecute()
     {
         return DeletePersonFromFavoritesButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void DeletePersonFromFavoritesButtonOnClickExecuteAsync()
+        private async void DeletePersonFromFavoritesButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DeletePersonFromFavoritesButtonOnClickExecuteAsync]";
@@ -851,7 +851,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    private async Task DeletePersonFromFavoritesButtonOnClickAsync()
+        private async Task DeletePersonFromFavoritesButtonOnClickAsync()
     {
         const string failure = "Unable to delete.";
         const string locus = "[DeletePersonFromFavoritesButtonOnClickAsync]";
@@ -890,16 +890,16 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region DeleteAllFavoritesButtonOnClickAsync
+        #region DeleteAllFavoritesButtonOnClickAsync
 
-    private bool DeleteAllFavoritesButtonOnClickCanExecute()
+        private bool DeleteAllFavoritesButtonOnClickCanExecute()
     {
         return DeleteAllFavoritesButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void DeleteAllFavoritesButtonOnClickExecuteAsync()
+        private async void DeleteAllFavoritesButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to execute ICommand Execute method.";
         const string locus = "[DeleteAllFavoritesButtonOnClickExecuteAsync]";
@@ -943,7 +943,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    private async Task DeleteAllFavoritesButtonOnClickAsync()
+        private async Task DeleteAllFavoritesButtonOnClickAsync()
     {
         const string failure = "Unable to delete all favorites.";
         const string locus = "[DeleteAllFavoritesButtonOnClickAsync]";
@@ -971,27 +971,27 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region ToggleFavoritesGridVisibilityButtonOnClickAsync - mickey mouse
+        #region ToggleFavoritesGridVisibilityButtonOnClickAsync - mickey mouse
 
-    private bool ToggleFavoritesGridVisibilityButtonOnClickCanExecute()
+        private bool ToggleFavoritesGridVisibilityButtonOnClickCanExecute()
     {
         return ToggleFavoritesGridVisibilityButtonVm.IsAuthorisedToOperate;
     }
 
-    private void ToggleFavoritesGridVisibilityButtonOnClickExecute()
+        private void ToggleFavoritesGridVisibilityButtonOnClickExecute()
     {
         MustDisplayFavoritesDatagrid = !MustDisplayFavoritesDatagrid;
 
         EvaluateGui();
     }
 
-    #endregion
+        #endregion
 
-    #region PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickAsync
+        #region PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickAsync
 
-    protected virtual bool PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickCanExecute()
+        protected virtual bool PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickCanExecute()
     {
         var outComeOfCanExecuteTest =
             PostLeaderboardAsHtmlToPublicDataStorageButtonVm.IsAuthorisedToOperate;
@@ -999,7 +999,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return outComeOfCanExecuteTest;
     }
 
-    private async void PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickExecuteAsync()
+        private async void PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[PostSingleEventLeaderboardAsHtmlToPublicDataStorageButtonOnClickExecute]";
@@ -1043,7 +1043,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    protected virtual async Task<string> PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickAsync()
+        protected virtual async Task<string> PostDisplayedLeaderboardAsHtmlToPublicDataStorageButtonOnClickAsync()
     {
         const string failure = "Unable to do what this method does ....";
         const string locus = "[PostSingleEventLeaderboardAsHtmlToPublicDataStorageButtonOnClickAsync]";
@@ -1105,13 +1105,13 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region CboLookUpCategoryFilters
+        #region CboLookUpCategoryFilters
 
-    protected async Task<bool> CboLookupCategoryFiltersPopulateItemsSourcesForSingleEventLeaderboardAsync(IHasSingleEventCategories repository)
+        protected async Task<bool> CboLookupCategoryFiltersPopulateItemsSourcesForSingleEventLeaderboardAsync(IHasSingleEventCategories repository)
     {
         var races = AddLabelForSelectingAll(StringsRezultz02.Races___all, await repository.GetRacesFoundAsync());
         var genders = AddLabelForSelectingAll(StringsRezultz02.Genders___all, await repository.GetGendersFoundAsync());
@@ -1128,15 +1128,15 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         await CboLookupUtilityClassificationCategoryFilterVm.RefillItemsSourceAsync(CboLookupItemDisplayObject.FromLabel(utilityClassifications));
 
         /*  Note. the default is to initialise the selected index of all lookups to zero, which means Display all.
-         * This is what we want for all the lookups except one. CboLookupRaceCategoryFilterVm is slightly different. Where results
-         * are displayed on a web page, it is groovy for for 'Races - all' to be shown at the outset. Where results are
-         * shown in a datagrid, it is senseless to show 'Races - all'. In a grid, each Race must be shown singly and so the index
-         * must be manually initialised to '1' i.e. the first Race on the list. The mobile app falls into the first category.
-         * The UWP app falls into the second. To specify which of the two behaviours we want, I have created a user setting,
-         * MustSelectAllRacesOnFirstTimeThroughForAnEventAsync(), which is essentially platform/app specific, and that's
-         * what gets pulled into this method as the variable 'mustShowAllRacesOnFirstTimeThru'. In the mobile
-         * app, 'mustShowAllRacesOnFirstTimeThru' is true. in the UWP app it is false. The intent is to save this setting in App.Settings
-         * and assign it in the code-behind of the landing page
+          This is what we want for all the lookups except one. CboLookupRaceCategoryFilterVm is slightly different. Where results
+          are displayed on a web page, it is groovy for for 'Races - all' to be shown at the outset. Where results are
+          shown in a datagrid, it is senseless to show 'Races - all'. In a grid, each Race must be shown singly and so the index
+          must be manually initialised to '1' i.e. the first Race on the list. The mobile app falls into the first category.
+          The UWP app falls into the second. To specify which of the two behaviours we want, I have created a user setting,
+          MustSelectAllRacesOnFirstTimeThroughForAnEventAsync(), which is essentially platform/app specific, and that's
+          what gets pulled into this method as the variable 'mustShowAllRacesOnFirstTimeThru'. In the mobile
+          app, 'mustShowAllRacesOnFirstTimeThru' is true. in the UWP app it is false. The intent is to save this setting in App.Settings
+          and assign it in the code-behind of the landing page
          */
 
         var mustFocusOnCategoryOfSinglePerson = await ThingsPersistedInLocalStorage.GetMustSelectCategoryOfResultsForSingleParticipantIdOnLaunchAsync();
@@ -1173,8 +1173,8 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    // Note: this here implementation does the job for the leaderboard for a single event and for tour winners. 
-    private ResultItemDisplayObject[] CboLookUpCategoryFiltersSelectResultsInAccordanceWithCboSelections(ResultItemDisplayObject[] population)
+        // Note: this here implementation does the job for the leaderboard for a single event and for tour winners. 
+        private ResultItemDisplayObject[] CboLookUpCategoryFiltersSelectResultsInAccordanceWithCboSelections(ResultItemDisplayObject[] population)
     {
         RaceCategorySelectorFilterMask CboLookUpCategoryFiltersObtainFilterMask()
         {
@@ -1252,7 +1252,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
     }
 
 
-    public bool PersonWithTargetBibNumberIsSuccessfullyIdentifiedInPopulation(string targetBibNumber, out ResultItemDisplayObject personWithBibNumberIdentified)
+        public bool PersonWithTargetBibNumberIsSuccessfullyIdentifiedInPopulation(string targetBibNumber, out ResultItemDisplayObject personWithBibNumberIdentified)
     {
         personWithBibNumberIdentified = AllDataGridLineItemDisplayObjects
             .Where(z => z != null)
@@ -1263,7 +1263,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return personWithBibNumberIdentified != null;
     }
 
-    protected virtual async Task<bool> CboLookUpCategoryFiltersChangeToMatchPersonWithTargetBibNumberAsync(ResultItemDisplayObject personWithBibNumberSpecifiedForOpenOnLaunch)
+        protected virtual async Task<bool> CboLookUpCategoryFiltersChangeToMatchPersonWithTargetBibNumberAsync(ResultItemDisplayObject personWithBibNumberSpecifiedForOpenOnLaunch)
     {
         if (personWithBibNumberSpecifiedForOpenOnLaunch == null)
             return false;
@@ -1283,7 +1283,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    public static string[] AddLabelForSelectingAll(string labelForSelectingAll, string[] lookupTable)
+        public static string[] AddLabelForSelectingAll(string labelForSelectingAll, string[] lookupTable)
     {
         if (lookupTable == null)
             return Array.Empty<string>();
@@ -1315,20 +1315,20 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return amendedTable.ToArray();
     }
 
-    public void CboLookUpCategoryFiltersUpdateCaptionsOfAllVms()
+        public void CboLookUpCategoryFiltersUpdateCaptionsOfAllVms()
     {
         foreach (var lookupVm in CboLookUpCategoryFiltersMakeListOfAllVms())
             if (lookupVm?.CurrentItem != null)
                 lookupVm.Label = lookupVm.CurrentItem.Label;
     }
 
-    public void CboLookUpCategoryFiltersSaveAllSelectionsAsLastKnownGood()
+        public void CboLookUpCategoryFiltersSaveAllSelectionsAsLastKnownGood()
     {
         foreach (var lookupVm in CboLookUpCategoryFiltersMakeListOfAllVms())
             lookupVm.SaveSelectedIndexAsLastKnownGood();
     }
 
-    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>[] CboLookUpCategoryFiltersMakeListOfAllVms()
+        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>[] CboLookUpCategoryFiltersMakeListOfAllVms()
     {
         // this array is merely a lazy labor saving device that we use many times
 
@@ -1345,11 +1345,11 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return answer.ToArray();
     }
 
-    #endregion
+        #endregion
 
-    #region CboLookupMoreInfoItem
+        #region CboLookupMoreInfoItem
 
-    protected void CboLookUpCategoryFilterThrowExceptionIfCboMoreInfoItemLookupVmIsEmpty()
+        protected void CboLookUpCategoryFilterThrowExceptionIfCboMoreInfoItemLookupVmIsEmpty()
     {
         if (CboLookupMoreInfoItemVm == null)
             throw new JghNullObjectInstanceException(nameof(CboLookupMoreInfoItemVm));
@@ -1358,13 +1358,13 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
             throw new JghNullObjectInstanceException(nameof(CboLookupMoreInfoItemVm.ItemsSource));
     }
 
-    protected abstract MoreInformationItem PopulateDataGridTitleAndBlurb();
+        protected abstract MoreInformationItem PopulateDataGridTitleAndBlurb();
 
-    #endregion
+        #endregion
 
-    #region season data
+        #region season data
 
-    protected void ThrowExceptionIfThereAreAnyFundamentalDeficienciesInTheSeasonMetadataItem()
+        protected void ThrowExceptionIfThereAreAnyFundamentalDeficienciesInTheSeasonMetadataItem()
     {
         if (!GlobalSeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException("Season profile not initialised.  Please submit a valid profile ID.");
@@ -1386,7 +1386,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 $"Season profile successfully loaded using profile ID = {GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}.  A series has not yet been selected.  A series needs to be chosen.  Please select a series.");
     }
 
-    protected void ThrowExceptionIfThereAreAnyFundamentalDeficienciesInTheEventItem()
+        protected void ThrowExceptionIfThereAreAnyFundamentalDeficienciesInTheEventItem()
     {
         if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm == null)
             throw new JghAlertMessageException($"Season profile successfully loaded for profile ID = {GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile} but the list of events is null. This is a system error. Sorry");
@@ -1401,16 +1401,16 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 $"Season profile successfully loaded for ID={GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}. The series selected for analysis is {GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.Label}. The number of events listed for it is {GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.ArrayOfEventItems.Length}. An event has not yet been selected by the user. An event must be selected in order to proceed.");
     }
 
-    #endregion
+        #endregion
 
-    #region Search
+        #region Search
 
-    public virtual async Task<string[]> OnShortlistOfQuerySuggestionsRequestedFromTheSearchUniverseAsync(string queryText)
+        public virtual async Task<string[]> OnShortlistOfQuerySuggestionsRequestedFromTheSearchUniverseAsync(string queryText)
     {
         return await SearchFunctionVm.GetQueriesThatSatisfyUserEnteredHint(queryText);
     }
 
-    public virtual async Task<bool> OnFinalSearchQuerySubmittedAsTextAsync(string finalQuerySubmitted)
+        public virtual async Task<bool> OnFinalSearchQuerySubmittedAsTextAsync(string finalQuerySubmitted)
     {
         const string failure = "Unable to complete search operation.";
         const string locus = "[OnFinalSearchQuerySubmittedAsTextAsync]";
@@ -1441,17 +1441,17 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    /// <summary>
-    ///     Action taken as the final step of DoSearchOperationButtonOnClickAsync.
-    ///     Since this LeaderboardStylePageViewModelBase is the base class
-    ///     for classes that have access to the universe of all individual results and
-    ///     a favorites list in storage in which search findings are saved, this implementation takes the
-    ///     first of the discovered result items, adds it to the list of favorites and displays
-    ///     the new list of favorites in FavoritesDataGridPresentation.
-    /// </summary>
-    /// <param name="discoveredQueryItems">The discovered result items.</param>
-    /// <returns>true</returns>
-    public async Task OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync(SearchQueryItem[] discoveredQueryItems)
+        /// <summary>
+        ///     Action taken as the final step of DoSearchOperationButtonOnClickAsync.
+        ///     Since this LeaderboardStylePageViewModelBase is the base class
+        ///     for classes that have access to the universe of all individual results and
+        ///     a favorites list in storage in which search findings are saved, this implementation takes the
+        ///     first of the discovered result items, adds it to the list of favorites and displays
+        ///     the new list of favorites in FavoritesDataGridPresentation.
+        /// </summary>
+        /// <param name="discoveredQueryItems">The discovered result items.</param>
+        /// <returns>true</returns>
+        public async Task OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync(SearchQueryItem[] discoveredQueryItems)
     {
         const string failure = "Unable to take action in response to selection of item.";
         const string locus = "[OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync]";
@@ -1535,11 +1535,11 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region Favorites
+        #region Favorites
 
-    protected async Task<bool> FavoritesDataGridRefilterAsync()
+        protected async Task<bool> FavoritesDataGridRefilterAsync()
     {
         const string failure = "Unable to display list of favorites.";
         const string locus = "[FavoritesDataGridRefilterAsync]";
@@ -1643,7 +1643,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    protected async Task AddPersonToFavoritesAsync(ResultItemDisplayObject personToBeAddedVm)
+        protected async Task AddPersonToFavoritesAsync(ResultItemDisplayObject personToBeAddedVm)
     {
         const string failure = "Unable to add person to favorites.";
         const string locus = "[AddPersonToFavoritesAsync]";
@@ -1684,7 +1684,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    private static ResultItemDisplayObject[] SortResultsInDesiredOrder(ResultItemDisplayObject[] rawInputItems, string columnFormatEnum)
+        private static ResultItemDisplayObject[] SortResultsInDesiredOrder(ResultItemDisplayObject[] rawInputItems, string columnFormatEnum)
     {
         if (rawInputItems == null || !rawInputItems.Any()) return Array.Empty<ResultItemDisplayObject>();
 
@@ -1707,68 +1707,68 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return rowCollection;
     }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    #region make titles
+        #region make titles
 
-    protected string MakeOrganiserTitle()
+        protected string MakeOrganiserTitle()
     {
         return GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem?.Organizer?.Title ?? string.Empty;
     }
 
-    protected virtual string MakeSeriesTitle()
+        protected virtual string MakeSeriesTitle()
     {
         return GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem?.Title ?? string.Empty;
     }
 
-    protected virtual string MakeEventTitle()
+        protected virtual string MakeEventTitle()
     {
         return GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem?.Title ?? string.Empty;
     }
 
-    #endregion
+        #endregion
 
-    #region make labels
+        #region make labels
 
-    protected virtual string MakeSeriesLabel()
+        protected virtual string MakeSeriesLabel()
     {
         return GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    protected virtual string MakeEventLabel()
+        protected virtual string MakeEventLabel()
     {
         return GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    protected string MakeUtilityClassificationLabel()
+        protected string MakeUtilityClassificationLabel()
     {
         return CboLookupUtilityClassificationCategoryFilterVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    protected abstract string[] FinaliseTableHeadings();
+        protected abstract string[] FinaliseTableHeadings();
 
-    protected abstract string[] FinaliseFavoritesDataGridHeadings();
+        protected abstract string[] FinaliseFavoritesDataGridHeadings();
 
-    protected virtual string MakeMoreInfoLabel()
+        protected virtual string MakeMoreInfoLabel()
     {
         return CboLookupMoreInfoItemVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    protected string MakeRaceLabel()
+        protected string MakeRaceLabel()
     {
         return CboLookupRaceCategoryFilterVm?.CurrentItem?.Label ?? string.Empty;
         //return CategorisationOfResultsVm?.CboLookupRaceCategoryFilterVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    protected string MakeGenderLabel()
+        protected string MakeGenderLabel()
     {
         return CboLookupGenderCategoryFilterVm?.CurrentItem?.Label ?? string.Empty;
         //return CategorisationOfResultsVm?.CboLookupGenderCategoryFilterVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    protected string MakeCategoryLabel()
+        protected string MakeCategoryLabel()
     {
         return CboLookupAgeGroupCategoryFilterVm?.CurrentItem?.Label ??
                string.Empty;
@@ -1776,16 +1776,16 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         //       string.Empty;
     }
 
-    protected string MakeCityLabel()
+        protected string MakeCityLabel()
     {
         return CboLookupCityCategoryFilterVm?.CurrentItem?.Label ?? string.Empty;
     }
 
-    #endregion
+        #endregion
 
-    #region uploading/publishing leaderboard as web document to server
+        #region uploading/publishing leaderboard as web document to server
 
-    private async Task<Tuple<string, string>> TabulateResultsAsHtmlWebpageAsync(LeaderboardStyleDataGridViewModel individualResultsDataGrid)
+        private async Task<Tuple<string, string>> TabulateResultsAsHtmlWebpageAsync(LeaderboardStyleDataGridViewModel individualResultsDataGrid)
     {
         const string failure = "Unable to author webpage for upload.";
         const string locus = "[TabulateResultsAsHtmlWebpage]";
@@ -1820,7 +1820,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    public DataGridDesigner CreateDataGridDesignerToWriteTableOfResults(LeaderboardStyleDataGridViewModel individualResultsDataGrid)
+        public DataGridDesigner CreateDataGridDesignerToWriteTableOfResults(LeaderboardStyleDataGridViewModel individualResultsDataGrid)
     {
         const string failure = "Unable to create a printer to tabulate the results.";
         const string locus = "[CreateDataGridDesignerToWriteTableOfResults]";
@@ -1877,7 +1877,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    protected async Task<string> UploadWorkToAzureAsync(EntityLocationItem destination, string stringToBeUploaded)
+        protected async Task<string> UploadWorkToAzureAsync(EntityLocationItem destination, string stringToBeUploaded)
     {
         const string failure = "Unable to upload work to Azure.";
         const string locus = "[UploadWorkToAzureAsync]";
@@ -1917,7 +1917,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    protected void PopulateNavigateToPostedLeaderboardHyperlinkButtonVm(EntityLocationItem destination)
+        protected void PopulateNavigateToPostedLeaderboardHyperlinkButtonVm(EntityLocationItem destination)
     {
         Uri hardCopyUri;
 
@@ -1938,14 +1938,14 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         NavigateToPostedLeaderboardHyperlinkButtonVm.TargetName = DefaultTargetName;
     }
 
-    #endregion
+        #endregion
 
-    protected void ThrowExceptionIfNoConnection()
+        protected void ThrowExceptionIfNoConnection()
     {
         if (!NetworkInterface.GetIsNetworkAvailable()) throw new JghCommunicationFailureException(StringsRezultz02.NoConnection);
     }
 
-    protected async Task<bool> PopulateCboLookUpFileFormatsPresenterForDoingExports()
+        protected async Task<bool> PopulateCboLookUpFileFormatsPresenterForDoingExports()
     {
         var kindsOfMoreInfoVm = new CboLookupItemDisplayObject[]
         {
@@ -1967,7 +1967,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    protected bool PopulateSourceUriStringOfAllImageUriItems(EventProfileItem currentEventProfile)
+        protected bool PopulateSourceUriStringOfAllImageUriItems(EventProfileItem currentEventProfile)
     {
         if (!JghFilePathValidator.IsValidContainerLocationSpecification(
                 GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem?.LocationOfMedia?.DatabaseAccountName,
@@ -1992,11 +1992,11 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    #endregion
+        #endregion
 
-    #region zeroisation stuff
+        #region zeroisation stuff
 
-    public async Task<bool> ZeroiseAsync()
+        public async Task<bool> ZeroiseAsync()
     {
         AllDataGridLineItemDisplayObjects = Array.Empty<ResultItemDisplayObject>();
 
@@ -2013,7 +2013,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    protected async Task<bool> ZeroiseDataGridVmsAndDesignersAsync()
+        protected async Task<bool> ZeroiseDataGridVmsAndDesignersAsync()
     {
         await DataGridOfFavoritesVm.ZeroiseAsync();
         DataGridDesignerForFavorites.ZeroiseDesigner();
@@ -2024,7 +2024,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    protected async Task<bool> ZeroiseItemsSourcesOfCboPresentersAsync()
+        protected async Task<bool> ZeroiseItemsSourcesOfCboPresentersAsync()
     {
         foreach (var lookupVm in CboLookUpCategoryFiltersMakeListOfAllVms())
             await lookupVm.ZeroiseItemsSourceAsync();
@@ -2034,11 +2034,11 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return true;
     }
 
-    #endregion
+        #endregion
 
-    #region Gui stuff
+        #region Gui stuff
 
-    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -2074,7 +2074,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return answer;
     }
 
-    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         LoadSourceDataButtonVm.IsAuthorisedToOperate = true;
         RefreshScreenButtonVm.IsAuthorisedToOperate = true;
@@ -2116,7 +2116,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         }
     }
 
-    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         DataGridOfFavoritesVm.IsVisible = MustDisplayFavoritesDatagrid;
 
@@ -2157,25 +2157,25 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
             lookupVm.MakeVisibleIfItemsSourceIsGreaterThanTwo(); // because we added a(spurious) labeled item to the top of the list signifying 'all' and display is superfluous if there is only one item
     }
 
-    #endregion
+        #endregion
 
-    #region GenesisAsLastKnownGood
+        #region GenesisAsLastKnownGood
 
-    private SeasonProfileItem _lastKnownGoodSeasonProfileItem;
+        private SeasonProfileItem _lastKnownGoodSeasonProfileItem;
 
-    private SeriesItemDisplayObject _lastKnownGoodSeriesItemVm;
+        private SeriesItemDisplayObject _lastKnownGoodSeriesItemVm;
 
-    private EventItemDisplayObject _lastKnownGoodEventItemVm;
+        private EventItemDisplayObject _lastKnownGoodEventItemVm;
 
 
-    protected void SaveGenesisOfThisViewModelAsLastKnownGood()
+        protected void SaveGenesisOfThisViewModelAsLastKnownGood()
     {
         _lastKnownGoodSeasonProfileItem = GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem;
         _lastKnownGoodSeriesItemVm = GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem;
         _lastKnownGoodEventItemVm = GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem;
     }
 
-    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         if (_lastKnownGoodSeasonProfileItem == null)
             return true;
@@ -2195,5 +2195,6 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         return false;
     }
 
-    #endregion
+        #endregion
+    }
 }

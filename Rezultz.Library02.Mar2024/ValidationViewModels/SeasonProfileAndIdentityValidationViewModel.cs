@@ -37,22 +37,22 @@ using Rezultz.Library02.Mar2024.Strings;
 ///     Returns false if svc has looked high and low in storage and can't find it.
 */
 
-namespace Rezultz.Library02.Mar2024.ValidationViewModels;
-
-public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, ISeasonProfileAndIdentityValidationViewModel
+namespace Rezultz.Library02.Mar2024.ValidationViewModels
 {
-    private const string Locus2 = nameof(SeasonProfileAndIdentityValidationViewModel);
-    private const string Locus3 = "[Rezultz.Library02.Mar2024]";
+    public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, ISeasonProfileAndIdentityValidationViewModel
+    {
+        private const string Locus2 = nameof(SeasonProfileAndIdentityValidationViewModel);
+        private const string Locus3 = "[Rezultz.Library02.Mar2024]";
 
-    #region constant
+        #region constant
 
-    private const string NameOfFolderContainingSeasonData = "FolderContainingSeasonMetadata";
+        private const string NameOfFolderContainingSeasonData = "FolderContainingSeasonMetadata";
 
-    #endregion
+        #endregion
 
-    #region ctor
+        #region ctor
 
-    public SeasonProfileAndIdentityValidationViewModel(ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent, IThingsPersistedInLocalStorage thingsPersistedInLocalStorage, ILocalStorageService localStorageServiceInstance)
+        public SeasonProfileAndIdentityValidationViewModel(ILeaderboardResultsSvcAgent leaderboardResultsSvcAgent, IThingsPersistedInLocalStorage thingsPersistedInLocalStorage, ILocalStorageService localStorageServiceInstance)
     {
         const string failure = "Unable to construct object SeasonProfileAndIdentityValidationViewModel.";
         const string locus = "[ctor]";
@@ -139,11 +139,11 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         }
     }
 
-    #endregion
+        #endregion
 
-    #region method/s called on first time load and initialisation
+        #region method/s called on first time load and initialisation
 
-    public async Task<string> BeInitialisedForRezultzOrchestrateAsync()
+        public async Task<string> BeInitialisedForRezultzOrchestrateAsync()
     {
         const string failure = StringsForXamlPages.UnableToInitialiseViewmodel;
         const string locus = nameof(BeInitialisedForRezultzOrchestrateAsync);
@@ -191,7 +191,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    public async Task<string> BeInitialisedForRezultzPortalOrchestrateAsync()
+        public async Task<string> BeInitialisedForRezultzPortalOrchestrateAsync()
     {
         const string failure = StringsForXamlPages.UnableToInitialiseViewmodel;
         const string locus = nameof(BeInitialisedForRezultzOrchestrateAsync);
@@ -237,88 +237,88 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region strings
+        #region strings
 
-    private const string Unable_to_retrieve_instance = "Code error. Unable to obtain instance from dependency injection container of";
+        private const string Unable_to_retrieve_instance = "Code error. Unable to obtain instance from dependency injection container of";
 
-    private const string Please_enter_access_code = "Please enter secure access code for season profile.";
-    private const string Access_code_not_recognised = "Mismatch. Season profile does not include this access code.";
+        private const string Please_enter_access_code = "Please enter secure access code for season profile.";
+        private const string Access_code_not_recognised = "Mismatch. Season profile does not include this access code.";
 
-    private const string Please_submit_and_validate_SeasonID = "Season access code not yet submitted.";
+        private const string Please_submit_and_validate_SeasonID = "Season access code not yet submitted.";
 
-    private const string Going_offline_blurb = "If you need to access this machine offline in the near future, try using the same ID and security access code you just succeeded in using. It should work.";
+        private const string Going_offline_blurb = "If you need to access this machine offline in the near future, try using the same ID and security access code you just succeeded in using. It should work.";
 
-    private const string Working____ = "Working ....";
+        private const string Working____ = "Working ....";
 
-    private const string Working_____validating_and_saving_seasonId = "Working .... processing ID (filename)";
+        private const string Working_____validating_and_saving_seasonId = "Working .... processing ID (filename)";
 
-    private const string SeasonProfileFile_is_blank =
-        "Season ID confirmed but the associated profile file is empty. The file exists, but it has no content as things stand. This might or might not be intentional on the part of the author of the file.";
+        private const string SeasonProfileFile_is_blank =
+            "Season ID confirmed but the associated profile file is empty. The file exists, but it has no content as things stand. This might or might not be intentional on the part of the author of the file.";
 
-    private const string Not_yet_chosen = "not yet chosen";
-    private const string Not_yet_launched = "not yet launched";
-    private const string Not_yet_authenticated = "not yet authenticated";
+        private const string Not_yet_chosen = "not yet chosen";
+        private const string Not_yet_launched = "not yet launched";
+        private const string Not_yet_authenticated = "not yet authenticated";
 
-    private const string SeasonMetadataId_not_recognised = "Season ID not recognised.";
-    private const string SeasonMetadata_not_found_on_this_machine_message = "Season profile file not found stored on this machine matching this Season ID.";
-    private const string Access_code = "access code for season profile";
+        private const string SeasonMetadataId_not_recognised = "Season ID not recognised.";
+        private const string SeasonMetadata_not_found_on_this_machine_message = "Season profile file not found stored on this machine matching this Season ID.";
+        private const string Access_code = "access code for season profile";
 
-    private const string SeasonData_contains_no_access_codes =
-        "Access is not possible.  The secure access code that is meant to be present in the season profile file is blank as things stand.  This might or might not be intentional on the part of the author of the file.";
+        private const string SeasonData_contains_no_access_codes =
+            "Access is not possible.  The secure access code that is meant to be present in the season profile file is blank as things stand.  This might or might not be intentional on the part of the author of the file.";
 
-    private const string Access_code_is_public =
-        "Note: this access code enables public, read-only access to the associated series and events.  It does not allow deeper access.  The data cannot be operated on by organiser-admins, timekeepers, or anyone else.  A different access code is needed for this.";
+        private const string Access_code_is_public =
+            "Note: this access code enables public, read-only access to the associated series and events.  It does not allow deeper access.  The data cannot be operated on by organiser-admins, timekeepers, or anyone else.  A different access code is needed for this.";
 
-    private const string SeasonProfile_loaded = "Season profile loaded and saved.";
-    private const string SeasonID_cleared = "Season ID cleared.";
-    private const string SeasonProfileIdFormatErrorWarningMessage = "A validly formatted ID is a number between 100 and 999.";
+        private const string SeasonProfile_loaded = "Season profile loaded and saved.";
+        private const string SeasonID_cleared = "Season ID cleared.";
+        private const string SeasonProfileIdFormatErrorWarningMessage = "A validly formatted ID is a number between 100 and 999.";
 
-    private const string No_series_items_found =
-        "Warning: the series profile for the one or more series in the selected season is not found. Either no series are listed for the season, or no information is found in the season profile file about any of the series listed.";
+        private const string No_series_items_found =
+            "Warning: the series profile for the one or more series in the selected season is not found. Either no series are listed for the season, or no information is found in the season profile file about any of the series listed.";
 
-    private const string Credentials_authenticated = "Credentials successfully located in season profile file. Identity confirmed.";
+        private const string Credentials_authenticated = "Credentials successfully located in season profile file. Identity confirmed.";
 
-    private const string Other_Season = "Other season.";
-    private const string Other_series = "Other series.";
-    private const string Other_events = "Other events.";
+        private const string Other_Season = "Other season.";
+        private const string Other_series = "Other series.";
+        private const string Other_events = "Other events.";
 
-    private const string Working_____authenticating = "Working .... authenticating";
+        private const string Working_____authenticating = "Working .... authenticating";
 
-    private const string User_cleared_message = "Identity cleared";
-    private const string UserName_not_recognised_message = "Username not found in season profile.";
-    private const string Password_not_recognised_message = "Password not recognised in season profile.";
-    private const string Credentials_not_recognised_message = "Identity not found in season profile.";
-    private const string Not_authorised_for_this_work_role = "Not authorised for required work role.";
+        private const string User_cleared_message = "Identity cleared";
+        private const string UserName_not_recognised_message = "Username not found in season profile.";
+        private const string Password_not_recognised_message = "Password not recognised in season profile.";
+        private const string Credentials_not_recognised_message = "Identity not found in season profile.";
+        private const string Not_authorised_for_this_work_role = "Not authorised for required work role.";
 
-    #endregion
+        #endregion
 
-    #region fields
+        #region fields
 
-    private SeasonProfileItem _lastKnownGoodSeasonProfileItemToWhichThisVmBelongs;
+        private SeasonProfileItem _lastKnownGoodSeasonProfileItemToWhichThisVmBelongs;
 
-    private IdentityItem _lastKnownGoodIdentityItemToWhichThisVmBelongs;
+        private IdentityItem _lastKnownGoodIdentityItemToWhichThisVmBelongs;
 
-    private readonly ILocalStorageService _storageService;
+        private readonly ILocalStorageService _storageService;
 
-    private bool _mustOfferUserTheAlternativeOfSearchingLocalStorageForSeasonData;
+        private bool _mustOfferUserTheAlternativeOfSearchingLocalStorageForSeasonData;
 
-    //private bool _mustOfferUserAlternativeOfSearchingLocalStorageForUserCredentials;
+        //private bool _mustOfferUserAlternativeOfSearchingLocalStorageForUserCredentials;
 
-    private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
+        private readonly int _dangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
 
-    #endregion
+        #endregion
 
-    #region global props
+        #region global props
 
-    private readonly IThingsPersistedInLocalStorage _thingsPersistedInLocalStorage;
+        private readonly IThingsPersistedInLocalStorage _thingsPersistedInLocalStorage;
 
-    private readonly ILeaderboardResultsSvcAgent _leaderboardResultsSvcAgent;
+        private readonly ILeaderboardResultsSvcAgent _leaderboardResultsSvcAgent;
 
-    private static IAlertMessageService AlertMessageService
-    {
-        get
+        private static IAlertMessageService AlertMessageService
+        {
+            get
         {
             try
             {
@@ -334,142 +334,142 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
                 throw JghExceptionHelpers.ConvertToCarrier(msg, locus, Locus2, Locus3, ex);
             }
         }
-    }
+        }
 
-    #endregion
+        #endregion
 
-    #region INPC
+        #region INPC
 
-    #region SeasonProfileValidationIsVisible - don't set this internally - owning vm does so
+        #region SeasonProfileValidationIsVisible - don't set this internally - owning vm does so
 
-    private bool _backingstoreSeasonProfileValidationIsVisible = true;
+        private bool _backingstoreSeasonProfileValidationIsVisible = true;
 
-    public bool SeasonProfileValidationIsVisible
-    {
-        get => _backingstoreSeasonProfileValidationIsVisible;
-        set => SetProperty(ref _backingstoreSeasonProfileValidationIsVisible, value);
-    }
+        public bool SeasonProfileValidationIsVisible
+        {
+            get => _backingstoreSeasonProfileValidationIsVisible;
+            set => SetProperty(ref _backingstoreSeasonProfileValidationIsVisible, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region IdentityValidationIsVisible - don't set this internally - owning vm does so
+        #region IdentityValidationIsVisible - don't set this internally - owning vm does so
 
-    private bool _backingstoreIdentityValidationIsVisible = true;
+        private bool _backingstoreIdentityValidationIsVisible = true;
 
-    public bool IdentityValidationIsVisible
-    {
-        get => _backingstoreIdentityValidationIsVisible;
-        set => SetProperty(ref _backingstoreIdentityValidationIsVisible, value);
-    }
+        public bool IdentityValidationIsVisible
+        {
+            get => _backingstoreIdentityValidationIsVisible;
+            set => SetProperty(ref _backingstoreIdentityValidationIsVisible, value);
+        }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region special INPC props - see ctor of parent vm where there is wiring up to an event handler to observe and do something when these props fire their property changed events
+        #region special INPC props - see ctor of parent vm where there is wiring up to an event handler to observe and do something when these props fire their property changed events
 
-    #region CurrentlyValidatedSeasonProfileItem
+        #region CurrentlyValidatedSeasonProfileItem
 
-    private SeasonProfileItem _backingstoreCurrentlyValidatedSeasonProfileItem;
+        private SeasonProfileItem _backingstoreCurrentlyValidatedSeasonProfileItem;
 
-    public SeasonProfileItem CurrentlyValidatedSeasonProfileItem
-    {
-        get => _backingstoreCurrentlyValidatedSeasonProfileItem;
-        set => SetProperty(ref _backingstoreCurrentlyValidatedSeasonProfileItem, value);
-    }
+        public SeasonProfileItem CurrentlyValidatedSeasonProfileItem
+        {
+            get => _backingstoreCurrentlyValidatedSeasonProfileItem;
+            set => SetProperty(ref _backingstoreCurrentlyValidatedSeasonProfileItem, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region CurrentlyAuthenticatedIdentityItem
+        #region CurrentlyAuthenticatedIdentityItem
 
-    private IdentityItem _backingstoreCurrentlyAuthenticatedIdentityItem;
+        private IdentityItem _backingstoreCurrentlyAuthenticatedIdentityItem;
 
-    public IdentityItem CurrentlyAuthenticatedIdentityItem
-    {
-        get => _backingstoreCurrentlyAuthenticatedIdentityItem;
-        set => SetProperty(ref _backingstoreCurrentlyAuthenticatedIdentityItem, value);
-    }
+        public IdentityItem CurrentlyAuthenticatedIdentityItem
+        {
+            get => _backingstoreCurrentlyAuthenticatedIdentityItem;
+            set => SetProperty(ref _backingstoreCurrentlyAuthenticatedIdentityItem, value);
+        }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    public bool ThisViewModelIsInitialised { get; protected set; }
-    public bool MustHideCboLookupEvent { get; set; }
-    public bool OwnerOfThisServiceIsPortalNotRezultz { get; set; }
-    public bool MustHideCboLookupBlobNameToPublishResults { get; set; }
-
-
-    public string CurrentRequiredWorkRole { get; set; } // set in the page viewmodel that owns this viewmodel upon instantiation
-
-    public HeaderOrFooterViewModel HeadersVm { get; } = new();
-    public ProgressIndicatorViewModelXamarin SeasonProfileProgressIndicatorVm { get; } = new();
-
-    public TextBoxControlViewModel TextBoxForEnteringSeasonProfileSecurityAccessCodeVm { get; }
-    public TextBoxControlViewModel TextBoxForEnteringSeasonProfileFileNameFragmentVm { get; }
-    public TextBoxControlViewModel TextBoxForEnteringIdentityUserNameVm { get; }
-    public TextBoxControlViewModel TextBoxForEnteringIdentityPasswordVm { get; }
+        public bool ThisViewModelIsInitialised { get; protected set; }
+        public bool MustHideCboLookupEvent { get; set; }
+        public bool OwnerOfThisServiceIsPortalNotRezultz { get; set; }
+        public bool MustHideCboLookupBlobNameToPublishResults { get; set; }
 
 
-    public ButtonControlViewModel SubmitSeasonProfileFileNameFragmentButtonVm { get; }
-    public ButtonControlViewModel ClearSeasonProfileFilenameFragmentButtonVm { get; }
-    public ButtonControlViewModel SubmitSeasonProfileFilenameFragmentOfflineButtonVm { get; }
-    public ButtonControlViewModel SubmitIdentityButtonVm { get; }
-    public ButtonControlViewModel ClearIdentityButtonVm { get; }
+        public string CurrentRequiredWorkRole { get; set; } // set in the page viewmodel that owns this viewmodel upon instantiation
 
-    public IndexDrivenCollectionViewModel<SeasonItemDisplayObject> CboLookupSeasonVm { get; }
-    public IndexDrivenCollectionViewModel<SeriesItemDisplayObject> CboLookupSeriesVm { get; }
-    public IndexDrivenCollectionViewModel<EventItemDisplayObject> CboLookupEventVm { get; }
-    public IndexDrivenCollectionViewModel<EntityLocationItemDisplayObject> CboLookupBlobNameToPublishResultsVm { get; }
+        public HeaderOrFooterViewModel HeadersVm { get; } = new();
+        public ProgressIndicatorViewModelXamarin SeasonProfileProgressIndicatorVm { get; } = new();
+
+        public TextBoxControlViewModel TextBoxForEnteringSeasonProfileSecurityAccessCodeVm { get; }
+        public TextBoxControlViewModel TextBoxForEnteringSeasonProfileFileNameFragmentVm { get; }
+        public TextBoxControlViewModel TextBoxForEnteringIdentityUserNameVm { get; }
+        public TextBoxControlViewModel TextBoxForEnteringIdentityPasswordVm { get; }
 
 
-    public DelegateCommand OnTextChangedCommand { get; set; } // serves no earthly purpose other than to silence the buggy XAML Binding Failures window during debugging
-    public DelegateCommand OnSelectionChangedCommand { get; set; } // serves no earthly purpose other than to silence the buggy XAML Binding Failures window during debugging
+        public ButtonControlViewModel SubmitSeasonProfileFileNameFragmentButtonVm { get; }
+        public ButtonControlViewModel ClearSeasonProfileFilenameFragmentButtonVm { get; }
+        public ButtonControlViewModel SubmitSeasonProfileFilenameFragmentOfflineButtonVm { get; }
+        public ButtonControlViewModel SubmitIdentityButtonVm { get; }
+        public ButtonControlViewModel ClearIdentityButtonVm { get; }
 
-    #endregion
+        public IndexDrivenCollectionViewModel<SeasonItemDisplayObject> CboLookupSeasonVm { get; }
+        public IndexDrivenCollectionViewModel<SeriesItemDisplayObject> CboLookupSeriesVm { get; }
+        public IndexDrivenCollectionViewModel<EventItemDisplayObject> CboLookupEventVm { get; }
+        public IndexDrivenCollectionViewModel<EntityLocationItemDisplayObject> CboLookupBlobNameToPublishResultsVm { get; }
 
-    #region commands
 
-    #region Season profile entry/validation
+        public DelegateCommand OnTextChangedCommand { get; set; } // serves no earthly purpose other than to silence the buggy XAML Binding Failures window during debugging
+        public DelegateCommand OnSelectionChangedCommand { get; set; } // serves no earthly purpose other than to silence the buggy XAML Binding Failures window during debugging
 
-    #region TextBoxForEnteringSeasonProfileFilenameFragmentOnTextChangedExecute
+        #endregion
 
-    private void TextBoxForEnteringSeasonProfileFilenameFragmentOnTextChangedExecute()
+        #region commands
+
+        #region Season profile entry/validation
+
+        #region TextBoxForEnteringSeasonProfileFilenameFragmentOnTextChangedExecute
+
+        private void TextBoxForEnteringSeasonProfileFilenameFragmentOnTextChangedExecute()
     {
         SubmitSeasonProfileFileNameFragmentButtonVm.IsAuthorisedToOperate = true;
     }
 
-    #endregion
+        #endregion
 
-    #region TextBoxForEnteringSeasonProfileSecurityAccessCodeOnTextChangedExecute
+        #region TextBoxForEnteringSeasonProfileSecurityAccessCodeOnTextChangedExecute
 
-    private void TextBoxForEnteringSeasonProfileSecurityAccessCodeOnTextChangedExecute()
+        private void TextBoxForEnteringSeasonProfileSecurityAccessCodeOnTextChangedExecute()
     {
         //dummy method. placeholder. do absolutely nothing. 
     }
 
-    #endregion
+        #endregion
 
-    #region SubmitSeasonProfileFilenameFragmentButtonOnClickAsync
+        #region SubmitSeasonProfileFilenameFragmentButtonOnClickAsync
 
-    /// Note. Reasonably foreseeable errors that can occur here are:-
-    /// lead to a JghSeasonData404Exception being thrown. In such cases ThisViewModelIsInitialised = false.
-    /// Other exceptions must be deemed show-stoppers.
-    /// There is a single call inside this method to a remote service to fetch the Season data. 
-    /// - If there is a client side error, such as no internet connection, innermost exception will be a
-    /// JghSeason404Exception
-    /// - If Season profile file is not obtained by the remote svc, or any constituent series-settings file is not
-    /// obtained for any reason whatsoever, the LoadSeasonAsync() call throws a JghSeasonData404Exception.
-    /// https://systemrezultzlevel1.blob.core.windows.net/seasons/season-id-999.json and
-    /// https://customerkelso.blob.core.windows.net/series/series-Kelso2022-mtb.json
-    private bool SubmitSeasonProfileFilenameFragmentButtonOnClickCanExecute()
+        /// Note. Reasonably foreseeable errors that can occur here are:-
+        /// lead to a JghSeasonData404Exception being thrown. In such cases ThisViewModelIsInitialised = false.
+        /// Other exceptions must be deemed show-stoppers.
+        /// There is a single call inside this method to a remote service to fetch the Season data. 
+        /// - If there is a client side error, such as no internet connection, innermost exception will be a
+        /// JghSeason404Exception
+        /// - If Season profile file is not obtained by the remote svc, or any constituent series-settings file is not
+        /// obtained for any reason whatsoever, the LoadSeasonAsync() call throws a JghSeasonData404Exception.
+        /// https://systemrezultzlevel1.blob.core.windows.net/seasons/season-id-999.json and
+        /// https://customerkelso.blob.core.windows.net/series/series-Kelso2022-mtb.json
+        private bool SubmitSeasonProfileFilenameFragmentButtonOnClickCanExecute()
     {
         return SubmitSeasonProfileFileNameFragmentButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void SubmitSeasonProfileFilenameFragmentButtonOnClickExecuteAsync()
+        private async void SubmitSeasonProfileFilenameFragmentButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[SubmitSeasonProfileFilenameFragmentButtonOnClickExecuteAsync]";
@@ -518,7 +518,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> SubmitSeasonProfileFilenameFragmentButtonOnClickAsync()
+        private async Task<string> SubmitSeasonProfileFilenameFragmentButtonOnClickAsync()
     {
         const string failure = "Unable to save submit, verify, and save seasonID.";
         const string locus = "[SubmitSeasonProfileFilenameFragmentButtonOnClickAsync]";
@@ -625,16 +625,16 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickAsync
+        #region SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickAsync
 
-    private bool SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickCanExecute()
+        private bool SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickCanExecute()
     {
         return SubmitSeasonProfileFilenameFragmentOfflineButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickExecuteAsync()
+        private async void SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickExecuteAsync]";
@@ -666,7 +666,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    public async Task<string> SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickOrchestrateAsync()
+        public async Task<string> SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickOrchestrateAsync]";
@@ -700,7 +700,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickAsync()
+        private async Task<string> SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickAsync()
     {
         const string failure = "Unable to save settings SeasonData ID.";
         const string locus = "[SubmitSeasonProfileFilenameFragmentOfflineButtonOnClickAsync]";
@@ -756,16 +756,16 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region ClearSeasonProfileFilenameFragmentButtonOnClickAsync
+        #region ClearSeasonProfileFilenameFragmentButtonOnClickAsync
 
-    private bool ClearSeasonProfileFilenameFragmentButtonOnClickCanExecute()
+        private bool ClearSeasonProfileFilenameFragmentButtonOnClickCanExecute()
     {
         return ClearSeasonProfileFilenameFragmentButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void ClearSeasonProfileFilenameFragmentButtonOnClickExecuteAsync()
+        private async void ClearSeasonProfileFilenameFragmentButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[ClearSeasonProfileFilenameFragmentButtonOnClickExecuteAsync]";
@@ -813,7 +813,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> ClearSeasonIdButtonOnClickAsync()
+        private async Task<string> ClearSeasonIdButtonOnClickAsync()
     {
         await ZeroiseSeasonProfileAndIdentityAsync();
 
@@ -822,29 +822,29 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return SeasonID_cleared;
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region Identity entry/validation
+        #region Identity entry/validation
 
-    #region TextBoxesForEnteringIdentityOnTextChangedExecute
+        #region TextBoxesForEnteringIdentityOnTextChangedExecute
 
-    private void TextBoxesForEnteringIdentityOnTextChangedExecute()
+        private void TextBoxesForEnteringIdentityOnTextChangedExecute()
     {
         SubmitIdentityButtonVm.IsAuthorisedToOperate = true;
     }
 
-    #endregion
+        #endregion
 
-    #region SubmitIdentityButtonOnClickAsync
+        #region SubmitIdentityButtonOnClickAsync
 
-    private bool SubmitIdentityButtonOnClickCanExecute()
+        private bool SubmitIdentityButtonOnClickCanExecute()
     {
         return SubmitIdentityButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void SubmitIdentityButtonOnClickExecuteAsync()
+        private async void SubmitIdentityButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[SubmitIdentityButtonOnClickExecuteAsync]";
@@ -888,7 +888,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> SubmitIdentityButtonOnClickAsync()
+        private async Task<string> SubmitIdentityButtonOnClickAsync()
     {
         const string failure = "Unable to authenticate identity.";
         const string locus = "[SubmitIdentityButtonOnClickAsync]";
@@ -954,16 +954,16 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region ClearIdentityButtonOnClickAsync
+        #region ClearIdentityButtonOnClickAsync
 
-    private bool ClearIdentityButtonOnClickCanExecute()
+        private bool ClearIdentityButtonOnClickCanExecute()
     {
         return ClearIdentityButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void ClearIdentityButtonOnClickExecuteAsync()
+        private async void ClearIdentityButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[ClearButtonOnClickExecute]";
@@ -1005,7 +1005,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> ClearIdentityButtonOnClickAsync()
+        private async Task<string> ClearIdentityButtonOnClickAsync()
     {
         CurrentlyAuthenticatedIdentityItem = null;
 
@@ -1018,26 +1018,26 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return User_cleared_message;
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    private bool DummyOnTextChangedCanExecuteAlwaysTrue()
+        private bool DummyOnTextChangedCanExecuteAlwaysTrue()
     {
         return true;
     }
 
 
-    #region lookup selectors
+        #region lookup selectors
 
-    #region CboLookupSeasonOnSelectionChangedAsync i.e. clone of SubmitSeasonProfileFilenameFragmentButtonOnClickAsync
+        #region CboLookupSeasonOnSelectionChangedAsync i.e. clone of SubmitSeasonProfileFilenameFragmentButtonOnClickAsync
 
-    private bool CboLookupSeasonOnSelectionChangedCanExecute()
+        private bool CboLookupSeasonOnSelectionChangedCanExecute()
     {
         return CboLookupSeasonVm.IsAuthorisedToOperate;
     }
 
-    private async void CboLookupSeasonOnSelectionChangedExecuteAsync()
+        private async void CboLookupSeasonOnSelectionChangedExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CboLookupSeasonIdOnSelectionChangedExecute]";
@@ -1086,7 +1086,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> CboLookupSeasonOnSelectionChanged()
+        private async Task<string> CboLookupSeasonOnSelectionChanged()
     {
         const string failure = "Unable to fully load dataset associated with specified FragmentInFileNameOfAssociatedProfileFile.";
         const string locus = "[CboLookupSeasonOnSelectionChanged]";
@@ -1187,16 +1187,16 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region CboLookupSeriesOnSelectionChangedAsync
+        #region CboLookupSeriesOnSelectionChangedAsync
 
-    private bool CboLookupSeriesOnSelectionChangedCanExecute()
+        private bool CboLookupSeriesOnSelectionChangedCanExecute()
     {
         return CboLookupSeriesVm.IsAuthorisedToOperate;
     }
 
-    private async void CboLookupSeriesOnSelectionChangedExecuteAsync()
+        private async void CboLookupSeriesOnSelectionChangedExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CboLookupSeriesOnSelectionChangedExecute]";
@@ -1245,7 +1245,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<string> CboLookupSeriesOnSelectionChanged()
+        private async Task<string> CboLookupSeriesOnSelectionChanged()
     {
         const string failure = "Unable to fully load dataset associated with specified series.";
         const string locus = "[CboLookupSeriesOnSelectionChanged]";
@@ -1275,16 +1275,16 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region CboLookupEventOnSelectionChangedAsync - mickey mouse
+        #region CboLookupEventOnSelectionChangedAsync - mickey mouse
 
-    private bool CboLookupEventOnSelectionChangedCanExecute()
+        private bool CboLookupEventOnSelectionChangedCanExecute()
     {
         return CboLookupEventVm.IsAuthorisedToOperate;
     }
 
-    private async void CboLookupEventOnSelectionChangedExecuteAsync()
+        private async void CboLookupEventOnSelectionChangedExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CboLookupEventOnSelectionChangedExecute]";
@@ -1330,7 +1330,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task<bool> CboLookupEventOnSelectionChangedAsync()
+        private async Task<bool> CboLookupEventOnSelectionChangedAsync()
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[CboLookupEventOnSelectionChangedAsync]";
@@ -1358,16 +1358,16 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region CboLookupBlobNameToPublishResultsOnSelectionChangedAsync
+        #region CboLookupBlobNameToPublishResultsOnSelectionChangedAsync
 
-    private bool CboLookupBlobNameToPublishResultsOnSelectionChangedCanExecute()
+        private bool CboLookupBlobNameToPublishResultsOnSelectionChangedCanExecute()
     {
         return CboLookupBlobNameToPublishResultsVm.IsAuthorisedToOperate;
     }
 
-    private async void CboLookupBlobNameToPublishResultsOnSelectionChangedExecuteAsync()
+        private async void CboLookupBlobNameToPublishResultsOnSelectionChangedExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
         const string locus = "[CboLookupBlobNameToPublishResultsOnSelectionChangedExecuteAsync]";
@@ -1396,7 +1396,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private void CboLookupBlobNameToPublishResultsOnSelectionChangedAsync()
+        private void CboLookupBlobNameToPublishResultsOnSelectionChangedAsync()
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[CboLookupBlobNameToPublishResultsOnSelectionChangedAsync]";
@@ -1418,15 +1418,15 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public bool GetIfIdentityUserNameIsRecognised(string userName)
+        public bool GetIfIdentityUserNameIsRecognised(string userName)
     {
         if (string.IsNullOrWhiteSpace(userName))
             return false;
@@ -1441,7 +1441,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return answer;
     }
 
-    public IdentityItem GetAuthenticatedIdentityUser(string userName, string password)
+        public IdentityItem GetAuthenticatedIdentityUser(string userName, string password)
     {
         if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
             return null;
@@ -1458,7 +1458,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return answer;
     }
 
-    public bool GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole()
+        public bool GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole()
     {
         if (CurrentlyAuthenticatedIdentityItem?.ArrayOfAuthorisedWorkRoles == null)
             return false;
@@ -1468,21 +1468,21 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return workRoleIsOk;
     }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    /// <summary>
-    ///     Throws three exceptions that happen all the time in perfectly ordinary happenstances. The calling
-    ///     method must filter these and treat them as benign however it so chooses. If there is no internet
-    ///     connection, innermost exception will be a JghCommunicationFailureException.
-    ///     If no blob posted yet, or event was cancelled, innermost exception will be a JghResultsData404Exception.
-    ///     To convey a harmless informative message, a message that must be deemed a mere footnote
-    ///     to a successful outcome, innermost exception will be a JghAlertMessageException.
-    ///     All other exceptions are totally unanticipated and should be deemed showstoppers.
-    /// </summary>
-    /// <returns></returns>
-    private async Task<string> LoadListOfShallowSeasonItemsAsync()
+        /// <summary>
+        ///     Throws three exceptions that happen all the time in perfectly ordinary happenstances. The calling
+        ///     method must filter these and treat them as benign however it so chooses. If there is no internet
+        ///     connection, innermost exception will be a JghCommunicationFailureException.
+        ///     If no blob posted yet, or event was cancelled, innermost exception will be a JghResultsData404Exception.
+        ///     To convey a harmless informative message, a message that must be deemed a mere footnote
+        ///     to a successful outcome, innermost exception will be a JghAlertMessageException.
+        ///     All other exceptions are totally unanticipated and should be deemed showstoppers.
+        /// </summary>
+        /// <returns></returns>
+        private async Task<string> LoadListOfShallowSeasonItemsAsync()
     {
         const string failure = "Unable to do what this method does.";
         const string locus = "[LoadListOfShallowSeasonItemsAsync]";
@@ -1540,7 +1540,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         #endregion
     }
 
-    private async Task PopulateSeriesEventAndBlobNameCboAsync()
+        private async Task PopulateSeriesEventAndBlobNameCboAsync()
     {
         await PopulateCboLookupSeriesAsync();
 
@@ -1551,7 +1551,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         HeadersVm.Populate(CboLookupSeriesVm?.CurrentItem?.Label, CboLookupEventVm?.CurrentItem?.Label);
     }
 
-    private async Task PopulateCboLookupSeriesAsync()
+        private async Task PopulateCboLookupSeriesAsync()
     {
         if (CurrentlyValidatedSeasonProfileItem == null)
         {
@@ -1593,7 +1593,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
 
     }
 
-    private async Task PopulateCboLookupEventAsync()
+        private async Task PopulateCboLookupEventAsync()
     {
         if (CurrentlyValidatedSeasonProfileItem == null)
         {
@@ -1643,7 +1643,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         //CboLookupEventVm.Label = CboLookupEventVm.CurrentItem?.Label;
     }
 
-    private async Task PopulateCboLookupBlobNameForPublishedResultsAsync()
+        private async Task PopulateCboLookupBlobNameForPublishedResultsAsync()
     {
         if (CurrentlyValidatedSeasonProfileItem == null)
         {
@@ -1677,7 +1677,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         CboLookupBlobNameToPublishResultsVm.MakeVisibleIfItemsSourceIsGreaterThanOne();
     }
 
-    private async Task ZeroiseIdentityAsync()
+        private async Task ZeroiseIdentityAsync()
     {
         CurrentlyAuthenticatedIdentityItem = null;
 
@@ -1686,7 +1686,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         TextBoxForEnteringIdentityUserNameVm.Label = Not_yet_authenticated;
     }
 
-    private async Task ZeroiseSeasonProfileAndIdentityAsync()
+        private async Task ZeroiseSeasonProfileAndIdentityAsync()
     {
         CurrentlyValidatedSeasonProfileItem = null;
         await TextBoxForEnteringSeasonProfileSecurityAccessCodeVm.ChangeTextAsync(string.Empty);
@@ -1704,7 +1704,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         await ZeroiseIdentityAsync();
     }
 
-    private async Task SaveSeasonMetadataItemToLocalStorageBackupAsync(string folderName, string thisSeasonId, SeasonProfileItem thisSeasonProfileItem)
+        private async Task SaveSeasonMetadataItemToLocalStorageBackupAsync(string folderName, string thisSeasonId, SeasonProfileItem thisSeasonProfileItem)
     {
         if (string.IsNullOrWhiteSpace(folderName) || string.IsNullOrWhiteSpace(thisSeasonId) || thisSeasonProfileItem == null)
             return;
@@ -1717,7 +1717,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
             seasonItemDtoToBeSaved);
     }
 
-    private async Task<SeasonProfileItem> GetSeasonMetadataItemFromLocalStorageAsync(string folderName, string thisSeasonId)
+        private async Task<SeasonProfileItem> GetSeasonMetadataItemFromLocalStorageAsync(string folderName, string thisSeasonId)
     {
         if (string.IsNullOrWhiteSpace(folderName) || string.IsNullOrWhiteSpace(thisSeasonId))
             return null;
@@ -1742,8 +1742,8 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return answer;
     }
 
-    // ReSharper disable once UnusedMember.Local
-    private async Task ClearLocalStorageBackupAsync(string folderName)
+        // ReSharper disable once UnusedMember.Local
+        private async Task ClearLocalStorageBackupAsync(string folderName)
     {
         // The whole idea here is to expunge local storage, including local storage that might have become corrupted, or contain
         // something other than a SeasonProfileItem, and which will therefore be unreadable and cause the
@@ -1755,7 +1755,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         await _storageService.DeleteDirectoryAsync(folderName);
     }
 
-    private string MakeFileNameFromSeasonId(string seasonId)
+        private string MakeFileNameFromSeasonId(string seasonId)
     {
         if (string.IsNullOrWhiteSpace(seasonId))
             return null;
@@ -1767,35 +1767,35 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return fileName;
     }
 
-    private void ThrowExceptionIfNoConnection()
+        private void ThrowExceptionIfNoConnection()
     {
         if (!NetworkInterface.GetIsNetworkAvailable()) throw new JghCommunicationFailureException(StringsRezultz02.NoConnection);
     }
 
-    #endregion
+        #endregion
 
-    #region progress indicating
+        #region progress indicating
 
-    private void OpenProgressIndicator(string descriptionOfWhatsHappening)
+        private void OpenProgressIndicator(string descriptionOfWhatsHappening)
     {
         SeasonProfileProgressIndicatorVm.OpenProgressIndicator(descriptionOfWhatsHappening);
     }
 
-    private void FreezeProgressIndicator()
+        private void FreezeProgressIndicator()
     {
         SeasonProfileProgressIndicatorVm.FreezeProgressIndicator();
     }
 
-    private void CloseProgressIndicator()
+        private void CloseProgressIndicator()
     {
         SeasonProfileProgressIndicatorVm.CloseProgressIndicator();
     }
 
-    #endregion
+        #endregion
 
-    #region Gui stuff
+        #region Gui stuff
 
-    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         ClearSeasonProfileFilenameFragmentButtonVm.IsAuthorisedToOperate = true; // always enabled
         SubmitSeasonProfileFileNameFragmentButtonVm.IsAuthorisedToOperate = false;
@@ -1814,7 +1814,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         CboLookupBlobNameToPublishResultsVm.MakeAuthorisedToOperateIfItemsSourceIsAny();
     }
 
-    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         ClearSeasonProfileFilenameFragmentButtonVm.IsVisible = true;
         SubmitSeasonProfileFileNameFragmentButtonVm.IsVisible = true;
@@ -1834,7 +1834,7 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         CboLookupBlobNameToPublishResultsVm.IsVisible = !MustHideCboLookupBlobNameToPublishResults;
     }
 
-    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -1858,27 +1858,27 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return answer;
     }
 
-    #endregion
+        #endregion
 
-    #region GenesisAsLastKnownGood
+        #region GenesisAsLastKnownGood
 
-    protected void SaveGenesisOfThisSeasonItemAsLastKnownGood()
+        protected void SaveGenesisOfThisSeasonItemAsLastKnownGood()
     {
         _lastKnownGoodSeasonProfileItemToWhichThisVmBelongs = CurrentlyValidatedSeasonProfileItem;
     }
 
-    protected void SaveGenesisOfThisIdentityItemAsLastKnownGood()
+        protected void SaveGenesisOfThisIdentityItemAsLastKnownGood()
     {
         _lastKnownGoodIdentityItemToWhichThisVmBelongs = CurrentlyAuthenticatedIdentityItem;
     }
 
-    //protected void SaveGenesisOfThisViewModelAsLastKnownGood()
-    //{
-    //    _lastKnownGoodSeasonProfileItemToWhichThisVmBelongs = CurrentlyValidatedSeasonProfileItem;
-    //    _lastKnownGoodIdentityItemToWhichThisVmBelongs = CurrentlyAuthenticatedIdentityItem;
-    //}
+        //protected void SaveGenesisOfThisViewModelAsLastKnownGood()
+        //{
+        //    _lastKnownGoodSeasonProfileItemToWhichThisVmBelongs = CurrentlyValidatedSeasonProfileItem;
+        //    _lastKnownGoodIdentityItemToWhichThisVmBelongs = CurrentlyAuthenticatedIdentityItem;
+        //}
 
-    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         if (_lastKnownGoodSeasonProfileItemToWhichThisVmBelongs != CurrentlyValidatedSeasonProfileItem)
             return true;
@@ -1889,5 +1889,6 @@ public class SeasonProfileAndIdentityValidationViewModel : BaseViewViewModel, IS
         return false;
     }
 
-    #endregion
+        #endregion
+    }
 }

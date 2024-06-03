@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace NetStd.DataTransferObjects.Mar2024;
-
-[DataContract(Namespace = "", Name = XeException)]
-public class ExceptionDto
+namespace NetStd.DataTransferObjects.Mar2024
 {
-    #region methods
+    [DataContract(Namespace = "", Name = XeException)]
+    public class ExceptionDto
+    {
+        #region methods
 
-    public static ExceptionDto FromException(Exception ex)
+        public static ExceptionDto FromException(Exception ex)
     {
         try
         {
@@ -63,12 +63,12 @@ public class ExceptionDto
         #endregion
     }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private static string ConvertLikelyObjectToString(object value)
-    //private string ConvertLikelyObjectToString(object value, CultureInfo cultureInfo)
+        private static string ConvertLikelyObjectToString(object value)
+            //private string ConvertLikelyObjectToString(object value, CultureInfo cultureInfo)
     {
         switch (value)
         {
@@ -123,44 +123,45 @@ public class ExceptionDto
         return result;
     }
 
-    #endregion
+        #endregion
 
-    #region Names
+        #region Names
 
-    private const string XeException = "exception";
-    private const string XeClassName = "class-name";
-    private const string XeMessage = "message";
-    private const string XeHResult = "hresult";
-    private const string XeSource = "source";
-    private const string XeData = "data";
-    private const string XeStackTraceString = "stacktrace-string";
-    private const string XeInnerException = "inner-exception";
+        private const string XeException = "exception";
+        private const string XeClassName = "class-name";
+        private const string XeMessage = "message";
+        private const string XeHResult = "hresult";
+        private const string XeSource = "source";
+        private const string XeData = "data";
+        private const string XeStackTraceString = "stacktrace-string";
+        private const string XeInnerException = "inner-exception";
 
-    #endregion
+        #endregion
 
-    #region DataMembers
+        #region DataMembers
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 1, Name = XeClassName)]
-    //[JsonProperty(XeClassName, Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-    public string ClassName { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 1, Name = XeClassName)]
+        //[JsonProperty(XeClassName, Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
+        public string ClassName { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 2, Name = XeMessage)]
-    public string Message { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 2, Name = XeMessage)]
+        public string Message { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 3, Name = XeHResult)]
-    public int HResult { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 3, Name = XeHResult)]
+        public int HResult { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 4, Name = XeSource)]
-    public string Source { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 4, Name = XeSource)]
+        public string Source { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 5, Name = XeData)]
-    public Dictionary<string, string> Data { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 5, Name = XeData)]
+        public Dictionary<string, string> Data { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 6, Name = XeStackTraceString)]
-    public string StackTraceString { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 6, Name = XeStackTraceString)]
+        public string StackTraceString { get; set; }
 
-    [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 7, Name = XeInnerException)]
-    public ExceptionDto InnerException { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 7, Name = XeInnerException)]
+        public ExceptionDto InnerException { get; set; }
 
-    #endregion
+        #endregion
+    }
 }

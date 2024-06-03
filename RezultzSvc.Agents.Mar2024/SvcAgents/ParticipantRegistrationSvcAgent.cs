@@ -9,23 +9,23 @@ using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using RezultzSvc.Agents.Mar2024.Bases;
 using RezultzSvc.ClientInterfaces.Mar2024.Clients;
 
-namespace RezultzSvc.Agents.Mar2024.SvcAgents;
-
-public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAgent
+namespace RezultzSvc.Agents.Mar2024.SvcAgents
 {
-    private const string Locus2 = nameof(ParticipantRegistrationSvcAgent);
-    private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
+    public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAgent
+    {
+        private const string Locus2 = nameof(ParticipantRegistrationSvcAgent);
+        private const string Locus3 = "[RezultzSvc.Agents.Mar2024]";
 
-    #region fields
+        #region fields
 
-    private readonly IParticipantRegistrationServiceClient _myClient;
+        private readonly IParticipantRegistrationServiceClient _myClient;
 
-    #endregion
+        #endregion
 
 
-    #region ctor stuff
+        #region ctor stuff
 
-    public ParticipantRegistrationSvcAgent(IParticipantRegistrationServiceClient clientInstance)
+        public ParticipantRegistrationSvcAgent(IParticipantRegistrationServiceClient clientInstance)
     {
         const string failure = "Unable to instantiate service agent.";
         const string locus = "[ParticipantRegistrationSvcAgent]";
@@ -42,11 +42,11 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         }
     }
 
-    #endregion
+        #endregion
 
-    #region helper
+        #region helper
 
-    public static Tuple<string, string> MakeDataLocationForStorageOfParticipantDataOnRemoteHub(SeriesProfileItem thisSeriesProfileItem, EventProfileItem thisEventProfileItem)
+        public static Tuple<string, string> MakeDataLocationForStorageOfParticipantDataOnRemoteHub(SeriesProfileItem thisSeriesProfileItem, EventProfileItem thisEventProfileItem)
     {
         #region null checks
 
@@ -71,11 +71,11 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         return answer;
     }
 
-    #endregion
+        #endregion
 
-    #region svc methods
+        #region svc methods
 
-    public async Task<bool> GetIfContainerExistsAsync(string databaseAccount, string dataContainer, CancellationToken ct = default)
+        public async Task<bool> GetIfContainerExistsAsync(string databaseAccount, string dataContainer, CancellationToken ct = default)
     {
         const string failure = "Unable to determine if specified container exists in specified account in remote storage used by service.";
         const string locus = "[GetIfContainerExistsAsync]";
@@ -92,7 +92,7 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         }
     }
 
-    public async Task<string> PostParticipantItemAsync(string databaseAccount, string dataContainer, string tablePartition, string tableRowKey, ParticipantHubItem participantItem, CancellationToken ct)
+        public async Task<string> PostParticipantItemAsync(string databaseAccount, string dataContainer, string tablePartition, string tableRowKey, ParticipantHubItem participantItem, CancellationToken ct)
     {
         const string failure = "Unable to upload a Participant item.";
         const string locus = "[PostParticipantItemAsync]";
@@ -112,7 +112,7 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         }
     }
 
-    public async Task<ParticipantHubItem> GetParticipantItemAsync(string databaseAccount, string dataContainer, string tablePartition, string tableRowKey, CancellationToken ct = default)
+        public async Task<ParticipantHubItem> GetParticipantItemAsync(string databaseAccount, string dataContainer, string tablePartition, string tableRowKey, CancellationToken ct = default)
     {
         const string failure = "Unable to download a Participant item.";
         const string locus = "[GetParticipantItemAsync]";
@@ -131,7 +131,7 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         }
     }
 
-    public async Task<string> PostParticipantItemArrayAsync(string databaseAccount, string dataContainer, ParticipantHubItem[] itemArray, CancellationToken ct = default)
+        public async Task<string> PostParticipantItemArrayAsync(string databaseAccount, string dataContainer, ParticipantHubItem[] itemArray, CancellationToken ct = default)
     {
         const string failure = "Unable to upload a payload of multiple Participant items.";
         const string locus = "[PostParticipantItemArrayAsync]";
@@ -150,7 +150,7 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         }
     }
 
-    public async Task<ParticipantHubItem[]> GetParticipantItemArrayAsync(string databaseAccount, string dataContainer, CancellationToken ct = default)
+        public async Task<ParticipantHubItem[]> GetParticipantItemArrayAsync(string databaseAccount, string dataContainer, CancellationToken ct = default)
     {
         const string failure = "Unable to download a payload of multiple Participant items.";
         const string locus = "[GetParticipantItemArrayAsync]";
@@ -169,5 +169,6 @@ public class ParticipantRegistrationSvcAgent : SvcAgentBase, IRegistrationSvcAge
         }
     }
 
-    #endregion
+        #endregion
+    }
 }

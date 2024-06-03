@@ -1,80 +1,80 @@
 ﻿using System.Text;
 
-namespace NetStd.Goodies.Mar2022;
-
-public class JghStringBuilder
+namespace NetStd.Goodies.Mar2022
 {
-    private readonly StringBuilder _sb;
+    public class JghStringBuilder
+    {
+        private readonly StringBuilder _sb;
 
-    #region ctor
+        #region ctor
 
-    public JghStringBuilder()
+        public JghStringBuilder()
     {
         _sb = new StringBuilder();
     }
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public void AppendLine()
+        public void AppendLine()
     {
         _sb.AppendLine();
     }
 
-    public void AppendLine(string line)
+        public void AppendLine(string line)
     {
         _sb.AppendLine(line);
     }
 
-    public void AppendLine(StringBuilder sb)
+        public void AppendLine(StringBuilder sb)
     {
         if (sb == null || sb.Length == 0) return;
 
         _sb.AppendLine(sb.ToString());
     }
 
-    public void AppendLine(JghStringBuilder sb)
+        public void AppendLine(JghStringBuilder sb)
     {
         if (sb == null) return;
 
         _sb.AppendLine(sb.ToString());
     }
 
-    public void AppendLinePrecededByTwo(string line)
+        public void AppendLinePrecededByTwo(string line)
     {
         _sb.AppendLine("");
         _sb.AppendLine("");
         _sb.AppendLine(line);
     }
 
-    public void AppendLinePrecededByOne(string line)
+        public void AppendLinePrecededByOne(string line)
     {
         _sb.AppendLine("");
         _sb.AppendLine(line);
     }
 
-    public void AppendLineFollowedByTwo(string line)
+        public void AppendLineFollowedByTwo(string line)
     {
         _sb.AppendLine(line);
         _sb.AppendLine("");
         _sb.AppendLine("");
     }
 
-    public void AppendLineFollowedByOne(string line)
+        public void AppendLineFollowedByOne(string line)
     {
         _sb.AppendLine(line);
         _sb.AppendLine("");
     }
 
-    public void AppendLineWrappedByOne(string line)
+        public void AppendLineWrappedByOne(string line)
     {
         _sb.AppendLine("");
         _sb.AppendLine(line);
         _sb.AppendLine("");
     }
 
-    public string AppendLineThenToString(JghStringBuilder sb)
+        public string AppendLineThenToString(JghStringBuilder sb)
     {
         if (sb == null) return null;
 
@@ -84,15 +84,16 @@ public class JghStringBuilder
     }
 
 
-    public void Clear()
+        public void Clear()
     {
         _sb.Clear();
     }
 
-    public new string ToString()
+        public new string ToString()
     {
         return _sb.ToString();
     }
 
-    #endregion
+        #endregion
+    }
 }

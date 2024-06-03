@@ -12,54 +12,54 @@ using RezultzSvc.Clients.Wcf.Mar2023.ServiceClients;
 
 #pragma warning disable IDE0052
 
-namespace Tool06;
-
-internal class Program
+namespace Tool06
 {
-    private const string Description = "This program is a scratchpad for testing RaceResultsPublishingSvcAgent ...." +
-                                       " and the C# publisher module [PublisherForMyLapsElectronicTimingSystem2023]";
+    internal class Program
+    {
+        private const string Description = "This program is a scratchpad for testing RaceResultsPublishingSvcAgent ...." +
+                                           " and the C# publisher module [PublisherForMyLapsElectronicTimingSystem2023]";
 
-    #region constants
+        #region constants
 
-    //private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientMvc());
-    //private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientMvc());
-    //private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientMvc());
-    //private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientMvc());
-    //private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientMvc());
+        //private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientMvc());
+        //private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientMvc());
+        //private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientMvc());
+        //private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientMvc());
+        //private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientMvc());
 
-    private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientWcf());
-    private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientWcf());
-    private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientWcf());
-    private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientWcf());
-    private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientWcf());
+        private static readonly AzureStorageSvcAgent AzureStorageSvcAgent = new(new AzureStorageServiceClientWcf());
+        private static readonly ParticipantRegistrationSvcAgent ParticipantRegistrationSvcAgent = new(new ParticipantRegistrationServiceClientWcf());
+        private static readonly LeaderboardResultsSvcAgent LeaderboardResultsSvcAgent = new(new LeaderboardResultsServiceClientWcf());
+        private static readonly TimeKeepingSvcAgent TimeKeepingSvcAgent = new(new TimeKeepingServiceClientWcf());
+        private static readonly RaceResultsPublishingSvcAgent RaceResultsPublishingSvcAgent = new(new RaceResultsPublishingServiceClientWcf());
 
-    private const int LhsWidth = 70;
-    private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\";
-    private const string FileNameOfParticipantMasterListFromRezultz = @"Participants+2023-07-18T12-16-20.json";
-    private const string RequiredMyLapsFileFormat = "txt"; // "txt" or "csv"
-    private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\";
-    private const string OutputFolderForXmlResults = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\XmlVersions\";
+        private const int LhsWidth = 70;
+        private const string InputFolderFromRezultz = @"C:\Users\johng\holding pen\StuffFromRezultzAzure\";
+        private const string FileNameOfParticipantMasterListFromRezultz = @"Participants+2023-07-18T12-16-20.json";
+        private const string RequiredMyLapsFileFormat = "txt"; // "txt" or "csv"
+        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\";
+        private const string OutputFolderForXmlResults = @"C:\Users\johng\holding pen\StuffFromAndrew\Event01FromMylaps\Current xls versions\Current xls versions exported to csv and then renamed to txt\XmlVersions\";
 
-    private static readonly Tuple<string, string>[] ArrayOfTimingDataFileNameTuples =
+        private static readonly Tuple<string, string>[] ArrayOfTimingDataFileNameTuples =
     {
         new("Expert Results.txt", "Kelso2023mtb-results-01-expert.xml"),
         new("Sport Results.txt", "Kelso2023mtb-results-01-sport.xml"),
         new("Novice Results.txt", "Kelso2023mtb-results-01-novice.xml")
-    };
+    }        ;
 
-    #endregion
+        #endregion
 
-    #region variables
+        #region variables
 
-    private static readonly List<FileItem> FileItemsFromMyLaps = new();
+        private static readonly List<FileItem> FileItemsFromMyLaps = new();
 
-    private static readonly List<PublisherImportFileTargetItem> FilesForPublisherModuleToProcess = new();
+        private static readonly List<PublisherImportFileTargetItem> FilesForPublisherModuleToProcess = new();
 
-    #endregion
+        #endregion
 
-    #region main
+        #region main
 
-    private static async Task Main()
+        private static async Task Main()
     {
         JghConsoleHelper.WriteLineFollowedByOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
@@ -424,7 +424,7 @@ internal class Program
         }
     }
 
-    private static async Task Main01(string seriesLabel, string eventLabel, SeriesProfileItem seriesProfileItem)
+        private static async Task Main01(string seriesLabel, string eventLabel, SeriesProfileItem seriesProfileItem)
     {
         JghConsoleHelper.WriteLineFollowedByOne("RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync()...");
 
@@ -460,18 +460,18 @@ internal class Program
         SaveWorkToHardDriveAsXml(ConvertOutputToResultsDtoXmlFileContents(publisherOutput.ComputedResults));
     }
 
-    #endregion
+        #endregion
 
-    #region helper methods
+        #region helper methods
 
-    private static string ConvertOutputToResultsDtoXmlFileContents(ResultItem[] resultItems)
+        private static string ConvertOutputToResultsDtoXmlFileContents(ResultItem[] resultItems)
     {
         ResultDto[] resultsDto = ResultItem.ToDataTransferObject(resultItems);
 
         return JghSerialisation.ToXmlFromObject(resultsDto, new[] { typeof(ResultDto) });
     }
 
-    private static void SaveWorkToHardDriveAsXml(string resultsDtoAsXml)
+        private static void SaveWorkToHardDriveAsXml(string resultsDtoAsXml)
     {
         var outPutFileName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', DateTime.Now.ToString(JghDateTime.SortablePattern)) + "______ResultsSynthesisedByPublishingSvc" + "." + StandardFileTypeSuffix.Xml;
 
@@ -485,7 +485,8 @@ internal class Program
     }
 
 
-    #endregion
+        #endregion
 
 
+    }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 
-namespace NetStd.Goodies.Mar2022;
-
-public class JghCompressionHelper
+namespace NetStd.Goodies.Mar2022
 {
-    public static async Task<T> ConvertXmlAsCompressedBytesToObjectAsync<T>(byte[] myObjectAsXmlAsCompressedBytes)
+    public class JghCompressionHelper
+    {
+        public static async Task<T> ConvertXmlAsCompressedBytesToObjectAsync<T>(byte[] myObjectAsXmlAsCompressedBytes)
     {
 
         var myObjectAsXmlAsBytes =
@@ -17,7 +17,7 @@ public class JghCompressionHelper
         return myObject;
     }
 
-    public static async Task<T> ConvertJsonAsCompressedBytesToObjectAsync<T>(byte[] myObjectAsJsonAsCompressedBytes)
+        public static async Task<T> ConvertJsonAsCompressedBytesToObjectAsync<T>(byte[] myObjectAsJsonAsCompressedBytes)
     {
 
         var myObjectAsJsonAsBytes =
@@ -30,7 +30,7 @@ public class JghCompressionHelper
         return myObject;
     }
 
-    public static async Task<byte[]> ConvertObjectToXmlAsCompressedBytesAsync<T>(T myObject)
+        public static async Task<byte[]> ConvertObjectToXmlAsCompressedBytesAsync<T>(T myObject)
     {
 
         var myObjectAsXmlString = JghSerialisation.ToXmlFromObject(myObject, new[] { typeof(T) });
@@ -42,7 +42,7 @@ public class JghCompressionHelper
         return myObjectAsXmlAsCompressedBytes;
     }
 
-    public static async Task<byte[]> ConvertObjectToJsonAsCompressedBytesAsync<T>(T myObject)
+        public static async Task<byte[]> ConvertObjectToJsonAsCompressedBytesAsync<T>(T myObject)
     {
 
         var myObjectAsJsonString = JghSerialisation.ToJsonFromObject(myObject);
@@ -54,4 +54,5 @@ public class JghCompressionHelper
         return myObjectAsJsonAsCompressedBytes;
     }
 
+    }
 }

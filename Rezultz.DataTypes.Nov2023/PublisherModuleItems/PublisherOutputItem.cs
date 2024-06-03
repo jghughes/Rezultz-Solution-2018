@@ -3,29 +3,29 @@ using NetStd.Exceptions.Mar2024.Helpers;
 using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 using Rezultz.DataTypes.Nov2023.RezultzItems;
 
-namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems;
-
-public class PublisherOutputItem
+namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 {
+    public class PublisherOutputItem
+    {
 
-    #region properties
+        #region properties
 
 
-    public string LabelOfEventAsIdentifier { get; set; } = string.Empty;
+        public string LabelOfEventAsIdentifier { get; set; } = string.Empty;
 
-    public string RanToCompletionMessage { get; set; } = string.Empty;
+        public string RanToCompletionMessage { get; set; } = string.Empty;
 
-    public string ConversionReport { get; set; } = string.Empty;
+        public string ConversionReport { get; set; } = string.Empty;
 
-    public bool ConversionDidFail { get; set; } = false;
+        public bool ConversionDidFail { get; set; } = false;
 
-    public ResultItem[] ComputedResults { get; set; } = Array.Empty<ResultItem>();  
+        public ResultItem[] ComputedResults { get; set; } = Array.Empty<ResultItem>();  
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public static PublisherOutputItem FromDataTransferObject(PublisherOutputItemDto itemDto)
+        public static PublisherOutputItem FromDataTransferObject(PublisherOutputItemDto itemDto)
     {
         const string failure = "Populating PublisherOutputItem.";
         const string locus = "[FromDataTransferObject]";
@@ -56,7 +56,7 @@ public class PublisherOutputItem
         #endregion
     }
 
-    public static PublisherOutputItemDto ToDataTransferObject(PublisherOutputItem item)
+        public static PublisherOutputItemDto ToDataTransferObject(PublisherOutputItem item)
     {
         const string failure = "Populating PublisherOutputItemDto.";
         const string locus = "[ToDataTransferObject]";
@@ -87,5 +87,6 @@ public class PublisherOutputItem
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

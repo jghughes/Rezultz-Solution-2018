@@ -3,13 +3,13 @@ using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 
-namespace Tool07;
-
-internal class Program
+namespace Tool07
 {
-    private const string Description = "This program reads a folder of files of published results and replaces all the XElement names to lower case.";
+    internal class Program
+    {
+        private const string Description = "This program reads a folder of files of published results and replaces all the XElement names to lower case.";
 
-    private static void Main()
+        private static void Main()
     {
         #region Preamble
 
@@ -105,98 +105,98 @@ internal class Program
         #endregion
     }
 
-    #region constants
+        #region constants
 
-    private const int LhsWidth = 30;
+        private const int LhsWidth = 30;
 
-    private const string InputFolder = @"C:\Users\johng\holding pen\results-old\";
-    private const string OutputFolder = @"C:\Users\johng\holding pen\results-new\";
+        private const string InputFolder = @"C:\Users\johng\holding pen\results-old\";
+        private const string OutputFolder = @"C:\Users\johng\holding pen\results-new\";
 
-    public const string XeArrayOfResult = "ArrayOf"+$"{XeResult}";
-    public const string XeResult = "Result";
-    public const string XeFirst = "First";
-    public const string XeMiddle = "Middle";
-    public const string XeLast = "Last";
-    public const string XeSex = "Sex"; // NB
-    public const string XeAge = "Age";
-    public const string XeIsSeries = "IsSeries";
-    public const string XeRace = "Race";
-    public const string XeAgeGroup = "AgeGroup";
-    public const string XeTeam = "Team";
-    public const string XeCity = "City";
-    public const string XeT01 = "T01";
-    public const string XeT02 = "T02";
-    public const string XeT03 = "T03";
-    public const string XeT04 = "T04";
-    public const string XeT05 = "T05";
-    public const string XeT06 = "T06";
-    public const string XeT07 = "T07";
-    public const string XeT08 = "T08";
-    public const string XeT09 = "T09";
-    public const string XeT10 = "T10";
-    public const string XeT11 = "T11";
-    public const string XeT12 = "T12";
-    public const string XeT13 = "T13";
-    public const string XeT14 = "T14";
-    public const string XeT15 = "T15";
-    public const string XeDnxString = "Dnx";
-    public const string XeBib = "Bib";
-    public const string XeFirstName = "First";
-    public const string XeMiddleInitial = "Middle";
-    public const string XeLastName = "Last";
-    public const string XeFullName = "FullName";
+        public const string XeArrayOfResult = "ArrayOf"+$"{XeResult}";
+        public const string XeResult = "Result";
+        public const string XeFirst = "First";
+        public const string XeMiddle = "Middle";
+        public const string XeLast = "Last";
+        public const string XeSex = "Sex"; // NB
+        public const string XeAge = "Age";
+        public const string XeIsSeries = "IsSeries";
+        public const string XeRace = "Race";
+        public const string XeAgeGroup = "AgeGroup";
+        public const string XeTeam = "Team";
+        public const string XeCity = "City";
+        public const string XeT01 = "T01";
+        public const string XeT02 = "T02";
+        public const string XeT03 = "T03";
+        public const string XeT04 = "T04";
+        public const string XeT05 = "T05";
+        public const string XeT06 = "T06";
+        public const string XeT07 = "T07";
+        public const string XeT08 = "T08";
+        public const string XeT09 = "T09";
+        public const string XeT10 = "T10";
+        public const string XeT11 = "T11";
+        public const string XeT12 = "T12";
+        public const string XeT13 = "T13";
+        public const string XeT14 = "T14";
+        public const string XeT15 = "T15";
+        public const string XeDnxString = "Dnx";
+        public const string XeBib = "Bib";
+        public const string XeFirstName = "First";
+        public const string XeMiddleInitial = "Middle";
+        public const string XeLastName = "Last";
+        public const string XeFullName = "FullName";
 
-    private static readonly List<string> ListOfXeNames = new()
-    {
-        XeArrayOfResult,
-        XeResult,
-        XeFirst,
-        XeMiddle,
-        XeLast,
-        XeSex,
-        XeAge,
-        XeIsSeries,
-        XeRace,
-        XeAgeGroup,
-        XeTeam,
-        XeCity,
-        XeT01,
-        XeT02,
-        XeT03,
-        XeT04,
-        XeT05,
-        XeT06,
-        XeT07,
-        XeT08,
-        XeT09,
-        XeT10,
-        XeT11,
-        XeT12,
-        XeT13,
-        XeT14,
-        XeT15,
-        XeDnxString,
-        XeBib,
-        XeFirstName,
-        XeMiddleInitial,
-        XeLastName,
-        XeFullName
-    };
+        private static readonly List<string> ListOfXeNames = new()
+        {
+            XeArrayOfResult,
+            XeResult,
+            XeFirst,
+            XeMiddle,
+            XeLast,
+            XeSex,
+            XeAge,
+            XeIsSeries,
+            XeRace,
+            XeAgeGroup,
+            XeTeam,
+            XeCity,
+            XeT01,
+            XeT02,
+            XeT03,
+            XeT04,
+            XeT05,
+            XeT06,
+            XeT07,
+            XeT08,
+            XeT09,
+            XeT10,
+            XeT11,
+            XeT12,
+            XeT13,
+            XeT14,
+            XeT15,
+            XeDnxString,
+            XeBib,
+            XeFirstName,
+            XeMiddleInitial,
+            XeLastName,
+            XeFullName
+        };
 
-    private static readonly List<string> ListOfTextToBeDeleted = new()
-    {
-        "xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\"",
-        "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"",
-        "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"",
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
-        "p3:nil=\"true\" xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\" ",
-    };
+        private static readonly List<string> ListOfTextToBeDeleted = new()
+        {
+            "xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\"",
+            "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\"",
+            "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"",
+            "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
+            "p3:nil=\"true\" xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\" ",
+        };
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
-    private static void RenameXElements(FileInfo fileInfo)
+        private static void RenameXElements(FileInfo fileInfo)
     {
         #region get the text
 
@@ -255,7 +255,7 @@ internal class Program
     }
 
 
-    private static XElement ParsePlainTextIntoXml(string inputText)
+        private static XElement ParsePlainTextIntoXml(string inputText)
     {
         var failure = "Unable to parse text into xml.";
         const string locus = "[ParsePlainTextIntoXml]";
@@ -282,8 +282,8 @@ internal class Program
         #endregion
     }
 
-    private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
-    string nameOfRepeatingChildElement)
+        private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
+            string nameOfRepeatingChildElement)
     {
         var failure = "Unable to extract child elements from parent Xml document.";
         const string locus = "[ExtractListOfIndividualResults]";
@@ -323,7 +323,7 @@ internal class Program
         #endregion
     }
 
-    private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
+        private static ResultDto[] ConvertArrayOfXElementsToArrayOfResultItemDataTransferObjects(XElement[] arrayOfIndividualResultXes)
     {
         List<ResultDto> answer = new();
 
@@ -337,7 +337,7 @@ internal class Program
         return answer.ToArray();
     }
 
-    private static List<Tuple<string, string>> ComposeTextSubstitutionPairs()
+        private static List<Tuple<string, string>> ComposeTextSubstitutionPairs()
     {
         var textSubstitutionPairs = new List<Tuple<string, string>>();
 
@@ -360,8 +360,8 @@ internal class Program
         return textSubstitutionPairs;
     }
 
-    // ReSharper disable once UnusedMethodReturnValue.Local
-    private static string[] DeleteFilesInThisFolder(string folderPath)
+        // ReSharper disable once UnusedMethodReturnValue.Local
+        private static string[] DeleteFilesInThisFolder(string folderPath)
     {
         var filePaths =
             Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories).ToArray();
@@ -376,10 +376,11 @@ internal class Program
         return filePaths;
     }
 
-    private static void PrintReport(string filename)
+        private static void PrintReport(string filename)
     {
         Console.WriteLine($"Output file:{filename}");
     }
 
-    #endregion
+        #endregion
+    }
 }

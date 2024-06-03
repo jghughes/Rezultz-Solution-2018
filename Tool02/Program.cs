@@ -3,13 +3,13 @@ using NetStd.Goodies.Mar2022;
 using Newtonsoft.Json;
 using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 
-namespace Tool02;
-
-internal class Program
+namespace Tool02
 {
-    private const string Description = "This program de-serialises json files, then exports tidied up xml and json files.";
+    internal class Program
+    {
+        private const string Description = "This program de-serialises json files, then exports tidied up xml and json files.";
 
-    private static void Main()
+        private static void Main()
     {
         JghConsoleHelper.WriteLineWrappedInOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
@@ -148,9 +148,9 @@ internal class Program
         #endregion
     }
 
-    #region helpers
+        #region helpers
 
-    private static void PrintReport(byte[] beforeBytes, byte[] afterBytes, string filename)
+        private static void PrintReport(byte[] beforeBytes, byte[] afterBytes, string filename)
     {
         var beforeBytesLength = JghConvert.SizeOfBytesInHighestUnitOfMeasure(beforeBytes.Length);
         var afterBytesLength = JghConvert.SizeOfBytesInHighestUnitOfMeasure(afterBytes.Length);
@@ -159,18 +159,19 @@ internal class Program
         JghConsoleHelper.WriteLine($"Before: {beforeBytesLength,-10}    After: {afterBytesLength,-10}    Difference: {differenceInLength,-10}    Output file:{filename,-15}");
     }
 
-    #endregion
+        #endregion
 
-    #region constants
+        #region constants
 
-    private const int LhsWidth = 50;
+        private const int LhsWidth = 50;
 
-    private const string InputFolder = @"C:\Users\johng\holding pen\StuffByJohn\Input";
-    private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffByJohn\Output";
-    private const string OutputFolderForJson = @"C:\Users\johng\holding pen\StuffByJohn\Output";
+        private const string InputFolder = @"C:\Users\johng\holding pen\StuffByJohn\Input";
+        private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffByJohn\Output";
+        private const string OutputFolderForJson = @"C:\Users\johng\holding pen\StuffByJohn\Output";
 
-    private const bool MustDoWorkForXmlOutput = true;
-    private const bool MustDoWorkForJsonOutput = true;
+        private const bool MustDoWorkForXmlOutput = true;
+        private const bool MustDoWorkForJsonOutput = true;
 
-    #endregion
+        #endregion
+    }
 }

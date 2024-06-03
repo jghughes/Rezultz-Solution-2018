@@ -5,34 +5,34 @@ using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 
 // ReSharper disable InconsistentNaming
 
-namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems;
-
-public class PublisherModuleProfileItem
+namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 {
-    #region props
+    public class PublisherModuleProfileItem
+    {
+        #region props
 
-    public string FragmentInNameOfFile { get; set; } = string.Empty;
+        public string FragmentInNameOfFile { get; set; } = string.Empty;
 
-    public string VeryShortDescriptionOfModule { get; set; } = string.Empty;
+        public string VeryShortDescriptionOfModule { get; set; } = string.Empty;
 
-    public string ShortDescriptionOfModule { get; set; } = string.Empty;
+        public string ShortDescriptionOfModule { get; set; } = string.Empty;
 
-    public string GeneralOverviewOfModule { get; set; } = string.Empty;
+        public string GeneralOverviewOfModule { get; set; } = string.Empty;
 
-    public string CSharpModuleCodeName { get; set; } = string.Empty;
+        public string CSharpModuleCodeName { get; set; } = string.Empty;
 
-    public string CSharpModuleVersionNumber { get; set; } = string.Empty;
+        public string CSharpModuleVersionNumber { get; set; } = string.Empty;
 
-    public PublisherButtonProfileItem[] GuiButtonProfilesForPullingDatasetsFromPortalHub { get; set; } = Array.Empty<PublisherButtonProfileItem>();
+        public PublisherButtonProfileItem[] GuiButtonProfilesForPullingDatasetsFromPortalHub { get; set; } = Array.Empty<PublisherButtonProfileItem>();
 
-    public PublisherButtonProfileItem[] GuiButtonProfilesForBrowsingFileSystemForDatasets { get; set; } = Array.Empty<PublisherButtonProfileItem>();
+        public PublisherButtonProfileItem[] GuiButtonProfilesForBrowsingFileSystemForDatasets { get; set; } = Array.Empty<PublisherButtonProfileItem>();
 
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public static PublisherModuleProfileItem FromDataTransferObject(PublisherModuleProfileItemDto dto)
+        public static PublisherModuleProfileItem FromDataTransferObject(PublisherModuleProfileItemDto dto)
     {
         const string failure = "Populating PublisherModuleProfileItem.";
         const string locus = "[FromDataTransferObject]";
@@ -60,7 +60,7 @@ public class PublisherModuleProfileItem
         }
     }
 
-    public static PublisherModuleProfileItem[] FromDataTransferObject(PublisherModuleProfileItemDto[] dto)
+        public static PublisherModuleProfileItem[] FromDataTransferObject(PublisherModuleProfileItemDto[] dto)
     {
         const string failure = "Populating PublisherModuleProfileItem[].";
         const string locus = "[FromDataTransferObject]";
@@ -85,7 +85,7 @@ public class PublisherModuleProfileItem
         #endregion
     }
 
-    public static PublisherModuleProfileItemDto ToDataTransferObject(PublisherModuleProfileItem item)
+        public static PublisherModuleProfileItemDto ToDataTransferObject(PublisherModuleProfileItem item)
     {
         const string failure = "Populating PublisherModuleProfileItemDto.";
         const string locus = "[ToDataTransferObject]";
@@ -113,7 +113,7 @@ public class PublisherModuleProfileItem
         }
     }
 
-    public static PublisherModuleProfileItemDto[] ToDataTransferObject(PublisherModuleProfileItem[] item)
+        public static PublisherModuleProfileItemDto[] ToDataTransferObject(PublisherModuleProfileItem[] item)
     {
         const string failure = "Populating PublisherModuleProfileItemDto[].";
         const string locus = "[ToDataTransferObject]";
@@ -138,5 +138,6 @@ public class PublisherModuleProfileItem
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

@@ -4,15 +4,15 @@ using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles;
 
-namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
-
-public class IdentityItem
+namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 {
-    #region ctor
+    public class IdentityItem
+    {
+        #region ctor
 
-    public IdentityItem() { }
+        public IdentityItem() { }
 
-    public IdentityItem(string userName, string password, string accessLevel, string[] arrayOfAuthorisedWorkRoles)
+        public IdentityItem(string userName, string password, string accessLevel, string[] arrayOfAuthorisedWorkRoles)
     {
         UserName = userName ?? string.Empty;
         Password = password ?? string.Empty;
@@ -20,35 +20,35 @@ public class IdentityItem
         ArrayOfAuthorisedWorkRoles = arrayOfAuthorisedWorkRoles ?? Array.Empty<string>();
     }
 
-    #endregion
+        #endregion
 
-    #region properties
+        #region properties
 
-    public string UserName { get; }
+        public string UserName { get; }
 
-    public string Password { get; }
+        public string Password { get; }
 
-    public string AccessLevel { get; set; }
+        public string AccessLevel { get; set; }
 
-    public string[] ArrayOfAuthorisedWorkRoles { get; }
+        public string[] ArrayOfAuthorisedWorkRoles { get; }
 
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public Tuple<string, string> GetPrimaryKey()
+        public Tuple<string, string> GetPrimaryKey()
     {
         return new Tuple<string, string>(UserName, Password);
     }
 
-    public static bool Equals(IdentityItem identity1, IdentityItem identity2)
+        public static bool Equals(IdentityItem identity1, IdentityItem identity2)
     {
         return JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(identity1.UserName, identity2.UserName) &&
                JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(identity1.Password, identity2.Password);
     }
 
-    public static IdentityItem FromDataTransferObject(AuthorisedUserIdentityDto dto)
+        public static IdentityItem FromDataTransferObject(AuthorisedUserIdentityDto dto)
     {
         const string failure = "Populating AuthorisedIdentity.";
         const string locus = "[FromDataTransferObject]";
@@ -76,7 +76,7 @@ public class IdentityItem
         #endregion
     }
 
-    public static IdentityItem[] FromDataTransferObject(AuthorisedUserIdentityDto[] dto)
+        public static IdentityItem[] FromDataTransferObject(AuthorisedUserIdentityDto[] dto)
     {
         const string failure = "Populating AuthorisedIdentity[].";
         const string locus = "[FromDataTransferObject]";
@@ -101,7 +101,7 @@ public class IdentityItem
         #endregion
     }
 
-    public static AuthorisedUserIdentityDto ToDataTransferObject(IdentityItem item)
+        public static AuthorisedUserIdentityDto ToDataTransferObject(IdentityItem item)
     {
         const string failure = "Populating AuthorisedIdentityDto.";
         const string locus = "[ToDataTransferObject]";
@@ -132,7 +132,7 @@ public class IdentityItem
         #endregion
     }
 
-    public static AuthorisedUserIdentityDto[] ToDataTransferObject(IdentityItem[] item)
+        public static AuthorisedUserIdentityDto[] ToDataTransferObject(IdentityItem[] item)
     {
         const string failure = "Populating AuthorisedIdentityDto[].";
         const string locus = "[ToDataTransferObject]";
@@ -159,5 +159,6 @@ public class IdentityItem
         #endregion
     }
 
-    #endregion
+        #endregion
+    }
 }

@@ -11,19 +11,19 @@ using Rezultz.DataTypes.Nov2023.PortalHubItems;
 
 // ReSharper disable InconsistentNaming
 
-namespace RezultzPortal.Uwp.EditTemplateViewModels;
-
-public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewModelBase, IHasZeroiseAsync
+namespace RezultzPortal.Uwp.EditTemplateViewModels
 {
-    #region fields
+    public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewModelBase, IHasZeroiseAsync
+    {
+        #region fields
 
-    private ClipBoardForTimeStamp _myClipBoardForTimeStamp;
+        private ClipBoardForTimeStamp _myClipBoardForTimeStamp;
 
-    #endregion
+        #endregion
 
-    #region ctor
+        #region ctor
 
-    public TimeStampHubItemEditTemplateViewModel()
+        public TimeStampHubItemEditTemplateViewModel()
     {
         _myClipBoardForTimeStamp = new ClipBoardForTimeStamp();
 
@@ -35,131 +35,131 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         };
     }
 
-    #endregion
+        #endregion
 
-    #region local type
+        #region local type
 
-    private class ClipBoardForTimeStamp
-    {
-        public int SelectedDay;
-        public int SelectedHour;
-        public int SelectedMinute;
-        public int SelectedMonth;
-        public int SelectedSecond;
-        public int SelectedSecondTenth;
-        public int SelectedYear;
-    }
+        private class ClipBoardForTimeStamp
+        {
+            public int SelectedDay;
+            public int SelectedHour;
+            public int SelectedMinute;
+            public int SelectedMonth;
+            public int SelectedSecond;
+            public int SelectedSecondTenth;
+            public int SelectedYear;
+        }
 
-    #endregion
+        #endregion
 
-    #region strings
+        #region strings
 
-    private const string LabelNone = "Normal";
-    private const string LabelDnf = "Did not finish";
-    private const string LabelTbd = "To be decided";
+        private const string LabelNone = "Normal";
+        private const string LabelDnf = "Did not finish";
+        private const string LabelTbd = "To be decided";
 
-    #endregion
+        #endregion
 
-    #region props
+        #region props
 
-    #region EditTemplate entries - all setters invoke AnyEditTemplateEntryChanged
+        #region EditTemplate entries - all setters invoke AnyEditTemplateEntryChanged
 
-    private int _backingstoreSelectedYear;
+        private int _backingstoreSelectedYear;
 
-    public int SelectedYear
-    {
-        get => _backingstoreSelectedYear;
-        set => SetProperty(ref _backingstoreSelectedYear, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedYear
+        {
+            get => _backingstoreSelectedYear;
+            set => SetProperty(ref _backingstoreSelectedYear, value, AnyEditTemplateEntryChanged);
+        }
 
-    private int _backingstoreSelectedMonth;
+        private int _backingstoreSelectedMonth;
 
-    public int SelectedMonth
-    {
-        get => _backingstoreSelectedMonth;
-        set => SetProperty(ref _backingstoreSelectedMonth, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedMonth
+        {
+            get => _backingstoreSelectedMonth;
+            set => SetProperty(ref _backingstoreSelectedMonth, value, AnyEditTemplateEntryChanged);
+        }
 
-    private int _backingstoreSelectedDay;
+        private int _backingstoreSelectedDay;
 
-    public int SelectedDay
-    {
-        get => _backingstoreSelectedDay;
-        set => SetProperty(ref _backingstoreSelectedDay, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedDay
+        {
+            get => _backingstoreSelectedDay;
+            set => SetProperty(ref _backingstoreSelectedDay, value, AnyEditTemplateEntryChanged);
+        }
 
-    private int _backingstoreSelectedHour;
+        private int _backingstoreSelectedHour;
 
-    public int SelectedHour
-    {
-        get => _backingstoreSelectedHour;
-        set => SetProperty(ref _backingstoreSelectedHour, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedHour
+        {
+            get => _backingstoreSelectedHour;
+            set => SetProperty(ref _backingstoreSelectedHour, value, AnyEditTemplateEntryChanged);
+        }
 
-    private int _backingstoreSelectedMinute;
+        private int _backingstoreSelectedMinute;
 
-    public int SelectedMinute
-    {
-        get => _backingstoreSelectedMinute;
-        set => SetProperty(ref _backingstoreSelectedMinute, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedMinute
+        {
+            get => _backingstoreSelectedMinute;
+            set => SetProperty(ref _backingstoreSelectedMinute, value, AnyEditTemplateEntryChanged);
+        }
 
-    private int _backingstoreSelectedSecond;
+        private int _backingstoreSelectedSecond;
 
-    public int SelectedSecond
-    {
-        get => _backingstoreSelectedSecond;
-        set => SetProperty(ref _backingstoreSelectedSecond, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedSecond
+        {
+            get => _backingstoreSelectedSecond;
+            set => SetProperty(ref _backingstoreSelectedSecond, value, AnyEditTemplateEntryChanged);
+        }
 
-    private int _backingstoreSelectedSecondTenth;
+        private int _backingstoreSelectedSecondTenth;
 
-    public int SelectedSecondTenth
-    {
-        get => _backingstoreSelectedSecondTenth;
-        set => SetProperty(ref _backingstoreSelectedSecondTenth, value, AnyEditTemplateEntryChanged);
-    }
+        public int SelectedSecondTenth
+        {
+            get => _backingstoreSelectedSecondTenth;
+            set => SetProperty(ref _backingstoreSelectedSecondTenth, value, AnyEditTemplateEntryChanged);
+        }
 
 
-    public ItemDrivenCollectionViewModelForRadioButtonsBase TimeStampRadioButtonsVm { get; }
+        public ItemDrivenCollectionViewModelForRadioButtonsBase TimeStampRadioButtonsVm { get; }
 
-    #endregion
+        #endregion
 
-    #region sui generis IsEditable
+        #region sui generis IsEditable
 
-    #region IsIdentifierEditable
+        #region IsIdentifierEditable
 
-    private bool _backingstoreIsIdentifierEditable;
+        private bool _backingstoreIsIdentifierEditable;
 
-    public bool IsIdentifierEditable
-    {
-        get => _backingstoreIsIdentifierEditable;
-        set => SetProperty(ref _backingstoreIsIdentifierEditable, value);
-    }
+        public bool IsIdentifierEditable
+        {
+            get => _backingstoreIsIdentifierEditable;
+            set => SetProperty(ref _backingstoreIsIdentifierEditable, value);
+        }
 
-    #endregion
+        #endregion
 
-    #region IsDnxEditable
+        #region IsDnxEditable
 
-    private bool _backingstoreIsDnxEditable;
+        private bool _backingstoreIsDnxEditable;
 
-    public bool IsDnxEditable
-    {
-        get => _backingstoreIsDnxEditable;
-        set => SetProperty(ref _backingstoreIsDnxEditable, value);
-    }
+        public bool IsDnxEditable
+        {
+            get => _backingstoreIsDnxEditable;
+            set => SetProperty(ref _backingstoreIsDnxEditable, value);
+        }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region commands
+        #region commands
 
-    #region CopyHubItemButtonOnClickAsync
+        #region CopyHubItemButtonOnClickAsync
 
-    protected override async Task<string> CopyHubItemButtonOnClickAsync()
+        protected override async Task<string> CopyHubItemButtonOnClickAsync()
     {
         if (OneOrMoreEntriesAreInvalid(out var errorReason))
             return await Task.FromResult(errorReason);
@@ -179,11 +179,11 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return await Task.FromResult(Copied);
     }
 
-    #endregion
+        #endregion
 
-    #region PasteHubItemButtonOnClick
+        #region PasteHubItemButtonOnClick
 
-    protected override async Task<string> PasteHubItemButtonOnClickAsync()
+        protected override async Task<string> PasteHubItemButtonOnClickAsync()
     {
         _myClipBoardForTimeStamp ??= new ClipBoardForTimeStamp();
 
@@ -198,29 +198,29 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return await Task.FromResult(string.Empty);
     }
 
-    #endregion
+        #endregion
 
-    #region TimeStampRadioButtonsVmOnSelectionChanged - mickey mouse
+        #region TimeStampRadioButtonsVmOnSelectionChanged - mickey mouse
 
-    protected bool TimeStampRadioButtonsVmOnSelectionChangedCanExecute()
+        protected bool TimeStampRadioButtonsVmOnSelectionChangedCanExecute()
     {
         return TimeStampRadioButtonsVm.IsAuthorisedToOperate;
     }
 
-    private void TimeStampRadioButtonsVmOnSelectionChangedExecute()
+        private void TimeStampRadioButtonsVmOnSelectionChangedExecute()
     {
         AnyEditTemplateEntryChanged();
 
         EvaluateGui();
     }
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
-    #region methods
+        #region methods
 
-    public async Task<bool> PopulateWithItemBeingModifiedAsync(TimeStampHubItem itemBeingModified)
+        public async Task<bool> PopulateWithItemBeingModifiedAsync(TimeStampHubItem itemBeingModified)
     {
         if (itemBeingModified == null)
             return true;
@@ -258,7 +258,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return true;
     }
 
-    public TimeStampHubItem MergeEditsBackIntoItemBeingModified(TimeStampHubItem itemBeingModified, string touchedBy)
+        public TimeStampHubItem MergeEditsBackIntoItemBeingModified(TimeStampHubItem itemBeingModified, string touchedBy)
     {
         if (itemBeingModified == null)
             return null;
@@ -320,7 +320,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return answer;
     }
 
-    public bool OneOrMoreEntriesAreInvalid(out string errorMessage)
+        public bool OneOrMoreEntriesAreInvalid(out string errorMessage)
     {
         var sb = new StringBuilder();
 
@@ -360,7 +360,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return true;
     }
 
-    public bool AllEntriesAreUnchangedSinceInitiallyPopulated()
+        public bool AllEntriesAreUnchangedSinceInitiallyPopulated()
     {
         var before = AsInitiallyPopulatedSemanticValue;
 
@@ -370,7 +370,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
     }
 
 
-    public bool IsEmpty()
+        public bool IsEmpty()
     {
         return SelectedYear == 0 &&
                SelectedMonth == 0 &&
@@ -381,7 +381,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
                SelectedSecondTenth == 0;
     }
 
-    public override async Task<bool> ZeroiseAsync()
+        public override async Task<bool> ZeroiseAsync()
     {
         await base.ZeroiseAsync();
 
@@ -408,7 +408,7 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return true;
     }
 
-    protected override void SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
+        protected override void SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
     {
         // see setter of editTemplateBase.IsAuthorisedToOperate in base class. thus we keep IsAuthorisedToOperate in sync
 
@@ -426,19 +426,19 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         TimeStampRadioButtonsVm.IsAuthorisedToOperate = IsDnxEditable;
     }
 
-    #endregion
+        #endregion
 
-    #region helpers
+        #region helpers
 
 
-    public long GetBinaryTimeStamp()
+        public long GetBinaryTimeStamp()
     {
         var answer = new DateTime(SelectedYear, SelectedMonth, SelectedDay, SelectedHour, SelectedMinute, SelectedSecond, SelectedSecondTenth * 100, DateTimeKind.Local).ToBinary();
 
         return answer;
     }
 
-    private string CurrentSemanticValue()
+        private string CurrentSemanticValue()
     {
         var answer = JghString.Concat(
             ValueOrDummy(JghString.TmLr(Bib)),
@@ -460,16 +460,16 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return answer;
     }
 
-    private static string ValueOrDummy(string value)
+        private static string ValueOrDummy(string value)
     {
         return string.IsNullOrWhiteSpace(value) ? "dummy" : value;
     }
 
-    #endregion
+        #endregion
 
-    #region Gui stuff
+        #region Gui stuff
 
-    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         CopyHubItemButtonVm.IsAuthorisedToOperate = !OneOrMoreEntriesAreInvalid(out var dummy);
         PasteHubItemButtonVm.IsAuthorisedToOperate = false;
@@ -477,13 +477,13 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         TimeStampRadioButtonsVm.IsAuthorisedToOperate = true;
     }
 
-    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         CopyHubItemButtonVm.IsVisible = makeVisible;
         PasteHubItemButtonVm.IsVisible = makeVisible;
     }
 
-    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -494,10 +494,11 @@ public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewMode
         return answer;
     }
 
-    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         return false;
     }
 
-    #endregion
+        #endregion
+    }
 }
