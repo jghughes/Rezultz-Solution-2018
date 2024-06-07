@@ -80,11 +80,11 @@ namespace Tool08
 
             try
             {
-                foreach (var item in FileOfResultsExportedFromRezultzPortal)
+                foreach (var fileItem in FileOfResultsExportedFromRezultzPortal)
                 {
-                    var pathOfXmlFile = OutputFolderForXmlResults + @"\" + Path.GetFileNameWithoutExtension(item.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
+                    var pathOfFile = Path.Combine(OutputFolderForXmlResults, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Xml));
 
-                    File.WriteAllText(pathOfXmlFile, "<element>dummy</element>");
+                        await File.WriteAllTextAsync(pathOfFile, "<element>dummy</element>");
                 }
             }
             catch (Exception e)
@@ -385,10 +385,10 @@ namespace Tool08
         private static void SaveWorkToHardDriveAsXml(string resultsDtoAsXml)
     {
         var outPutFileName = JghFilePathValidator.AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', DateTime.Now.ToString(JghDateTime.SortablePattern)) + "______ResultsSynthesisedByPublishingSvc" + "." + StandardFileTypeSuffix.Xml;
-        
-        var pathOfXmlFile = OutputFolderForXmlResults + @"\" + outPutFileName;
 
-        File.WriteAllText(pathOfXmlFile, resultsDtoAsXml);
+        var pathOfFile = Path.Combine(OutputFolderForXmlResults, outPutFileName);
+
+        File.WriteAllText(pathOfFile, resultsDtoAsXml);
 
         JghConsoleHelper.WriteLineFollowedByOne($"The publishable results have been saved for perusal at your leisure.");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Folder", 30)} : {OutputFolderForXmlResults}");

@@ -3,19 +3,20 @@ using NetStd.Goodies.Mar2022;
 using Newtonsoft.Json;
 using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 
-namespace Tool02
-{
-    internal class Program
-    {
-        private const string Description = "This program de-serialises json files, then exports tidied up xml and json files.";
+namespace Tool02;
 
-        private static void Main()
+internal class Program
+{
+    private const string Description = "This program (Tool02) de-serialises json files, then exports tidied up xml and json files.";
+
+    private static void Main()
     {
         JghConsoleHelper.WriteLineWrappedInOne("Welcome.");
         JghConsoleHelper.WriteLineFollowedByOne(Description);
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder", LhsWidth)} : {InputFolder}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder for XML", LhsWidth)} : {OutputFolderForXml}");
-        JghConsoleHelper.WriteLineFollowedByOne($"{JghString.LeftAlign("Output folder for JSON", LhsWidth)} : {OutputFolderForJson}");
+        JghConsoleHelper.WriteLineFollowedByOne(
+            $"{JghString.LeftAlign("Output folder for JSON", LhsWidth)} : {OutputFolderForJson}");
         JghConsoleHelper.WriteLine($"MustDoWorkForXmlOutput = {MustDoWorkForXmlOutput}");
         JghConsoleHelper.WriteLine($"MustDoWorkForJsonOutput = {MustDoWorkForJsonOutput}");
         JghConsoleHelper.WriteLineWrappedInOne("Are you ready to go? Press enter to continue.");
@@ -47,7 +48,8 @@ namespace Tool02
 
             var di = new DirectoryInfo(InputFolder); // Create a reference to the input directory.
 
-            var arrayOfInputFileInfo = di.GetFiles(); // Create an array representing the files in the current directory.
+            var arrayOfInputFileInfo =
+                di.GetFiles(); // Create an array representing the files in the current directory.
 
             #endregion
 
@@ -78,7 +80,7 @@ namespace Tool02
                     if (MustDoWorkForXmlOutput)
 #pragma warning disable 162
                     {
-                        var knownTypesForSerialization = new[] {typeof(PublisherModuleProfileItemDto), typeof(PublisherButtonProfileItemDto)};
+                        var knownTypesForSerialization = new[] { typeof(PublisherModuleProfileItemDto), typeof(PublisherButtonProfileItemDto) };
 
                         var xE = JghSerialisation.ToXElementFromObject(rawInputAsObject,
                             knownTypesForSerialization);
@@ -89,18 +91,22 @@ namespace Tool02
 
                         Tuple<string, string>[] snippets2 =
                         [
-                            new("p3:nil=\"true\"", string.Empty),
-                            new("xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty)
+                            new Tuple<string, string>("p3:nil=\"true\"", string.Empty),
+                            new Tuple<string, string>("xmlns:p3=\"http://www.w3.org/2001/XMLSchema-instance\"",
+                                string.Empty)
                         ];
 
-                        answerAsXml = snippets2.Aggregate(answerAsXml, (current, snippet) => current.Replace(snippet.Item1, snippet.Item2));
+                        answerAsXml = snippets2.Aggregate(answerAsXml,
+                            (current, snippet) => current.Replace(snippet.Item1, snippet.Item2));
 
-                        var pathOfXmlFile = OutputFolderForXml + @"\" + Path.GetFileNameWithoutExtension(fileInfo.FullName) + "." + StandardFileTypeSuffix.Xml;
+                        var pathOfXmlFile = Path.Combine(OutputFolderForXml, Path.ChangeExtension(fileInfo.Name, StandardFileTypeSuffix.Xml));
+
 
                         File.WriteAllText(pathOfXmlFile, answerAsXml);
 
 
-                        PrintReport(JghConvert.ToBytesUtf8FromString(rawInputAsText), JghConvert.ToBytesUtf8FromString(answerAsXml), pathOfXmlFile);
+                        PrintReport(JghConvert.ToBytesUtf8FromString(rawInputAsText),
+                            JghConvert.ToBytesUtf8FromString(answerAsXml), pathOfXmlFile);
                     }
 #pragma warning restore 162
 
@@ -114,13 +120,15 @@ namespace Tool02
 #pragma warning disable 162
                     {
                         // on we go
-                        var answerAsJson = JsonConvert.SerializeObject(rawInputAsObject, Formatting.None, new JsonSerializerSettings {DefaultValueHandling = DefaultValueHandling.Ignore});
+                        var answerAsJson = JsonConvert.SerializeObject(rawInputAsObject, Formatting.None,
+                            new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
 
-                        var pathOfJsonFile = OutputFolderForJson + @"\" + Path.GetFileNameWithoutExtension(fileInfo.FullName) + "." + StandardFileTypeSuffix.Json;
+                        var pathOfJsonFile = Path.Combine(OutputFolderForJson, Path.ChangeExtension(fileInfo.Name, StandardFileTypeSuffix.Json));
 
                         File.WriteAllText(pathOfJsonFile, answerAsJson);
 
-                        PrintReport(JghConvert.ToBytesUtf8FromString(rawInputAsText), JghConvert.ToBytesUtf8FromString(answerAsJson), pathOfJsonFile);
+                        PrintReport(JghConvert.ToBytesUtf8FromString(rawInputAsText),
+                            JghConvert.ToBytesUtf8FromString(answerAsJson), pathOfJsonFile);
                     }
 #pragma warning restore 162
 
@@ -148,30 +156,30 @@ namespace Tool02
         #endregion
     }
 
-        #region helpers
+    #region helpers
 
-        private static void PrintReport(byte[] beforeBytes, byte[] afterBytes, string filename)
+    private static void PrintReport(byte[] beforeBytes, byte[] afterBytes, string filename)
     {
         var beforeBytesLength = JghConvert.SizeOfBytesInHighestUnitOfMeasure(beforeBytes.Length);
         var afterBytesLength = JghConvert.SizeOfBytesInHighestUnitOfMeasure(afterBytes.Length);
         var differenceInLength = JghConvert.SizeOfBytesInHighestUnitOfMeasure(afterBytes.Length - beforeBytes.Length);
 
-        JghConsoleHelper.WriteLine($"Before: {beforeBytesLength,-10}    After: {afterBytesLength,-10}    Difference: {differenceInLength,-10}    Output file:{filename,-15}");
+        JghConsoleHelper.WriteLine(
+            $"Before: {beforeBytesLength,-10}    After: {afterBytesLength,-10}    Difference: {differenceInLength,-10}    Output file:{filename,-15}");
     }
 
-        #endregion
+    #endregion
 
-        #region constants
+    #region constants
 
-        private const int LhsWidth = 50;
+    private const int LhsWidth = 50;
 
-        private const string InputFolder = @"C:\Users\johng\holding pen\StuffByJohn\Input";
-        private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffByJohn\Output";
-        private const string OutputFolderForJson = @"C:\Users\johng\holding pen\StuffByJohn\Output";
+    private const string InputFolder = @"C:\Users\johng\holding pen\StuffByJohn\Input";
+    private const string OutputFolderForXml = @"C:\Users\johng\holding pen\StuffByJohn\Output";
+    private const string OutputFolderForJson = @"C:\Users\johng\holding pen\StuffByJohn\Output";
 
-        private const bool MustDoWorkForXmlOutput = true;
-        private const bool MustDoWorkForJsonOutput = true;
+    private const bool MustDoWorkForXmlOutput = true;
+    private const bool MustDoWorkForJsonOutput = true;
 
-        #endregion
-    }
+    #endregion
 }

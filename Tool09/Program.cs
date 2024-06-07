@@ -1,4 +1,5 @@
-﻿using NetStd.Goodies.Mar2022;
+﻿using Jgh.SymbolsStringsConstants.Mar2022;
+using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 
@@ -216,9 +217,9 @@ namespace Tool09
 
         private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
     {
-        var pathOfXmlFile = outPutFolder + @"\" + outPutFilename;
+        var pathOfFile = Path.Combine(outPutFolder, outPutFilename);
 
-        File.WriteAllText(pathOfXmlFile, xmlAsText);
+        File.WriteAllText(pathOfFile, xmlAsText);
 
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Folder", 20)} : {outPutFolder}");
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("FileName", 20)} : {outPutFilename}");

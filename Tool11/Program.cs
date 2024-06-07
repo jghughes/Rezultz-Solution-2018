@@ -494,7 +494,7 @@ internal class Program
 
     private static void SaveWorkToHardDrive(string text, string outPutFolder, string outPutFilename)
     {
-        var pathOfFile = outPutFolder + @"\" + outPutFilename;
+        var pathOfFile = Path.Combine(outPutFolder, outPutFilename);
 
         File.WriteAllText(pathOfFile, text);
 

@@ -111,6 +111,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "+README", "+README", "{D4E1
 	ProjectSection(SolutionItems) = preProject
 		README -  Template Studio for UWP app modifications for page navigation.txt = README -  Template Studio for UWP app modifications for page navigation.txt
 		README - how to add a Telerik datagrid to an app.txt = README - how to add a Telerik datagrid to an app.txt
+		README - how to clone a UWP project or solution from GitHub.txt = README - how to clone a UWP project or solution from GitHub.txt
 		README - how to debug wcf svc.txt = README - how to debug wcf svc.txt
 		README - how to design mvc svc for debugging.txt = README - how to design mvc svc for debugging.txt
 		README - how to design wcf svc for debugging.txt = README - how to design wcf svc for debugging.txt
@@ -125,7 +126,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RezultzSvc.WebApp04", "Rezu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tool09", "Tool09\Tool09.csproj", "{1969C72A-A143-467E-A47E-423688C50626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tool11", "Tool11\Tool11.csproj", "{7751F6FF-46C7-4654-8BA4-DD40F7284225}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tool11", "Tool11\Tool11.csproj", "{7751F6FF-46C7-4654-8BA4-DD40F7284225}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

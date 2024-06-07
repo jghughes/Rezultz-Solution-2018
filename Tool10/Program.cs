@@ -655,9 +655,9 @@ internal class Program
 
     private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
     {
-        var pathOfXmlFile = outPutFolder + @"\" + outPutFilename;
+        var pathOfFile = Path.Combine(outPutFolder, outPutFilename);
 
-        File.WriteAllText(pathOfXmlFile, xmlAsText);
+        File.WriteAllText(pathOfFile, xmlAsText);
 
         console.WriteLine($"{JghString.LeftAlign("Folder", 20)} : {outPutFolder}");
         console.WriteLine($"{JghString.LeftAlign("FileName", 20)} : {outPutFilename}");
@@ -666,8 +666,7 @@ internal class Program
 
     private static void SaveReportToHardDrive(string text, string outPutFolder, string outPutFilename)
     {
-        var pathOfFile = outPutFolder + @"\" + outPutFilename;
-
+        var pathOfFile = Path.Combine(outPutFolder, outPutFilename);
         File.WriteAllText(pathOfFile, text);
 
         Console.WriteLine($"{JghString.LeftAlign("File saved:", LhsWidth)} {outPutFilename}");

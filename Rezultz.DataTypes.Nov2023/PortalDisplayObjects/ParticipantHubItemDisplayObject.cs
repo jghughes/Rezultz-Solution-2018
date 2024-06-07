@@ -29,7 +29,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         public string DateOfRaceGroupTransition { get; set; } = string.Empty;
 
-        public string Rfid { get; set; } = string.Empty;
+        //public string Rfid { get; set; } = string.Empty;
 
         public string Reservation { get; set; } = string.Empty;
 

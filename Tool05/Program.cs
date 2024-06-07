@@ -1,57 +1,64 @@
-﻿using Jgh.SymbolsStringsConstants.Mar2022;
-using NetStd.Goodies.Mar2022;
-using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
+﻿using System.IO;
 using System.Xml.Linq;
+using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Exceptions.Mar2024.JghExceptions;
+using NetStd.Goodies.Mar2022;
+using Rezultz.DataTransferObjects.Nov2023.PublisherModule;
 using Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles;
 
 // ReSharper disable UnusedMember.Local
 #pragma warning disable IDE0051
 
-namespace Tool05
+namespace Tool05;
+
+internal class Program
 {
-    internal class Program
+    private const string Description =
+        "This program is used to do four things." +
+        " 1. be a test bed for new publisher-profile files authored in XML for future publisher modules." +
+        " 2. ensure that the authored profile-files deserialise correctly using the system serialiser at the client end of the remote svc wire." +
+        " 3. maintain a handwritten free-form deserialiser that can deserialise profile-files (used for exception fallback at the remote svc end). " +
+        " 4. be a test bed for a handwritten XML fragment reader to extract custom information out of the profile-files for sole use at the remote svc end." +
+        " A minimally valid profile-file includes a <ThisFileNameFragment> element and <CSharpModuleCodeName> element." +
+        " These paired elements tie the specifications in a publisher profile file to the functions of a paired C# code module." +
+        " The program is used to debug new xml profiles used for serialisation as a serialised [PublisherModuleProfileItemDto]." +
+        " The beauty is that the XML is designed to be extensible, it can be free-form to an extent. Each C# module can have its" +
+        " own customised profile that contains settings, parameters, and data that is specific to the code module." +
+        " At minimum, the profile must populate all the members of a valid [PublisherModuleProfileItemDto]." +
+        " Beyond that, additional elements are optional and customised. The problem we are circumventing with a " +
+        " handwritten deserialiser is that it caters for the extensibilty. We deserialise the profile file" +
+        " in two steps: first we use the system deserialiser to create a [PublisherModuleProfileItemDto] object." +
+        " This gets us the essential elements of the file. The we use a totally simple little custom manual de-serialiser" +
+        " to fish out custom XElements manually. Once debugged, copy and paste the perfected methods into your module." +
+        " For 3. cut and paste the method perfected here into private [IPublisher.PublisherBase.ManuallyDeserialisePublisherProfileDtoFromXml()]" +
+        " For 4. cut and paste the method perfected here into abstract [IPublisher.PublisherXXXXX.ExtractCustomElementsFromAssociatedProfile()]";
+
+    #region variables
+
+    private static readonly List<FileItem> FileItemsToBeProcessed = [];
+
+    #endregion
+
+
+    private static Task Main()
     {
-        private const string Description =
-            "This program is used to do four things." +
-            " 1. be a test bed for new publisher-profile files authored in XML for future publisher modules." +
-            " 2. ensure that the authored profile-files deserialise correctly using the system serialiser at the client end of the remote svc wire." +
-            " 3. maintain a handwritten free-form deserialiser that can deserialise profile-files (used for exception fallback at the remote svc end). " +
-            " 4. be a test bed for a handwritten XML fragment reader to extract custom information out of the profile-files for sole use at the remote svc end." +
-            " A minimally valid profile-file includes a <ThisFileNameFragment> element and <CSharpModuleCodeName> element." +
-            " These paired elements tie the specifications in a publisher profile file to the functions of a paired C# code module." +
-            " The program is used to debug new xml profiles used for serialisation as a serialised [PublisherModuleProfileItemDto]." +
-            " The beauty is that the XML is designed to be extensible, it can be free-form to an extent. Each C# module can have its" +
-            " own customised profile that contains settings, parameters, and data that is specific to the code module." +
-            " At minimum, the profile must populate all the members of a valid [PublisherModuleProfileItemDto]." +
-            " Beyond that, additional elements are optional and customised. The problem we are circumventing with a " +
-            " handwritten deserialiser is that it caters for the extensibilty. We deserialise the profile file" +
-            " in two steps: first we use the system deserialiser to create a [PublisherModuleProfileItemDto] object." +
-            " This gets us the essential elements of the file. The we use a totally simple little custom manual de-serialiser" +
-            " to fish out custom XElements manually. Once debugged, copy and paste the perfected methods into your module." +
-            " For 3. cut and paste the method perfected here into private [IPublisher.PublisherBase.ManuallyDeserialisePublisherProfileDtoFromXml()]" +
-            " For 4. cut and paste the method perfected here into abstract [IPublisher.PublisherXXXXX.ExtractCustomElementsFromAssociatedProfile()]";
+        JghConsoleHelper.WriteLineWrappedInTwo("Welcome.");
+        JghConsoleHelper.WriteLineFollowedByOne(Description);
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder", LhsWidth)} : {InputFolder}");
+        JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder", LhsWidth)} : {OutputFolder}");
+        JghConsoleHelper.WriteLineWrappedInOne("Press enter to go. When you see FINISH you're done.");
+        JghConsoleHelper.ReadLine();
+        JghConsoleHelper.WriteLineWrappedInTwo("Working. Please wait...");
 
-
-        private static Task Main()
+        try
         {
-            JghConsoleHelper.WriteLineWrappedInTwo("Welcome.");
-            JghConsoleHelper.WriteLineFollowedByOne(Description);
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Input folder", LhsWidth)} : {InputFolder}");
-            JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Output folder", LhsWidth)} : {OutputFolder}");
-            JghConsoleHelper.WriteLineWrappedInOne("Press enter to go. When you see FINISH you're done.");
-            JghConsoleHelper.ReadLine();
-            JghConsoleHelper.WriteLineWrappedInTwo("Working. Please wait...");
+            #region get ready
+
+            #region confirm existence of folders
 
             try
             {
-                #region get ready
-
-                #region confirm existence of folders
-
-                try
-                {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
                 Directory.SetCurrentDirectory(InputFolder);
             }
@@ -88,8 +95,7 @@ namespace Tool05
             {
                 foreach (var fileInfo in arrayOfInputFileInfo)
                 {
-                    //var pathOfFile = outputFolder + @"\" + Path.GetFileNameWithoutExtension(fileInfo.Name) + "." + StandardFileTypeSuffix.Xml;
-                    var pathOfFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileInfo.Name) + "." + StandardFileTypeSuffix.Json;
+                    var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileInfo.Name, StandardFileTypeSuffix.Json));
 
                     File.WriteAllTextAsync(pathOfFile, "<element>dummy</element>");
                 }
@@ -167,625 +173,601 @@ namespace Tool05
 
             #endregion
 
-                Main06(FileItemsToBeProcessed);
-                //Main05(FileItemsToBeProcessed);
-                //Main04(FileItemsToBeProcessed);
-                //Main03(FileItemsToBeProcessed);
-                //Main02(FileItemsToBeProcessed);
-                //Main01(FileItemsToBeProcessed);
-            }
-            catch (Exception e)
-            {
-                JghConsoleHelper.WriteLineWrappedInOne($"{e.Message}");
-            }
-
-            return Task.CompletedTask;
+            Main06(FileItemsToBeProcessed);
+            //Main05(FileItemsToBeProcessed);
+            //Main04(FileItemsToBeProcessed);
+            //Main03(FileItemsToBeProcessed);
+            //Main02(FileItemsToBeProcessed);
+            //Main01(FileItemsToBeProcessed);
+        }
+        catch (Exception e)
+        {
+            JghConsoleHelper.WriteLineWrappedInOne($"{e.Message}");
         }
 
-        #region constants
+        return Task.CompletedTask;
+    }
 
-        private const int LhsWidth = 30;
-        private const string RequiredFileExtension = ".xml"; // or .json as case may be
-        private const string InputFolder = @"C:\Users\johng\holding pen\Xml-old\";
-        private const string OutputFolder = @"C:\Users\johng\holding pen\Xml-new\";
+    #region local class
 
-        #endregion
+    internal class FileItem
+    {
+        public FileInfo FileInfo { get; set; } = new("DummyFileName.txt");
 
-        #region variables
+        public string FileContentsAsText { get; set; } = string.Empty;
 
-        private static readonly List<FileItem> FileItemsToBeProcessed = [];
+        public List<string> FileContentsAsLines { get; set; } = [];
 
-        #endregion
+        public string OutputFileName { get; set; } = string.Empty;
+    }
 
-        #region main methods
+    #endregion
 
-        private static void Main06(List<FileItem> fileItems)
+    #region constants
+
+    private const int LhsWidth = 30;
+    private const string RequiredFileExtension = ".xml"; // or .json as case may be
+    private const string InputFolder = @"C:\Users\johng\holding pen\Xml-old\";
+    private const string OutputFolder = @"C:\Users\johng\holding pen\Xml-new\";
+
+    #endregion
+
+    #region main methods
+
+    private static void Main06(List<FileItem> fileItems)
+    {
+        if (!fileItems.Any())
         {
-            if (!fileItems.Any())
-            {
-                JghConsoleHelper.WriteLine("No files of data to process.");
-                return;
-            }
-
-            foreach (var fileItem in fileItems)
-                try
-                {
-                    #region step 1 - deserialise contents of this file. This should normally succeed.
-
-                    PublisherModuleProfileItemDto publisherModuleProfileDtoFromXml = new PublisherModuleProfileItemDto();
-
-                    try
-                    {
-                        publisherModuleProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
-
-                        JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: System.Xml de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: System.Xml blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
-                    }
-
-                    #endregion
-
-                    #region step 3 round trip and print to view
-
-                    try
-                    {
-
-                        var publishingProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(publisherModuleProfileDtoFromXml, [typeof(PublisherModuleProfileItemDto)]);
-
-                        JghConsoleHelper.WriteLine();
-                        JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                                                $"SUCCEEDED. System.Xml did not blow up re-serialising PublisherModuleProfileItemDto to xml [{fileItem.FileInfo.Name}] ");
-                        JghConsoleHelper.WriteLineFollowedByTwo("ooo000ooo");
-                        JghConsoleHelper.WriteLineFollowedByOne("DISPLAYING: Round-tripped PublisherModuleProfileItemDto");
-
-                        string objectAsString = publishingProfileDtoBackToXml;
-
-                        JghConsoleHelper.WriteLine(objectAsString);
-
-                        var pathOfFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
-                        //var pathOfFile = outputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Json;
-
-                        File.WriteAllText(pathOfFile, objectAsString);
-
-                        JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
-
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object PublisherModuleProfileItemDto. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLine(e.Message);
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
-                    }
-
-                    #endregion
-                }
-                catch (Exception ex)
-                {
-                    JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
-                }
+            JghConsoleHelper.WriteLine("No files of data to process.");
+            return;
         }
 
-        private static void Main05(List<FileItem> fileItems)
-        {
-            if (!fileItems.Any())
-            {
-                JghConsoleHelper.WriteLine("No files of data to process.");
-                return;
-            }
-
-            foreach (var fileItem in fileItems)
-                try
-                {
-                    #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
-
-                    SeriesProfileDto seriesProfileDtoFromJson = new SeriesProfileDto();
-
-                    try
-                    {
-                        seriesProfileDtoFromJson = JghSerialisation.ToObjectFromJson<SeriesProfileDto>(fileItem.FileContentsAsText);
-
-                        JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: Newtonsoft de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: Newtonsoft blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
-                    }
-
-                    #endregion
-
-                    #region reset all EventSettings to null (as opposed to empty)
-
-                    foreach (var eventProfileDto in seriesProfileDtoFromJson.EventProfileCollection)
-                    {
-                        eventProfileDto.EventSettings = null;
-                        eventProfileDto.PublishedResultsForEvent = null;
-                    }
-
-                    #endregion
-
-                    #region step 3 round trip and print to view
-
-                    try
-                    {
-
-                        var seriesProfileDtoBackToJson = JghSerialisation.ToJsonFromObject(seriesProfileDtoFromJson);
-
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                          $"SUCCEEDED. Newtonsoft did not blow up re-serialising SeriesProfileDto to Json [{fileItem.FileInfo.Name}] ");
-                        JghConsoleHelper.WriteLineFollowedByTwo("ooo000ooo");
-                        JghConsoleHelper.WriteLineFollowedByOne("DISPLAYING: Round-tripped SeriesProfileDto");
-
-                        string objectAsString = seriesProfileDtoBackToJson;
-
-                        JghConsoleHelper.WriteLine(objectAsString);
-
-                        //var pathOfFile = outputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
-                        var pathOfFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Json;
-
-                        File.WriteAllText(pathOfFile, objectAsString);
-
-
-                        JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
-
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object SeriesProfileDto. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLine(e.Message);
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
-                    }
-
-                    #endregion
-                }
-                catch (Exception ex)
-                {
-                    JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
-                }
-        }
-
-        private static void Main04(List<FileItem> fileItems)
-        {
-            if (!fileItems.Any())
-            {
-                JghConsoleHelper.WriteLine("No files of data to process.");
-                return;
-            }
-
-            foreach (var fileItem in fileItems)
-                try
-                {
-                    #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
-
-                    PublisherModuleProfileItemDto computerProfileDtoFromXml = new PublisherModuleProfileItemDto();
-
-                    try
-                    {
-                        computerProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
-
-                        JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: System de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: system blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
-                    }
-
-                    #endregion
-
-                    #region step 2 round trip and print to view
-
-                    try
-                    {
-
-                        var computerProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(computerProfileDtoFromXml, [typeof(PublisherModuleProfileItemDto)]);
-
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                          $"SUCCEEDED. System did not blow up re-serialising ComputerProfileDto to XML [{fileItem.FileInfo.Name}] ");
-                        JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
-                        JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped ComputerProfileDto");
-
-                        string objectAsString = computerProfileDtoBackToXml;
-                        JghConsoleHelper.WriteLine(objectAsString);
-
-                        var pathOfFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
-
-                        File.WriteAllText(pathOfFile, objectAsString);
-
-                        JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
-
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object ComputerProfileDto. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLine(e.Message);
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
-                    }
-
-                    #endregion
-                }
-                catch (Exception ex)
-                {
-                    JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
-                }
-        }
-
-        private static void Main03(List<FileItem> fileItems)
-        {
-            if (!fileItems.Any())
-            {
-                JghConsoleHelper.WriteLine("No files of data to process.");
-                return;
-            }
-
-            foreach (var fileItem in fileItems)
-                try
-                {
-                    #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
-
-                    SeasonProfileDto seasonProfileDtoFromJson = new SeasonProfileDto();
-
-                    try
-                    {
-                        seasonProfileDtoFromJson = JghSerialisation.ToObjectFromJson<SeasonProfileDto>(fileItem.FileContentsAsText);
-
-                        JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: Newtonsoft de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: Newtonsoft blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
-                    }
-
-                    #endregion
-
-                    #region step 2 round trip and print to view
-
-                    try
-                    {
-
-                        var seasonProfileDtoBackToJson = JghSerialisation.ToJsonFromObject(seasonProfileDtoFromJson);
-
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                          $"SUCCEEDED. Newtonsoft did not blow up re-serialising SeasonProfileDto to Json [{fileItem.FileInfo.Name}] ");
-                        JghConsoleHelper.WriteLineFollowedByTwo("ooo000ooo");
-                        JghConsoleHelper.WriteLineFollowedByOne("DISPLAYING: Round-tripped SeasonProfileDto");
-
-                        string objectAsString = seasonProfileDtoBackToJson;
-                        JghConsoleHelper.WriteLine(objectAsString);
-
-                        var pathOfFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Json;
-
-                        //var pathOfFile = outputFolder + @"\" + fileInfo.Name + "." + StandardFileTypeSuffix.Json;
-
-                        File.WriteAllText(pathOfFile, objectAsString);
-
-                        JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
-
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object SeasonProfileDto. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLine(e.Message);
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
-                    }
-
-                    #endregion
-                }
-                catch (Exception ex)
-                {
-                    JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
-                }
-        }
-
-        private static void Main02(List<FileItem> fileItems)
-        {
-            if (!fileItems.Any())
-            {
-                JghConsoleHelper.WriteLine("No files of data to process.");
-                return;
-            }
-
-            foreach (var fileItem in fileItems)
-                try
-                {
-                    #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
-
-                    SeriesProfileDto seriesProfileDtoFromJson = new SeriesProfileDto();
-
-                    try
-                    {
-                        seriesProfileDtoFromJson = JghSerialisation.ToObjectFromJson<SeriesProfileDto>(fileItem.FileContentsAsText);
-
-                        JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: Newtonsoft de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: Newtonsoft blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
-                    }
-
-                    #endregion
-
-                    #region step 2 round trip and print to view
-
-                    try
-                    {
-
-                        var seriesProfileDtoBackToJson = JghSerialisation.ToJsonFromObject(seriesProfileDtoFromJson);
-
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                          $"SUCCEEDED. Newtonsoft did not blow up re-serialising SeriesProfileDto to Json [{fileItem.FileInfo.Name}] ");
-                        JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
-                        JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped SeriesProfileDto");
-
-                        string objectAsString = seriesProfileDtoBackToJson;
-                        JghConsoleHelper.WriteLine(objectAsString);
-
-                        var pathOfFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Json;
-
-                        //var pathOfFile = outputFolder + @"\" + fileInfo.Name + "." + StandardFileTypeSuffix.Json;
-
-                        File.WriteAllText(pathOfFile, objectAsString);
-
-                        JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"Test failure: Serialiser blew up trying to re-serialise object SeriesProfileDto. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLine(e.Message);
-                        JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
-                    }
-
-                    #endregion
-                }
-                catch (Exception ex)
-                {
-                    JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
-                }
-        }
-
-        private static void Main01(List<FileItem> fileItems)
-        {
-            if (!fileItems.Any())
-            {
-                JghConsoleHelper.WriteLine("No files of data to process.");
-                return;
-            }
-
-            foreach (var fileItem in fileItems)
-                try
-                {
-                    #region step 1 - just for fun, attempt to deserialise contents of this file with system deserialiser. This will often/normally fail.
-
-                    try
-                    {
-                        JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
-                        JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: system XML serialiser de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: system serialiser blew up when it tried to de-serialise contents of file. THIS IS TO BE EXPECTED. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
-                    }
-
-                    #endregion
-
-                    #region step 2 de-serialise using hand-written deserialiser
-
-                    try
-                    {
-                        PublisherModuleProfileItemDto fileContentsAsDto = ToComputerProfileFromXml(fileItem.FileContentsAsText);
-
-                        JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                          $"SUCCEEDED. Hand-written de-serialiser did not blow up parsing the contents of this file to ComputerProfileDto [{fileItem.FileInfo.Name}] ");
-                        JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
-                        JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped ComputerProfileDto");
-
-                        var xmlFromObject = JghSerialisation.ToXmlFromObject(fileContentsAsDto, [typeof(PublisherModuleProfileItemDto)]);
-
-                        string xmlFromObjectAsString = xmlFromObject;
-
-                        JghConsoleHelper.WriteLine(xmlFromObjectAsString);
-                        JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
-                    }
-                    catch (Exception e)
-                    {
-                        JghConsoleHelper.WriteLineFollowedByOne($"Test failure: Hand-written de-serialiser blew up trying to parse contents of this file to ComputerProfileDto. [{fileItem.FileInfo.Name}]");
-                        JghConsoleHelper.WriteLineFollowedByOne(e.Message);
-                        JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
-                    }
-
-                    #endregion
-                }
-                catch (Exception ex)
-                {
-                    JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
-                }
-        }
-
-        #endregion
-
-        #region THE MEAT helper methods
-
-        // THE MEAT: this is the method to cut and paste into each computer module in the remote computer Svc 
-        private static PublisherModuleProfileItemDto ToComputerProfileFromXml(string freeFormComputerProfileXmlFile)
-
-        {
-            const string failure = "Unable to convert string data into ComputerProfileDto.";
-            const string locus = "[ToComputerProfileFromXmlV01]";
-
+        foreach (var fileItem in fileItems)
             try
             {
-                XElement parentXElement;
+                #region step 1 - deserialise contents of this file. This should normally succeed.
+
+                var publisherModuleProfileDtoFromXml = new PublisherModuleProfileItemDto();
 
                 try
                 {
-                    parentXElement = ParsePlainTextIntoXElement(freeFormComputerProfileXmlFile);
+                    publisherModuleProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
+
+                    JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: System.Xml de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    throw new JghPublisherServiceFaultException("System.Xml.Linq.XElement.Parse() blew up when it tried to parse contents of this file as a single top-level XElement. File contents are unexpected.", ex);
+                    JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: System.Xml blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
                 }
 
-                PublisherModuleProfileItemDto answer = new()
-                {
-                    FragmentInNameOfThisFile = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeThisFileNameFragment),
-                    CaptionForModule = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeCaption),
-                    DescriptionOfModule = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeDescription),
-                    OverviewOfModule = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeOverview),
-                    CSharpModuleCodeName = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeCSharpModuleId),
-                };
+                #endregion
 
-                var portalButtonArrayXe = GetChildElement(parentXElement, PublisherModuleProfileItemDto.XeGuiButtonsForPullingDatasetsFromPortalHub);
-                var browseButtonArrayXe = GetChildElement(parentXElement, PublisherModuleProfileItemDto.XeGuiButtonsForBrowsingFileSystemForDatasets);
-
-                var portalButtons = GetComputerGuiButtonProfileDtos(portalButtonArrayXe);
-                var browseButtons = GetComputerGuiButtonProfileDtos(browseButtonArrayXe);
-
-                answer.GuiButtonProfilesForPullingDatasetsFromPortalHub = portalButtons;
-                answer.GuiButtonProfilesForBrowsingFileSystemForDatasets = browseButtons;
-
-                return answer;
-            }
-
-            #region try catch handling
-
-            catch (Exception ex)
-            {
-                throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
-            }
-
-            #endregion
-
-            #region helpers
-
-            static XElement ParsePlainTextIntoXElement(string inputText)
-            {
-                var failure = "Unable to parse text into xml.";
-                const string locus = "[ParsePlainTextIntoXElement]";
+                #region step 3 round trip and print to view
 
                 try
                 {
-                    if (inputText == null)
-                        throw new ArgumentNullException(nameof(inputText));
+                    var publishingProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(publisherModuleProfileDtoFromXml, [typeof(PublisherModuleProfileItemDto)]);
 
-                    return XElement.Parse(inputText); // automatically throws if invalid
+                    JghConsoleHelper.WriteLine();
+                    JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
+                                                            $"SUCCEEDED. System.Xml did not blow up re-serialising PublisherModuleProfileItemDto to xml [{fileItem.FileInfo.Name}] ");
+                    JghConsoleHelper.WriteLineFollowedByTwo("ooo000ooo");
+                    JghConsoleHelper.WriteLineFollowedByOne("DISPLAYING: Round-tripped PublisherModuleProfileItemDto");
+
+                    var objectAsString = publishingProfileDtoBackToXml;
+
+                    JghConsoleHelper.WriteLine(objectAsString);
+
+                    var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Xml));
+                    File.WriteAllText(pathOfFile, objectAsString);
+
+                    JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
                 }
-
-                #region try-catch
-
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    failure = JghString.ConcatAsParagraphs(failure, "Parsing the contents of this file into a XElement failed.",
-                        "(Unfortunately even the tiniest error in format, syntax and/or content causes failure.)");
-
-                    throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+                    JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object PublisherModuleProfileItemDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLine(e.Message);
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
                 }
 
                 #endregion
             }
-
-            static string GetChildElementValue(XElement parentXe, string nameOfChild)
+            catch (Exception ex)
             {
-                var childXe = parentXe.Element(nameOfChild);
-
-                if (childXe == null)
-                    return string.Empty;
-
-                var value = childXe.Value; // empirically this blows up when the Value itself contains xml : for that use our cunning alternative method: GetChildElementValueVerbatim()
-
-                return value.Trim();
+                JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
             }
+    }
 
-#pragma warning disable CS8321 // Local function is declared but never used
-            static string GetChildElementValueVerbatim(XElement? parentXe, string nameOfChild)
-#pragma warning restore CS8321 // Local function is declared but never used
+    private static void Main05(List<FileItem> fileItems)
+    {
+        if (!fileItems.Any())
+        {
+            JghConsoleHelper.WriteLine("No files of data to process.");
+            return;
+        }
+
+        foreach (var fileItem in fileItems)
+            try
             {
-                var childXe = parentXe?.Element(nameOfChild);
+                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
 
-                if (childXe == null)
-                    return string.Empty;
+                var seriesProfileDtoFromJson = new SeriesProfileDto();
 
-                var value = childXe.ToString(); // this works
-
-                return value.Trim();
-
-                //var rubbish1 = childXe.Value; // Note. empirically this alternative fails when the Value itself contains xml
-                //var rubbish2 = (string) childXe; // Note. empirically this alternative fails when the Value itself contains xml
-            }
-
-            static XElement? GetChildElement(XElement parentXe, string nameOfChild)
-            {
-                var childXe = parentXe.Element(nameOfChild);
-
-                return childXe;
-            }
-
-            static XElement[]? GetChildElements(XElement? parentXe, string nameOfChild)
-            {
-                var childrenXe = parentXe?.Elements(nameOfChild).ToArray();
-
-                return childrenXe;
-            }
-
-            // ReSharper disable once IdentifierTypo
-            static PublisherButtonProfileItemDto[] GetComputerGuiButtonProfileDtos(XElement? parentXe)
-            {
-                if (parentXe == null)
-                    return [];
-
-                var buttonXElements = GetChildElements(parentXe, PublisherButtonProfileItemDto.XeGuiButtonProfile);
-
-                if (buttonXElements == null || !buttonXElements.Any())
-                    return [];
-
-                return buttonXElements.Select(thisButtonXe => new PublisherButtonProfileItemDto
+                try
                 {
-                    ShortDescriptionOfAssociatedDataset = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeDatasetDescription),
-                    IdentifierOfAssociatedDataset = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeDatasetIdentifier),
-                    GuiButtonContent = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeGuiButtonText),
-                    FileNameExtensionFiltersForBrowsingHardDrive = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeAllowableFileNameExtensions),
-                    FileNameOfExampleOfAssociatedDataset = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeDatasetExampleFileName)
-                }).ToArray();
+                    seriesProfileDtoFromJson = JghSerialisation.ToObjectFromJson<SeriesProfileDto>(fileItem.FileContentsAsText);
+
+                    JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: Newtonsoft de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: Newtonsoft blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
+                }
+
+                #endregion
+
+                #region reset all EventSettings to null (as opposed to empty)
+
+                foreach (var eventProfileDto in seriesProfileDtoFromJson.EventProfileCollection)
+                {
+                    eventProfileDto.EventSettings = null;
+                    eventProfileDto.PublishedResultsForEvent = null;
+                }
+
+                #endregion
+
+                #region step 3 round trip and print to view
+
+                try
+                {
+                    var seriesProfileDtoBackToJson = JghSerialisation.ToJsonFromObject(seriesProfileDtoFromJson);
+
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
+                                                           $"SUCCEEDED. Newtonsoft did not blow up re-serialising SeriesProfileDto to Json [{fileItem.FileInfo.Name}] ");
+                    JghConsoleHelper.WriteLineFollowedByTwo("ooo000ooo");
+                    JghConsoleHelper.WriteLineFollowedByOne("DISPLAYING: Round-tripped SeriesProfileDto");
+
+                    var objectAsString = seriesProfileDtoBackToJson;
+
+                    JghConsoleHelper.WriteLine(objectAsString);
+
+                    var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Json));
+
+                    File.WriteAllText(pathOfFile, objectAsString);
+
+
+                    JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object SeriesProfileDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLine(e.Message);
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
+            }
+    }
+
+    private static void Main04(List<FileItem> fileItems)
+    {
+        if (!fileItems.Any())
+        {
+            JghConsoleHelper.WriteLine("No files of data to process.");
+            return;
+        }
+
+        foreach (var fileItem in fileItems)
+            try
+            {
+                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+
+                var computerProfileDtoFromXml = new PublisherModuleProfileItemDto();
+
+                try
+                {
+                    computerProfileDtoFromXml = JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
+
+                    JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: System de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: system blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
+                }
+
+                #endregion
+
+                #region step 2 round trip and print to view
+
+                try
+                {
+                    var computerProfileDtoBackToXml = JghSerialisation.ToXmlFromObject(computerProfileDtoFromXml, [typeof(PublisherModuleProfileItemDto)]);
+
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
+                                                           $"SUCCEEDED. System did not blow up re-serialising ComputerProfileDto to XML [{fileItem.FileInfo.Name}] ");
+                    JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
+                    JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped ComputerProfileDto");
+
+                    var objectAsString = computerProfileDtoBackToXml;
+                    JghConsoleHelper.WriteLine(objectAsString);
+
+                    var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Xml));
+
+                    File.WriteAllText(pathOfFile, objectAsString);
+
+                    JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object ComputerProfileDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLine(e.Message);
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
+            }
+    }
+
+    private static void Main03(List<FileItem> fileItems)
+    {
+        if (!fileItems.Any())
+        {
+            JghConsoleHelper.WriteLine("No files of data to process.");
+            return;
+        }
+
+        foreach (var fileItem in fileItems)
+            try
+            {
+                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+
+                var seasonProfileDtoFromJson = new SeasonProfileDto();
+
+                try
+                {
+                    seasonProfileDtoFromJson = JghSerialisation.ToObjectFromJson<SeasonProfileDto>(fileItem.FileContentsAsText);
+
+                    JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: Newtonsoft de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: Newtonsoft blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
+                }
+
+                #endregion
+
+                #region step 2 round trip and print to view
+
+                try
+                {
+                    var seasonProfileDtoBackToJson = JghSerialisation.ToJsonFromObject(seasonProfileDtoFromJson);
+
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
+                                                           $"SUCCEEDED. Newtonsoft did not blow up re-serialising SeasonProfileDto to Json [{fileItem.FileInfo.Name}] ");
+                    JghConsoleHelper.WriteLineFollowedByTwo("ooo000ooo");
+                    JghConsoleHelper.WriteLineFollowedByOne("DISPLAYING: Round-tripped SeasonProfileDto");
+
+                    var objectAsString = seasonProfileDtoBackToJson;
+                    JghConsoleHelper.WriteLine(objectAsString);
+
+                    var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Json));
+
+                    File.WriteAllText(pathOfFile, objectAsString);
+
+                    JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineWrappedInOne($"Test failure: Serialiser blew up trying to re-serialise object SeasonProfileDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLine(e.Message);
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
+            }
+    }
+
+    private static void Main02(List<FileItem> fileItems)
+    {
+        if (!fileItems.Any())
+        {
+            JghConsoleHelper.WriteLine("No files of data to process.");
+            return;
+        }
+
+        foreach (var fileItem in fileItems)
+            try
+            {
+                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+
+                var seriesProfileDtoFromJson = new SeriesProfileDto();
+
+                try
+                {
+                    seriesProfileDtoFromJson = JghSerialisation.ToObjectFromJson<SeriesProfileDto>(fileItem.FileContentsAsText);
+
+                    JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: Newtonsoft de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: Newtonsoft blew up when it tried to de-serialise contents of file. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
+                }
+
+                #endregion
+
+                #region step 2 round trip and print to view
+
+                try
+                {
+                    var seriesProfileDtoBackToJson = JghSerialisation.ToJsonFromObject(seriesProfileDtoFromJson);
+
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
+                                                           $"SUCCEEDED. Newtonsoft did not blow up re-serialising SeriesProfileDto to Json [{fileItem.FileInfo.Name}] ");
+                    JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
+                    JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped SeriesProfileDto");
+
+                    var objectAsString = seriesProfileDtoBackToJson;
+                    JghConsoleHelper.WriteLine(objectAsString);
+
+                    var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Json));
+
+
+                    File.WriteAllText(pathOfFile, objectAsString);
+
+                    JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"Test failure: Serialiser blew up trying to re-serialise object SeriesProfileDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLine(e.Message);
+                    JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
+            }
+    }
+
+    private static void Main01(List<FileItem> fileItems)
+    {
+        if (!fileItems.Any())
+        {
+            JghConsoleHelper.WriteLine("No files of data to process.");
+            return;
+        }
+
+        foreach (var fileItem in fileItems)
+            try
+            {
+                #region step 1 - just for fun, attempt to deserialise contents of this file with system deserialiser. This will often/normally fail.
+
+                try
+                {
+                    JghSerialisation.ToObjectFromXml<PublisherModuleProfileItemDto>(fileItem.FileContentsAsText, [typeof(PublisherModuleProfileItemDto)]);
+                    JghConsoleHelper.WriteLine($"KICK-FOR-TOUCH WAS UNEVENTFUL: system XML serialiser de-serialised contents of file safely. [{fileItem.FileInfo.Name}]");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"KICK-FOR-TOUCH BLEW UP: system serialiser blew up when it tried to de-serialise contents of file. THIS IS TO BE EXPECTED. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByTwo(e.Message);
+                }
+
+                #endregion
+
+                #region step 2 de-serialise using hand-written deserialiser
+
+                try
+                {
+                    var fileContentsAsDto = ToComputerProfileFromXml(fileItem.FileContentsAsText);
+
+                    JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
+                                                           $"SUCCEEDED. Hand-written de-serialiser did not blow up parsing the contents of this file to ComputerProfileDto [{fileItem.FileInfo.Name}] ");
+                    JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
+                    JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped ComputerProfileDto");
+
+                    var xmlFromObject = JghSerialisation.ToXmlFromObject(fileContentsAsDto, [typeof(PublisherModuleProfileItemDto)]);
+
+                    var xmlFromObjectAsString = xmlFromObject;
+
+                    JghConsoleHelper.WriteLine(xmlFromObjectAsString);
+                    JghConsoleHelper.WriteLineWrappedInOne("ooo000ooo");
+                }
+                catch (Exception e)
+                {
+                    JghConsoleHelper.WriteLineFollowedByOne($"Test failure: Hand-written de-serialiser blew up trying to parse contents of this file to ComputerProfileDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByOne(e.Message);
+                    JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                JghConsoleHelper.WriteLine($"{Path.GetFileName(fileItem.FileInfo.FullName)} not found? {ex.Message}");
+            }
+    }
+
+    #endregion
+
+    #region THE MEAT helper methods
+
+    // THE MEAT: this is the method to cut and paste into each computer module in the remote computer Svc 
+    private static PublisherModuleProfileItemDto ToComputerProfileFromXml(string freeFormComputerProfileXmlFile)
+
+    {
+        const string failure = "Unable to convert string data into ComputerProfileDto.";
+        const string locus = "[ToComputerProfileFromXmlV01]";
+
+        try
+        {
+            XElement parentXElement;
+
+            try
+            {
+                parentXElement = ParsePlainTextIntoXElement(freeFormComputerProfileXmlFile);
+            }
+            catch (Exception ex)
+            {
+                throw new JghPublisherServiceFaultException("System.Xml.Linq.XElement.Parse() blew up when it tried to parse contents of this file as a single top-level XElement. File contents are unexpected.", ex);
+            }
+
+            PublisherModuleProfileItemDto answer = new()
+            {
+                FragmentInNameOfThisFile = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeThisFileNameFragment),
+                CaptionForModule = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeCaption),
+                DescriptionOfModule = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeDescription),
+                OverviewOfModule = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeOverview),
+                CSharpModuleCodeName = GetChildElementValue(parentXElement, PublisherModuleProfileItemDto.XeCSharpModuleId)
+            };
+
+            var portalButtonArrayXe = GetChildElement(parentXElement, PublisherModuleProfileItemDto.XeGuiButtonsForPullingDatasetsFromPortalHub);
+            var browseButtonArrayXe = GetChildElement(parentXElement, PublisherModuleProfileItemDto.XeGuiButtonsForBrowsingFileSystemForDatasets);
+
+            var portalButtons = GetComputerGuiButtonProfileDtos(portalButtonArrayXe);
+            var browseButtons = GetComputerGuiButtonProfileDtos(browseButtonArrayXe);
+
+            answer.GuiButtonProfilesForPullingDatasetsFromPortalHub = portalButtons;
+            answer.GuiButtonProfilesForBrowsingFileSystemForDatasets = browseButtons;
+
+            return answer;
+        }
+
+        #region try catch handling
+
+        catch (Exception ex)
+        {
+            throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
+        }
+
+        #endregion
+
+        #region helpers
+
+        static XElement ParsePlainTextIntoXElement(string inputText)
+        {
+            var failure = "Unable to parse text into xml.";
+            const string locus = "[ParsePlainTextIntoXElement]";
+
+            try
+            {
+                if (inputText == null)
+                    throw new ArgumentNullException(nameof(inputText));
+
+                return XElement.Parse(inputText); // automatically throws if invalid
+            }
+
+            #region try-catch
+
+            catch (Exception ex)
+            {
+                failure = JghString.ConcatAsParagraphs(failure, "Parsing the contents of this file into a XElement failed.",
+                    "(Unfortunately even the tiniest error in format, syntax and/or content causes failure.)");
+
+                throw JghExceptionHelpers.ConvertToCarrier(failure, locus, ex);
             }
 
             #endregion
         }
 
+        static string GetChildElementValue(XElement parentXe, string nameOfChild)
+        {
+            var childXe = parentXe.Element(nameOfChild);
+
+            if (childXe == null)
+                return string.Empty;
+
+            var value = childXe.Value; // empirically this blows up when the Value itself contains xml : for that use our cunning alternative method: GetChildElementValueVerbatim()
+
+            return value.Trim();
+        }
+
 #pragma warning disable CS8321 // Local function is declared but never used
-        private static void SaveWorkToHardDriveAsXml(PublisherModuleProfileItemDto profileItem, FileItem fileItem)
+        static string GetChildElementValueVerbatim(XElement? parentXe, string nameOfChild)
 #pragma warning restore CS8321 // Local function is declared but never used
         {
-            var xmlFileContents = JghSerialisation.ToXmlFromObject(profileItem, [typeof(PublisherModuleProfileItemDto)]);
+            var childXe = parentXe?.Element(nameOfChild);
 
-            var pathOfXmlFile = OutputFolder + @"\" + Path.GetFileNameWithoutExtension(fileItem.OutputFileName) + "." + StandardFileTypeSuffix.Xml;
+            if (childXe == null)
+                return string.Empty;
 
-            File.WriteAllText(pathOfXmlFile, xmlFileContents);
+            var value = childXe.ToString(); // this works
 
-            JghConsoleHelper.WriteLine($"Round-tripped profile saved to {pathOfXmlFile}");
+            return value.Trim();
+
+            //var rubbish1 = childXe.Value; // Note. empirically this alternative fails when the Value itself contains xml
+            //var rubbish2 = (string) childXe; // Note. empirically this alternative fails when the Value itself contains xml
         }
 
-        #endregion
-
-        #region local class
-
-        internal class FileItem
+        static XElement? GetChildElement(XElement parentXe, string nameOfChild)
         {
-            public FileInfo FileInfo { get; set; } = new("DummyFileName.txt");
+            var childXe = parentXe.Element(nameOfChild);
 
-            public string FileContentsAsText { get; set; } = string.Empty;
+            return childXe;
+        }
 
-            public List<string> FileContentsAsLines { get; set; } = [];
+        static XElement[]? GetChildElements(XElement? parentXe, string nameOfChild)
+        {
+            var childrenXe = parentXe?.Elements(nameOfChild).ToArray();
 
-            public string OutputFileName { get; set; } = string.Empty;
+            return childrenXe;
+        }
+
+        // ReSharper disable once IdentifierTypo
+        static PublisherButtonProfileItemDto[] GetComputerGuiButtonProfileDtos(XElement? parentXe)
+        {
+            if (parentXe == null)
+                return [];
+
+            var buttonXElements = GetChildElements(parentXe, PublisherButtonProfileItemDto.XeGuiButtonProfile);
+
+            if (buttonXElements == null || !buttonXElements.Any())
+                return [];
+
+            return buttonXElements.Select(thisButtonXe => new PublisherButtonProfileItemDto
+            {
+                ShortDescriptionOfAssociatedDataset = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeDatasetDescription),
+                IdentifierOfAssociatedDataset = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeDatasetIdentifier),
+                GuiButtonContent = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeGuiButtonText),
+                FileNameExtensionFiltersForBrowsingHardDrive = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeAllowableFileNameExtensions),
+                FileNameOfExampleOfAssociatedDataset = GetChildElementValue(thisButtonXe, PublisherButtonProfileItemDto.XeDatasetExampleFileName)
+            }).ToArray();
         }
 
         #endregion
-
-
     }
+
+#pragma warning disable CS8321 // Local function is declared but never used
+    private static void SaveWorkToHardDriveAsXml(PublisherModuleProfileItemDto profileItem, FileItem fileItem)
+#pragma warning restore CS8321 // Local function is declared but never used
+    {
+        var fileContents = JghSerialisation.ToXmlFromObject(profileItem, [typeof(PublisherModuleProfileItemDto)]);
+
+        var pathOfFile = Path.Combine(OutputFolder, Path.ChangeExtension(fileItem.OutputFileName, StandardFileTypeSuffix.Xml));
+
+        File.WriteAllText(pathOfFile, fileContents);
+
+        JghConsoleHelper.WriteLine($"Round-tripped profile saved to {pathOfFile}");
+    }
+
+    #endregion
 }

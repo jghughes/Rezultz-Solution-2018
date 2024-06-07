@@ -7,7 +7,7 @@ The approach is to detach the solution from remote and local version control, th
 Step 1:	Git>Manage Remotes>Remotes and manually delete the URLS linking the sln to GitHub.
 Step 2:	Git>Settings>Source Control>Plug-in Selection and change selection from Git to none.
 Step 3:	In the solution folder, delete the files .git,.gitattributes, and .gitignore.
-Step 4:	On the GitHub website, select the repository, then scroll down to Settings>Delete this repo.
+Step 4:	On the GitHub website, select the repository, then got to tab >Settings and scroll down to >Delete this repo.
 Step 5:	Back in VS2022, go Tools>Options>Source Control>Plug-in selection and change to Git.
 Step 6:	Go Git>Create Git repository…
 Step 7:	The create wizard pops up. Go ahead and create your fresh pair of repositories.

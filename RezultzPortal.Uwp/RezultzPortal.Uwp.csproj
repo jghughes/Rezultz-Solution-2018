@@ -23,7 +23,7 @@
     </PackageCertificateKeyFile>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <!-- END : changes by jgh-->
-    <PackageCertificateThumbprint>3B173AD9FE0308C23963ED998998077405F59251</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>6D5107936558A9608C0B1871163D7A3E4B61BAFA</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>

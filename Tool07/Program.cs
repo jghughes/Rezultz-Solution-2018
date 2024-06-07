@@ -244,14 +244,13 @@ namespace Tool07
 
         var legitNewFileName = fileInfo.Name;
 
-        var pathOfOutputFile = OutputFolder + @"\" + legitNewFileName;
+        var pathOfFile = Path.Combine(OutputFolder, legitNewFileName);
 
-        File.WriteAllText(pathOfOutputFile, zz);
-        //File.WriteAllText(pathOfOutputFile, newText);
+            File.WriteAllText(pathOfFile, zz);
 
         #endregion
 
-        PrintReport(pathOfOutputFile);
+        PrintReport(pathOfFile);
     }
 
 
