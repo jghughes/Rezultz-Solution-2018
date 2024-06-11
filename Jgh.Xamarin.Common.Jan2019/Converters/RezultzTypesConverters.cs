@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using NetStd.DataTypes.Mar2024;
-using NetStd.Goodies.Mar2022;
 using Rezultz.DataTypes.Nov2023;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using Rezultz.DataTypes.Nov2023.RezultzItems;
@@ -488,62 +486,62 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
 
 	#region Rezultz model projections
 
-	public sealed class ResultItemsToPrettyPrintedFavoriteStringsConverter : IValueConverter
-	{
-		#region IValueConverter Members
+	//public sealed class ResultItemsToPrettyPrintedFavoriteStringsConverter : IValueConverter
+	//{
+	//	#region IValueConverter Members
 
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			if (value is not IEnumerable<ResultItem> results)
-				return new List<ResultItem>
-				{
-					new()
-                    {
-						FirstName = "object binding source is either null or not of type IEnumerable<Result>",
-						LastName = "object binding source is either null or not of type IEnumerable<Result>",
-						Bib = "object binding source is either null or not of type IEnumerable<Result>"
-					}
-				};
+	//	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	//	{
+	//		if (value is not IEnumerable<ResultItem> results)
+	//			return new List<ResultItem>
+	//			{
+	//				new()
+ //                   {
+	//					FirstName = "object binding source is either null or not of type IEnumerable<Result>",
+	//					LastName = "object binding source is either null or not of type IEnumerable<Result>",
+	//					Bib = "object binding source is either null or not of type IEnumerable<Result>"
+	//				}
+	//			};
 
-			var answer = results.Where(z => z != null).Select(MakePrettyPrintedFavoriteString).ToArray();
+	//		var answer = results.Where(z => z != null).Select(MakePrettyPrintedFavoriteString).ToArray();
 
-			return answer;
-		}
+	//		return answer;
+	//	}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return value;
-		}
+	//	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	//	{
+	//		return value;
+	//	}
 
-		#endregion
+	//	#endregion
 
-		#region IValueConverter Members
+	//	#region IValueConverter Members
 
-		public string MakePrettyPrintedFavoriteString(ResultItem resultItem)
-		{
-			if (resultItem?.DerivedData == null ) return string.Empty;
+	//	public string MakePrettyPrintedFavoriteString(ResultItem resultItem)
+	//	{
+	//		if (resultItem?.DerivedData == null ) return string.Empty;
 
-			var myString = resultItem.DerivedData.PlaceCalculatedOverallInt.ToString();
+	//		var myString = resultItem.DerivedData.PlaceCalculatedOverallInt.ToString();
 
-			if (string.IsNullOrWhiteSpace(myString)) return "     ";
+	//		if (string.IsNullOrWhiteSpace(myString)) return "     ";
 
-			if (myString.Length == 1) myString = "    " + myString;
-			if (myString.Length == 2) myString = "   " + myString;
-			if (myString.Length == 3) myString = "  " + myString;
-			if (myString.Length == 4) myString = " " + myString;
+	//		if (myString.Length == 1) myString = "    " + myString;
+	//		if (myString.Length == 2) myString = "   " + myString;
+	//		if (myString.Length == 3) myString = "  " + myString;
+	//		if (myString.Length == 4) myString = " " + myString;
 
-			var answer = JghString.ConcatAsSentences(
-			 myString,
-				resultItem.FullName,
-				resultItem.RaceGroup,
-				resultItem.AgeGroup,
-				resultItem.Bib);
+	//		var answer = JghString.ConcatAsSentences(
+	//		 myString,
+	//			resultItem.FullName,
+	//			resultItem.RaceGroup,
+	//			resultItem.AgeGroup,
+	//			resultItem.Bib);
 
-			return answer;
-		}
-		#endregion
+	//		return answer;
+	//	}
+	//	#endregion
 
-	}
+	//}
 
 	#endregion
 

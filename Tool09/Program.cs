@@ -174,7 +174,10 @@ namespace Tool09
 
             foreach (var kvp in dictionaryOfPortalTimingSystemResults)
             {
-                if (dictionaryOfMyLapsTimingSystemResults.ContainsKey(kvp.Key)) continue;
+                if (kvp.Value.Any(z=> !string.IsNullOrWhiteSpace(z.DnxString)))
+                    continue; // skip people who have a DNF, DNS, etc.
+
+                if (dictionaryOfMyLapsTimingSystemResults.ContainsKey(kvp.Key)) continue; //todo: check for DNF, DNS, etc. (currently the data is not available in the MyLaps files)
 
                 var person = kvp.Value.FirstOrDefault();
 
@@ -234,9 +237,9 @@ namespace Tool09
         private const string RequiredInputFileFormat = "xml";
 
         private const string InputFolderOfSplitIntervalsFromPortal = InputFolderFromMyLaps;
-        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\H1E2versionCsv\";
+        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\H1E3versionExcelFlex\H1E3versionCsvFlex\";
 
-        private const string NameOfPortalRezultzFile = @"DraftResultsForLeaderboard.xml";
+        private const string NameOfPortalRezultzFile = @"2024-06-07T16-15-19+DraftResultsForLeaderboard.xml";
 
         #endregion
     }

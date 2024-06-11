@@ -2317,12 +2317,12 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             #region prepare data
 
-            var repositoryOfSplitIntervals = new RepositoryOfSplitIntervalsPerParticipant();
+            var repositoryOfSplitIntervals = new RepositoryOfSplitDurationsPerParticipant();
 
             repositoryOfSplitIntervals.LoadRepository(currentEvent, RepositoryOfHubStyleEntries, repositoryOfParticipantHubItems);
 
             var splitIntervalsForAllPeople =
-                repositoryOfSplitIntervals.GetTimeStampsAsSplitIntervalsPerPersonInRankOrder(
+                repositoryOfSplitIntervals.GetTimeStampsAsSplitDurationsPerPersonInRankOrder(
                     JghConvert.ToInt32(CboLookupAnomalousThresholdForTooManySplitsVm.CurrentItem?.Label),
                     JghConvert.ToInt32(CboLookupAnomalousThresholdForTooFewSplitsVm.CurrentItem?.Label),
                     JghConvert.ToDouble(CboLookupAnomalousThresholdForTooBriefSplitsVm.CurrentItem?.Label));

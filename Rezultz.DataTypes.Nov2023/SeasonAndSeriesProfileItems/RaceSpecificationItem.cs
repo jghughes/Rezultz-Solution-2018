@@ -10,8 +10,6 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
     {
         #region properties
 
-        //public string GroupStartTimeStampIdentifier { get; set; } = string.Empty;
-
         public int SeniorityRankForPointsTransfer { get; set; }
 
         public double TrophyPoints { get; set; }
@@ -118,7 +116,6 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                     PointsScaleAsCsv = x.PointsScaleAsCsv,
                     MultiplicationFactorForNormalizationOfAverageSplitDuration = x.MultiplicationFactorForNormalisationOfAverageSplitDuration,
                     DistanceKm = x.DistanceKm,
-                    //GroupStartTimeStampIdentifier = x.GroupStartTimeStampIdentifier
                 };
 
                 return answer;

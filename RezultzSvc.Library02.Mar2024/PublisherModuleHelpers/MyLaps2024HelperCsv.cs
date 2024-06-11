@@ -11,16 +11,22 @@ using Rezultz.DataTypes.Nov2023.RezultzItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using Rezultz.Library01.Mar2024.Repositories;
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
+namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
+
+public class MyLaps2024HelperCsv
 {
-    public class MyLaps2024HelperCsv
-    {
+    #region settings
 
-        #region primary method
+    private const int NumberOfRowsPrecedingRowOfColumnHeadings = 0;
+    // Note: The value of this constant of 0 is normal for csv files exported manually by Jgh from the Excel exported from MyLaps.
+    // It is 1 for csv files exported directly from MyLaps. They have some sort of title row before the field names row.
 
-        public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
-            Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
-            JghStringBuilder conversionReportSb, int lhsWidth)
+    #endregion
+
+    #region primary method
+
+    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile, Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, 
+        AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent, JghStringBuilder conversionReportSb, int lhsWidth)
     {
         #region declarations
 
@@ -34,16 +40,19 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
 
         var allRowsOfCsvText = myLapsFile.FileContents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None).ToList(); // remove carriage returns and line breaks
 
-        var relevantRowsOfCsvText =
-            allRowsOfCsvText.Where(z => !string.IsNullOrWhiteSpace(z)).Where(z => z.Contains(','))
-                .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair of blank lines at the bottom of the file
+        var relevantRowsOfCsvText = allRowsOfCsvText
+            .Where(z => !string.IsNullOrWhiteSpace(z))
+            .Where(z => z.Contains(','))
+            .ToList(); // eliminate blank lines and lines that are non-data lines in the MyLaps files - for starters there is a pair of blank lines at the bottom of the file
 
         List<string> relevantRowsWithoutEscapeLiterals = [];
 
         foreach (var rowOfCsv in relevantRowsOfCsvText)
         {
             var thisRowOfCsv = rowOfCsv;
+
             thisRowOfCsv = thisRowOfCsv.Replace(@"\", string.Empty);
+
             thisRowOfCsv = thisRowOfCsv.Replace(@"""", string.Empty);
 
             if (!string.IsNullOrWhiteSpace(thisRowOfCsv))
@@ -101,11 +110,11 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
 
             #endregion
 
-            #region if can see a bib number in the .csv, try find the matching participant in the master list that was previously uploaded (having been generated from the hub)
+            #region if can see a bib number in the .csv, try find the matching participant in the master list that was uploaded a moment ago in the portal by the user (having been generated from the hub)
 
             ParticipantHubItem discoveredParticipantHubItem = null;
 
-            bool participantIsDiscovered = false;
+            var participantIsDiscovered = false;
 
             if (dictionaryOfParticipants != null)
                 participantIsDiscovered = dictionaryOfParticipants.TryGetValue(bibOfThiRepeatingRow, out discoveredParticipantHubItem);
@@ -132,7 +141,6 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
                     IsSeries = discoveredParticipantHubItem.IsSeries,
                     RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(discoveredParticipantHubItem), dateOfThisEvent)
                 };
-
             }
             else
             {
@@ -149,15 +157,13 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
                 };
 
                 if (dictionaryOfParticipants != null)
-                {
                     conversionReportSb.AppendLine(
                         $"Warning! Participant master list fails to have a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>");
-                }
             }
 
             #endregion
 
-            #region figure out if TO1 or Dnx 
+            #region figure out if TO1 or Dnx
 
             var mustSkipThisRowBecauseGunTimeIsInValid = false; // initial default
 
@@ -191,7 +197,6 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
                 answerAsResultItems.Add(thisRepeatingResultItem);
 
             #endregion
-
         }
 
         #endregion
@@ -199,39 +204,31 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
         return answerAsResultItems;
     }
 
-        #endregion
+    #endregion
 
-        #region headings in .csv columns
+    #region headings in .csv columns
 
-        private const string SrcXeBib = "Bib#"; // the repeating element of the array
-        private const string SrcXeGunTime = "Gun Time";
-        private const string SrcXeFullName = "Athlete";
-        private const string SrcXeGender = "Gender";
-        private const string SrcXeAge = "Age";
-        private const string SrcXeRaceGroup = "Race";
+    private const string SrcXeBib = "Bib#"; // the repeating element of the array
+    private const string SrcXeGunTime = "Gun Time";
+    private const string SrcXeFullName = "Athlete";
+    private const string SrcXeGender = "Gender";
+    private const string SrcXeAge = "Age";
+    private const string SrcXeRaceGroup = "Race";
 
-        private const string SrcValueDnf = "dnf"; // not a name. a value
+    private const string SrcValueDnf = "dnf"; // not a name. a value
 
-        #endregion
+    #endregion
 
-        #region settings
+    #region helpers
 
-        private const int NumberOfRowsPrecedingRowOfColumnHeadings = 0;
-        // Note: The value of this constant of 0 is normal for csv files exported manually by Jgh from the Excel exported from MyLaps.
-        // It is 1 for csv files exported directly from MyLaps. They have some sort of title row before the field names row.
-
-        #endregion
-
-        #region helpers
-
-        private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
+    private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
     {
         var textItem = JghArrayHelpers.SelectItemFromArrayByArrayIndex(arrayOfText, indexOfDataItem);
 
         return JghString.TmLr(textItem ?? string.Empty);
     }
 
-        public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
+    public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
     {
         var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;
 
@@ -258,7 +255,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
         return answerAsRaceGroup;
     }
 
-        public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
+    public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)
     {
         static bool TryGetFrontComponentAsInteger(string[] subStrings, out int firstValue)
         {
@@ -409,7 +406,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
         }
     }
 
-        public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
+    public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
     {
         string answer;
 
@@ -421,6 +418,5 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers
         return answer;
     }
 
-        #endregion
-    }
+    #endregion
 }

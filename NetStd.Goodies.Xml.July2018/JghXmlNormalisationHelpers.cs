@@ -13,11 +13,7 @@ namespace NetStd.Goodies.Xml.July2018
         public const string LookupTableValueElementName = "Value";
 
         // ReSharper disable once InconsistentNaming
-        public static XElement GenerateXmlNormalisationLookupTableOfIDAndStringValue(
-            XElement sourceDocument,
-            string nameOfParentOfTheDesiredLookupElement,
-            string nameOfDesiredLookupElement,
-            string desiredNameOfLookupTable)
+        public static XElement GenerateXmlNormalisationLookupTableOfIDAndStringValue(XElement sourceDocument, string nameOfParentOfTheDesiredLookupElement, string nameOfDesiredLookupElement, string desiredNameOfLookupTable)
         {
             var subGroups = sourceDocument.Descendants(nameOfParentOfTheDesiredLookupElement)
                 .Elements(nameOfDesiredLookupElement)
@@ -49,8 +45,7 @@ namespace NetStd.Goodies.Xml.July2018
             return lookupTable;
         }
 
-        public static XElement FindElementInXmlNormalisationLookupTableByStringValue(XContainer lookupTable,
-            string value)
+        public static XElement FindElementInXmlNormalisationLookupTableByStringValue(XContainer lookupTable, string value)
         {
             if (lookupTable == null) throw new ArgumentNullException(nameof(lookupTable));
             if (value == null) throw new ArgumentNullException(nameof(value));
@@ -122,8 +117,7 @@ namespace NetStd.Goodies.Xml.July2018
             return answer;
         }
 
-        public static KeyValuePair<int, string>[]
-            TransformXmlNormalisationTableToCollectionOfKeyValuePairOfIdAndStringValue(XElement lookupTable)
+        public static KeyValuePair<int, string>[] TransformXmlNormalisationTableToCollectionOfKeyValuePairOfIdAndStringValue(XElement lookupTable)
         {
             var answer = new List<KeyValuePair<int, string>>();
 

@@ -22,6 +22,8 @@ namespace Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles
         private const string XeResultsDocumentPosted = "results-document-posted";
         private const string XeResultsDataFilesPublished = "results-data-files-published";
         private const string XeMustExcludeEventFromSeriesPoints = "is-excluded-from-series-points";
+        private const string XeMustRankGendersTogetherForPoints = "must-rank-genders-together-for-points";
+        private const string XeMustExcludeNonSeriesParticipantsFromRankingForPoints = "must-exclude-non-series-participants-from-ranking-for-points";
         private const string XeDefaultEventSettings = "event-settings";
         private const string XeResultsForEvent = "results-for-event";
 
@@ -57,13 +59,20 @@ namespace Rezultz.DataTransferObjects.Nov2023.SeasonAndSeriesProfiles
         public string XmlFileNamesForPublishedResults { get; set; } = string.Empty;
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 10, Name = XeMustExcludeEventFromSeriesPoints)]
-        public bool IsExcludedFromSeriesPoints { get; set; }
+        public bool EventIsExcludedFromSeriesPoints { get; set; }
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = XeDefaultEventSettings)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 11, Name = XeMustRankGendersTogetherForPoints)]
+        public bool MustRankGendersTogetherForPoints { get; set; }
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = XeMustExcludeNonSeriesParticipantsFromRankingForPoints)]
+        public bool MustExcludeNonSeriesParticipantsFromRankingForPoints { get; set; }
+
+
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 13, Name = XeDefaultEventSettings)]
         public DefaultEventSettingsDto EventSettings { get; set; } = new();
 
         // note this is not strictly metadata, but it is a useful place to put it - this is what we use to ship back and forth the subsequently populated results for the event
-        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 12, Name = XeResultsForEvent)]
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 14, Name = XeResultsForEvent)]
         public ResultDto[] PublishedResultsForEvent { get; set; } = [];
 
         #endregion

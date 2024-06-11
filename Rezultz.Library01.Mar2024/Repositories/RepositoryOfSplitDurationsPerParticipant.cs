@@ -11,7 +11,7 @@ using Rezultz.Library01.Mar2024.Repository_interfaces;
 
 namespace Rezultz.Library01.Mar2024.Repositories
 {
-    public class RepositoryOfSplitIntervalsPerParticipant
+    public class RepositoryOfSplitDurationsPerParticipant
     {
         #region load database - HEAP POWERFUL
 
@@ -73,14 +73,14 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             #region for everybody who competed, create a ConsolidatedSplitIntervalsItem, and populate the RaceGroup for each constestant 
 
-            _dictionaryOfEveryBodyWhoCompeted = new Dictionary<string, SplitIntervalConsolidationForParticipantItem>();
+            _dictionaryOfEveryBodyWhoCompeted = new Dictionary<string, SplitDurationConsolidationForParticipantItem>();
 
             foreach (var identifier in listOfAllContestantIdentifiers.Where(z => !string.IsNullOrWhiteSpace(z)).Distinct())
             {
 
                 // new up
 
-                var consolidatedSplitIntervalsItem = new SplitIntervalConsolidationForParticipantItem
+                var consolidatedSplitIntervalsItem = new SplitDurationConsolidationForParticipantItem
                 {
                     Bib = identifier,
                     Participant = _participantDatabase.GetParticipantFromMasterList(identifier) // totally normal for this to be null
@@ -308,12 +308,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         #region helpers
 
-        private static SplitIntervalConsolidationForParticipantItem[] PopulatePseudoRanksForSubsetsOfRaceWithinEventAsync(IEnumerable<SplitIntervalConsolidationForParticipantItem> consolidatedSplitIntervalItems)
+        private static SplitDurationConsolidationForParticipantItem[] PopulatePseudoRanksForSubsetsOfRaceWithinEventAsync(IEnumerable<SplitDurationConsolidationForParticipantItem> consolidatedSplitIntervalItems)
         {
             if (consolidatedSplitIntervalItems == null)
                 return [];
 
-            var dictionaryOfRaces = new JghListDictionary<string, SplitIntervalConsolidationForParticipantItem>();
+            var dictionaryOfRaces = new JghListDictionary<string, SplitDurationConsolidationForParticipantItem>();
 
             foreach (var intervalsItem in consolidatedSplitIntervalItems.Where(z => z != null))
             {
@@ -346,7 +346,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 }
             }
 
-            var answer = new List<SplitIntervalConsolidationForParticipantItem>();
+            var answer = new List<SplitDurationConsolidationForParticipantItem>();
 
 
             foreach (var raceKvp in dictionaryOfRaces.OrderByDescending(race => race.Value.Max(interval => interval.TallyOfSplitIntervals)))
@@ -387,13 +387,13 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private Dictionary<string, TimeStampHubItem> _dictionaryOfRacesThatHadAGunStart = new();
 
-        private Dictionary<string, SplitIntervalConsolidationForParticipantItem> _dictionaryOfEveryBodyWhoCompeted = new(); // end of the line
+        private Dictionary<string, SplitDurationConsolidationForParticipantItem> _dictionaryOfEveryBodyWhoCompeted = new(); // end of the line
 
         #endregion
 
         #region public methods - access data
 
-        public SplitIntervalConsolidationForParticipantItem[] GetTimeStampsAsSplitIntervalsPerPersonInRankOrder(int anomalousThresholdForTooManySplits, int anomalousThresholdForTooFewSplits,
+        public SplitDurationConsolidationForParticipantItem[] GetTimeStampsAsSplitDurationsPerPersonInRankOrder(int anomalousThresholdForTooManySplits, int anomalousThresholdForTooFewSplits,
             double anomalousThresholdForTooBriefSplitMinutes)
         {
             if (!_repositoryIsBootstrapped)
@@ -409,7 +409,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             #region riffle through row collection to identify anomalies add comments to them
 
-            List<SplitIntervalConsolidationForParticipantItem> answer = [];
+            List<SplitDurationConsolidationForParticipantItem> answer = [];
 
             foreach (var row in rows.Where(z => z != null))
             {
@@ -497,7 +497,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             foreach (var consolidatedSplitIntervalsItem in temp)
             {
-                var resultItemDataTransferObject = SplitIntervalConsolidationForParticipantItem.ToResultItemDataTransferObject(consolidatedSplitIntervalsItem);
+                var resultItemDataTransferObject = SplitDurationConsolidationForParticipantItem.ToResultItemDataTransferObject(consolidatedSplitIntervalsItem);
 
                 if (consolidatedSplitIntervalsItem.Participant != null)
                     resultItemDataTransferObject.AgeGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(consolidatedSplitIntervalsItem.Participant.BirthYear, _thisEventProfile?.EventSettingsItem?.AgeGroupSpecificationItems);

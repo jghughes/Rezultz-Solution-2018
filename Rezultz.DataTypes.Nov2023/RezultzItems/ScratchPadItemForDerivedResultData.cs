@@ -25,6 +25,8 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public int RankInSubsetInt { get; set; }
 
+        public int RankInSubsetIntSkippingOverNonSeriesParticipants { get; set; }
+
         #endregion
 
         #endregion

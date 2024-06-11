@@ -290,7 +290,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectAllIndividualResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.RaceGroup))
@@ -314,7 +314,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectAllIndividualResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.Gender))
@@ -338,7 +338,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectPlacedResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.AgeGroup))
@@ -362,7 +362,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectPlacedResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.City))
@@ -467,7 +467,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 #region populate placings
 
 
-                resultsUndergoingConversion = await AlgorithmForPlacings.PopulateAllPlacingsForThisEventAsync(resultsUndergoingConversion.ToArray());
+                resultsUndergoingConversion = await AlgorithmForPlacingsV2.PopulateAllPlacingsForThisEventAsync(resultsUndergoingConversion.ToArray());
 
 
                 #endregion
@@ -478,16 +478,9 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 #region populate points (on a series-specific basis) but iff an algorithm has been specified
 
                 if (!string.IsNullOrWhiteSpace(_eventProfileToWhichThisBelongs.EventSettingsItem.AlgorithmForCalculatingPointsEnumString))
-                    _allProcessedResultsForThisEvent = AlgorithmForPoints.InsertPoints(_eventProfileToWhichThisBelongs, SelectPlacedResults(), SelectAllIndividualResults());
+                    _allProcessedResultsForThisEvent = AlgorithmForPointsV2.InsertPoints(_eventProfileToWhichThisBelongs, SelectPlacedResults(), SelectAllIndividualResults());
 
                 #endregion
-
-                //#region map to autocompletebox/searchquery list of items
-
-                //_searchQuerySuggestions =
-                //    (await JghParallel.SelectAsParallelWorkStealingAsync(_allProcessedResultsForThisEvent, ResultItem.ToSearchQuerySuggestionItem, 500)).ToArray();
-
-                //#endregion
 
                 _repositoryIsInitialised = true;
             }

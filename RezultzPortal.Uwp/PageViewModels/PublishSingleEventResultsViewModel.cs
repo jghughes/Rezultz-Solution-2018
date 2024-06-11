@@ -1185,11 +1185,11 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             AppendToConversionReportLog(StringsPortal.Working______consolidating_timestamps_into_consolidated_splitintervals_for_each_participant);
 
-            var repositoryOfSplitIntervals = new RepositoryOfSplitIntervalsPerParticipant();
+            var repositoryOfSplitIntervals = new RepositoryOfSplitDurationsPerParticipant();
 
             repositoryOfSplitIntervals.LoadRepository(EventItemDisplayObject.ObtainSourceModel(_eventItemUponLaunchOfWorkSession), repositoryOfTimeStampHubItems, null);
 
-            var dataTransferObjects = repositoryOfSplitIntervals.GetTimeStampsAsSplitIntervalsPerPersonInRankOrder(int.MaxValue, 0, 0);
+            var dataTransferObjects = repositoryOfSplitIntervals.GetTimeStampsAsSplitDurationsPerPersonInRankOrder(int.MaxValue, 0, 0);
 
             if (dataTransferObjects == null || !dataTransferObjects.Any()) throw new JghAlertMessageException("No valid split-intervals available to upload.");
 
@@ -1695,7 +1695,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             AppendToConversionReportLog(StringsPortal.Working______generating_results);
 
-            var repositoryOfSplitIntervals = new RepositoryOfSplitIntervalsPerParticipant();
+            var repositoryOfSplitIntervals = new RepositoryOfSplitDurationsPerParticipant();
 
             repositoryOfSplitIntervals.LoadRepository(EventItemDisplayObject.ObtainSourceModel(_eventItemUponLaunchOfWorkSession), repositoryOfTimeStampHubItems, repositoryOfParticipantHubItemEntries);
 

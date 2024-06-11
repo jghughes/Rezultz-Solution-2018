@@ -26,6 +26,10 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         public bool IsExcludedFromSeriesPointsTotal { get; set; }
 
+        public bool MustRankGendersTogetherForPoints { get; set; }
+
+        public bool MustExcludeNonSeriesParticipantsFromRankingForPoints { get; set; }
+
         public DateTime AdvertisedDate { get; set; }
 
         public EventSettingsItem EventSettingsItem { get; set; } = new();
@@ -64,7 +68,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                     NumInSequence = x.OrderInSequence,
                     TxxColumnHeader = x.TxxColumnHeader,
                     HtmlDocumentNameForPostedResults = x.HtmlDocumentNameForPostedResults,
-                    IsExcludedFromSeriesPointsTotal = x.IsExcludedFromSeriesPoints,
+                    IsExcludedFromSeriesPointsTotal = x.EventIsExcludedFromSeriesPoints,
+                    MustRankGendersTogetherForPoints = x.MustRankGendersTogetherForPoints,
+                    MustExcludeNonSeriesParticipantsFromRankingForPoints = x.MustExcludeNonSeriesParticipantsFromRankingForPoints,
                     EventSettingsItem = EventSettingsItem.FromDataTransferObject(x.EventSettings),
                     ResultItemsForEventAsPublished = ResultItem.FromDataTransferObject(x.PublishedResultsForEvent)
                 };
@@ -131,7 +137,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                     OrderInSequence = x.NumInSequence,
                     TxxColumnHeader = x.TxxColumnHeader,
                     HtmlDocumentNameForPostedResults = x.HtmlDocumentNameForPostedResults,
-                    IsExcludedFromSeriesPoints = x.IsExcludedFromSeriesPointsTotal,
+                    EventIsExcludedFromSeriesPoints = x.IsExcludedFromSeriesPointsTotal,
+                    MustRankGendersTogetherForPoints = x.MustRankGendersTogetherForPoints,
+                    MustExcludeNonSeriesParticipantsFromRankingForPoints = x.MustExcludeNonSeriesParticipantsFromRankingForPoints,
                     EventSettings = EventSettingsItem.ToDataTransferObject(x.EventSettingsItem),
                     PublishedResultsForEvent = ResultItem.ToDataTransferObject(x.ResultItemsForEventAsPublished)
                 };

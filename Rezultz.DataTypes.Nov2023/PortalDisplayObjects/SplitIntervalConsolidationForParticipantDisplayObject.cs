@@ -116,7 +116,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         #region methods
 
-        public static SplitIntervalConsolidationForParticipantDisplayObject FromModel(SplitIntervalConsolidationForParticipantItem model)
+        public static SplitIntervalConsolidationForParticipantDisplayObject FromModel(SplitDurationConsolidationForParticipantItem model)
         {
 
             if (model == null) return new SplitIntervalConsolidationForParticipantDisplayObject();
@@ -227,7 +227,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             return answer;
         }
 
-        public static SplitIntervalConsolidationForParticipantDisplayObject[] FromModel(SplitIntervalConsolidationForParticipantItem[] model)
+        public static SplitIntervalConsolidationForParticipantDisplayObject[] FromModel(SplitDurationConsolidationForParticipantItem[] model)
         {
             const string failure = "Populating SplitIntervalConsolidationForParticipantDisplayObject[]";
             const string locus = "[FromModel]";
@@ -252,7 +252,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             #endregion
         }
 
-        public static SplitIntervalConsolidationForParticipantDisplayObject FromModelShowingTimeStampTxx(SplitIntervalConsolidationForParticipantItem model)
+        public static SplitIntervalConsolidationForParticipantDisplayObject FromModelShowingTimeStampTxx(SplitDurationConsolidationForParticipantItem model)
         {
 
             if (model == null) return new SplitIntervalConsolidationForParticipantDisplayObject();
@@ -367,7 +367,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
             return answer;
         }
 
-        public static SplitIntervalConsolidationForParticipantDisplayObject[] FromModelShowingTimeStampTxx(SplitIntervalConsolidationForParticipantItem[] model)
+        public static SplitIntervalConsolidationForParticipantDisplayObject[] FromModelShowingTimeStampTxx(SplitDurationConsolidationForParticipantItem[] model)
         {
             const string failure = "Populating SplitIntervalConsolidationForParticipantDisplayObject[]";
             const string locus = "[FromModelShowingTimeStampTxx]";

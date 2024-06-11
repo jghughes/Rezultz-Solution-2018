@@ -66,8 +66,7 @@ namespace NetStd.Goodies.Xml.July2018
             #endregion
         }
 
-        public static T[] ConvertCollectionOfSimpleIdentitiesAsFreeFormXmlBackIntoNamedThings<T>(
-            string parentXElementAsString)
+        public static T[] ConvertCollectionOfSimpleIdentitiesAsFreeFormXmlBackIntoNamedThings<T>(string parentXElementAsString)
             where T : class, IHasFirstName, IHasLastName, IHasMiddleInitial, IHasFullName, new()
         {
             const string failure = "Unable to convert string data into a recognisable list of people type things.";

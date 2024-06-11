@@ -30,8 +30,7 @@ namespace NetStd.Goodies.Mar2022
         /// <param name="theDictionary">The dictionary.</param>
         /// <returns>The array.</returns>
         /// <exception cref="System.ArgumentNullException">The Dictionary cannot be null.</exception>
-        public static KeyValuePair<TKey, TValue>[] ConvertDictionaryToKeyValuePairArray<TKey, TValue>(
-            IDictionary<TKey, TValue> theDictionary)
+        public static KeyValuePair<TKey, TValue>[] ConvertDictionaryToKeyValuePairArray<TKey, TValue>(IDictionary<TKey, TValue> theDictionary)
         {
             if (theDictionary == null)
                 throw new ArgumentNullException(nameof(theDictionary));
@@ -88,7 +87,6 @@ namespace NetStd.Goodies.Mar2022
 
         }
 
-
         /// <summary>
         ///     Gets the value associated with the specified key safely.
         /// </summary>
@@ -100,13 +98,12 @@ namespace NetStd.Goodies.Mar2022
         /// <param name="key">The specified key.</param>
         /// <param name="theDictionary">The dictionary, which can be null or empty.</param>
         /// <returns>The value associated with the key, or null if the dictionary is null or empty or the key is not found.</returns>
-        public static TValue LookUpValueSafely<TKey, TValue>(TKey key,
-	        IDictionary<TKey, TValue> theDictionary) where TValue : class
+        public static TValue LookUpValueSafely<TKey, TValue>(TKey key, IDictionary<TKey, TValue> theDictionary) where TValue : class
         {
             if (theDictionary == null || !theDictionary.Any() || key == null)
                 return null;
 
-            return theDictionary.ContainsKey(key) ? theDictionary[key] : null;
+            return theDictionary.TryGetValue(key, out var value) ? value : null;
         }
 
         /// <summary>
@@ -127,7 +124,7 @@ namespace NetStd.Goodies.Mar2022
             if (theDictionary == null || !theDictionary.Any() || key == null)
                 return null;
 
-            var value = theDictionary.ContainsKey(key) ? theDictionary[key] : null;
+            var value = theDictionary.TryGetValue(key, out var value1) ? value1 : null;
 
             return value ?? string.Empty;
         }
@@ -166,7 +163,7 @@ namespace NetStd.Goodies.Mar2022
 	        if (theDictionary == null || !theDictionary.Any() || key == null)
 		        return 0;
 
-	        var value = theDictionary.ContainsKey(key) ? theDictionary[key] : 0;
+	        var value = theDictionary.TryGetValue(key, out var value1) ? value1 : 0;
 
 	        return value;
         }
@@ -186,7 +183,7 @@ namespace NetStd.Goodies.Mar2022
 	        if (theDictionary == null || !theDictionary.Any() || key == null)
 		        return 0;
 
-	        var value = theDictionary.ContainsKey(key) ? theDictionary[key] : 0;
+	        var value = theDictionary.TryGetValue(key, out var value1) ? value1 : 0;
 
 	        return value;
         }
@@ -201,8 +198,7 @@ namespace NetStd.Goodies.Mar2022
         ///     True if the key/value is found or false if the dictionary is null or empty, the key is null or whitespace, or
         ///     the key is not found, or the value is null or whitespace.
         /// </returns>
-        public static bool StringDictionaryKvpValueIsMatch(string key,
-	        string value, IDictionary<string, string> theDictionary)
+        public static bool StringDictionaryKvpValueIsMatch(string key, string value, IDictionary<string, string> theDictionary)
         {
             if (theDictionary == null || string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value))
                 return false;
@@ -211,7 +207,6 @@ namespace NetStd.Goodies.Mar2022
 
             return JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(valueObtained, value);
         }
-
 
         /// <summary>
         ///     Merges a collection of dictionaries into a single dictionary, dictated by whether or not the first occurrence of a
@@ -228,8 +223,7 @@ namespace NetStd.Goodies.Mar2022
         ///     the last.
         /// </param>
         /// <returns>The merged dictionary or an empty dictionary if the input array of dictionaries is null.</returns>
-        public static Dictionary<TKey, TValue> MergeMultipleDictionaries<TKey, TValue>(
-            IDictionary<TKey, TValue>[] arrayOfDictionaries, bool firstKvpTakePrecedence)
+        public static Dictionary<TKey, TValue> MergeMultipleDictionaries<TKey, TValue>(IDictionary<TKey, TValue>[] arrayOfDictionaries, bool firstKvpTakePrecedence)
         {
             if (arrayOfDictionaries == null) return new Dictionary<TKey, TValue>();
 
@@ -257,7 +251,6 @@ namespace NetStd.Goodies.Mar2022
             return mergedDictionary;
         }
 
-
         /// <summary>
         ///     Tries the get value from dictionary safely.
         /// </summary>
@@ -269,8 +262,7 @@ namespace NetStd.Goodies.Mar2022
         /// </param>
         /// <param name="theDictionary">The dictionary, which can be null.</param>
         /// <returns>True if the dictionary contains an element with the specified key; otherwise false.</returns>
-        public static bool TryGetValueSafely<TValue>(int theLookupKey,
-	        out TValue theDiscoveredValue, IDictionary<int, TValue> theDictionary) where TValue : class
+        public static bool TryGetValueSafely<TValue>(int theLookupKey, out TValue theDiscoveredValue, IDictionary<int, TValue> theDictionary) where TValue : class
         {
             theDiscoveredValue = null; // dummy. only applicable if the dictionary is null.
 
@@ -282,7 +274,6 @@ namespace NetStd.Goodies.Mar2022
             return answer;
         }
 
-
         /// <summary>
         ///     Adds or updates key/value pair to the dictionary safely. Null values are rejected.
         /// </summary>
@@ -291,8 +282,7 @@ namespace NetStd.Goodies.Mar2022
         /// <param name="theValue">Value to be added.</param>
         /// <param name="theDictionary">The dictionary, which can be null.</param>
         /// <returns>True if the value is not null and the operation completes successfully, false otherwise.</returns>
-        public static bool AddOrUpdateSafely<TValue>(string theLookupKey,
-	        TValue theValue, IDictionary<string, TValue> theDictionary) where TValue : class
+        public static bool AddOrUpdateSafely<TValue>(string theLookupKey, TValue theValue, IDictionary<string, TValue> theDictionary) where TValue : class
         {
 	        if (theDictionary == null)
 		        return false;
@@ -310,6 +300,7 @@ namespace NetStd.Goodies.Mar2022
 
 	        return true;
         }
+
         /// <summary>
         ///     Adds or updates key/value pair to the dictionary safely. Null values are rejected.
         /// </summary>
@@ -318,8 +309,7 @@ namespace NetStd.Goodies.Mar2022
         /// <param name="theValue">Value to be added.</param>
         /// <param name="theDictionary">The dictionary, which can be null.</param>
         /// <returns>True if the value is not null and the operation completes successfully, false otherwise.</returns>
-        public static bool AddOrUpdateSafely<TValue>(int theLookupKey,
-	        TValue theValue, IDictionary<int, TValue> theDictionary) where TValue : class
+        public static bool AddOrUpdateSafely<TValue>(int theLookupKey, TValue theValue, IDictionary<int, TValue> theDictionary) where TValue : class
         {
 	        if (theDictionary == null)
 		        return false;

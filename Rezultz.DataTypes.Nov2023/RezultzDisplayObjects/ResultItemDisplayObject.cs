@@ -261,7 +261,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                         JghString.RightAlign(FormatRelativeRankInSubsetAsNumeratorOverDenominator(model.DerivedData.TotalFinishersInSubsetOfSexWithinRace, model.DerivedData.CalculatedRankInSubsetOfSexWithinRace), 9, ' ');
 
                     displayObject.FractionalPlaceBySexPlusAgeGroupInNumeratorOverDenominatorFormat =
-                        JghString.RightAlign(FormatRelativeRankInSubsetAsNumeratorOverDenominator(model.DerivedData.TotalFinishersInSubsetOfCategoryWithinSexWithinRace, model.DerivedData.CalculatedRankInSubsetOfCategoryWithinSexWithinRace), 9,
+                        JghString.RightAlign(FormatRelativeRankInSubsetAsNumeratorOverDenominator(model.DerivedData.TotalFinishersInSubsetOfAgeGroupWithinSexWithinRace, model.DerivedData.CalculatedRankInSubsetOfAgeGroupWithinSexWithinRace), 9,
                             ' ');
 
                     displayObject.PointsCalculatedAsString = JghString.RightAlign(Math.Round(model.DerivedData.PointsCalculated, 1).ToString("N1"), 7, ' ');

@@ -10,7 +10,6 @@ using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 
 namespace Rezultz.Library01.Mar2024.Repository_algorithms
 {
-
     public static class AlgorithmForPoints
     {
         private const string Locus2 = nameof(AlgorithmForPoints);
@@ -18,7 +17,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 
         #region methods
-		
+
         public static ResultItem[] InsertPoints(EventProfileItem eventProfileToWhichThisRepositoryBelongs,
             ResultItem[] finisherResults, ResultItem[] allComputedResultsDnxIncluded)
         {
@@ -27,7 +26,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             try
             {
-	            #region get ready
+                #region get ready
 
                 if (eventProfileToWhichThisRepositoryBelongs == null)
                     throw new JghNullObjectInstanceException(nameof(eventProfileToWhichThisRepositoryBelongs));
@@ -38,16 +37,16 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 if (allComputedResultsDnxIncluded == null)
                     throw new JghNullObjectInstanceException(nameof(allComputedResultsDnxIncluded));
 
-				#endregion
+                #endregion
 
-				var dictionaryOfPointsForFinishers = GenerateDictionaryOfPointsForAllFinishers(finisherResults, eventProfileToWhichThisRepositoryBelongs);
+                var dictionaryOfPointsForFinishers = GenerateDictionaryOfPointsForAllFinishers(finisherResults, eventProfileToWhichThisRepositoryBelongs);
 
-				foreach (var result in allComputedResultsDnxIncluded.Where(z => z != null)
+                foreach (var result in allComputedResultsDnxIncluded.Where(z => z != null)
                     .Where(z => z.DerivedData != null))
                 {
-	                result.DerivedData.PointsCalculated = dictionaryOfPointsForFinishers.ContainsKey(result.Identifier)
-		                ? dictionaryOfPointsForFinishers[result.Identifier]
-		                : 0;
+                    result.DerivedData.PointsCalculated = dictionaryOfPointsForFinishers.ContainsKey(result.Identifier)
+                        ? dictionaryOfPointsForFinishers[result.Identifier]
+                        : 0;
                 }
 
                 return allComputedResultsDnxIncluded;
@@ -60,12 +59,12 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
         }
 
         public static bool JekyllIsMoreSeniorAtTheEndOfTheKelsoSeriesThanTheBeginning(
-	        SeriesProfileItem seriesProfileToWhichThisRepositoryBelongs, SequenceContainerItem mostRecentEvent, SequenceContainerItem earliestEvent)
+            SeriesProfileItem seriesProfileToWhichThisRepositoryBelongs, SequenceContainerItem mostRecentEvent, SequenceContainerItem earliestEvent)
         {
-	        var becameMoreSenior = ObtainSeniorityRankForPointsTransfer(mostRecentEvent.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup, seriesProfileToWhichThisRepositoryBelongs)
-	                               < ObtainSeniorityRankForPointsTransfer(earliestEvent.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup, seriesProfileToWhichThisRepositoryBelongs);
+            var becameMoreSenior = ObtainSeniorityRankForPointsTransfer(mostRecentEvent.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup, seriesProfileToWhichThisRepositoryBelongs)
+                                   < ObtainSeniorityRankForPointsTransfer(earliestEvent.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup, seriesProfileToWhichThisRepositoryBelongs);
 
-	        return becameMoreSenior;
+            return becameMoreSenior;
         }
 
         #endregion
@@ -73,175 +72,175 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
         #region helpers
 
 
-		private static Dictionary<Tuple<string, string, string, string>, double> GenerateDictionaryOfPointsForAllFinishers(ResultItem[] allFinisherResults, EventProfileItem eventProfileToWhichThisRepositoryBelongs)
-		{
-
-			#region get ready
-
-			var dictionaryOfCalculatedPointsForAllFinishers =
-				new Dictionary<Tuple<string, string, string, string>, double>();
-
-			if (allFinisherResults == null)
-				return dictionaryOfCalculatedPointsForAllFinishers;
-
-			if (eventProfileToWhichThisRepositoryBelongs == null)
-				return dictionaryOfCalculatedPointsForAllFinishers;
-
-			if (eventProfileToWhichThisRepositoryBelongs.EventSettingsItem == null)
-				return dictionaryOfCalculatedPointsForAllFinishers;
-
-			var algorithmForPointsEnum =
-				eventProfileToWhichThisRepositoryBelongs.EventSettingsItem.AlgorithmForCalculatingPointsEnumString;
-
-			if (string.IsNullOrWhiteSpace(algorithmForPointsEnum))
-				return dictionaryOfCalculatedPointsForAllFinishers;
-
-
-			#endregion
-
-			/*  nothing required to be calculated or recalculated at the collection level
-             *  we have all the metrics we need in the DerivedData for each finisher.
-             */
-			foreach (var individualResult in allFinisherResults
-				.Where(z => z != null)
-				.Where(z => z.DerivedData != null)
-				.Where(z => z.DerivedData.IsValidDuration = true))
-			{
-
-				#region only required for cx. otherwise ignored. find the points scale as a precaution.
-
-				double trophyPointsForThisRace = 0;
-
-				Dictionary<int, double> pointsScaleAsDictionary = new();
-
-				RaceSpecificationItem raceSpecificationForThisRace = eventProfileToWhichThisRepositoryBelongs.EventSettingsItem.RaceSpecificationItems?
-					.FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Label, individualResult.RaceGroup));
-
-				if (raceSpecificationForThisRace != null)
-				{
-					switch (algorithmForPointsEnum)
-					{
-						case EnumStringsForSeriesProfile.ProportionalToSpeed:
-						case EnumStringsForSeriesProfile.SimpleCountDownFromTrophyPoints:
-							trophyPointsForThisRace = raceSpecificationForThisRace.TrophyPoints;
-							break;
-						case EnumStringsForSeriesProfile.PointsScaleForEachRace:
-						{
-							var pointsScaleForThisRaceAsStringArray = raceSpecificationForThisRace.PointsScaleAsCsv.Split(',');
-
-							var i = 1;
-
-							foreach (var pointsValueAsString in pointsScaleForThisRaceAsStringArray)
-							{
-								if (!JghConvert.TryConvertToDouble(pointsValueAsString, out var poinstValueAsDouble,
-									out _)) continue;
-
-								pointsScaleAsDictionary.Add(i, poinstValueAsDouble);
-
-								i += 1;
-							}
-
-							break;
-						}
-					}
-				}
-
-				#endregion
-
-				dictionaryOfCalculatedPointsForAllFinishers[individualResult.Identifier] =
-					CalculatePointsForThisCompetitor(individualResult, algorithmForPointsEnum, trophyPointsForThisRace, pointsScaleAsDictionary);
-			}
-
-			return dictionaryOfCalculatedPointsForAllFinishers;
-		}
-
-		private static double CalculatePointsForThisCompetitor(ResultItem individualResult, string algorithmForPointsEnum,
-			double trophyPointsForThisRace, Dictionary<int, double> pointsScaleForThisRaceAsDictionary)
+        private static Dictionary<Tuple<string, string, string, string>, double> GenerateDictionaryOfPointsForAllFinishers(ResultItem[] allFinisherResults, EventProfileItem eventProfileToWhichThisRepositoryBelongs)
         {
 
-	        double answer;
+            #region get ready
 
-	        switch (algorithmForPointsEnum)
-	        {
-		        case EnumStringsForSeriesProfile.ProportionalToSpeed:
-		        {
+            var dictionaryOfCalculatedPointsForAllFinishers =
+                new Dictionary<Tuple<string, string, string, string>, double>();
 
-					// mtb
+            if (allFinisherResults == null)
+                return dictionaryOfCalculatedPointsForAllFinishers;
 
-			        answer = CalculateRelativeSpeedInSubsetAsDecimalRatio(
-				                 individualResult.DerivedData.TotalDurationFromAlgorithmInSeconds,
-				                 individualResult.DerivedData.TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds)
-			                 * trophyPointsForThisRace;
-			        break;
+            if (eventProfileToWhichThisRepositoryBelongs == null)
+                return dictionaryOfCalculatedPointsForAllFinishers;
 
-		        }
-		        case EnumStringsForSeriesProfile.SimpleCountDownFromTrophyPoints:
-		        {
+            if (eventProfileToWhichThisRepositoryBelongs.EventSettingsItem == null)
+                return dictionaryOfCalculatedPointsForAllFinishers;
 
-						// no one has used this yet, just here as an option for the future
+            var algorithmForPointsEnum =
+                eventProfileToWhichThisRepositoryBelongs.EventSettingsItem.AlgorithmForCalculatingPointsEnumString;
 
-						answer = trophyPointsForThisRace - (individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace - 1);
-						//answer = individualResult.TrophyPoints - (individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace - 1);
+            if (string.IsNullOrWhiteSpace(algorithmForPointsEnum))
+                return dictionaryOfCalculatedPointsForAllFinishers;
 
-						if (answer < 0) answer = 0;
 
-			        break;
-		        }
-		        case EnumStringsForSeriesProfile.PointsScaleForEachRace:
-		        {
-			        try
-			        {
-						// cx
+            #endregion
 
-				        answer = JghDictionaryHelpers.LookUpValueSafely(
-					        individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace, pointsScaleForThisRaceAsDictionary);
-			        }
-			        catch (Exception)
-			        {
-				        return 0;
-			        }
+            /*  nothing required to be calculated or recalculated at the collection level
+             *  we have all the metrics we need in the DerivedData for each finisher.
+             */
+            foreach (var individualResult in allFinisherResults
+                .Where(z => z != null)
+                .Where(z => z.DerivedData != null)
+                .Where(z => z.DerivedData.IsValidDuration = true))
+            {
 
-			        break;
-		        }
+                #region only required for cx. otherwise ignored. find the points scale as a precaution.
 
-		        default:
-			        answer = 0;
-			        break;
-	        }
+                double trophyPointsForThisRace = 0;
 
-	        return answer;
+                Dictionary<int, double> pointsScaleAsDictionary = new();
+
+                RaceSpecificationItem raceSpecificationForThisRace = eventProfileToWhichThisRepositoryBelongs.EventSettingsItem.RaceSpecificationItems?
+                    .FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Label, individualResult.RaceGroup));
+
+                if (raceSpecificationForThisRace != null)
+                {
+                    switch (algorithmForPointsEnum)
+                    {
+                        case EnumStringsForSeriesProfile.ProportionalToSpeed:
+                        case EnumStringsForSeriesProfile.SimpleCountDownFromTrophyPoints:
+                            trophyPointsForThisRace = raceSpecificationForThisRace.TrophyPoints;
+                            break;
+                        case EnumStringsForSeriesProfile.PointsScaleForEachRace:
+                            {
+                                var pointsScaleForThisRaceAsStringArray = raceSpecificationForThisRace.PointsScaleAsCsv.Split(',');
+
+                                var i = 1;
+
+                                foreach (var pointsValueAsString in pointsScaleForThisRaceAsStringArray)
+                                {
+                                    if (!JghConvert.TryConvertToDouble(pointsValueAsString, out var poinstValueAsDouble,
+                                        out _)) continue;
+
+                                    pointsScaleAsDictionary.Add(i, poinstValueAsDouble);
+
+                                    i += 1;
+                                }
+
+                                break;
+                            }
+                    }
+                }
+
+                #endregion
+
+                dictionaryOfCalculatedPointsForAllFinishers[individualResult.Identifier] =
+                    CalculatePointsForThisCompetitor(individualResult, algorithmForPointsEnum, trophyPointsForThisRace, pointsScaleAsDictionary);
+            }
+
+            return dictionaryOfCalculatedPointsForAllFinishers;
         }
 
-		private static int ObtainSeniorityRankForPointsTransfer(string raceLabel,
-			SeriesProfileItem seriesProfileToWhichThisRepositoryBelongs)
-		{
+        private static double CalculatePointsForThisCompetitor(ResultItem individualResult, string algorithmForPointsEnum,
+            double trophyPointsForThisRace, Dictionary<int, double> pointsScaleForThisRaceAsDictionary)
+        {
 
-			if (string.IsNullOrWhiteSpace(raceLabel) || seriesProfileToWhichThisRepositoryBelongs?.DefaultEventSettingsForAllEvents.RaceSpecificationItems == null)
-				return 0;
+            double answer;
 
-			var matchingRaceSpec = seriesProfileToWhichThisRepositoryBelongs.DefaultEventSettingsForAllEvents.RaceSpecificationItems
-				.FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Label, raceLabel));
+            switch (algorithmForPointsEnum)
+            {
+                case EnumStringsForSeriesProfile.ProportionalToSpeed:
+                    {
 
-			if (matchingRaceSpec == null)
-				return 0;
+                        // mtb
 
-			var answer = matchingRaceSpec.SeniorityRankForPointsTransfer;
+                        answer = CalculateRelativeSpeedInSubsetAsDecimalRatio(
+                                     individualResult.DerivedData.TotalDurationFromAlgorithmInSeconds,
+                                     individualResult.DerivedData.TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds)
+                                 * trophyPointsForThisRace;
+                        break;
 
-			return answer;
+                    }
+                case EnumStringsForSeriesProfile.SimpleCountDownFromTrophyPoints:
+                    {
 
-		}
+                        // no one has used this yet, just here as an option for the future
 
-		private static double CalculateRelativeSpeedInSubsetAsDecimalRatio(double durationInSeconds,
-			double timeGapBehindWinnerInSeconds)
-		{
-			var winningDurationInSeconds = durationInSeconds - timeGapBehindWinnerInSeconds;
+                        answer = trophyPointsForThisRace - (individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace - 1);
+                        //answer = individualResult.TrophyPoints - (individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace - 1);
+
+                        if (answer < 0) answer = 0;
+
+                        break;
+                    }
+                case EnumStringsForSeriesProfile.PointsScaleForEachRace:
+                    {
+                        try
+                        {
+                            // cx
+
+                            answer = JghDictionaryHelpers.LookUpValueSafely(
+                                individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace, pointsScaleForThisRaceAsDictionary);
+                        }
+                        catch (Exception)
+                        {
+                            return 0;
+                        }
+
+                        break;
+                    }
+
+                default:
+                    answer = 0;
+                    break;
+            }
+
+            return answer;
+        }
+
+        private static int ObtainSeniorityRankForPointsTransfer(string raceLabel,
+            SeriesProfileItem seriesProfileToWhichThisRepositoryBelongs)
+        {
+
+            if (string.IsNullOrWhiteSpace(raceLabel) || seriesProfileToWhichThisRepositoryBelongs?.DefaultEventSettingsForAllEvents.RaceSpecificationItems == null)
+                return 0;
+
+            var matchingRaceSpec = seriesProfileToWhichThisRepositoryBelongs.DefaultEventSettingsForAllEvents.RaceSpecificationItems
+                .FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Label, raceLabel));
+
+            if (matchingRaceSpec == null)
+                return 0;
+
+            var answer = matchingRaceSpec.SeniorityRankForPointsTransfer;
+
+            return answer;
+
+        }
+
+        private static double CalculateRelativeSpeedInSubsetAsDecimalRatio(double durationInSeconds,
+            double timeGapBehindWinnerInSeconds)
+        {
+            var winningDurationInSeconds = durationInSeconds - timeGapBehindWinnerInSeconds;
 
             return JghMath.GuardAgainstDivisionByZero(winningDurationInSeconds, durationInSeconds, 0);
         }
 
 
-		#endregion
+        #endregion
 
-	}
+    }
 
 }

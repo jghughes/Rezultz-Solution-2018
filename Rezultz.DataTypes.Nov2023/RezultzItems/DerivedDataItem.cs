@@ -28,6 +28,8 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public int PlaceCalculatedOverallInt { get; set; }
 
+        public int PlaceCalculatedOverallIntExcludingNonSeriesParticipants { get; set; }
+
         public string DnxStringFromAlgorithm { get; set; }
 
         public double TotalDurationFromAlgorithmInSeconds { get; set; }
@@ -36,25 +38,29 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public double TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds { get; set; }
 
-        public double TimeGapBehindWinnerOfSubsetOfCategoryWithinSexWithinRaceInSeconds { get; set; }
+        public double TimeGapBehindWinnerOfSubsetOfAgeGroupWithinSexWithinRaceInSeconds { get; set; }
 
         public int SplitsBehindWinnerOfRace { get; set; }
 
         public int SplitsBehindWinnerOfSubsetOfSexWithinRace { get; set; }
 
-        public int SplitsBehindWinnerOfSubsetOfCategoryWithinSexWithinRace { get; set; }
+        public int SplitsBehindWinnerOfSubsetOfAgeGroupWithinSexWithinRace { get; set; }
 
         public int CalculatedNumOfSplitsCompleted { get; set; }
 
         public int CalculatedRankInSubsetOfSexWithinRace { get; set; }
 
-        public int CalculatedRankInSubsetOfCategoryWithinSexWithinRace { get; set; }
+        public int CalculatedRankInSubsetOfAgeGroupWithinSexWithinRace { get; set; }
+
+        public int CalculatedRankInSubsetOfSexWithinRaceExcludingNonSeriesParticipants { get; set; }
+
+        public int CalculatedRankInSubsetOfAgeGroupWithinSexWithinRaceExcludingNonSeriesParticipants { get; set; }
 
         public int TotalFinishersInRace { get; set; }
 
         public int TotalFinishersInSubsetOfSexWithinRace { get; set; }
 
-        public int TotalFinishersInSubsetOfCategoryWithinSexWithinRace { get; set; }
+        public int TotalFinishersInSubsetOfAgeGroupWithinSexWithinRace { get; set; }
 
         public double PointsCalculated { get; set; }
 

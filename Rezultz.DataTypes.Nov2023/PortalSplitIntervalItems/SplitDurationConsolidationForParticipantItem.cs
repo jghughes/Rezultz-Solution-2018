@@ -8,7 +8,7 @@ using Rezultz.DataTypes.Nov2023.PortalHubItems;
 
 namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 {
-    public class SplitIntervalConsolidationForParticipantItem
+    public class SplitDurationConsolidationForParticipantItem
     {
 
         #region props
@@ -53,7 +53,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
         #region methods
 
-        public static string ToLabel(SplitIntervalConsolidationForParticipantItem item)
+        public static string ToLabel(SplitDurationConsolidationForParticipantItem item)
         {
             if (item == null) return string.Empty;
 
@@ -76,7 +76,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
         }
 
-        public static ResultDto ToResultItemDataTransferObject(SplitIntervalConsolidationForParticipantItem item)
+        public static ResultDto ToResultItemDataTransferObject(SplitDurationConsolidationForParticipantItem item)
         {
             string ToSplitIntervalDuration(long intervalDurationTicks)
             {

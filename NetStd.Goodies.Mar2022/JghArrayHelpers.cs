@@ -456,5 +456,20 @@ namespace NetStd.Goodies.Mar2022
 
             return answer;
         }
+
+        public static T[] AggregateArrays(IEnumerable<T[]> arrays)
+        {
+            var answer = new List<T>();
+
+            foreach (var array in arrays)
+            {
+                if (array == null)
+                    continue;
+
+                answer.AddRange(array);
+            }
+
+            return answer.ToArray();
+        }
     }
 }

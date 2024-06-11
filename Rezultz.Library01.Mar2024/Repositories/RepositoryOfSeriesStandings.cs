@@ -315,7 +315,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectAllIndividualResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup))
@@ -339,7 +339,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectAllIndividualResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.MostRecentResultItemToWhichThisSequenceApplies.Gender))
@@ -363,7 +363,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectAllIndividualResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.MostRecentResultItemToWhichThisSequenceApplies.AgeGroup))
@@ -387,7 +387,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 if (_repositoryIsInitialised == false)
                     return [];
 
-                return await AlgorithmForPlacings.ComposeTableOfCohortHistogramsGroupedByStringAsync
+                return await AlgorithmForPlacingsV2.ComposeTableOfCohortHistogramsGroupedByStringAsync
                 (
                     SelectAllIndividualResults()
                         .Where(z => !string.IsNullOrWhiteSpace(z.MostRecentResultItemToWhichThisSequenceApplies.City))
@@ -1072,7 +1072,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                                     // if seniority has decreased make no changes, do nothing - accept the most recent finishers' points array. his array will by default reflect zero points during the time he was in more senior category which is what we want. otherwise update
 
-                                    if (AlgorithmForPoints.JekyllIsMoreSeniorAtTheEndOfTheKelsoSeriesThanTheBeginning(_seriesProfileItemToWhichThisRepositoryBelongs, mostRecentEvent, earliestEvent))
+                                    if (AlgorithmForPointsV2.JekyllIsMoreSeniorAtTheEndOfTheKelsoSeriesThanTheBeginning(_seriesProfileItemToWhichThisRepositoryBelongs, mostRecentEvent, earliestEvent))
                                     {
                                         var dictionaryOfDataPoints = mostRecentEvent.SequenceOfSourceData;
 

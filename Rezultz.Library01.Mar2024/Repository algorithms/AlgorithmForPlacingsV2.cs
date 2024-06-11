@@ -10,9 +10,9 @@ using Rezultz.DataTypes.Nov2023.RezultzItems;
 
 namespace Rezultz.Library01.Mar2024.Repository_algorithms
 {
-    public static class AlgorithmForPlacings
+    public static class AlgorithmForPlacingsV2
 	{
-		private const string Locus2 = nameof(AlgorithmForPlacings);
+		private const string Locus2 = nameof(AlgorithmForPlacingsV2);
 		private const string Locus3 = "[Rezultz.Library01.Mar2024]";
 
 		#region methods
@@ -198,27 +198,21 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 				{
 					var dictionaryOfResultsInSubgroup = subgroup.ToDictionary(x => x.Key, x => x.Value);
 
-					var scratchPad =
-						await CalculateScratchPadOfRankingsForArbitrarySubsetOfResultsAsync(
-							dictionaryOfResultsInSubgroup);
+					var scratchPad = await CalculateScratchPadOfRankingsForArbitrarySubsetOfResultsAsync(dictionaryOfResultsInSubgroup);
 
 					foreach (var kvp in dictionaryOfResultsInSubgroup)
 					{
                         // method assumes that the ID property of the item and its key in the dictionary are one and the same
-						if (!JghDictionaryHelpers.TryGetValueSafely(kvp.Key,
-							out var theDiscoveredScratchPadItemValue, scratchPad))
+						if (!JghDictionaryHelpers.TryGetValueSafely(kvp.Key, out var theDiscoveredScratchPadItemValue, scratchPad))
 							continue;
 
-						// NB be sure to paste in data fields into dictionaryOfAllindividualResults, not dictionaryOfIndividualResultsInSubgroup
+						// NB be sure to paste in data fields into dictionaryOfAllIndividualResults, not dictionaryOfIndividualResultsInSubgroup
 
-						dictionaryOfAllResults[kvp.Key].DerivedData.TotalFinishersInRace =
-							theDiscoveredScratchPadItemValue.TotalItemsInSubset;
-						dictionaryOfAllResults[kvp.Key].DerivedData.PlaceCalculatedOverallInt =
-							theDiscoveredScratchPadItemValue.RankInSubsetInt;
-						dictionaryOfAllResults[kvp.Key].DerivedData.TimeGapBehindWinnerOfRaceInSeconds =
-							theDiscoveredScratchPadItemValue.TimeBehindWinnerOfSubsetInSeconds;
-						dictionaryOfAllResults[kvp.Key].DerivedData.SplitsBehindWinnerOfRace =
-							theDiscoveredScratchPadItemValue.SplitsBehindWinnerOfSubset;
+						dictionaryOfAllResults[kvp.Key].DerivedData.TotalFinishersInRace = theDiscoveredScratchPadItemValue.TotalItemsInSubset;
+                        dictionaryOfAllResults[kvp.Key].DerivedData.PlaceCalculatedOverallInt = theDiscoveredScratchPadItemValue.RankInSubsetInt;
+                        dictionaryOfAllResults[kvp.Key].DerivedData.PlaceCalculatedOverallIntExcludingNonSeriesParticipants = theDiscoveredScratchPadItemValue.RankInSubsetIntSkippingOverNonSeriesParticipants;
+						dictionaryOfAllResults[kvp.Key].DerivedData.TimeGapBehindWinnerOfRaceInSeconds = theDiscoveredScratchPadItemValue.TimeBehindWinnerOfSubsetInSeconds;
+						dictionaryOfAllResults[kvp.Key].DerivedData.SplitsBehindWinnerOfRace = theDiscoveredScratchPadItemValue.SplitsBehindWinnerOfSubset;
 					}
 				}
 
@@ -255,16 +249,15 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 					var subGroups = dictionaryOfAllResults
 						.Where(item => item.Value.DerivedData != null)
 						.Where(item => item.Value.DerivedData.IsValidDuration)
-						.GroupBy(item => new {Race = item.Value.RaceGroup, item.Value.Gender }).ToArray();
+						.GroupBy(item => new {Race = item.Value.RaceGroup, item.Value.Gender })
+                        .ToArray();
 
 
 					foreach (var subgroup in subGroups)
 					{
 						var dictionaryOfResultsInSubgroup = subgroup.ToDictionary(x => x.Key, x => x.Value);
 
-						var scratchPad =
-							await CalculateScratchPadOfRankingsForArbitrarySubsetOfResultsAsync(
-								dictionaryOfResultsInSubgroup);
+						var scratchPad = await CalculateScratchPadOfRankingsForArbitrarySubsetOfResultsAsync(dictionaryOfResultsInSubgroup);
 
 						foreach (var kvp in dictionaryOfResultsInSubgroup)
 						{
@@ -273,16 +266,12 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 								out var theDiscoveredScratchPadItemValue, scratchPad))
 								continue;
 
-							// NB be sure to paste data fields into dictionaryOfAllindividualResults, not dictionaryOfIndividualResultsInSubgroup
-							dictionaryOfAllResults[kvp.Key].DerivedData.TotalFinishersInSubsetOfSexWithinRace =
-								theDiscoveredScratchPadItemValue.TotalItemsInSubset;
-							dictionaryOfAllResults[kvp.Key].DerivedData.CalculatedRankInSubsetOfSexWithinRace =
-								theDiscoveredScratchPadItemValue.RankInSubsetInt;
-							dictionaryOfAllResults[kvp.Key].DerivedData
-								.TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds = theDiscoveredScratchPadItemValue
-								.TimeBehindWinnerOfSubsetInSeconds;
-							dictionaryOfAllResults[kvp.Key].DerivedData.SplitsBehindWinnerOfSubsetOfSexWithinRace =
-								theDiscoveredScratchPadItemValue.SplitsBehindWinnerOfSubset;
+							// NB be sure to paste data fields into dictionaryOfAllIndividualResults, not dictionaryOfIndividualResultsInSubgroup
+							dictionaryOfAllResults[kvp.Key].DerivedData.TotalFinishersInSubsetOfSexWithinRace = theDiscoveredScratchPadItemValue.TotalItemsInSubset;
+                            dictionaryOfAllResults[kvp.Key].DerivedData.CalculatedRankInSubsetOfSexWithinRace = theDiscoveredScratchPadItemValue.RankInSubsetInt;
+                            dictionaryOfAllResults[kvp.Key].DerivedData.CalculatedRankInSubsetOfSexWithinRaceExcludingNonSeriesParticipants = theDiscoveredScratchPadItemValue.RankInSubsetIntSkippingOverNonSeriesParticipants;
+							dictionaryOfAllResults[kvp.Key].DerivedData.TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds = theDiscoveredScratchPadItemValue.TimeBehindWinnerOfSubsetInSeconds;
+							dictionaryOfAllResults[kvp.Key].DerivedData.SplitsBehindWinnerOfSubsetOfSexWithinRace = theDiscoveredScratchPadItemValue.SplitsBehindWinnerOfSubset;
 						}
 					}
 				}
@@ -326,31 +315,21 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 					{
 						var dictionaryOfResultsInSubgroup = subgroup.ToDictionary(x => x.Key, x => x.Value);
 
-						var scratchPad =
-							await CalculateScratchPadOfRankingsForArbitrarySubsetOfResultsAsync(
-								dictionaryOfResultsInSubgroup);
+						var scratchPad = await CalculateScratchPadOfRankingsForArbitrarySubsetOfResultsAsync(dictionaryOfResultsInSubgroup);
 
 						foreach (var kvp in dictionaryOfResultsInSubgroup)
 						{
                             // method assumes that the ID property of the item and its key in the dictionary are one and the same
-							if (!JghDictionaryHelpers.TryGetValueSafely(kvp.Key,
-								out var theDiscoveredScratchPadItemValue, scratchPad))
+							if (!JghDictionaryHelpers.TryGetValueSafely(kvp.Key, out var theDiscoveredScratchPadItemValue, scratchPad))
 								continue;
 
 							// NB be sure to paste data fields into dictionaryOfAllindividualResults, not dictionaryOfIndividualResultsInSubgroup
 
-							dictionaryOfAllResults[kvp.Key].DerivedData
-									.TotalFinishersInSubsetOfAgeGroupWithinSexWithinRace =
-								theDiscoveredScratchPadItemValue.TotalItemsInSubset;
-							dictionaryOfAllResults[kvp.Key].DerivedData
-									.CalculatedRankInSubsetOfAgeGroupWithinSexWithinRace =
-								theDiscoveredScratchPadItemValue.RankInSubsetInt;
-							dictionaryOfAllResults[kvp.Key].DerivedData
-									.TimeGapBehindWinnerOfSubsetOfAgeGroupWithinSexWithinRaceInSeconds =
-								theDiscoveredScratchPadItemValue.TimeBehindWinnerOfSubsetInSeconds;
-							dictionaryOfAllResults[kvp.Key].DerivedData
-									.SplitsBehindWinnerOfSubsetOfAgeGroupWithinSexWithinRace =
-								theDiscoveredScratchPadItemValue.SplitsBehindWinnerOfSubset;
+							dictionaryOfAllResults[kvp.Key].DerivedData.TotalFinishersInSubsetOfAgeGroupWithinSexWithinRace = theDiscoveredScratchPadItemValue.TotalItemsInSubset;
+                            dictionaryOfAllResults[kvp.Key].DerivedData.CalculatedRankInSubsetOfAgeGroupWithinSexWithinRace = theDiscoveredScratchPadItemValue.RankInSubsetInt;
+                            dictionaryOfAllResults[kvp.Key].DerivedData.CalculatedRankInSubsetOfAgeGroupWithinSexWithinRaceExcludingNonSeriesParticipants = theDiscoveredScratchPadItemValue.RankInSubsetIntSkippingOverNonSeriesParticipants;
+							dictionaryOfAllResults[kvp.Key].DerivedData.TimeGapBehindWinnerOfSubsetOfAgeGroupWithinSexWithinRaceInSeconds = theDiscoveredScratchPadItemValue.TimeBehindWinnerOfSubsetInSeconds;
+							dictionaryOfAllResults[kvp.Key].DerivedData.SplitsBehindWinnerOfSubsetOfAgeGroupWithinSexWithinRace = theDiscoveredScratchPadItemValue.SplitsBehindWinnerOfSubset;
 						}
 					}
 				}
@@ -390,13 +369,12 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 				// find the winner and calculate placings and percentiles off him
 				// NB always be sure to sidestep rubbish results i.e. those with durations less than 1 sec - this protection is empirical!
 
-				KeyValuePair<int, ResultItem>[] participantsInCorrectOrder;
-
-				participantsInCorrectOrder = results.Where(kvp => kvp.Value.DerivedData != null)
-					.Where(kvp => kvp.Value.DerivedData.IsValidDuration)
-					.Where(kvp => kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds > 1)
-					.OrderByDescending(kvp => kvp.Value.DerivedData.CalculatedNumOfSplitsCompleted)
-					.ThenBy(kvp => kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds)
+                var participantsInCorrectOrder = results
+                    .Where(kvp => kvp.Value.DerivedData != null)
+                    .Where(kvp => kvp.Value.DerivedData.IsValidDuration)
+                    .Where(kvp => kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds > 1)
+                    .OrderByDescending(kvp => kvp.Value.DerivedData.CalculatedNumOfSplitsCompleted)
+                    .ThenBy(kvp => kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds)
                     .ToArray();
 
 				var winnerKvp = participantsInCorrectOrder.FirstOrDefault();
@@ -411,25 +389,35 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 				var winningNumOfSplits = winnerKvp.Value.DerivedData.CalculatedNumOfSplitsCompleted;
 
-				// OK. placing data
+                // OK. placing data
 
-				var i = 1;
+                var i = 1;
+                var j = 1;
 
-				var numInSubset = participantsInCorrectOrder.Length;
+                var numInSubset = participantsInCorrectOrder.Length;
 
 				foreach (var kvp in participantsInCorrectOrder)
 				{
 					if (kvp.Value == null) continue;
 
-					var scratchPadItem =
-						new ScratchPadItemForDerivedResultData(kvp.Value
-							.DerivedData); // don't do what resharper suggests. don't use initialiser. risky
+					var scratchPadItem = new ScratchPadItemForDerivedResultData(kvp.Value.DerivedData); // don't do what resharper suggests. don't use initialiser. risky
 
 					scratchPadItem.TotalItemsInSubset = numInSubset;
 
 					scratchPadItem.RankInSubsetInt = i;
 
-					scratchPadItem.TimeBehindWinnerOfSubsetInSeconds = kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds - winningDurationSeconds;
+					if(kvp.Value.IsSeries)
+                    {
+                        scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = j;
+                        j++;
+                    }
+                    else
+                    {
+                        scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = 0;
+
+                    }
+
+                    scratchPadItem.TimeBehindWinnerOfSubsetInSeconds = kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds - winningDurationSeconds;
 
 					scratchPadItem.SplitsBehindWinnerOfSubset = winningNumOfSplits - kvp.Value.DerivedData.CalculatedNumOfSplitsCompleted;
 

@@ -347,7 +347,7 @@ public sealed partial class KeepTimeToolsPage
                 }
                 case exportTimeStampsPairedIntoSplitsPerPersonButtonCommand:
                 {
-                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "DraftResultsForLeaderboard");
+                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "SplitIntervalsExportedFromRezultzPortalTimingSystem");
                     break;
                 }
                 default:
@@ -655,9 +655,9 @@ public sealed partial class KeepTimeToolsPage
         savePicker.FileTypeChoices.Add("Text document", new List<string> {".txt"});
     }
 
-    private RepositoryOfSplitIntervalsPerParticipant CreateRepositoryOfSplitIntervalsPerParticipant()
+    private RepositoryOfSplitDurationsPerParticipant CreateRepositoryOfSplitIntervalsPerParticipant()
     {
-        var repositoryOfSplitIntervals = new RepositoryOfSplitIntervalsPerParticipant();
+        var repositoryOfSplitIntervals = new RepositoryOfSplitDurationsPerParticipant();
 
         var currentEvent = EventItemDisplayObject.ObtainSourceModel(ViewModel.SeasonProfileAndIdentityValidationVm.CboLookupEventVm.CurrentItem);
 
