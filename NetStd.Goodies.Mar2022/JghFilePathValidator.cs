@@ -797,11 +797,11 @@ namespace NetStd.Goodies.Mar2022
 			return true;
 		}
 
-        public static string MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(string suffix)
+        public static string MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(string filename)
         {
             var timestamp = DateTime.Now.ToString(JghDateTime.SortablePattern);
 
-            var candidate = $"{timestamp}+{suffix}";
+            var candidate = $"{timestamp}+{filename}";
 
             var hopefullyValidFileName = AttemptToMakeValidNtfsFileOrFolderNameByReplacingInvalidCharacters('-', candidate);
 

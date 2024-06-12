@@ -17,6 +17,21 @@ namespace NetStd.Goodies.Mar2022
 
         #region methods
 
+        public void Append(string text)
+        {
+            _sb.Append(text);
+        }
+
+        public void AppendAsNewSentence(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return;
+            _sb.Append(" ");
+
+            _sb.Append(text);
+        }
+
+
         public void AppendLine()
     {
         _sb.AppendLine();

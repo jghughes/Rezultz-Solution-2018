@@ -373,8 +373,7 @@ namespace NetStd.Goodies.Mar2022
         ///     The most recent item that occurred in the past or failing that the soonest item that will occur in future.
         ///     Null if the collection is null or empty or contains no items that occurred in the past.
         /// </returns>
-        public static T
-            SelectMostRecentItemBeforeDateTimeNowInArrayOfItemsOrFailingThatPickTheEarliest<T>(T[] manyItems)
+        public static T SelectMostRecentItemBeforeDateTimeNowInArrayOfItemsOrFailingThatPickTheEarliest<T>(T[] manyItems)
             where T : class, IHasAdvertisedDate, new()
         {
             if (manyItems == null) return null;
@@ -457,7 +456,7 @@ namespace NetStd.Goodies.Mar2022
             return answer;
         }
 
-        public static T[] AggregateArrays(IEnumerable<T[]> arrays)
+        public static T[] AggregateArrays<T>(IEnumerable<T[]> arrays)
         {
             var answer = new List<T>();
 

@@ -56,6 +56,8 @@ namespace Tool12
 
         public int T12 { get; set; }
 
+        public bool IsDefective => string.IsNullOrWhiteSpace(Bib) || string.IsNullOrWhiteSpace(FullName) || string.IsNullOrWhiteSpace(RaceGroup) || (RaceGroup != "expert" && RaceGroup != "intermediate" && RaceGroup != "novice" && RaceGroup != "sport");
+
         public string Comment { get; set; } = string.Empty;
 
         public string Guid { get; } = System.Guid.NewGuid().ToString();
@@ -108,6 +110,38 @@ namespace Tool12
 
                 answer.IsSeries = JghString.JghContains("Series-Full Series", x.Product, StringComparison.OrdinalIgnoreCase) || JghString.JghContains("Kids Series", x.Product, StringComparison.OrdinalIgnoreCase);
 
+                if(answer.IsDefective)
+                {
+                    var sb = new JghStringBuilder();
+
+                    if (string.IsNullOrWhiteSpace(answer.Bib))
+                    {
+                        sb.Append("Bib is blank.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(answer.FullName))
+                    {
+                        sb.AppendAsNewSentence("Full name is blank.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(answer.Sex))
+                    {
+                        sb.AppendAsNewSentence("Gender is blank.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(answer.RaceGroup))
+                    {
+                        sb.AppendAsNewSentence("Category is blank.");
+                    }
+
+                    if (answer.RaceGroup != "expert" && answer.RaceGroup != "intermediate" && answer.RaceGroup != "novice" && answer.RaceGroup != "sport" )
+                    {
+                        sb.AppendAsNewSentence("Category is not valid.");
+                    }
+
+                    answer.Comment = sb.ToString();
+
+                }
                 return answer;
             }
             #region trycatch
