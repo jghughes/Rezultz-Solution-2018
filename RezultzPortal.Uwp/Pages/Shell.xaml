@@ -77,7 +77,7 @@
                 Icon="Document" />
 
             <NavigationViewItem
-                Content="create timestamps"
+                Content="timestamps"
                 helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.KeepTimeWorkingPage"
                 Icon="Document" />
 
@@ -101,7 +101,7 @@
                 Icon="Document" />
 
             <NavigationViewItem
-                Content="register participants"
+                Content="participants"
                 helpers:NavHelper.NavigateTo="RezultzPortal.Uwp.Pages.RegisterParticipantsWorkingPage"
                 Icon="Document" />
 
