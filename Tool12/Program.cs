@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
@@ -101,7 +100,7 @@ internal class Program
 
                 foreach (var participantHubItem in participantHubItems)
                     if (!string.IsNullOrWhiteSpace(participantHubItem.Bib))
-                        participantsInPortalDict.Add(participantHubItem.Bib, participantHubItem);
+                        participantsInPortalKeyedByBibDictionary.Add(participantHubItem.Bib, participantHubItem);
             }
             catch (Exception ex)
             {
@@ -178,7 +177,7 @@ internal class Program
                     PrintSummaryOfFileEntries(fileInfo, seriesParticipantsWithPoints);
 
                     foreach (var participantWithPoints in seriesParticipantsWithPoints)
-                        participantsWithPointsDict.Add(participantWithPoints.Bib, participantWithPoints);
+                        participantsWithPointsKeyedByBibDictionary.Add(participantWithPoints.Bib, participantWithPoints);
 
 
                     totalPeopleWithPoints += seriesParticipantsWithPoints.Count;
@@ -189,26 +188,31 @@ internal class Program
                     console.WriteLine("");
                 }
 
-            console.WriteLine();
-            console.WriteLine($"Grand total entries with points: {totalPeopleWithPoints}");
-            console.WriteLine();
+            console.WriteLine($"Total entries with points: {totalPeopleWithPoints}");
 
             #endregion
 
-            #region print one-off participants
+            #region print one-off participants - works perfectly - commented out for now
 
-            var oneOffParticipantsInPortal = participantsInPortalDict.FindAllValues(z => !z.IsSeries).ToArray();
-            var oneOffParticipantsWithPoints = participantsWithPointsDict.FindAllValues(z => !z.IsSeries).ToArray(); // there shouldn't be any by definition
+            //var oneOffParticipantsInPortal = participantsInPortalKeyedByBibDictionary.FindAllValues(z => !z.IsSeries).ToArray();
+            //var oneOffParticipantsWithPoints = participantsWithPointsKeyedByBibDictionary.FindAllValues(z => !z.IsSeries).ToArray(); // there shouldn't be any by definition
 
-            console.WriteLine($"One-off participants in Portal: {oneOffParticipantsInPortal.Length}");
-            PrintPeople(oneOffParticipantsInPortal.OrderBy(z => z.RaceGroupBeforeTransition).ThenBy(z => z.Bib));
+            //console.WriteLinePrecededByOne($"One-off participants in Portal: {oneOffParticipantsInPortal.Length}");
+            //PrintPeople(oneOffParticipantsInPortal.OrderBy(z => z.RaceGroupBeforeTransition).ThenBy(z => z.Bib));
 
-            console.WriteLine();
+            //console.WriteLinePrecededByOne($"One-off participants in Points: {oneOffParticipantsWithPoints.Length}");
+            //PrintPeople(oneOffParticipantsWithPoints.OrderBy(z => z.RaceGroup).ThenBy(z => z.Bib));
 
-            console.WriteLine($"One-off participants in Points: {oneOffParticipantsWithPoints.Length}");
-            PrintPeople(oneOffParticipantsWithPoints.OrderBy(z => z.RaceGroup).ThenBy(z => z.Bib));
+            //console.WriteLine();
 
-            console.WriteLine();
+            #endregion
+
+            #region print defective entries in participants with points
+
+            var defectiveEntriesInPoints = participantsWithPointsKeyedByBibDictionary.FindAllValues(z => z.IsDefective).OrderBy(z => z.RaceGroup).ThenBy(z => z.Bib).ToArray();
+
+            console.WriteLine($"Defective entries in Points: {defectiveEntriesInPoints.Length}");
+            PrintPeople(defectiveEntriesInPoints);
 
             #endregion
 
@@ -216,82 +220,159 @@ internal class Program
 
             // portal
 
-            var bibsAllocatedMoreThanOnceInPortal = participantsInPortalDict
-                .Where(z => z.Value.Count > 1)
-                .Select(z => z.Key)
-                .ToArray();
-
-            var bibsAllocatedMoreThanOnceInPoints = participantsWithPointsDict
+            var bibsAllocatedMoreThanOnceInPortal = participantsInPortalKeyedByBibDictionary
                 .Where(z => z.Value.Count > 1)
                 .Select(z => z.Key)
                 .ToArray();
 
 
-            console.WriteLine($"Bibs allocated by mistake in multiple categories in the Portal: {bibsAllocatedMoreThanOnceInPortal.Length}");
+            console.WriteLinePrecededByOne($"Bibs allocated by mistake in multiple categories in the Portal: {bibsAllocatedMoreThanOnceInPortal.Length}");
 
             foreach (var bib in bibsAllocatedMoreThanOnceInPortal)
             {
-                var people = participantsInPortalDict[bib].Where(z=> z!=null).ToArray();
+                var people = participantsInPortalKeyedByBibDictionary[bib].Where(z => z != null).ToArray();
 
                 var firstPerson = people.First();
                 console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FirstName} {firstPerson.FirstName} {firstPerson.BirthYear} ");
-                foreach (var person in people)
-                {
-                    console.Write($"/({person.RaceGroupBeforeTransition} {person.RaceGroupAfterTransition})");
-                }
+                foreach (var person in people) console.Write($"/({person.RaceGroupBeforeTransition} {person.RaceGroupAfterTransition})");
 
                 console.WriteLine();
             }
 
-            console.WriteLine();
-                console.WriteLine($"Bibs allocated by mistake in multiple categories in Points: {bibsAllocatedMoreThanOnceInPoints.Length}");
-                foreach (var bib in bibsAllocatedMoreThanOnceInPoints.Where(z => !string.IsNullOrWhiteSpace(z)))
-                {
-                    var people = participantsWithPointsDict[bib].Where(z => z != null).ToArray();
-                    var firstPerson = people.First();
+            // points
 
-                    console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FullName} {firstPerson.Age} ");
-                    foreach (var person in people)
-                    {
-                        console.Write($"/{person.RaceGroup}");
-                    }
+            var bibsAllocatedMoreThanOnceInPoints = participantsWithPointsKeyedByBibDictionary
+                .Where(z => z.Value.Count > 1)
+                .Select(z => z.Key)
+                .ToArray();
 
-                    console.WriteLine();
+            console.WriteLinePrecededByOne($"Bibs allocated by mistake in multiple categories in Points: {bibsAllocatedMoreThanOnceInPoints.Length}");
 
-                }
+            foreach (var bib in bibsAllocatedMoreThanOnceInPoints.Where(z => !string.IsNullOrWhiteSpace(z)))
+            {
+                var people = participantsWithPointsKeyedByBibDictionary[bib].Where(z => z != null).ToArray();
+                var firstPerson = people.First();
+
+                console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FullName} {firstPerson.Age} ");
+                foreach (var person in people) console.Write($"/{person.RaceGroup}");
+
                 console.WriteLine();
-            
-                #endregion
-
-                #region print defective entries in participants with points
-
-            var defectiveEntriesInPoints = participantsWithPointsDict.FindAllValues(z => z.IsDefective).OrderBy(z=>z.RaceGroup).ThenBy(z=> z.Bib).ToArray();
-
-            console.WriteLinePrecededByOne($"Defective entries in Points: {defectiveEntriesInPoints.Length}");
-            PrintPeople(defectiveEntriesInPoints);
+            }
 
             #endregion
 
+            #region analyse names allocated more than once
+
+            // portal
+
+            JghListDictionary<string, ParticipantHubItem> participantsInPortalKeyedByNameDictionary = [];
+
+            foreach (var person in participantsInPortalKeyedByBibDictionary.FindAllValues(z=>z.IsSeries))
+            {
+                string key = JghString.TmLr(JghString.Remove(' ', JghString.Concat(person.FirstName, person.LastName)));
+
+                if (!string.IsNullOrWhiteSpace(key))
+                    participantsInPortalKeyedByNameDictionary.Add(key, person);
+            }
+
+            var namesAllocatedMoreThanOnceInPortal = participantsInPortalKeyedByNameDictionary
+                .Where(z => z.Value.Count > 1)
+                .Select(z => z.Key)
+                .ToArray();
+
+            console.WriteLinePrecededByOne($"Names mistakenly appearing in multiple locations in the Portal: {namesAllocatedMoreThanOnceInPortal.Length}");
+
+            foreach (var key in namesAllocatedMoreThanOnceInPortal)
+            {
+                PrintPeople(participantsInPortalKeyedByNameDictionary.FindAllValuesByKey(z=> z == key));
+            }
+
+            //points
+
+            JghListDictionary<string, ParticipantWithSeriesPointsTally> participantsWithPointsKeyedByNameDictionary = [];
+
+            foreach (var person in participantsWithPointsKeyedByBibDictionary.FindAllValues(z => z.IsSeries))
+            {
+                string key = JghString.TmLr(JghString.Remove(' ', person.FullName));
+
+                if (!string.IsNullOrWhiteSpace(key))
+                    participantsWithPointsKeyedByNameDictionary.Add(key, person);
+            }
+
+            var namesAllocatedMoreThanOnceInPoints = participantsWithPointsKeyedByNameDictionary
+                .Where(z => z.Value.Count > 1)
+                .Select(z => z.Key)
+                .ToArray();
+
+            console.WriteLinePrecededByOne($"Names mistakenly appearing in multiple locations in Points - possibly across multiple categories (see above): {namesAllocatedMoreThanOnceInPoints.Length}");
+
+            foreach (var key in namesAllocatedMoreThanOnceInPoints)
+            {
+                PrintPeople(participantsInPortalKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
+            }
+
+
+            #endregion
+
+            #region analyse names in both portal and points, but only those who have conflicting bibs
+
+
+            var allNameKeysInPortal = participantsInPortalKeyedByNameDictionary.Keys.ToList();
+            var allNameKeysInPoints = participantsWithPointsKeyedByNameDictionary.Keys.ToList();
+
+            var distinctNameKeysInBothPortalAndPoints = allNameKeysInPortal.Intersect(allNameKeysInPoints).Distinct().ToArray();
+
+            List<string> conflictedBibsInPortal = [];
+            List<string> conflictedBibsInPoints = [];
+
+            JghStringBuilder sb = new();
+
+            int i = 0;
+
+            foreach (var key in distinctNameKeysInBothPortalAndPoints)
+            {
+                var personInPortal = participantsInPortalKeyedByNameDictionary[key].FirstOrDefault();
+                var personInPoints = participantsWithPointsKeyedByNameDictionary[key].FirstOrDefault();
+
+                if ((personInPortal != null && personInPoints != null) && (personInPortal.Bib != personInPoints.Bib))
+                {
+                    sb.AppendLine($"Bib: Portal-Points={JghString.LeftAlign($"{personInPortal.Bib}-{personInPoints.Bib}", LhsWidthSmall)} {personInPoints.FullName}  RaceGroup: Portal/Points=({personInPortal.RaceGroupBeforeTransition}->{personInPortal.RaceGroupAfterTransition})/{personInPoints.RaceGroup}");
+
+                    conflictedBibsInPortal.Add(personInPortal.Bib);
+                    conflictedBibsInPoints.Add(personInPoints.Bib);
+                    i += 1;
+                }
+            }
+
+            console.WriteLinePrecededByOne($"Names common to Portal and Points with conflicting Bibs: {i}");
+            console.WriteLine(sb.ToString());
+            #endregion
+
+
+
             #region list of 'missing' persons (comparatively speaking)
 
-            var seriesEntriesInPortal = participantsInPortalDict.FindAllValues(z => z.IsSeries).ToArray();
-            var seriesEntriesWithPoints = participantsWithPointsDict.FindAllValues(z => z.IsSeries).ToArray(); // tedious long way round. ha ha
 
-            var allSeriesBibsInPortal = participantsInPortalDict.Keys.ToArray();
-            var allSeriesBibsInPoints = participantsWithPointsDict.Keys.ToArray();
+            var seriesEntriesInPortal = participantsInPortalKeyedByBibDictionary.FindAllValues(z => z.IsSeries).ToArray();
+            var seriesEntriesWithPoints = participantsWithPointsKeyedByBibDictionary.FindAllValues(z => z.IsSeries).ToArray(); // tedious long way round. ha ha
 
-            console.WriteLine($"Participants in the portal (series only): {seriesEntriesInPortal.Count()}");
-            console.WriteLine($"Participants in the points master lists: {seriesEntriesWithPoints.Count()}");
+            var allSeriesBibsInPortal = participantsInPortalKeyedByBibDictionary.Keys.ToArray();
+            var allSeriesBibsInPoints = participantsWithPointsKeyedByBibDictionary.Keys.ToArray();
 
-            var missingBibsInPortal = allSeriesBibsInPoints.Except(allSeriesBibsInPortal).ToArray();
-            var missingBibsInPoints = allSeriesBibsInPortal.Except(allSeriesBibsInPoints).ToArray();
+            //console.WriteLine();
 
-            var peopleWithPointsWhoAreMissingInPortal = seriesEntriesWithPoints.Where(z => missingBibsInPortal.Contains(z.Bib)).Where(z=>!z.IsDefective).ToArray();
-            console.WriteLinePrecededByOne($"There are people in the points master lists who should be in the portal but are AWOL: {peopleWithPointsWhoAreMissingInPortal.Length}");
+            //console.WriteLine($"Participants in the portal (series only): {seriesEntriesInPortal.Count()}");
+            //console.WriteLine($"Participants in the points master lists: {seriesEntriesWithPoints.Count()}");
+
+            var missingBibsInPortal = allSeriesBibsInPoints.Except(allSeriesBibsInPortal).Except(conflictedBibsInPoints).ToList();
+            var missingBibsInPoints = allSeriesBibsInPortal.Except(allSeriesBibsInPoints).Except(conflictedBibsInPortal).ToList();
+
+            var peopleWithPointsWhoAreMissingInPortal = seriesEntriesWithPoints.Where(z => missingBibsInPortal.Contains(z.Bib)).Where(z => !z.IsDefective).ToArray();
+            console.WriteLinePrecededByOne($"There are people in the points master lists who need to be added to the portal: {peopleWithPointsWhoAreMissingInPortal.Length}");
             PrintPeople(peopleWithPointsWhoAreMissingInPortal);
 
             var seriesParticipantsInPortalWhoAreMissingInPoints = seriesEntriesInPortal.Where(z => missingBibsInPoints.Contains(z.Bib)).ToArray();
-            console.WriteLinePrecededByOne($"There are people in the Portal who should be in the points master lists but are AWOL: {seriesParticipantsInPortalWhoAreMissingInPoints.Length}");
+            console.WriteLinePrecededByOne($"There are people in the Portal who need to be added to the points master lists: {seriesParticipantsInPortalWhoAreMissingInPoints.Length}");
             PrintPeople(seriesParticipantsInPortalWhoAreMissingInPoints);
 
             #endregion
@@ -331,9 +412,9 @@ internal class Program
 
     private static readonly JghConsoleHelperV2 console = new();
 
-    private static readonly JghListDictionary<string, ParticipantHubItem> participantsInPortalDict = [];
+    private static readonly JghListDictionary<string, ParticipantHubItem> participantsInPortalKeyedByBibDictionary = [];
 
-    private static readonly JghListDictionary<string, ParticipantWithSeriesPointsTally> participantsWithPointsDict = [];
+    private static readonly JghListDictionary<string, ParticipantWithSeriesPointsTally> participantsWithPointsKeyedByBibDictionary = [];
 
     #endregion
 
@@ -368,9 +449,9 @@ internal class Program
         var countOfOneOffParticipants = array.Where(z => !string.IsNullOrWhiteSpace(z.Bib)).Count(z => !z.IsSeries);
 
         console.WriteLine($"Loaded file: <{portalParticipantFileInfo.Name}>");
-        console.WriteLine($"Series: {countOfSeriesParticipants}");
-        console.WriteLine($"OneOff: {countOfOneOffParticipants}");
-        console.WriteLine($"Total entries: {countOfSeriesParticipants + countOfOneOffParticipants}");
+        console.WriteLine($"Series entries: {countOfSeriesParticipants}");
+        console.WriteLine($"OneOff entries: {countOfOneOffParticipants}");
+        //console.WriteLine($"Total entries: {countOfSeriesParticipants + countOfOneOffParticipants}");
     }
 
     private static void PrintSummaryOfFileEntries(FileInfo portalParticipantFileInfo, IEnumerable<ParticipantWithSeriesPointsTally> participantHubItems)
@@ -384,7 +465,7 @@ internal class Program
         console.WriteLine($"Loaded file: <{portalParticipantFileInfo.Name}>");
         console.WriteLine($"Series entries: {countOfSeriesParticipants}");
         console.WriteLine($"OneOff entries: {countOfOneOffParticipants}");
-        console.WriteLine($"Total entries: {countOfSeriesParticipants + countOfOneOffParticipants}");
+        //console.WriteLine($"Total entries: {countOfSeriesParticipants + countOfOneOffParticipants}");
     }
 
     private static void PrintPeople(ParticipantWithSeriesPointsTally person)
