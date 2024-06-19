@@ -6,110 +6,115 @@ using System.Xml.Linq;
 namespace NetStd.Goodies.Mar2022;
 
 /// <summary>
-///     A nifty translator for a single line-item of raw data in the form of a flat XElement or a row of csv. Translates the line-item into a collection of key-value pairs with designated names.
+///     A nifty mapper for a single flat XElement or row of csv. Maps the data line-item into a keyed dictionary of its constituent values.
 /// </summary>
 public class JghMapper
 {
     #region ctor
 
     /// <summary>
-    ///     Translates the child XElements within a parent XElement into (a subset? of) designated-name/value properties.
+    ///     Maps the child XElements within a parent XElement into a keyed dictionary of its constituent values. 
     /// </summary>
-    /// <param name="xElementBeingTranslated">The XElement containing the child XElements, one or more of which has a known or suspected name.</param>
-    /// <param name="elementNameMappings">A mapping of key/value pairs where each key is the designated name of a desired property and each key maps to the known or suspected name/s of the associated child XElement. Duplicate keys (catering for multiple candidates) are permitted.</param>
-    public JghMapper(XElement xElementBeingTranslated, IEnumerable<KeyValuePair<string, string>> elementNameMappings)
+    /// <param name="xElementBeingMapped">The XElement containing the named child XElements with values.</param>
+    /// <param name="newNameDirtyNamePairs">A map of key/name pairs where the key is used to look up the mapped value of the named element. Duplicate names are permitted for added flexibility.</param>
+    public JghMapper(XElement xElementBeingMapped, IEnumerable<KeyValuePair<string, string>> newNameDirtyNamePairs)
     {
-        _xElementBeingTranslated = xElementBeingTranslated;
+        _xElementBeingMapped = xElementBeingMapped;
 
-        ConvertElementNameMappingsListToDictionary(elementNameMappings);
+        AssembleDictionaryOfDirtyNameOldNamePairs(newNameDirtyNamePairs);
 
-        DoXmlMapping();
+        PluckNewNameValuePairsOutOfXElement();
     }
 
     /// <summary>
-    ///     Translates the cells in a row of csv data into (a subset? of) designated-name/value properties. 
+    ///     Maps the values in a row of csv data into a keyed dictionary of the values. 
     /// </summary>
-    /// <param name="csvHeaderRow">A row of Excel column headers. The headers are the names of the cells in the row.</param>
-    /// <param name="rowOfCsvBeingTranslated">THe row of csv values. Each value corresponds to a cell in Excel.</param>
-    /// <param name="elementNameMappings">A mapping of key/value pairs where each key is the designated name of a desired property and each value maps to the known or suspected name/s of an associated cell. Duplicate keys (catering for multiple candidates) are permitted.</param>
-    public JghMapper(string csvHeaderRow, string rowOfCsvBeingTranslated, IEnumerable<KeyValuePair<string, string>> elementNameMappings)
+    /// <param name="csvHeaderRow">A row of Excel-style column headers.</param>
+    /// <param name="rowOfCsvBeingMapped">THe row of csv containing values associated with specified column headers.</param>
+    /// <param name="newNameDirtyNamePairs">A map of key/name pairs where the key is used to look up the mapped value of the named element. Duplicate names are permitted for added flexibility.</param>
+    public JghMapper(string csvHeaderRow, string rowOfCsvBeingMapped, IEnumerable<KeyValuePair<string, string>> newNameDirtyNamePairs)
     {
-        _rowOfCsvBeingTranslated = rowOfCsvBeingTranslated;
+        _rowOfCsvBeingMapped = rowOfCsvBeingMapped;
 
-        ConvertElementNameMappingsListToDictionary(elementNameMappings);
+        AssembleDictionaryOfDirtyNameOldNamePairs(newNameDirtyNamePairs);
 
-        DoCsvMapping(csvHeaderRow);
+        PluckNewNameValuePairsOutOfRowOfCsv(csvHeaderRow);
     }
 
     #endregion
 
     #region helpers
 
-    private void DoXmlMapping()
+    private void PluckNewNameValuePairsOutOfXElement()
     {
-        foreach (var kvp in _mapOfElementNamesAsDict)
+        foreach (var kvp in _dictionaryOfNewNameOldNamePairs)
         {
-            var candidatesInSourceLineItem = kvp.Value.ToArray();
+            var associatedDataNames = kvp.Value.ToArray();
 
-            var mapKey = kvp.Key;
+            var accessKey = kvp.Key;
 
-            foreach (var candidate in candidatesInSourceLineItem)
+            foreach (var name in associatedDataNames)
             {
-                var childElement = _xElementBeingTranslated.Element(candidate);
+                if (name.Contains(' ')) continue; // blanks in XML names are prohibited - only the hexadecimal equivalent of blanks _x0020_ is allowed. Access automatically switches blanks with their heaxadecimal equivalent, Excel does not.
+
+                var childElement = _xElementBeingMapped.Element(name); // blows up if name contains a blank
 
                 if (childElement is null) continue;
 
-                if (!_mappedLineItemAsDict.ContainsKey(mapKey))
-                    _mappedLineItemAsDict.Add(mapKey, childElement.Value);
+                if (!_dictionaryOfDataValuesPluckedOutOfSource.ContainsKey(accessKey))
+                {
+                    _dictionaryOfDataValuesPluckedOutOfSource.Add(accessKey, childElement.Value);
+
+                }
             }
         }
     }
 
-    private void DoCsvMapping(string headerRow)
+    private void PluckNewNameValuePairsOutOfRowOfCsv(string headerRow)
     {
         var columnHeadings = headerRow.Split(',');
 
-        var cellValues = _rowOfCsvBeingTranslated.Split(',');
+        var cellValues = _rowOfCsvBeingMapped.Split(',');
 
         var maxColumns = Math.Min(columnHeadings.Length, cellValues.Length); // in case the row has more columns than the header, or vice versa
 
         for (var i = 0; i < maxColumns; i++)
         {
-            var columnHeading = columnHeadings[i];
+            var columnHeading = columnHeadings[i]; // the name of this cell
 
             if (string.IsNullOrWhiteSpace(columnHeading)) continue;
 
             var cellValue = cellValues[i];
 
-            var candidateMapKeys = _mapOfElementNamesAsDict.FindKeysByValue(columnHeading).ToArray(); //map the key to the destination name
+            var candidateMapKeys = _dictionaryOfNewNameOldNamePairs.FindKeysByValue(columnHeading).ToArray(); //from the provided map, dig out the key/s associated with the heading of this cell
 
-            var mapKey = candidateMapKeys.FirstOrDefault();
+            var key = candidateMapKeys.FirstOrDefault();  // valid for there to be multiple keys, the kludge is to use the first occurring
 
-            if (string.IsNullOrWhiteSpace(mapKey)) continue;
+            if (string.IsNullOrWhiteSpace(key)) continue;
 
-            if (!_mappedLineItemAsDict.ContainsKey(mapKey))
-                _mappedLineItemAsDict.Add(mapKey, cellValue);
+            if (!_dictionaryOfDataValuesPluckedOutOfSource.ContainsKey(key))
+                _dictionaryOfDataValuesPluckedOutOfSource.Add(key, cellValue);
         }
     }
 
-    private void ConvertElementNameMappingsListToDictionary(IEnumerable<KeyValuePair<string, string>> theKeyValuePairs)
+    private void AssembleDictionaryOfDirtyNameOldNamePairs(IEnumerable<KeyValuePair<string, string>> newNameOldNamePairs)
     {
-        foreach (var kvp in theKeyValuePairs)
+        foreach (var kvp in newNameOldNamePairs)
             if (!string.IsNullOrWhiteSpace(kvp.Key) && !string.IsNullOrWhiteSpace(kvp.Value))
-                _mapOfElementNamesAsDict.Add(kvp.Key, kvp.Value);
+                _dictionaryOfNewNameOldNamePairs.Add(kvp.Key, kvp.Value);
     }
 
     #endregion
 
     #region variables
 
-    private readonly XElement _xElementBeingTranslated;
+    private readonly XElement _xElementBeingMapped;
 
-    private readonly string _rowOfCsvBeingTranslated;
+    private readonly string _rowOfCsvBeingMapped;
 
-    private readonly JghListDictionary<string, string> _mapOfElementNamesAsDict = []; // key is the destination name of the element, value is the list of source names for the destination element
+    private readonly JghListDictionary<string, string> _dictionaryOfNewNameOldNamePairs = []; // key is the destination name of the element, value is the list of source names for the destination element
 
-    private readonly JghListDictionary<string, string> _mappedLineItemAsDict = [];
+    private readonly JghListDictionary<string, string> _dictionaryOfDataValuesPluckedOutOfSource = [];
 
     #endregion
 
@@ -125,10 +130,10 @@ public class JghMapper
         if (string.IsNullOrWhiteSpace(key))
             return string.Empty;
 
-        if (!_mappedLineItemAsDict.ContainsKey(key))
+        if (!_dictionaryOfDataValuesPluckedOutOfSource.ContainsKey(key))
             return string.Empty;
 
-        var candidate = _mappedLineItemAsDict[key].FirstOrDefault(z => !string.IsNullOrWhiteSpace(z));
+        var candidate = _dictionaryOfDataValuesPluckedOutOfSource[key].FirstOrDefault(z => !string.IsNullOrWhiteSpace(z));
 
         if (string.IsNullOrWhiteSpace(candidate))
             return string.Empty;

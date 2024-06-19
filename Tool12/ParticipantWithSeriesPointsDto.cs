@@ -4,7 +4,7 @@
 namespace Tool12;
 
 [DataContract(Namespace = "", Name = XeParticipant)]
-public class ParticipantWithSeriesPointsTallyDto
+public class ParticipantWithSeriesPointsDto
 {
     #region DataMember names
 
