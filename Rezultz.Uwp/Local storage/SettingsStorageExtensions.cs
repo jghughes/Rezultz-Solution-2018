@@ -61,7 +61,7 @@ namespace Rezultz.Uwp.Local_storage
 
         public static async Task<StorageFile> SaveFileAsync(this StorageFolder folder, byte[] content, string fileName, CreationCollisionOption options = CreationCollisionOption.ReplaceExisting)
         {
-            if (content == null)
+            if (content is null)
             {
                 throw new ArgumentNullException(nameof(content));
             }
@@ -82,7 +82,7 @@ namespace Rezultz.Uwp.Local_storage
         {
             var item = await folder.TryGetItemAsync(fileName).AsTask().ConfigureAwait(false);
 
-            if ((item != null) && item.IsOfType(StorageItemTypes.File))
+            if ((item is not null) && item.IsOfType(StorageItemTypes.File))
             {
                 var storageFile = await folder.GetFileAsync(fileName);
                 byte[] content = await storageFile.ReadBytesAsync();
@@ -94,7 +94,7 @@ namespace Rezultz.Uwp.Local_storage
 
         public static async Task<byte[]> ReadBytesAsync(this StorageFile file)
         {
-            if (file == null) return null;
+            if (file is null) return null;
 
             using IRandomAccessStream stream = await file.OpenReadAsync();
 

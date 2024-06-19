@@ -55,7 +55,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
                     AzureStorageObjectNames.PublisherProfileFileNamePrefix,
                     false);
 
-                if (namesOfAllBlobs == null || !namesOfAllBlobs.Any())
+                if (namesOfAllBlobs is null || !namesOfAllBlobs.Any())
                     throw new JghPublisherProfileFile404Exception(
                         $"Can't find any files containing publisher profiles in the designated remote storage location. Container=<{entryPoint.AzureStorageContainerName}>");
 
@@ -167,7 +167,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
 
             var namesOfAllBlobs = await _azureStorage.GetNamesOfBlobsInContainerAsync(entryPoint.AzureStorageAccountName, entryPoint.AzureStorageContainerName, AzureStorageObjectNames.PublisherProfileFileNamePrefix, false);
 
-            if (namesOfAllBlobs == null || !namesOfAllBlobs.Any())
+            if (namesOfAllBlobs is null || !namesOfAllBlobs.Any())
                 throw new JghPublisherProfileFile404Exception(
                     $"No files of publisher profiles found. Designated remote container=<{entryPoint.AzureStorageContainerName}>");
 
@@ -253,7 +253,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
             if (string.IsNullOrEmpty(fileNameWithExtension))
                 throw new Jgh404Exception("Unable to upload dataset. The provided dataset filename for the storage location is blank.");
 
-            if (datasetContentsAsStringAsUncompressedBytes == null || datasetContentsAsStringAsUncompressedBytes.Length == 0)
+            if (datasetContentsAsStringAsUncompressedBytes is null || datasetContentsAsStringAsUncompressedBytes.Length == 0)
                 throw new Jgh404Exception("Nothing to upload. The provided dataset is blank.");
 
             var uploadedDidSucceed = await _azureStorage.UploadToBlockBlobAsBytesAsync(accountName, containerName, fileNameWithExtension, true, datasetContentsAsStringAsUncompressedBytes);

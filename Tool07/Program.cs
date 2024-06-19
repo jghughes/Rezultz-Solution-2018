@@ -260,7 +260,7 @@ namespace Tool07
 
         try
         {
-            if (inputText == null)
+            if (inputText is null)
                 throw new ArgumentNullException(nameof(inputText));
 
             return XElement.Parse(inputText);
@@ -287,7 +287,7 @@ namespace Tool07
 
         try
         {
-            if (parentXContainer == null)
+            if (parentXContainer is null)
                 throw new ArgumentNullException(nameof(parentXContainer));
 
             if (string.IsNullOrWhiteSpace(nameOfRepeatingChildElement))

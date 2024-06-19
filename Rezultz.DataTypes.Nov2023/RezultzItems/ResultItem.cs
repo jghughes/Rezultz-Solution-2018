@@ -173,10 +173,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
             try
             {
-                if (dataTransferObject == null)
+                if (dataTransferObject is null)
                     return [];
 
-                var answer = dataTransferObject.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+                var answer = dataTransferObject.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -253,10 +253,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
             try
             {
-                if (item == null)
+                if (item is null)
                     return [];
 
-                var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+                var answer = item.Select(ToDataTransferObject).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -273,7 +273,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public static SearchQueryItem ToSearchQuerySuggestionItem(ResultItem item)
         {
-            if (item == null)
+            if (item is null)
                 return null;
 
             var answer = new SearchQueryItem(0, item.Guid, JghString.ConcatAsSentences(item.Bib, item.FirstName, item.LastName, item.RaceGroup, item.AgeGroup));
@@ -288,10 +288,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
             try
             {
-                if (item == null)
+                if (item is null)
                     return [];
 
-                var answer = item.Select(ToSearchQuerySuggestionItem).Where(z => z != null).ToArray();
+                var answer = item.Select(ToSearchQuerySuggestionItem).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -325,7 +325,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                 var clone = (ResultItem)MemberwiseClone();
 
                 clone.DerivedData =
-                    DerivedData != null ? DerivedData.ShallowMemberwiseCloneCopy : new DerivedDataItem();
+                    DerivedData is not null ? DerivedData.ShallowMemberwiseCloneCopy : new DerivedDataItem();
 
                 return clone;
             }

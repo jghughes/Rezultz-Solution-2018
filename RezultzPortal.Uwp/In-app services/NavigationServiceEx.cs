@@ -21,7 +21,7 @@ namespace RezultzPortal.Uwp.In_app_services
         {
             get
         {
-            if (_frame == null)
+            if (_frame is null)
             {
                 _frame = Window.Current.Content as Frame;
                 RegisterFrameEvents();
@@ -78,7 +78,7 @@ namespace RezultzPortal.Uwp.In_app_services
                                             $"{Locus}");
         }
 
-        if (Frame.Content?.GetType() != page || (parameter != null && !parameter.Equals(_lastParamUsed)))
+        if (Frame.Content?.GetType() != page || (parameter is not null && !parameter.Equals(_lastParamUsed)))
         {
             var navigationResult = Frame.Navigate(page, parameter, infoOverride);
 
@@ -134,7 +134,7 @@ namespace RezultzPortal.Uwp.In_app_services
 
         private void RegisterFrameEvents()
     {
-        if (_frame != null)
+        if (_frame is not null)
         {
             _frame.Navigated += Frame_Navigated;
             _frame.NavigationFailed += Frame_NavigationFailed;
@@ -143,7 +143,7 @@ namespace RezultzPortal.Uwp.In_app_services
 
         private void UnregisterFrameEvents()
     {
-        if (_frame != null)
+        if (_frame is not null)
         {
             _frame.Navigated -= Frame_Navigated;
             _frame.NavigationFailed -= Frame_NavigationFailed;

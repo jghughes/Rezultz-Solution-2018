@@ -166,31 +166,31 @@ namespace NetStd.Exceptions.Mar2024.Helpers
 
                 // check the type of uppermost innermost exception. happy days if it's one of the following deemed mild. we're done. don't translate or restate. just print the message
 
-                if (FindUppermostExceptionOfSpecifiedType<JghAlertMessageException>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghAlertMessageException>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghAlertMessageException>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghCommunicationFailureException>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghCommunicationFailureException>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghCommunicationFailureException>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghAzureRequestException>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghAzureRequestException>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghAzureRequestException>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghSettingsData404Exception>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghSettingsData404Exception>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghSettingsData404Exception>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghResultsData404Exception>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghResultsData404Exception>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghResultsData404Exception>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghSeasonDataFile404Exception>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghSeasonDataFile404Exception>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghSeasonDataFile404Exception>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghPublisherProfileFile404Exception>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghPublisherProfileFile404Exception>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghPublisherProfileFile404Exception>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghUserAuthenticationMessageException>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghUserAuthenticationMessageException>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghUserAuthenticationMessageException>(ex).Message;
 
-                if (FindUppermostExceptionOfSpecifiedType<JghPublisherServiceFaultException>(ex) != null)
+                if (FindUppermostExceptionOfSpecifiedType<JghPublisherServiceFaultException>(ex) is not null)
                     return FindUppermostExceptionOfSpecifiedType<JghPublisherServiceFaultException>(ex).Message;
 
                 #endregion
@@ -215,7 +215,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
                 // rinse out all AggregateExceptions, it's their inner exception messages we're after 
                 var hierarchyOfExceptionMessages = hierarchyOfExceptions
                     .Where(z => !IsOfSpecifiedType<AggregateException>(z))
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Where(z => !string.IsNullOrWhiteSpace(z.Message))
                     .Select(z => z.Message)
                     .ToList();
@@ -270,7 +270,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Exception found or null</returns>
         public static Exception FindInnermostExceptionOfSpecifiedType<T>(Exception ex) where T : Exception
         {
-            if (ex == null) return null;
+            if (ex is null) return null;
 
             var wantedList = FindAllExceptionsOfSpecifiedType<T>(ex);
 
@@ -285,7 +285,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Exception found or null</returns>
         public static Exception FindUppermostExceptionOfSpecifiedType<T>(Exception ex) where T : Exception
         {
-            if (ex == null) return null;
+            if (ex is null) return null;
 
             var wantedList = FindAllExceptionsOfSpecifiedType<T>(ex);
 
@@ -301,7 +301,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Collection of exceptions found, or empty if none.</returns>
         public static List<Exception> FindAllExceptionsOfSpecifiedType<T>(Exception ex) where T : Exception
         {
-            if (ex == null) return [];
+            if (ex is null) return [];
 
             var listOfE = ConvertHierarchyOfExceptionsToList(ex);
 
@@ -332,7 +332,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>True if of given type, including subclasses</returns>
         public static bool Contains<T>(Exception ex) where T : Exception
         {
-            if (ex == null) return false;
+            if (ex is null) return false;
 
             var zz = FindAllExceptionsOfSpecifiedType<T>(ex);
 
@@ -352,7 +352,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         {
             // if ex is a derived type, this doesn't check out its base type, it only checks itself
 
-            if (ex == null) return false;
+            if (ex is null) return false;
 
             var wantedType = typeof(T);
 
@@ -364,7 +364,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
 
         public static List<Exception> ConvertHierarchyOfExceptionsToList(Exception ex)
         {
-            if (ex == null) return [];
+            if (ex is null) return [];
 
             var listOfE = new List<Exception>();
 
@@ -372,7 +372,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
 
             listOfE.Add(e);
 
-            while (e.InnerException != null)
+            while (e.InnerException is not null)
             {
                 listOfE.Add(e.InnerException);
 
@@ -389,12 +389,12 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Innermost exception</returns>
         public static string FindTypeNameOfInnermostException(Exception ex)
         {
-            if (ex == null)
+            if (ex is null)
                 return null;
 
             var e = ex;
 
-            while (e.InnerException != null)
+            while (e.InnerException is not null)
                 e = e.InnerException;
 
             // reached the bottom. we're done
@@ -408,12 +408,12 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Innermost exception</returns>
         public static Exception FindInnermostException(Exception ex)
         {
-            if (ex == null)
+            if (ex is null)
                 return null;
 
             var e = ex;
 
-            while (e.InnerException != null)
+            while (e.InnerException is not null)
                 e = e.InnerException;
 
             return e;
@@ -426,7 +426,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
         /// <returns>Concantenated sentence</returns>
         public static string ConcatenateHierarchyOfExceptionMessagesAsSentences(Exception ex)
         {
-            if (ex == null)
+            if (ex is null)
                 return string.Empty;
 
             var exceptions = ConvertHierarchyOfExceptionsToList(ex);
@@ -435,7 +435,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
                 return string.Empty;
 
             var hierarchyOfExceptionMessages = exceptions
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => !string.IsNullOrWhiteSpace(z.Message))
                 .Select(z => z.Message)
                 .ToList();
@@ -474,7 +474,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
             // if timekeeping tent data converter cannot be verified, innermost exception will be JghDataConversionModuleCharpCodeNameNotFoundException
 
 
-            if (ex == null)
+            if (ex is null)
                 return false;
 
             if (ex is JghAlertMessageException) return true;
@@ -485,7 +485,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
 
             var typeToBeTested = exceptionToBeTested.GetType();
 
-            while (typeToBeTested != null)
+            while (typeToBeTested is not null)
             {
                 if (typeToBeTested == requiredType)
                     return true;

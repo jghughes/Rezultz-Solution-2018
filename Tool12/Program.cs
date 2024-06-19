@@ -207,7 +207,7 @@ internal class Program
 
             foreach (var bib in bibsAllocatedMoreThanOnceInPortal)
             {
-                var people = participantsInPortalKeyedByBibDictionary[bib].Where(z => z != null).ToArray();
+                var people = participantsInPortalKeyedByBibDictionary[bib].Where(z => z is not null).ToArray();
 
                 var firstPerson = people.First();
                 console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FirstName} {firstPerson.FirstName} {firstPerson.BirthYear} ");
@@ -227,7 +227,7 @@ internal class Program
 
             foreach (var bib in bibsAllocatedMoreThanOnceInPoints.Where(z => !string.IsNullOrWhiteSpace(z)))
             {
-                var people = participantsWithPointsKeyedByBibDictionary[bib].Where(z => z != null).ToArray();
+                var people = participantsWithPointsKeyedByBibDictionary[bib].Where(z => z is not null).ToArray();
                 var firstPerson = people.First();
 
                 console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FullName} {firstPerson.Age} ");
@@ -303,7 +303,7 @@ internal class Program
                 var personInPortal = participantsInPortalKeyedByNameDictionary[key].FirstOrDefault();
                 var personInPoints = participantsWithPointsKeyedByNameDictionary[key].FirstOrDefault();
 
-                if (personInPortal != null && personInPoints != null && personInPortal.Bib != personInPoints.Bib)
+                if (personInPortal is not null && personInPoints is not null && personInPortal.Bib != personInPoints.Bib)
                 {
                     sb.AppendLine(
                         $"Bib: Portal-Points={JghString.LeftAlign($"{personInPortal.Bib}-{personInPoints.Bib}", LhsWidthSmall)} {personInPoints.FullName}  RaceGroup: Portal/Points=({personInPortal.RaceGroupBeforeTransition}->{personInPortal.RaceGroupAfterTransition})/{personInPoints.RaceGroup}");

@@ -26,7 +26,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static string AsTmlr(XElement someElement)
     {
-        return someElement == null
+        return someElement is null
             ? string.Empty
             : AsTmLr(someElement.Value);
     }
@@ -35,7 +35,7 @@ namespace NetStd.Goodies.Xml.July2018
     {
         // NB don't use TmLr here. this method must'nt suppress case. We want to retain case sensitivity
 
-        return someElement == null
+        return someElement is null
             ? string.Empty
             : string.IsNullOrWhiteSpace(someElement.Value)
                 ? string.Empty
@@ -44,7 +44,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static int AsInt32(XElement someElement)
     {
-        if (someElement == null) return 0;
+        if (someElement is null) return 0;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
             return 0;
@@ -57,7 +57,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static long AsInt64(XElement someElement)
     {
-        if (someElement == null) return 0;
+        if (someElement is null) return 0;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
             return 0;
@@ -69,7 +69,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static double AsDouble(XElement someElement)
     {
-        if (someElement == null) return 0;
+        if (someElement is null) return 0;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
             return 0;
@@ -81,7 +81,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static bool AsBool(XElement someElement)
     {
-        if (someElement == null) return false;
+        if (someElement is null) return false;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
             return false;
@@ -100,7 +100,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static string AsTimespanString(XElement someElement)
     {
-        if (someElement == null) return null;
+        if (someElement is null) return null;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
             return null;
@@ -114,7 +114,7 @@ namespace NetStd.Goodies.Xml.July2018
     {
         var zz = DateTime.MaxValue;
 
-        if (someElement == null) return zz;
+        if (someElement is null) return zz;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
             return zz;
@@ -126,7 +126,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static string AsStringRepresentingBestGuessTypeOrBlankIfZero(XElement someElement)
     {
-        if (someElement == null)
+        if (someElement is null)
             return null;
 
         if (string.IsNullOrWhiteSpace(someElement.Value))
@@ -140,7 +140,7 @@ namespace NetStd.Goodies.Xml.July2018
     {
         var childXe = parentXe?.Element(nameOfChild);
 
-        if (childXe == null)
+        if (childXe is null)
             return string.Empty;
 
         var value = childXe.Value; // empirically this blows up when the Value itself contains xml : for that use our cunning alternative method: GetChildElementValueVerbatim()
@@ -164,8 +164,8 @@ namespace NetStd.Goodies.Xml.July2018
         const string locus = "[TransformXElementContainingSimpleChildrenToRowOfCsvForExcel]";
 
 
-        if (inputXElement == null)
-            if (inputXElement == null)
+        if (inputXElement is null)
+            if (inputXElement is null)
                 throw new ArgumentNullException(nameof(inputXElement));
 
         try
@@ -255,7 +255,7 @@ namespace NetStd.Goodies.Xml.July2018
         {
             #region null checks
 
-            if (parentElementContainingListOfChildElements == null || parentElementContainingListOfChildElements.IsEmpty)
+            if (parentElementContainingListOfChildElements is null || parentElementContainingListOfChildElements.IsEmpty)
                 throw new JghAlertMessageException("Nothing found. Nothing to convert to .csv data.");
 
             #endregion
@@ -302,7 +302,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (inputXElement == null) throw new ArgumentNullException(nameof(inputXElement));
+            if (inputXElement is null) throw new ArgumentNullException(nameof(inputXElement));
 
             var answerAsString = inputXElement.ToString(saveOption);
 
@@ -321,7 +321,7 @@ namespace NetStd.Goodies.Xml.July2018
         const string failure = "Unable to transform xml XDocument to string then byte array";
         const string locus = "[TransformXDocumentToBytesUtf8]";
 
-        if (inputXDocument == null) throw new ArgumentNullException(nameof(inputXDocument));
+        if (inputXDocument is null) throw new ArgumentNullException(nameof(inputXDocument));
 
         byte[] answerAsBytes;
 
@@ -348,7 +348,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (inputByteArray == null) throw new ArgumentNullException(nameof(inputByteArray));
+            if (inputByteArray is null) throw new ArgumentNullException(nameof(inputByteArray));
 
             using var memStream = new MemoryStream();
 
@@ -374,10 +374,10 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (desiredNameOfNewParentXElement == null)
+            if (desiredNameOfNewParentXElement is null)
                 throw new ArgumentNullException(nameof(desiredNameOfNewParentXElement));
 
-            if (inputXElement == null) throw new ArgumentNullException(nameof(inputXElement));
+            if (inputXElement is null) throw new ArgumentNullException(nameof(inputXElement));
 
             var answerAsNewParent = new XElement(
                 desiredNameOfNewParentXElement,
@@ -401,10 +401,10 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (desiredNameOfNewParentXElement == null)
+            if (desiredNameOfNewParentXElement is null)
                 throw new ArgumentNullException(nameof(desiredNameOfNewParentXElement));
 
-            if (inputCollectionOfXElements == null)
+            if (inputCollectionOfXElements is null)
                 throw new ArgumentNullException(nameof(inputCollectionOfXElements));
 
             var newParent = new XElement(
@@ -430,10 +430,10 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (desiredNameOfNewParentXElement == null)
+            if (desiredNameOfNewParentXElement is null)
                 throw new ArgumentNullException(nameof(desiredNameOfNewParentXElement));
 
-            if (inputCollectionOfXElements == null)
+            if (inputCollectionOfXElements is null)
                 throw new ArgumentNullException(nameof(inputCollectionOfXElements));
 
             var newParent = new XElement(
@@ -456,9 +456,9 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (desiredNameOfNewParent == null) throw new ArgumentNullException(nameof(desiredNameOfNewParent));
+            if (desiredNameOfNewParent is null) throw new ArgumentNullException(nameof(desiredNameOfNewParent));
 
-            if (inputXElement == null) throw new ArgumentNullException(nameof(inputXElement));
+            if (inputXElement is null) throw new ArgumentNullException(nameof(inputXElement));
 
             var rootXElement = new XElement(
                 desiredNameOfNewParent,
@@ -484,10 +484,10 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (desiredNameOfXDocumentRootElement == null)
+            if (desiredNameOfXDocumentRootElement is null)
                 throw new ArgumentNullException(nameof(desiredNameOfXDocumentRootElement));
 
-            if (inputCollectionOfXElements == null)
+            if (inputCollectionOfXElements is null)
                 throw new ArgumentNullException(nameof(inputCollectionOfXElements));
 
             var rootXElement = new XElement(
@@ -514,7 +514,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (inputXElement == null) throw new ArgumentNullException(nameof(inputXElement));
+            if (inputXElement is null) throw new ArgumentNullException(nameof(inputXElement));
 
             inputXElement.Descendants().Where(z => z.Value == string.Empty).Remove();
             inputXElement.Descendants().Where(z => z.Value == "0").Remove();
@@ -538,15 +538,15 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (parentXElement == null) throw new ArgumentNullException(nameof(parentXElement));
+            if (parentXElement is null) throw new ArgumentNullException(nameof(parentXElement));
 
-            if (oldNameOfChild == null) throw new ArgumentNullException(nameof(oldNameOfChild));
+            if (oldNameOfChild is null) throw new ArgumentNullException(nameof(oldNameOfChild));
 
-            if (desiredNewNameOfChild == null) throw new ArgumentNullException(nameof(desiredNewNameOfChild));
+            if (desiredNewNameOfChild is null) throw new ArgumentNullException(nameof(desiredNewNameOfChild));
 
             var oldChild = parentXElement.Element(oldNameOfChild);
 
-            if (oldChild == null) return parentXElement;
+            if (oldChild is null) return parentXElement;
 
             var renamedChild = new XElement(desiredNewNameOfChild, oldChild.Elements());
 
@@ -572,9 +572,9 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (element == null) throw new ArgumentNullException(nameof(element));
+            if (element is null) throw new ArgumentNullException(nameof(element));
 
-            if (namesOfChildrenToBeRemoved == null)
+            if (namesOfChildrenToBeRemoved is null)
                 throw new ArgumentNullException(nameof(namesOfChildrenToBeRemoved));
 
             foreach (var child in element.Elements()
@@ -601,9 +601,9 @@ namespace NetStd.Goodies.Xml.July2018
 
         try
         {
-            if (element == null) throw new ArgumentNullException(nameof(element));
+            if (element is null) throw new ArgumentNullException(nameof(element));
 
-            if (namesOfChildrenToBeRemoved == null)
+            if (namesOfChildrenToBeRemoved is null)
                 throw new ArgumentNullException(nameof(namesOfChildrenToBeRemoved));
 
             foreach (var child in element.Elements())

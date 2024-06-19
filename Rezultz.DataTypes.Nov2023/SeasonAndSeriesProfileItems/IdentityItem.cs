@@ -83,10 +83,10 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         try
         {
-            if (dto == null)
+            if (dto is null)
                 return [];
 
-            var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+            var answer = dto.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
 
             return answer;
         }
@@ -116,7 +116,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                 UserName = x.UserName,
                 Password = x.Password,
                 AccessLevel = x.AccessLevel,
-                AuthorisedWorkRoles = x.ArrayOfAuthorisedWorkRoles == null ? string.Empty : string.Join(",", x.ArrayOfAuthorisedWorkRoles),
+                AuthorisedWorkRoles = x.ArrayOfAuthorisedWorkRoles is null ? string.Empty : string.Join(",", x.ArrayOfAuthorisedWorkRoles),
             };
 
             return answer;
@@ -140,10 +140,10 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         try
         {
-            if (item == null)
+            if (item is null)
                 return [];
 
-            var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+            var answer = item.Select(ToDataTransferObject).Where(z => z is not null).ToArray();
 
             return answer;
 

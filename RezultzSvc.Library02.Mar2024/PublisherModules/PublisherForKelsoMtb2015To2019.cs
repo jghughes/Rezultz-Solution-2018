@@ -69,7 +69,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
 
-            if (publisherInputItem == null)
+            if (publisherInputItem is null)
                 throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null.");
 
             if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))
@@ -438,7 +438,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (parentXContainer == null)
+            if (parentXContainer is null)
                 throw new ArgumentNullException(nameof(parentXContainer));
 
             if (string.IsNullOrWhiteSpace(nameOfRepeatingChildElement))
@@ -481,7 +481,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (parentXContainer == null)
+            if (parentXContainer is null)
                 throw new ArgumentNullException(nameof(parentXContainer));
 
             var repeaters = parentXContainer.Elements().ToArray();
@@ -517,7 +517,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         var provisionallyCorruptElement = new XElement("blank", "blank");
 
-        var arrayOfResultElements = resultElements.Where(z => z != null).ToArray();
+        var arrayOfResultElements = resultElements.Where(z => z is not null).ToArray();
 
         try
         {
@@ -526,7 +526,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                 provisionallyCorruptElement = resultElement;
 
                 var xElement = resultElement.Element(ResultDto.XeIsSeries);
-                if (xElement != null)
+                if (xElement is not null)
                     xElement.Value = xElement.Value == "MTBRSFULL" ? "Y" : "N";
 
                 provisionallyCorruptItemIndex++;
@@ -564,10 +564,10 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (resultElements == null)
+            if (resultElements is null)
                 throw new ArgumentNullException(nameof(resultElements));
 
-            var arrayOfresultElements = resultElements.Where(z => z != null).ToArray();
+            var arrayOfresultElements = resultElements.Where(z => z is not null).ToArray();
 
             foreach (var resultElement in arrayOfresultElements)
             {
@@ -576,7 +576,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                 #region leave valid Dnx's intact, erase the value if not a valid Dnx
 
                 var xElement = resultElement.Element(ResultDto.XeDnxString);
-                if (xElement != null)
+                if (xElement is not null)
                     xElement.Value = ElementValueIsDnxSymbol(xElement) ? xElement.Value : string.Empty;
 
                 #endregion
@@ -617,10 +617,10 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (resultElements == null)
+            if (resultElements is null)
                 throw new ArgumentNullException(nameof(resultElements));
 
-            var arrayOfResultElements = resultElements.Where(z => z != null).ToArray();
+            var arrayOfResultElements = resultElements.Where(z => z is not null).ToArray();
 
             foreach (var resultElement in arrayOfResultElements)
             {
@@ -689,10 +689,10 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (resultElements == null)
+            if (resultElements is null)
                 throw new ArgumentNullException(nameof(resultElements));
 
-            var arrayOfResultElements = resultElements.Where(z => z != null).ToArray();
+            var arrayOfResultElements = resultElements.Where(z => z is not null).ToArray();
 
             foreach (var resultElement in arrayOfResultElements)
             {
@@ -761,13 +761,13 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (resultElements == null)
+            if (resultElements is null)
                 throw new ArgumentNullException(nameof(resultElements));
 
-            if (namesOfSuperfluousElements == null)
+            if (namesOfSuperfluousElements is null)
                 throw new ArgumentNullException(nameof(namesOfSuperfluousElements));
 
-            var arrayOfResultElements = resultElements.Where(z => z != null).ToArray();
+            var arrayOfResultElements = resultElements.Where(z => z is not null).ToArray();
 
             foreach (var resultElement in arrayOfResultElements)
             {
@@ -809,7 +809,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (inputText == null)
+            if (inputText is null)
                 throw new ArgumentNullException(nameof(inputText));
 
             return XElement.Parse(inputText); // automatically throws if invalid
@@ -853,7 +853,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         const string failure = " Unable to determine if value of element is a valid Dnx symbol.";
         const string locus = "[ElementValueIsDnxSymbol]";
 
-        if (dnxElement == null) return false;
+        if (dnxElement is null) return false;
 
 
         if (string.IsNullOrWhiteSpace(dnxElement.Value))
@@ -882,10 +882,10 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (gunTimeElement == null)
+            if (gunTimeElement is null)
                 throw new ArgumentNullException(nameof(gunTimeElement));
 
-            if (startTimeOffSetElement == null)
+            if (startTimeOffSetElement is null)
                 throw new ArgumentNullException(nameof(startTimeOffSetElement));
 
             var gunTimespan = ConvertElementValueFromKelsoTimeTextToTimespan(gunTimeElement);
@@ -914,7 +914,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         {
             #region null checks
 
-            if (timeTextXElement == null) throw new ArgumentNullException(nameof(timeTextXElement));
+            if (timeTextXElement is null) throw new ArgumentNullException(nameof(timeTextXElement));
 
             if (string.IsNullOrWhiteSpace(timeTextXElement.Value))
                 throw new ArgumentException(

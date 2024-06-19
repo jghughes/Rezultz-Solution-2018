@@ -77,7 +77,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
 		public static ResultDto ToResultItemDataTransferObject(SplitIntervalItem splitIntervalItem)
 		{
-			if (splitIntervalItem == null) return new ResultDto();
+			if (splitIntervalItem is null) return new ResultDto();
 			// nb. don't return null. logic downstream requires to know that IsAuthorisedToOperate == false
 
 			string ToSplitIntervalDuration(SplitIntervalItem interval)
@@ -119,10 +119,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
 			try
 			{
-				if (splitInterval == null)
+				if (splitInterval is null)
 					return [];
 
-				var answer = splitInterval.Select(ToResultItemDataTransferObject).Where(z => z != null).ToArray();
+				var answer = splitInterval.Select(ToResultItemDataTransferObject).Where(z => z is not null).ToArray();
 
 				return answer;
 			}

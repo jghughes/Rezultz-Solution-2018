@@ -352,7 +352,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         IsAuthorisedToOperate = false; // just to start with while we are working on it...
 
-        if (itemBeingModified == null) return true;
+        if (itemBeingModified is null) return true;
 
         Bib = JghString.TmLr(itemBeingModified.Bib);
         Rfid = JghString.TmLr(itemBeingModified.Rfid);
@@ -384,7 +384,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
                 new() {Label = Symbols.SymbolNonBinary}
             }); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
 
-            if (raceSpecificationItems != null)
+            if (raceSpecificationItems is not null)
             {
                 var races = raceSpecificationItems.Select(z => new CboLookupItemDisplayObject {Label = z.Label}).ToArray();
 
@@ -422,7 +422,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         public ParticipantHubItem MergeEditsBackIntoItemBeingModified(ParticipantHubItem itemBeingModified, string touchedBy)
     {
-        if (itemBeingModified == null)
+        if (itemBeingModified is null)
             return null;
 
         // last line of defense. ideally this should be handled in the vm before now
@@ -608,12 +608,12 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.IsAuthorisedToOperate = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.ItemsSource.Any();
         CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.IsAuthorisedToOperate = CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.ItemsSource.Any();
 
-        DateOfRaceGroupTransitionCalendarPickerVm.IsAuthorisedToOperate = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem != null
-                                                                          && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem != null
+        DateOfRaceGroupTransitionCalendarPickerVm.IsAuthorisedToOperate = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
+                                                                          && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
                                                                           && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
 
-        IsRegradedRaceGroup = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem != null
-                              && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem != null
+        IsRegradedRaceGroup = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
+                              && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
                               && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
     }
 
@@ -624,10 +624,10 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         CboLookUpGenderSpecificationItemsVm.IsVisible = makeVisible;
         CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.IsVisible = makeVisible;
-        CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.IsVisible = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem != null;
+        CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.IsVisible = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null;
 
-        DateOfRaceGroupTransitionCalendarPickerVm.IsVisible = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem != null
-                                                              && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem != null
+        DateOfRaceGroupTransitionCalendarPickerVm.IsVisible = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
+                                                              && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
                                                               && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
     }
 

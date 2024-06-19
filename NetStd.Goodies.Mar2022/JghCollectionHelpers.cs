@@ -68,7 +68,7 @@ namespace NetStd.Goodies.Mar2022
 		        return [];
 	        }
 
-	        var longList = items.Where(z => z != null).ToArray();
+	        var longList = items.Where(z => z is not null).ToArray();
 
 	        if (!longList.Any())
 	        {

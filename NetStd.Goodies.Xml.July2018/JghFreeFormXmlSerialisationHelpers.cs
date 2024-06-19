@@ -26,7 +26,7 @@ namespace NetStd.Goodies.Xml.July2018
 
             try
             {
-                if (itemsIdentifiedByTheirNames == null)
+                if (itemsIdentifiedByTheirNames is null)
                     throw new ArgumentNullException(nameof(itemsIdentifiedByTheirNames));
 
                 var childElements = new List<XElement>();
@@ -74,7 +74,7 @@ namespace NetStd.Goodies.Xml.July2018
 
             try
             {
-                if (parentXElementAsString == null)
+                if (parentXElementAsString is null)
                     return [];
 
                 XElement parentXElement;

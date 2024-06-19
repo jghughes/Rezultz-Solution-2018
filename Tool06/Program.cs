@@ -281,7 +281,7 @@ internal class Program
 
                 seasonProfile = await LeaderboardResultsSvcAgent.GetSeasonProfileAsync("999");
 
-                if (seasonProfile == null) throw new FileNotFoundException("LeaderboardResultsSvcAgent.GetSeasonProfile(...) returned null");
+                if (seasonProfile is null) throw new FileNotFoundException("LeaderboardResultsSvcAgent.GetSeasonProfile(...) returned null");
 
                 JghConsoleHelper.WriteLineFollowedByOne($"answer = [{seasonProfile.Label}]");
 
@@ -425,9 +425,9 @@ internal class Program
         var publisherOutput =
             await RaceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync("23mylaps", seriesLabel, eventLabel, seriesProfileItem, FilesForPublisherModuleToProcess.ToArray());
 
-        if (publisherOutput == null) throw new FileNotFoundException("Failure. RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() returned NULL. This should never ever happen.");
+        if (publisherOutput is null) throw new FileNotFoundException("Failure. RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() returned NULL. This should never ever happen.");
 
-        if (publisherOutput.ComputedResults == null)
+        if (publisherOutput.ComputedResults is null)
         {
             JghConsoleHelper.WriteLine(
                 "Failure. RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() returned a NULL ComputedResults object array - signifying a handled failure (needing to be reported).");

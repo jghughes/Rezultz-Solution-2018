@@ -1597,7 +1597,7 @@ namespace RezultzPortal.Uwp.PageViewModelBases
                 = SearchFunctionVm.GetSubsetOfSearchQueryItemsThatEquateToSelectedSearchQuery(finalQuerySubmitted);
 
             await OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync(
-                searchResults.Where(z => z != null).ToArray());
+                searchResults.Where(z => z is not null).ToArray());
         }
 
         #region try catch
@@ -1635,12 +1635,12 @@ namespace RezultzPortal.Uwp.PageViewModelBases
         {
             #region null checks
 
-            if (DataGridOfItemsInRepository == null) return;
+            if (DataGridOfItemsInRepository is null) return;
 
-            if (discoveredQueryItems == null)
+            if (discoveredQueryItems is null)
                 throw new JghNullObjectInstanceException(nameof(discoveredQueryItems));
 
-            if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() == null)
+            if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() is null)
                 throw new JghAlertMessageException(nothingFound);
 
             #endregion
@@ -1652,7 +1652,7 @@ namespace RezultzPortal.Uwp.PageViewModelBases
 
             var firstItemWithMatchingGuid = DataGridOfItemsInRepository.ItemsSource.FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Guid, discoveredTag));
 
-            if (firstItemWithMatchingGuid == null)
+            if (firstItemWithMatchingGuid is null)
                 throw new JghAlertMessageException(nothingFound);
 
             var skip = Math.Max(DataGridOfItemsInRepository.ItemsSource.IndexOf(firstItemWithMatchingGuid) - prequels, 0);
@@ -1772,8 +1772,8 @@ namespace RezultzPortal.Uwp.PageViewModelBases
             buttonControlViewModel.IsAuthorisedToOperate = true;
 
         EditTemplateForRepositoryItemBeingEdited.IsAuthorisedToOperate =
-            EditTemplateForRepositoryItemBeingEdited != null
-            && DataGridOfItemsInRepository.SelectedItem != null;
+            EditTemplateForRepositoryItemBeingEdited is not null
+            && DataGridOfItemsInRepository.SelectedItem is not null;
 
         AcceptRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate = false;
         RejectRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate = EditTemplateForRepositoryItemBeingEdited.IsAuthorisedToOperate;
@@ -1798,11 +1798,11 @@ namespace RezultzPortal.Uwp.PageViewModelBases
         SeasonProfileAndIdentityValidationVm.SeasonProfileValidationIsVisible = ThisViewModelIsInitialised;
 
         SeasonProfileAndIdentityValidationVm.IdentityValidationIsVisible = ThisViewModelIsInitialised &&
-                                                                           SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem != null;
+                                                                           SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is not null;
 
         var readyToGo = ThisViewModelIsInitialised &&
-                        SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem != null &&
-                        SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem != null;
+                        SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is not null &&
+                        SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is not null;
 
         LaunchWorkSessionButtonVm.IsVisible = readyToGo;
 
@@ -1906,16 +1906,16 @@ namespace RezultzPortal.Uwp.PageViewModelBases
     {
         bool LastKnownGoodGenesisOfThisViewModelIsNull()
         {
-            if (SeasonProfileItemUponLaunchOfWorkSession == null)
+            if (SeasonProfileItemUponLaunchOfWorkSession is null)
                 return true;
 
-            if (IdentityItemUponLaunchOfWorkSession == null)
+            if (IdentityItemUponLaunchOfWorkSession is null)
                 return true;
 
-            if (SeriesItemUponLaunchOfWorkSession == null)
+            if (SeriesItemUponLaunchOfWorkSession is null)
                 return true;
 
-            if (EventItemUponLaunchOfWorkSession == null)
+            if (EventItemUponLaunchOfWorkSession is null)
                 return true;
 
             return false;
@@ -1995,13 +1995,13 @@ namespace RezultzPortal.Uwp.PageViewModelBases
         if (!SeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem is null)
             throw new JghAlertMessageException(StringsPortal.SelectedSeriesIsNull);
 
-        if (SeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem is null)
             throw new JghAlertMessageException(StringsPortal.SelectedEventIsNull);
     }
 
@@ -2013,10 +2013,10 @@ namespace RezultzPortal.Uwp.PageViewModelBases
         if (!SeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is null)
             throw new JghAlertMessageException(StringsPortal.IdentityNotAuthenticated);
 
         if (!SeasonProfileAndIdentityValidationVm.GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole())

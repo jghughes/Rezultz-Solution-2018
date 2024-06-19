@@ -52,10 +52,10 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 					DummyCommandExecuteActionThatDoesNothing,
 					DummyCommandCanExecuteFuncThatIsAlwaysFalse);
 
-			if (onSelectionChangedExecuteAction == null)
+			if (onSelectionChangedExecuteAction is null)
 				onSelectionChangedExecuteAction = DummyCommandExecuteActionThatDoesNothing;
 
-			if (onSelectionChangedCanExecuteFunc == null)
+			if (onSelectionChangedCanExecuteFunc is null)
 				onSelectionChangedCanExecuteFunc = DummyCommandCanExecuteFuncThatIsAlwaysFalse;
 
 			_asInstantiatedDelegateCommand =
@@ -215,7 +215,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 		public void MakeVisibleIfItemsSourceIsAny()
 		{
-			if (_backingstoreItemsSource == null)
+			if (_backingstoreItemsSource is null)
 			{
 				IsVisible = false;
 				return;
@@ -226,7 +226,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 		public void MakeVisibleIfItemsSourceIsGreaterThanOne()
 		{
-			if (_backingstoreItemsSource == null)
+			if (_backingstoreItemsSource is null)
 			{
 				IsVisible = false;
 				return;
@@ -237,7 +237,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 		public void MakeVisibleIfItemsSourceIsGreaterThanTwo()
 		{
-			if (_backingstoreItemsSource == null)
+			if (_backingstoreItemsSource is null)
 			{
 				IsVisible = false;
 				return;
@@ -262,7 +262,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void MakeAuthorisedToOperateIfItemsSourceIsAny()
         {
-            if (_backingstoreItemsSource == null)
+            if (_backingstoreItemsSource is null)
             {
                 IsAuthorisedToOperate = false;
                 return;
@@ -273,7 +273,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void MakeAuthorisedToOperateIfItemsSourceIsMoreThanOne()
         {
-            if (_backingstoreItemsSource == null)
+            if (_backingstoreItemsSource is null)
             {
                 IsAuthorisedToOperate = false;
                 return;
@@ -288,7 +288,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public async Task<bool> AddItemToItemsSourceAsync(T item)
 		{
-			if (item == null) return true;
+			if (item is null) return true;
 
 			ExtinguishOnSelectionChangedCommand();
 
@@ -307,7 +307,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 		public async Task<bool> DeleteItemFromItemsSourceAsync(T item)
 		{
-			if (item == null) return true;
+			if (item is null) return true;
 
 			ExtinguishOnSelectionChangedCommand();
 
@@ -328,12 +328,12 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 		{
 			ExtinguishOnSelectionChangedCommand();
 
-			if (ItemsSource == null)
+			if (ItemsSource is null)
 				ItemsSource = [];
 
 			var temp = ItemsSource.ToList();
 
-			if (items != null) temp.AddRange(items.Where(z => z != null));
+			if (items is not null) temp.AddRange(items.Where(z => z is not null));
 
 			ItemsSource = temp.ToArray();
 
@@ -354,8 +354,8 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 			T[] temp = [];
 
-			if (items != null)
-				temp = items.Where(z => z != null).ToArray();
+			if (items is not null)
+				temp = items.Where(z => z is not null).ToArray();
 
 			ItemsSource = temp;
 
@@ -411,7 +411,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 		public async Task<bool> ChangeSelectedIndexAsync(int candidateIndex)
 		{
-			if (ItemsSource == null)
+			if (ItemsSource is null)
 				return true;
 
 			ExtinguishOnSelectionChangedCommand();
@@ -430,7 +430,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
 		public async Task<bool> ChangeSelectedIndexToNullAsync()
 		{
-			if (ItemsSource == null)
+			if (ItemsSource is null)
 				return true;
 
 			ExtinguishOnSelectionChangedCommand();
@@ -453,7 +453,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 			var answer = JghArrayHelpers.SelectItemFromArrayByArrayIndex(ItemsSource,
 				SelectedIndex);
 
-			return ItemsSource == null
+			return ItemsSource is null
 				? null
 				: answer;
 		}

@@ -90,7 +90,7 @@ namespace RezultzPortal.Uwp.Pages
 
         try
         {
-            if (PagesViewModel == null)
+            if (PagesViewModel is null)
                 throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
             DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -154,7 +154,7 @@ namespace RezultzPortal.Uwp.Pages
             var buttonProfile = PagesViewModel?.PublishingModuleProfile?.GuiButtonProfilesForBrowsingFileSystemForDatasets?
                 .FirstOrDefault(z => z.IdentifierOfAssociatedDataset == xamlButtonThatUserClicked.Tag as string);
 
-            if (buttonProfile == null)
+            if (buttonProfile is null)
                 throw new Exception("GUI Button Tag not found in list of AssociatedDataset for this processing module.");
 
             #endregion
@@ -181,7 +181,7 @@ namespace RezultzPortal.Uwp.Pages
 
             var importFile = await openPicker.PickSingleFileAsync();
 
-            if (importFile == null)
+            if (importFile is null)
                 throw new JghAlertMessageException("Cancelled");
 
             #endregion
@@ -586,8 +586,8 @@ namespace RezultzPortal.Uwp.Pages
         {
             #region null value error handling
 
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            if (bytesToBeSaved == null) throw new ArgumentNullException(nameof(bytesToBeSaved));
+            if (file is null) throw new ArgumentNullException(nameof(file));
+            if (bytesToBeSaved is null) throw new ArgumentNullException(nameof(bytesToBeSaved));
 
             #endregion
 

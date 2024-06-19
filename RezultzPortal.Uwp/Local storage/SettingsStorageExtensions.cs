@@ -55,7 +55,7 @@ namespace RezultzPortal.Uwp.Local_storage
 
         public static async Task<StorageFile> SaveFileAsync(this StorageFolder folder, byte[] content, string fileName, CreationCollisionOption options = CreationCollisionOption.ReplaceExisting)
         {
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            if (content is null) throw new ArgumentNullException(nameof(content));
 
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentException("Error: File name is empty.");
 
@@ -68,7 +68,7 @@ namespace RezultzPortal.Uwp.Local_storage
         {
             var item = await folder.TryGetItemAsync(fileName).AsTask().ConfigureAwait(false);
 
-            if (item != null && item.IsOfType(StorageItemTypes.File))
+            if (item is not null && item.IsOfType(StorageItemTypes.File))
             {
                 var storageFile = await folder.GetFileAsync(fileName);
                 var content = await storageFile.ReadBytesAsync();
@@ -80,7 +80,7 @@ namespace RezultzPortal.Uwp.Local_storage
 
         public static async Task<byte[]> ReadBytesAsync(this StorageFile file)
         {
-            if (file != null)
+            if (file is not null)
             {
                 using IRandomAccessStream stream = await file.OpenReadAsync();
                 using var reader = new DataReader(stream.GetInputStreamAt(0));

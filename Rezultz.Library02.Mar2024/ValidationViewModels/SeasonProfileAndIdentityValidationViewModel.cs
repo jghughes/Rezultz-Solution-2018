@@ -560,7 +560,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
             var candidateSeasonItem = await _leaderboardResultsSvcAgent.GetSeasonProfileAsync(TextBoxForEnteringSeasonProfileFileNameFragmentVm.Text, CancellationToken.None); // success!?
 
-            if (candidateSeasonItem == null)
+            if (candidateSeasonItem is null)
                 return SeasonProfileFile_is_blank;
 
             if (string.IsNullOrWhiteSpace(candidateSeasonItem.AccessCodes)) return SeasonData_contains_no_access_codes;
@@ -714,7 +714,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
             var discoveredSeasonProfileItem = await GetSeasonMetadataItemFromLocalStorageAsync(NameOfFolderContainingSeasonData, TextBoxForEnteringSeasonProfileFileNameFragmentVm.Text); // success!?
 
-            if (discoveredSeasonProfileItem == null) return SeasonMetadata_not_found_on_this_machine_message;
+            if (discoveredSeasonProfileItem is null) return SeasonMetadata_not_found_on_this_machine_message;
 
             CurrentlyValidatedSeasonProfileItem = discoveredSeasonProfileItem;
 
@@ -899,7 +899,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
             #region get identityUser
 
-            if (CurrentlyValidatedSeasonProfileItem == null)
+            if (CurrentlyValidatedSeasonProfileItem is null)
                 throw new JghAlertMessageException(Please_submit_and_validate_SeasonID);
 
             var userNameIsRecognised = GetIfIdentityUserNameIsRecognised(TextBoxForEnteringIdentityUserNameVm.Text);
@@ -912,7 +912,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
             var _candidateIdentity = GetAuthenticatedIdentityUser(TextBoxForEnteringIdentityUserNameVm.Text, TextBoxForEnteringIdentityPasswordVm.Text);
 
-            if (_candidateIdentity == null)
+            if (_candidateIdentity is null)
                 throw new JghAlertMessageException(Credentials_not_recognised_message);
 
             var workRoleIsOk = _candidateIdentity.ArrayOfAuthorisedWorkRoles.Any(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpace(z, CurrentRequiredWorkRole));
@@ -1140,7 +1140,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
             CurrentlyValidatedSeasonProfileItem = await _leaderboardResultsSvcAgent.GetSeasonProfileAsync(selectedSeasonIdAsText, CancellationToken.None); // success!?
 
-            if (CurrentlyValidatedSeasonProfileItem == null) return SeasonProfileFile_is_blank;
+            if (CurrentlyValidatedSeasonProfileItem is null) return SeasonProfileFile_is_blank;
 
             #endregion
 
@@ -1433,7 +1433,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         var identityItems = CurrentlyValidatedSeasonProfileItem?.AuthorisedIdentities;
 
-        if (identityItems == null)
+        if (identityItems is null)
             return false;
 
         var answer = identityItems.Any(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpace(z.UserName, userName));
@@ -1448,7 +1448,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         var identityItems = CurrentlyValidatedSeasonProfileItem?.AuthorisedIdentities;
 
-        if (identityItems == null)
+        if (identityItems is null)
             return null;
 
         var answers = identityItems.Where(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpace(z.UserName, userName) && JghString.AreEqualAndNeitherIsNullOrWhiteSpace(z.Password, password));
@@ -1460,7 +1460,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         public bool GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole()
     {
-        if (CurrentlyAuthenticatedIdentityItem?.ArrayOfAuthorisedWorkRoles == null)
+        if (CurrentlyAuthenticatedIdentityItem?.ArrayOfAuthorisedWorkRoles is null)
             return false;
 
         var workRoleIsOk = CurrentlyAuthenticatedIdentityItem.ArrayOfAuthorisedWorkRoles.Any(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpace(z, CurrentRequiredWorkRole));
@@ -1499,7 +1499,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
             var arrayOfSeasonItem = await _leaderboardResultsSvcAgent.GetAllSeasonProfilesAsync(CancellationToken.None);
 
-            if (arrayOfSeasonItem == null || !arrayOfSeasonItem.Any())
+            if (arrayOfSeasonItem is null || !arrayOfSeasonItem.Any())
                 throw new JghResultsData404Exception("Season information is empty.");
 
             arrayOfSeasonItem = arrayOfSeasonItem
@@ -1553,14 +1553,14 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         private async Task PopulateCboLookupSeriesAsync()
     {
-        if (CurrentlyValidatedSeasonProfileItem == null)
+        if (CurrentlyValidatedSeasonProfileItem is null)
         {
             await CboLookupSeriesVm.ZeroiseItemsSourceAsync();
 
             return;
         }
 
-        if (CurrentlyValidatedSeasonProfileItem.SeriesProfiles == null || !CurrentlyValidatedSeasonProfileItem.SeriesProfiles.Any())
+        if (CurrentlyValidatedSeasonProfileItem.SeriesProfiles is null || !CurrentlyValidatedSeasonProfileItem.SeriesProfiles.Any())
         {
             await CboLookupSeriesVm.ZeroiseItemsSourceAsync();
 
@@ -1570,7 +1570,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
         var arrayOfSeriesItems = SeriesItemDisplayObject.FromModel(CurrentlyValidatedSeasonProfileItem.SeriesProfiles);
 
         arrayOfSeriesItems = arrayOfSeriesItems
-            .Where(z => z != null)
+            .Where(z => z is not null)
             .OrderBy(z => z.DisplayRank)
             .ThenByDescending(z => z.AdvertisedDateTime)
             .ThenBy(z => z.Label)
@@ -1595,14 +1595,14 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         private async Task PopulateCboLookupEventAsync()
     {
-        if (CurrentlyValidatedSeasonProfileItem == null)
+        if (CurrentlyValidatedSeasonProfileItem is null)
         {
             await CboLookupEventVm.ZeroiseItemsSourceAsync();
 
             return;
         }
 
-        if (CboLookupSeriesVm.CurrentItem == null)
+        if (CboLookupSeriesVm.CurrentItem is null)
         {
             await CboLookupEventVm.ZeroiseItemsSourceAsync();
 
@@ -1612,7 +1612,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
         var listOfEventItems = CboLookupSeriesVm.CurrentItem?.ArrayOfEventItems ?? [];
 
         listOfEventItems = listOfEventItems
-            .Where(z => z != null)
+            .Where(z => z is not null)
             .OrderBy(z => z.DisplayRank)
             .ThenByDescending(z => z.AdvertisedDateTime)
             .ThenBy(z => z.Label)
@@ -1623,7 +1623,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
         var bestGuessChoiceOfEventItemToKickOffWith =
             JghArrayHelpers.SelectMostRecentItemBeforeDateTimeNowInArrayOfItemsOrFailingThatPickTheEarliest(EventItemDisplayObject.ObtainSourceModel(CboLookupEventVm.ItemsSource.ToArray()));
 
-        //if (bestGuessChoiceOfEventItemToKickOffWith == null)
+        //if (bestGuessChoiceOfEventItemToKickOffWith is null)
         //    throw new Jgh404Exception(
         //        "Sorry. No Event particulars found. bestGuessChoiceOfEventItemToKickOffWith is null. Unable to proceed.");
 
@@ -1637,7 +1637,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         CboLookupEventVm.MakeVisibleIfItemsSourceIsGreaterThanOne();
 
-        //if (CboLookupEventVm.CurrentItem == null)
+        //if (CboLookupEventVm.CurrentItem is null)
         //    throw new JghNullObjectInstanceException("CboLookupEventVm.CurrentItem is null"); // exceedingly farfetched. belt and braces
 
         //CboLookupEventVm.Label = CboLookupEventVm.CurrentItem?.Label;
@@ -1645,14 +1645,14 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         private async Task PopulateCboLookupBlobNameForPublishedResultsAsync()
     {
-        if (CurrentlyValidatedSeasonProfileItem == null)
+        if (CurrentlyValidatedSeasonProfileItem is null)
         {
             await CboLookupEventVm.ZeroiseItemsSourceAsync();
 
             return;
         }
 
-        if (CboLookupEventVm.CurrentItem == null)
+        if (CboLookupEventVm.CurrentItem is null)
         {
             await CboLookupEventVm.ZeroiseItemsSourceAsync();
 
@@ -1660,7 +1660,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
         }
 
         var itemsSourceForCboBlobs = CboLookupEventVm.CurrentItem.ArrayOfLocationOfPreprocessedResultsDataFiles ?? Array.Empty<EntityLocationItemDisplayObject>()
-            .Where(z => z != null)
+            .Where(z => z is not null)
             .OrderBy(z => z.DataItemName)
             .ToArray();
 
@@ -1706,7 +1706,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
 
         private async Task SaveSeasonMetadataItemToLocalStorageBackupAsync(string folderName, string thisSeasonId, SeasonProfileItem thisSeasonProfileItem)
     {
-        if (string.IsNullOrWhiteSpace(folderName) || string.IsNullOrWhiteSpace(thisSeasonId) || thisSeasonProfileItem == null)
+        if (string.IsNullOrWhiteSpace(folderName) || string.IsNullOrWhiteSpace(thisSeasonId) || thisSeasonProfileItem is null)
             return;
 
         var seasonItemDtoToBeSaved = SeasonProfileItem.ToDataTransferObject(thisSeasonProfileItem);
@@ -1729,7 +1729,7 @@ namespace Rezultz.Library02.Mar2024.ValidationViewModels
             recoveredMetaDataDto =
                 await _storageService.ReadSerializedObjectAsync<SeasonProfileDto>(folderName, MakeFileNameFromSeasonId(thisSeasonId));
 
-            if (recoveredMetaDataDto == null || !JghString.AreEqualAndNeitherIsNullOrWhiteSpace(thisSeasonId, recoveredMetaDataDto.FragmentInFileNameOfAssociatedProfileFile))
+            if (recoveredMetaDataDto is null || !JghString.AreEqualAndNeitherIsNullOrWhiteSpace(thisSeasonId, recoveredMetaDataDto.FragmentInFileNameOfAssociatedProfileFile))
                 return null;
         }
         catch (Exception)

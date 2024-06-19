@@ -58,9 +58,9 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                 "Unable to populate array of simple identities of itemsIdentifiedByTheirNames with full details of their newest results.";
             const string locus = "[SearchByName]";
 
-            if (searchList == null) return [];
+            if (searchList is null) return [];
 
-            if (populationToBeSearched == null || !populationToBeSearched.Any()) return [];
+            if (populationToBeSearched is null || !populationToBeSearched.Any()) return [];
 
             // arrayOfIdentities are the Favorites for example
 
@@ -70,7 +70,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
             {
                 foreach (var identity in searchList)
                 {
-                    if (identity == null) continue;
+                    if (identity is null) continue;
 
                     //step 1. get ready. default assumption is a blank person/item - populated with names alone
 
@@ -117,7 +117,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
             where TU : class, IHasFirstName, IHasMiddleInitial, IHasLastName
         {
             var listOfItemsAfterDeletion = (from item in populationToBeReduced
-                where item != null
+                where item is not null
                 where !ThingWithNamesItem.AreMatchingNamesInAllProbability(nameToBeRemoved, item)
                 select item).ToArray();
 

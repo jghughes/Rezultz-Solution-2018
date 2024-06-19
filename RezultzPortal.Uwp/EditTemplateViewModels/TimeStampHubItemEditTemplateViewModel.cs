@@ -222,7 +222,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         public async Task<bool> PopulateWithItemBeingModifiedAsync(TimeStampHubItem itemBeingModified)
     {
-        if (itemBeingModified == null)
+        if (itemBeingModified is null)
             return true;
 
         _kindOfTimeStampEnum = itemBeingModified.RecordingModeEnum;
@@ -260,7 +260,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         public TimeStampHubItem MergeEditsBackIntoItemBeingModified(TimeStampHubItem itemBeingModified, string touchedBy)
     {
-        if (itemBeingModified == null)
+        if (itemBeingModified is null)
             return null;
 
         // last line of defense. ideally this should be handled in the vm before now

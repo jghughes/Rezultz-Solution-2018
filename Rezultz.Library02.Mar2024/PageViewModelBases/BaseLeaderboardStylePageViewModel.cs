@@ -572,7 +572,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             #region null checks
 
-            if (AllDataGridLineItemDisplayObjects == null)
+            if (AllDataGridLineItemDisplayObjects is null)
                 throw new JghNullObjectInstanceException(nameof(AllDataGridLineItemDisplayObjects));
 
             #endregion
@@ -640,7 +640,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             string messageOk;
 
-            if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+            if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
             {
                 messageOk = StringsRezultz02.SeasonDataNotInitialised;
 
@@ -776,7 +776,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         {
             #region do work
 
-            if (DataGridOfLeaderboardVm?.SelectedItem == null) return;
+            if (DataGridOfLeaderboardVm?.SelectedItem is null) return;
 
             await AddPersonToFavoritesAsync(DataGridOfLeaderboardVm?.SelectedItem);
 
@@ -784,7 +784,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             MustDisplayFavoritesDatagrid = true;
 
-            if (DataGridOfLeaderboardVm != null) await DataGridOfLeaderboardVm.ChangeSelectedItemToNullAsync();
+            if (DataGridOfLeaderboardVm is not null) await DataGridOfLeaderboardVm.ChangeSelectedItemToNullAsync();
 
             #endregion
         }
@@ -860,7 +860,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         {
             #region do work
 
-            if (DataGridOfFavoritesVm?.SelectedItem == null) return;
+            if (DataGridOfFavoritesVm?.SelectedItem is null) return;
 
             var favoritesToBeUpdated =
                 await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync() ?? [];
@@ -875,7 +875,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             MustDisplayFavoritesDatagrid = true;
 
-            if (DataGridOfFavoritesVm != null) await DataGridOfFavoritesVm.ChangeSelectedItemToNullAsync();
+            if (DataGridOfFavoritesVm is not null) await DataGridOfFavoritesVm.ChangeSelectedItemToNullAsync();
 
             #endregion
         }
@@ -952,7 +952,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         {
             #region Dowork
 
-            if (DataGridOfFavoritesVm?.ItemsSource == null) return;
+            if (DataGridOfFavoritesVm?.ItemsSource is null) return;
 
             await ThingsPersistedInLocalStorage.SaveFavoritesListIdentitiesAsync([]);
 
@@ -1054,7 +1054,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         {
             #region preflight checks
 
-            if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem == null)
+            if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is null)
                 throw new JghUserAuthenticationMessageException("Only administrators can publish/post web pages. They must authenticate themselves in Preferences.");
 
             if (!GlobalSeasonProfileAndIdentityValidationVm.GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole())
@@ -1077,7 +1077,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             var messageOk = string.Empty;
 
-            if (GlobalSeasonProfileAndIdentityValidationVm?.CboLookupSeriesVm?.CurrentItem?.LocationOfDocumentsPosted != null)
+            if (GlobalSeasonProfileAndIdentityValidationVm?.CboLookupSeriesVm?.CurrentItem?.LocationOfDocumentsPosted is not null)
             {
                 var storageLocationForAllPostsInThisSeries = GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.LocationOfDocumentsPosted;
 
@@ -1190,7 +1190,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
             return multiIdFilterMask;
         }
 
-        if (population == null)
+        if (population is null)
             throw new JghNullObjectInstanceException(nameof(population));
 
         if (!population.Any()) return [];
@@ -1200,7 +1200,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         //ResultItemDisplayObject[] filteredResults = AlgorithmForFilteringResults.FilterPopulationUsingFilterCriteriaMask(population, filterMask);
 
 
-        IEnumerable<ResultItemDisplayObject> populationUndergoingFiltering = population.Where(z => z != null).ToList();
+        IEnumerable<ResultItemDisplayObject> populationUndergoingFiltering = population.Where(z => z is not null).ToList();
 
         if (CboLookupRaceCategoryFilterVm.CurrentItem.Label != StringsRezultz02.Races___all)
             populationUndergoingFiltering = populationUndergoingFiltering.Where(z => z.RaceGroup == filterMask.RaceGroup);
@@ -1255,17 +1255,17 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
     public bool PersonWithTargetBibNumberIsSuccessfullyIdentifiedInPopulation(string targetBibNumber, out ResultItemDisplayObject personWithBibNumberIdentified)
     {
         personWithBibNumberIdentified = AllDataGridLineItemDisplayObjects
-            .Where(z => z != null)
+            .Where(z => z is not null)
             .Where(z => JghString.AreEqualIgnoreOrdinalCase(z.Bib, targetBibNumber))
             .Select(z => z)
             .FirstOrDefault();
 
-        return personWithBibNumberIdentified != null;
+        return personWithBibNumberIdentified is not null;
     }
 
     protected virtual async Task<bool> CboLookUpCategoryFiltersChangeToMatchPersonWithTargetBibNumberAsync(ResultItemDisplayObject personWithBibNumberSpecifiedForOpenOnLaunch)
     {
-        if (personWithBibNumberSpecifiedForOpenOnLaunch == null)
+        if (personWithBibNumberSpecifiedForOpenOnLaunch is null)
             return false;
 
         await CboLookupRaceCategoryFilterVm.ChangeSelectedIndexToMatchItemLabelAsync(personWithBibNumberSpecifiedForOpenOnLaunch.RaceGroup);
@@ -1285,12 +1285,12 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     public static string[] AddLabelForSelectingAll(string labelForSelectingAll, string[] lookupTable)
     {
-        if (lookupTable == null)
+        if (lookupTable is null)
             return [];
 
         // sort table
 
-        var amendedTable = lookupTable.Where(z => z != null)
+        var amendedTable = lookupTable.Where(z => z is not null)
             .OrderByDescending(z => z)
             .ToList();
 
@@ -1318,7 +1318,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
     public void CboLookUpCategoryFiltersUpdateCaptionsOfAllVms()
     {
         foreach (var lookupVm in CboLookUpCategoryFiltersMakeListOfAllVms())
-            if (lookupVm?.CurrentItem != null)
+            if (lookupVm?.CurrentItem is not null)
                 lookupVm.Label = lookupVm.CurrentItem.Label;
     }
 
@@ -1351,10 +1351,10 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     protected void CboLookUpCategoryFilterThrowExceptionIfCboMoreInfoItemLookupVmIsEmpty()
     {
-        if (CboLookupMoreInfoItemVm == null)
+        if (CboLookupMoreInfoItemVm is null)
             throw new JghNullObjectInstanceException(nameof(CboLookupMoreInfoItemVm));
 
-        if (CboLookupMoreInfoItemVm.ItemsSource == null)
+        if (CboLookupMoreInfoItemVm.ItemsSource is null)
             throw new JghNullObjectInstanceException(nameof(CboLookupMoreInfoItemVm.ItemsSource));
     }
 
@@ -1366,16 +1366,16 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     protected void ThrowExceptionIfThereAreAnyFundamentalDeficienciesInTheSeasonMetadataItem()
     {
-        if (GlobalSeasonProfileAndIdentityValidationVm == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm is null)
             return;
 
         if (!GlobalSeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException("Season profile not initialised.  Please submit a valid profile ID.");
 
-        if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
             throw new JghAlertMessageException("Season profile not initialised.  Please submit a valid profile ID.");
 
-        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm is null)
             throw new JghAlertMessageException(
                 $"Season profile successfully loaded using profile ID = {GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}.  Warning : there are no constituent series identified in the season data. The list is null. This is a system error. Sorry.");
 
@@ -1384,17 +1384,17 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 $"Season profile successfully loaded using profile ID = {GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}.  Warning : there are no constituent series available via this ID. Either the list of series in the corresponding profile is empty, or the particulars regarding the listed series are not found on the server.  Either of these possibilities might or might not be intentional on the part of the author of the season profile.");
 
 
-        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem is null)
             throw new JghAlertMessageException(
                 $"Season profile successfully loaded using profile ID = {GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}.  A series has not yet been selected.  A series needs to be chosen.  Please select a series.");
     }
 
     protected void ThrowExceptionIfThereAreAnyFundamentalDeficienciesInTheEventItem()
     {
-        if (GlobalSeasonProfileAndIdentityValidationVm == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm is null)
             return;
 
-        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm is null)
             throw new JghAlertMessageException(
                 $"Season profile successfully loaded for profile ID = {GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile} but the list of events is null. This is a system error. Sorry");
 
@@ -1403,7 +1403,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
             throw new JghAlertMessageException(
                 $"Season profile successfully loaded for ID={GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}. The number of series listed is {GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.ItemsSource.Length}. The series chosen for analysis is {GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.Label}. There are no events listed for this series. The data profile might be incomplete.");
 
-        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm.CurrentItem == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm.CurrentItem is null)
             throw new JghAlertMessageException(
                 $"Season profile successfully loaded for ID={GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem.FragmentInFileNameOfAssociatedProfileFile}. The series selected for analysis is {GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.Label}. The number of events listed for it is {GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem.ArrayOfEventItems.Length}. An event has not yet been selected by the user. An event must be selected in order to proceed.");
     }
@@ -1431,7 +1431,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                     finalQuerySubmitted);
 
             await OrchestrateActionsToBeTakenWhenSearchOutcomeIsToHandAsync(
-                searchResults.Where(z => z != null).ToArray());
+                searchResults.Where(z => z is not null).ToArray());
 
             #endregion
         }
@@ -1468,12 +1468,12 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         {
             #region null checks
 
-            if (DataGridOfFavoritesVm == null) return;
+            if (DataGridOfFavoritesVm is null) return;
 
-            if (discoveredQueryItems == null)
+            if (discoveredQueryItems is null)
                 throw new JghNullObjectInstanceException(nameof(discoveredQueryItems));
 
-            if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() == null)
+            if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() is null)
                 throw new JghAlertMessageException(Strings2017.No_items_found_in_this_subset);
 
             #endregion
@@ -1499,12 +1499,12 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             #region null checks
 
-            //if (DataGridOfLeaderboardVm == null) return;
+            //if (DataGridOfLeaderboardVm is null) return;
 
-            //if (discoveredQueryItems == null)
+            //if (discoveredQueryItems is null)
             //    throw new JghNullObjectInstanceException(nameof(discoveredQueryItems));
 
-            //if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() == null)
+            //if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() is null)
             //    throw new JghAlertMessageException(nothingFound);
 
             #endregion
@@ -1518,7 +1518,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             //var firstItemWithMatchingGuid = DataGridOfLeaderboardVm.ItemsSource.FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Guid, discoveredTag));
 
-            //if (firstItemWithMatchingGuid == null)
+            //if (firstItemWithMatchingGuid is null)
             //    throw new JghAlertMessageException(nothingFound);
 
             //var skip = Math.Max(DataGridOfLeaderboardVm.ItemsSource.IndexOf(firstItemWithMatchingGuid) - prequels, 0);
@@ -1557,7 +1557,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
             #region null checks
 
-            if (AllDataGridLineItemDisplayObjects == null)
+            if (AllDataGridLineItemDisplayObjects is null)
                 throw new JghNullObjectInstanceException(nameof(AllDataGridLineItemDisplayObjects));
 
             #endregion
@@ -1586,7 +1586,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
             var favoritesToBeSearchedFor = await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync();
 
             var discoveredFavoriteThings = ThingWithNamesItem.SearchByName(favoritesToBeSearchedFor, AllDataGridLineItemDisplayObjects)
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Distinct()
                 .ToArray();
             // NB use .Distinct() to hide duplicates that tend to proliferate in general in Favorites
@@ -1657,7 +1657,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
         try
         {
-            if (personToBeAddedVm == null) return;
+            if (personToBeAddedVm is null) return;
 
             var favoritesToBeUpdated = (await ThingsPersistedInLocalStorage.GetFavoritesListIdentitiesAsync())?.ToList() ?? [];
 
@@ -1693,20 +1693,20 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     private static ResultItemDisplayObject[] SortResultsInDesiredOrder(ResultItemDisplayObject[] rawInputItems, string columnFormatEnum)
     {
-        if (rawInputItems == null || !rawInputItems.Any()) return [];
+        if (rawInputItems is null || !rawInputItems.Any()) return [];
 
         ResultItemDisplayObject[] rowCollection;
 
         if (columnFormatEnum == EnumStrings.SeriesTotalPointsColumnFormat)
             rowCollection = rawInputItems
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .OrderByDescending(z => z.PointsCalculatedRank)
                 .ToArray();
         else
             rowCollection = rawInputItems
-                .Where(z => z != null)
-                .Where(z => ResultItemDisplayObject.ObtainSourceItem(z) != null)
-                .Where(z => ResultItemDisplayObject.ObtainSourceItem(z).DerivedData != null)
+                .Where(z => z is not null)
+                .Where(z => ResultItemDisplayObject.ObtainSourceItem(z) is not null)
+                .Where(z => ResultItemDisplayObject.ObtainSourceItem(z).DerivedData is not null)
                 .OrderByDescending(z => z.CalculatedNumOfSplitsCompleted)
                 .ThenBy(z => ResultItemDisplayObject.ObtainSourceItem(z).DerivedData.TotalDurationFromAlgorithmInSeconds)
                 .ToArray();
@@ -1799,12 +1799,12 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
         try
         {
-            if (individualResultsDataGrid == null)
+            if (individualResultsDataGrid is null)
                 throw new JghNullObjectInstanceException(nameof(individualResultsDataGrid));
 
             var printerOfHardCopy = CreateDataGridDesignerToWriteTableOfResults(individualResultsDataGrid);
 
-            if (printerOfHardCopy == null)
+            if (printerOfHardCopy is null)
                 throw new JghNullObjectInstanceException(nameof(printerOfHardCopy));
 
             var htmWebPageAsString =
@@ -1893,7 +1893,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         {
             #region null checks
 
-            if (destination == null || string.IsNullOrWhiteSpace(destination.AccountName) || string.IsNullOrWhiteSpace(destination.ContainerName) || string.IsNullOrWhiteSpace(destination.EntityName))
+            if (destination is null || string.IsNullOrWhiteSpace(destination.AccountName) || string.IsNullOrWhiteSpace(destination.ContainerName) || string.IsNullOrWhiteSpace(destination.EntityName))
                 throw new JghAlertMessageException("Not posted. One or more of particulars for the target destination are null or blank.");
 
             #endregion
@@ -1928,7 +1928,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
     {
         Uri hardCopyUri;
 
-        if (destination == null || string.IsNullOrWhiteSpace(destination.AccountName) || string.IsNullOrWhiteSpace(destination.ContainerName) || string.IsNullOrWhiteSpace(destination.EntityName))
+        if (destination is null || string.IsNullOrWhiteSpace(destination.AccountName) || string.IsNullOrWhiteSpace(destination.ContainerName) || string.IsNullOrWhiteSpace(destination.EntityName))
         {
             hardCopyUri = DefaultUri;
         }
@@ -1982,9 +1982,9 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
                 out var _))
             return true;
 
-        if (currentEventProfile?.EventSettingsItem?.UriItems == null) return true;
+        if (currentEventProfile?.EventSettingsItem?.UriItems is null) return true;
 
-        foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z != null))
+        foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z is not null))
         {
             if (!JghFilePathValidator.IsValidBlobName(uriItem.BlobName, out var _))
                 continue;
@@ -2100,8 +2100,8 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         DataGridOfLeaderboardVm.IsAuthorisedToOperate = weHaveResults;
 
         DisplayPodiumResultsOnlyToggleButtonVm.IsAuthorisedToOperate = weHaveResults;
-        AddPersonToFavoritesButtonVm.IsAuthorisedToOperate = DataGridOfLeaderboardVm.SelectedItem != null;
-        DeletePersonFromFavoritesButtonVm.IsAuthorisedToOperate = DataGridOfFavoritesVm.SelectedItem != null;
+        AddPersonToFavoritesButtonVm.IsAuthorisedToOperate = DataGridOfLeaderboardVm.SelectedItem is not null;
+        DeletePersonFromFavoritesButtonVm.IsAuthorisedToOperate = DataGridOfFavoritesVm.SelectedItem is not null;
         DeleteAllFavoritesButtonVm.IsAuthorisedToOperate = DataGridOfFavoritesVm.ItemsSource.Any();
         ToggleFavoritesGridVisibilityButtonVm.IsAuthorisedToOperate = weHaveResults;
 
@@ -2184,10 +2184,10 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
-        if (_lastKnownGoodSeasonProfileItem == null)
+        if (_lastKnownGoodSeasonProfileItem is null)
             return true;
 
-        if (GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem == null)
+        if (GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem is null)
             return true;
 
         if (_lastKnownGoodSeasonProfileItem != GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem)

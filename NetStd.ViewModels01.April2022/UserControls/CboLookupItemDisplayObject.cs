@@ -80,10 +80,10 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             try
             {
-                if (models == null)
+                if (models is null)
                     return [];
 
-                var answer = models.Select(FromModel).Where(z => z != null).ToArray();
+                var answer = models.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -110,10 +110,10 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             try
             {
-                if (viewModels == null)
+                if (viewModels is null)
                     return [];
 
-                var answer = viewModels.Select(ObtainSourceModel).Where(z => z != null).ToArray();
+                var answer = viewModels.Select(ObtainSourceModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -161,10 +161,10 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             try
             {
-                if (labels == null)
+                if (labels is null)
                     return [];
 
-                var answer = labels.Select(FromLabel).Where(z => z != null).ToArray();
+                var answer = labels.Select(FromLabel).Where(z => z is not null).ToArray();
 
                 // P.S. don't filter out blank labels. if they are there we deem them as being there for a reason
 

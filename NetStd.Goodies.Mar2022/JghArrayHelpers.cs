@@ -61,7 +61,7 @@ namespace NetStd.Goodies.Mar2022
 				return null;
 
 			var answer = (from item in manyItems
-						  where item != null
+						  where item is not null
 						  where item.Guid == searchParameter
 						  select item).FirstOrDefault(); // default is null by definition for reference types
 
@@ -79,7 +79,7 @@ namespace NetStd.Goodies.Mar2022
 		        return null;
 
 	        var answer = (from item in manyItems
-		        where item != null
+		        where item is not null
 		        where item.ID == searchParameter
 		        select item).FirstOrDefault(); // default is null by definition for reference types
 
@@ -97,7 +97,7 @@ namespace NetStd.Goodies.Mar2022
                 return null;
 
             var answer = (from item in manyItems
-                where item != null
+                where item is not null
                 where JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(item.Bib, searchParameter)
                 select item).FirstOrDefault();
 
@@ -116,7 +116,7 @@ namespace NetStd.Goodies.Mar2022
                 return null;
 
             var answer = (from item in manyItems
-                where item != null
+                where item is not null
                 where JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(item.Bib, searchParameter)
                 select item).ToArray();
 
@@ -135,7 +135,7 @@ namespace NetStd.Goodies.Mar2022
 		        return null;
 
 	        var answer = (from item in manyItems
-		        where item != null
+		        where item is not null
 		        where JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(item.Label, searchParameter)
 		        select item).FirstOrDefault();
 
@@ -154,7 +154,7 @@ namespace NetStd.Goodies.Mar2022
 		        return null;
 
 	        var answer = (from item in manyItems
-		        where item != null
+		        where item is not null
 		        where JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(item.EnumString, searchParameter)
 		        select item).FirstOrDefault();
 
@@ -190,7 +190,7 @@ namespace NetStd.Goodies.Mar2022
                 return -1;
 
             var collectionToBeSearched = (from item in manyItems
-                where item != null
+                where item is not null
                 select item.ID).ToArray();
 
             if (!collectionToBeSearched.Any())
@@ -216,8 +216,8 @@ namespace NetStd.Goodies.Mar2022
                 return -1;
 
             var collectionToBeSearched = (from item in manyItems
-                where item != null
-                where item.EnumString != null
+                where item is not null
+                where item.EnumString is not null
                 select item.EnumString).ToList();
 
             if (!collectionToBeSearched.Any())
@@ -244,8 +244,8 @@ namespace NetStd.Goodies.Mar2022
 		        return -1;
 
 	        var collectionToBeSearched = (from item in manyItems
-		        where item != null
-		        where item.Label != null
+		        where item is not null
+		        where item.Label is not null
 		        select item.Label).ToList();
 
 	        if (!collectionToBeSearched.Any())
@@ -287,7 +287,7 @@ namespace NetStd.Goodies.Mar2022
                 return [];
 
             var candidates = (from thisItem in manyItems
-                where thisItem != null
+                where thisItem is not null
                 where JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(thisItem.CodeNameOfSuperset,
                     searchParameterOfSuperset)
                 select thisItem).ToArray();
@@ -307,7 +307,7 @@ namespace NetStd.Goodies.Mar2022
             var i = 1;
             // NB don't start with zero. we use 0 to mean "all" in our filtering system. we use "-1" to mean "n/a"
 
-            foreach (var item in manyItems.Where(z => z != null))
+            foreach (var item in manyItems.Where(z => z is not null))
             {
                 item.ID = i;
 
@@ -334,7 +334,7 @@ namespace NetStd.Goodies.Mar2022
             if (!items.Any()) return null;
 
             var answers = (from item in items
-                where item != null
+                where item is not null
                 where item.AdvertisedDate < DateTime.Now
                 orderby item.AdvertisedDate descending
                 select item).ToArray();
@@ -356,7 +356,7 @@ namespace NetStd.Goodies.Mar2022
             if (!items.Any()) return null;
 
             var answers = (from item in items
-                where item != null
+                where item is not null
                 orderby item.AdvertisedDate
                 select item).ToArray();
 

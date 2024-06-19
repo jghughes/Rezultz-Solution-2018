@@ -280,7 +280,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                     {
                         var moreDirectoryPaths = (await EnumerateDirectoryPathsInDirectoryAsync(directoryInRoot));
 
-                        if (moreDirectoryPaths != null) directoryPaths.AddRange(moreDirectoryPaths.OrderBy(z=>z));
+                        if (moreDirectoryPaths is not null) directoryPaths.AddRange(moreDirectoryPaths.OrderBy(z=>z));
                     }
 
                     #endregion
@@ -717,7 +717,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                     {
                         var moreFilePaths = await EnumerateFilePathsInDirectoryAsync(afolder);
 
-                        if (moreFilePaths != null) filePaths.AddRange(moreFilePaths);
+                        if (moreFilePaths is not null) filePaths.AddRange(moreFilePaths);
                     }
 
                     #endregion

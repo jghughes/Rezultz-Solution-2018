@@ -67,7 +67,7 @@ namespace RezultzPortal.Uwp.UserControls
 
             try
             {
-                if (ViewModel == null)
+                if (ViewModel is null)
                     throw new NullReferenceException(
                         "The DataContext is not an object of type PortalParticipantAdminPagesViewModel. This is mandatory.");
 
@@ -137,12 +137,12 @@ namespace RezultzPortal.Uwp.UserControls
 
             try
             {
-                if (ViewModel == null)
+                if (ViewModel is null)
                     throw new NullReferenceException(
                         "The Datacontext is not an object of type RegisterParticipantsViewModel. This is mandatory.");
 
 
-                if (args.ChosenSuggestion != null)
+                if (args.ChosenSuggestion is not null)
                 {
                     // user selected an item, take an action on it here
                     await ViewModel.OnFinalSearchQuerySubmittedAsTextAsync((string) args.ChosenSuggestion);

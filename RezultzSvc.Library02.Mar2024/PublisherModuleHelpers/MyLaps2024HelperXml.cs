@@ -67,7 +67,7 @@ public class MyLaps2024HelperXml
 
             var bibOfThisRepeatingXe = thisRepeatingChildElement.Elements(SrcXeBib).FirstOrDefault();
 
-            if (bibOfThisRepeatingXe == null) continue;
+            if (bibOfThisRepeatingXe is null) continue;
 
             if (string.IsNullOrWhiteSpace(bibOfThisRepeatingXe.Value)) continue;
 

@@ -37,10 +37,10 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
             if (string.IsNullOrWhiteSpace(EventLabelAsEventIdentifier))
                 sb.AppendLineFollowedByOne("Input Error. Event Label is blank. The Label is required to identify the Event.");
 
-            if (SeriesProfile == null)
+            if (SeriesProfile is null)
                 sb.AppendLineFollowedByOne("Input error. Series profile is null. The Series profile is required.");
 
-            if (DatasetTargetsToBeProcessed == null || !DatasetTargetsToBeProcessed.Any())
+            if (DatasetTargetsToBeProcessed is null || !DatasetTargetsToBeProcessed.Any())
                 sb.AppendLineFollowedByOne("Input error. No datasets have been specified for processing. (Maybe nothing was uploaded?)");
 
             return sb.ToString();
@@ -90,10 +90,10 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         try
         {
-            if (dto == null)
+            if (dto is null)
                 return [];
 
-            var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+            var answer = dto.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
 
             return answer;
         }
@@ -146,10 +146,10 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         try
         {
-            if (item == null)
+            if (item is null)
                 return [];
 
-            var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+            var answer = item.Select(ToDataTransferObject).Where(z => z is not null).ToArray();
 
             return answer;
         }
@@ -166,7 +166,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         public EntityLocationItem DeduceStorageLocation(string identifierOfDataset)
     {
-        if (SeriesProfile == null || DatasetTargetsToBeProcessed == null || string.IsNullOrWhiteSpace(identifierOfDataset))
+        if (SeriesProfile is null || DatasetTargetsToBeProcessed is null || string.IsNullOrWhiteSpace(identifierOfDataset))
             return null;
 
         var accountName = SeriesProfile.ContainerForPublishingDatasetsToBeProcessed?.AccountName;
@@ -178,7 +178,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
         var targetFile = DatasetTargetsToBeProcessed.FirstOrDefault(z => z.IdentifierOfDataset == identifierOfDataset);
 
         
-        if (targetFile == null || string.IsNullOrWhiteSpace(targetFile.FileName))
+        if (targetFile is null || string.IsNullOrWhiteSpace(targetFile.FileName))
             return null;
 
         var answer = new EntityLocationItem(accountName, containerName, targetFile.FileName);
@@ -188,7 +188,7 @@ namespace Rezultz.DataTypes.Nov2023.PublisherModuleItems
 
         public EntityLocationItem[] DeduceStorageLocations(string identifierOfDataset)
     {
-        if (SeriesProfile == null || DatasetTargetsToBeProcessed == null || string.IsNullOrWhiteSpace(identifierOfDataset))
+        if (SeriesProfile is null || DatasetTargetsToBeProcessed is null || string.IsNullOrWhiteSpace(identifierOfDataset))
             return [];
 
         var accountName = SeriesProfile.ContainerForPublishingDatasetsToBeProcessed?.AccountName;

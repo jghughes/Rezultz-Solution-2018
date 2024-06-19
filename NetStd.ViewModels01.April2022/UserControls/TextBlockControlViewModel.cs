@@ -83,7 +83,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
         public void Append(string text)
         {
-            if (text == null)
+            if (text is null)
                 return;
 
             var sb = new StringBuilder(Text);
@@ -95,7 +95,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
         public void AppendLine(string text)
         {
-            if (text == null)
+            if (text is null)
                 return;
 
             var sb = new StringBuilder(Text);
@@ -107,7 +107,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
         public void AppendLines(IEnumerable<string> linesOfText)
         {
-            if (linesOfText == null)
+            if (linesOfText is null)
                 return;
 
             var textsAsArray = linesOfText.ToArray();

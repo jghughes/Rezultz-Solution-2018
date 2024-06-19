@@ -47,7 +47,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023
 
             var deSerialisedExceptionItem = JghSerialisableException.FromDataTransferObject(ex.Result);
 
-            if (deSerialisedExceptionItem != null)
+            if (deSerialisedExceptionItem is not null)
             {
                 var innermostException = JghSerialisableException.FindInnermostException(deSerialisedExceptionItem);
 

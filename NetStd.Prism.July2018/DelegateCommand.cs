@@ -32,7 +32,7 @@ namespace NetStd.Prism.July2018
         /// <param name="canExecuteMethod">The <see cref="Func{TResult}"/> to invoke when <see cref="ICommand.CanExecute"/> is called</param>
         public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod)
         {
-            if (executeMethod == null || canExecuteMethod == null)
+            if (executeMethod is null || canExecuteMethod is null)
                 throw new ArgumentNullException(nameof(executeMethod), Resources.DelegateCommandDelegatesCannotBeNull);
 
             _executeMethod = executeMethod;

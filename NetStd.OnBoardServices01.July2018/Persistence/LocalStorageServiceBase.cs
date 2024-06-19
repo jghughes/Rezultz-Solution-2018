@@ -74,7 +74,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
             {
                 #region null checks
 
-                if (theTypedObject == null)
+                if (theTypedObject is null)
                     return string.Empty;
 
                 if (!JghFilePathValidator.IsValidNtfsFileOrFolderName(fileName))
@@ -213,7 +213,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
             {
                 #region null checks
 
-                if (namedItems == null)
+                if (namedItems is null)
                     return string.Empty;
 
                 if (!JghFilePathValidator.IsValidNtfsFileOrFolderName(fileName))

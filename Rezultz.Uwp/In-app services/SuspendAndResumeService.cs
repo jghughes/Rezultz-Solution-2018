@@ -45,7 +45,7 @@ namespace Rezultz.Uwp.In_app_services
         private async Task RestoreStateAsync()
         {
             var saveState = await ApplicationData.Current.LocalFolder.ReadAsync<OnBackgroundEnteringEventArgs>(StateFilename);
-            if (saveState?.Target != null)
+            if (saveState?.Target is not null)
             {
                 var navigationService = ServiceLocator.Current.GetInstance<NavigationServiceEx>();
                 navigationService.Navigate(saveState.Target.FullName, saveState.SuspensionState);

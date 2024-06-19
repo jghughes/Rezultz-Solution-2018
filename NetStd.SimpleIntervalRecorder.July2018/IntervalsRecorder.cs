@@ -78,10 +78,10 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return 0;
 
-                var totalIntervalsTicks = _listOfCompletedIntervals.Where(z => z != null)
+                var totalIntervalsTicks = _listOfCompletedIntervals.Where(z => z is not null)
                     .Sum(z => z.DurationTicksExcludingPauses);
 
                 return totalIntervalsTicks;
@@ -92,13 +92,13 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedPauses == null)
+                if (_listOfCompletedPauses is null)
                     return 0;
 
                 if (_listOfCompletedPauses.Count == 0)
                     return 0;
 
-                var totalPausesTicks = _listOfCompletedPauses.Where(z => z != null)
+                var totalPausesTicks = _listOfCompletedPauses.Where(z => z is not null)
                     .Sum(pause => pause.EndMinusBeginTimestampTicks);
 
                 return totalPausesTicks;
@@ -115,7 +115,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || _listOfCompletedIntervals.Count == 0)
+                if (_listOfCompletedIntervals is null || _listOfCompletedIntervals.Count == 0)
                     return new Interval(_internalClock.NanosecPerTick);
 
                 return _listOfCompletedIntervals.Last();
@@ -126,7 +126,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || _listOfCompletedIntervals.Count == 0)
+                if (_listOfCompletedIntervals is null || _listOfCompletedIntervals.Count == 0)
                     return [];
 
                 return _listOfCompletedIntervals;
@@ -139,10 +139,10 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return 0;
 
-                return _listOfCompletedIntervals.Where(z => z != null).Average(z => z.DurationMillisecExcludingPauses);
+                return _listOfCompletedIntervals.Where(z => z is not null).Average(z => z.DurationMillisecExcludingPauses);
             }
         }
 
@@ -150,7 +150,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return 0;
 
                 return LongestInterval.DurationMillisecExcludingPauses;
@@ -161,7 +161,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return new Interval {Index = 0};
 
                 return _listOfCompletedIntervals.OrderByDescending(z => z.DurationMillisecExcludingPauses).First();
@@ -172,7 +172,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return new Interval {Index = 0};
 
                 return _listOfCompletedIntervals.OrderBy(z => z.DurationMillisecExcludingPauses).First();
@@ -183,7 +183,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return [];
 
                 return _listOfCompletedIntervals.OrderBy(z => z.DurationMillisecExcludingPauses).Take(100).ToList();
@@ -194,7 +194,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return 0;
 
                 return ShortestInterval.DurationMillisecExcludingPauses;
@@ -205,10 +205,10 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             get
             {
-                if (_listOfCompletedIntervals == null || !_listOfCompletedIntervals.Any())
+                if (_listOfCompletedIntervals is null || !_listOfCompletedIntervals.Any())
                     return 0;
 
-                var sorted = _listOfCompletedIntervals.Where(z => z != null)
+                var sorted = _listOfCompletedIntervals.Where(z => z is not null)
                     .OrderBy(z => z.DurationMillisecExcludingPauses);
 
                 var midpoint = Convert.ToInt32(_listOfCompletedIntervals.Count / 2.0);
@@ -253,7 +253,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
 
                 var sb = new StringBuilder();
 
-                if (_internalClock == null)
+                if (_internalClock is null)
                 {
                     sb.Append("Internal clock is null");
                 }
@@ -310,11 +310,11 @@ namespace NetStd.SimpleIntervalRecorder.July2018
             var timeNowTicks = _internalClock?.TimeNowTicks ?? 0;
 
             // close out the current pause if one exists
-            if (_openOngoingPause != null)
+            if (_openOngoingPause is not null)
                 StopPauseAndSave(timeNowTicks);
 
             // close out the current interval if one exists
-            if (_openOngoingInterval != null)
+            if (_openOngoingInterval is not null)
                 StopIntervalAndSave(timeNowTicks);
         }
 
@@ -353,11 +353,11 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         private void StartPause(long pointInTimeTicks)
         {
             // pauses can only exist within a containing interval
-            if (_openOngoingInterval == null)
+            if (_openOngoingInterval is null)
                 return;
 
             // can't start a pause if a pause is already ongoing
-            if (_openOngoingPause != null)
+            if (_openOngoingPause is not null)
                 return;
 
             // list is zero-based of course so index++ is the same as count
@@ -374,7 +374,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         private void StopPauseAndSave(long pointInTimeTicks)
         {
             // if pause doesn't exit nothing further to be done
-            if (_openOngoingPause == null)
+            if (_openOngoingPause is null)
                 return;
 
             _openOngoingPause.EndTimestampTicks = pointInTimeTicks;
@@ -389,10 +389,10 @@ namespace NetStd.SimpleIntervalRecorder.July2018
 
         private void TransitionToNewInterval(string description, long pointInTimeTicks)
         {
-            if (_openOngoingPause != null)
+            if (_openOngoingPause is not null)
                 StopPauseAndSave(pointInTimeTicks);
 
-            if (_openOngoingInterval != null)
+            if (_openOngoingInterval is not null)
                 StopIntervalAndSave(pointInTimeTicks);
 
             // list is zero-based of course so index++ == count
@@ -407,11 +407,11 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         private void StopIntervalAndSave(long pointInTimeTicks)
         {
             // if interval doesn't exit nothing further to be done
-            if (_openOngoingInterval == null)
+            if (_openOngoingInterval is null)
                 return;
 
             // fail safe. pauses can't exist unless inside an interval. 
-            if (_openOngoingPause != null)
+            if (_openOngoingPause is not null)
                 StopPauseAndSave(pointInTimeTicks);
 
             _openOngoingInterval.EndTimestampTicks = pointInTimeTicks;
@@ -430,7 +430,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
 
         private long CalculateDurationOfAllPausesInThisInterval(int intervalIndex)
         {
-            if (_listOfCompletedPauses == null)
+            if (_listOfCompletedPauses is null)
                 return 0;
 
             var duration =
@@ -458,7 +458,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
 
             try
             {
-                if (_listOfCompletedIntervals == null) return "Sequence of completed and saved intervals is null.";
+                if (_listOfCompletedIntervals is null) return "Sequence of completed and saved intervals is null.";
 
                 if (_listOfCompletedIntervals.Count == 0) return "Sequence of completed and saved intervals is empty.";
 
@@ -501,7 +501,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
         {
             var totalDurationTicks = CumulativeTotalIntervalsTicks;
 
-            if (_listOfCompletedIntervals == null)
+            if (_listOfCompletedIntervals is null)
                 return;
 
             foreach (var interval in _listOfCompletedIntervals)

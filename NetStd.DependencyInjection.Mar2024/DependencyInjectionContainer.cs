@@ -33,7 +33,7 @@ namespace NetStd.DependencyInjection.Mar2024
             {
                 UnRegister<T>();
 
-                if (key == null)
+                if (key is null)
                     _container.Register<T>(Reuse.Singleton);
                 else
                     _container.Register<T>(serviceKey: key);
@@ -69,7 +69,7 @@ namespace NetStd.DependencyInjection.Mar2024
 
                 TInterface xx = instanceReturningExpression();
 
-                if (xx != null)
+                if (xx is not null)
                     //_container.Use(xx);
                     _container.RegisterInstance(xx);
                 //_container.UseInstance(xx);
@@ -157,7 +157,7 @@ namespace NetStd.DependencyInjection.Mar2024
         {
             try
             {
-                if (key == null)
+                if (key is null)
                     _container.Resolve(typeOfInstance);
 
                 return _container.Resolve(typeOfInstance, key);

@@ -345,7 +345,7 @@ public class LeaderboardResultsServiceClientWcf : ILeaderboardResultsServiceClie
 
         try
         {
-            if (eventProfileDto == null) throw new ArgumentNullException(nameof(eventProfileDto));
+            if (eventProfileDto is null) throw new ArgumentNullException(nameof(eventProfileDto));
             if (string.IsNullOrWhiteSpace(eventProfileDto.DatabaseAccountName)) throw new ArgumentNullException(nameof(eventProfileDto.DatabaseAccountName));
             if (string.IsNullOrWhiteSpace(eventProfileDto.DataContainerName)) throw new ArgumentNullException(nameof(eventProfileDto.DataContainerName));
 
@@ -417,7 +417,7 @@ public class LeaderboardResultsServiceClientWcf : ILeaderboardResultsServiceClie
 
         try
         {
-            if (seriesProfileDto == null) throw new ArgumentNullException(nameof(seriesProfileDto));
+            if (seriesProfileDto is null) throw new ArgumentNullException(nameof(seriesProfileDto));
 
             var jsonOut = JghSerialisation.ToJsonFromObject(seriesProfileDto);
 
@@ -495,7 +495,7 @@ public class LeaderboardResultsServiceClientWcf : ILeaderboardResultsServiceClie
         //Closing the client gracefully closes the connection and cleans up resources at both ends of the wire
         //// see https://learn.microsoft.com/en-us/dotnet/framework/wcf/samples/use-close-abort-release-wcf-client-resources
 
-        if (_svcProxy == null) return;
+        if (_svcProxy is null) return;
 
         try
         {

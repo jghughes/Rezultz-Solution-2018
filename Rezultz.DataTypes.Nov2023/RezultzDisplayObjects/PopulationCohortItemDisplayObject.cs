@@ -107,10 +107,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
             try
             {
-                if (model == null)
+                if (model is null)
                     return [];
 
-                var answer = model.Select(FromModel).Where(z => z != null).ToArray();
+                var answer = model.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }

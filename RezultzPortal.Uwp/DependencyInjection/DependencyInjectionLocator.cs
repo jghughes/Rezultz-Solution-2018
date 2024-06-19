@@ -401,7 +401,7 @@ namespace RezultzPortal.Uwp.DependencyInjection
         }
         public void RegisterIAlertMessageServiceProvider(IAlertMessageService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer.Register<IAlertMessageService, AlertMessageServiceDummy>();
             else
                 _dependencyContainer.Register(() => implementingObject);
@@ -413,7 +413,7 @@ namespace RezultzPortal.Uwp.DependencyInjection
         }
         public void RegisterIParticipantEntriesInStoragePresentationServiceProvider(IParticipantEntriesInLocalStorageDataGridPresentationService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer.Register<IParticipantEntriesInLocalStorageDataGridPresentationService, ParticipantEntriesInLocalStorageDataGridPresentationServiceDummy>();
             else
                 _dependencyContainer.Register(() => implementingObject);
@@ -425,7 +425,7 @@ namespace RezultzPortal.Uwp.DependencyInjection
         }
         public void RegisterIParticipantEntriesInMemoryCachePresentationServiceProvider(IParticipantEntriesInMemoryCacheDataGridPresentationService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer.Register<IParticipantEntriesInMemoryCacheDataGridPresentationService, ParticipantEntriesInMemoryCacheDataGridPresentationServiceDummy>();
             else
                 _dependencyContainer.Register(() => implementingObject);
@@ -437,7 +437,7 @@ namespace RezultzPortal.Uwp.DependencyInjection
         }
         public void RegisterITimeStampEntriesInStoragePresentationServiceProvider(ITimeStampEntriesInLocalStorageDataGridPresentationService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer.Register<ITimeStampEntriesInLocalStorageDataGridPresentationService, TimeStampEntriesInLocalStorageDataGridPresentationServiceDummy>();
             else
                 _dependencyContainer.Register(() => implementingObject);
@@ -449,7 +449,7 @@ namespace RezultzPortal.Uwp.DependencyInjection
         }
         public void RegisterITimeStampEntriesInMemoryCachePresentationServiceProvider(ITimeStampEntriesInMemoryCacheDataGridPresentationService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer
                     .Register<ITimeStampEntriesInMemoryCacheDataGridPresentationService, TimeStampEntriesInMemoryCacheDataGridPresentationServiceDummy>();
             else
@@ -462,7 +462,7 @@ namespace RezultzPortal.Uwp.DependencyInjection
         }
         public void RegisterIConsolidatedSplitIntervalsPresentationServiceProvider(ISplitIntervalsPerPersonDataGridPresentationService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer
                     .Register<ISplitIntervalsPerPersonDataGridPresentationService, SplitIntervalsPerPersonDataGridPresentationServiceDummy>();
             else

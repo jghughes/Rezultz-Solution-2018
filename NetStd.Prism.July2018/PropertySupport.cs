@@ -24,7 +24,7 @@ namespace NetStd.Prism.July2018
         /// </exception>
         public static string ExtractPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
-            if (propertyExpression == null)
+            if (propertyExpression is null)
                 throw new ArgumentNullException(nameof(propertyExpression));
 
             return ExtractPropertyNameFromLambda(propertyExpression);
@@ -42,14 +42,14 @@ namespace NetStd.Prism.July2018
         /// </exception>
         internal static string ExtractPropertyNameFromLambda(LambdaExpression expression)
         {
-            if (expression == null)
+            if (expression is null)
                 throw new ArgumentNullException(nameof(expression));
 
             if (expression.Body is not MemberExpression memberExpression)
                 throw new ArgumentException(Resources.PropertySupport_NotMemberAccessExpression_Exception, nameof(expression));
 
             var property = memberExpression.Member as PropertyInfo;
-            if (property == null)
+            if (property is null)
                 throw new ArgumentException(Resources.PropertySupport_ExpressionNotProperty_Exception, nameof(expression));
 
             var getMethod = property.GetMethod;

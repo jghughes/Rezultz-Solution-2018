@@ -39,7 +39,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Behaviours
             else
             {
                 var toRemove = entry.Behaviors.FirstOrDefault(b => b is ValidationBehavior);
-                if (toRemove != null)
+                if (toRemove is not null)
                 {
                     entry.Behaviors.Remove(toRemove);
                 }

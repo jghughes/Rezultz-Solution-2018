@@ -47,7 +47,7 @@ namespace RezultzPortal.Uwp.Pages
 
             try
             {
-                if (PagesViewModel == null)
+                if (PagesViewModel is null)
                     throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
                 DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -93,26 +93,26 @@ namespace RezultzPortal.Uwp.Pages
 
         private void RadioBtnSelectDesiredControlPanelToBeDisplayed_OnChecked(object sender, RoutedEventArgs e)
         {
-            if (RadioBtnShowPanelForAddingNewParticipantId.IsChecked != null && (bool)RadioBtnShowPanelForAddingNewParticipantId.IsChecked)
+            if (RadioBtnShowPanelForAddingNewParticipantId.IsChecked is not null && (bool)RadioBtnShowPanelForAddingNewParticipantId.IsChecked)
             {
                 XamlElementPanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringNewParticipantProfileId.Visibility = Visibility.Visible;
                 PanelContainingSearchUserControl.Visibility = Visibility.Collapsed;
             }
-            else if (RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked != null && (bool)RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked)
+            else if (RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked is not null && (bool)RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked)
             {
                 XamlElementPanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Visible;
                 PanelForEnteringNewParticipantProfileId.Visibility = Visibility.Collapsed;
                 PanelContainingSearchUserControl.Visibility = Visibility.Collapsed;
             }
-            else if (RadioBtnShowPanelForSearchBoxUserControl.IsChecked != null && (bool)RadioBtnShowPanelForSearchBoxUserControl.IsChecked)
+            else if (RadioBtnShowPanelForSearchBoxUserControl.IsChecked is not null && (bool)RadioBtnShowPanelForSearchBoxUserControl.IsChecked)
             {
                 XamlElementPanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringNewParticipantProfileId.Visibility = Visibility.Collapsed;
                 PanelContainingSearchUserControl.Visibility = Visibility.Visible;
             }
 
-            else if (RadioBtnCloseAllPanels.IsChecked != null && (bool)RadioBtnCloseAllPanels.IsChecked)
+            else if (RadioBtnCloseAllPanels.IsChecked is not null && (bool)RadioBtnCloseAllPanels.IsChecked)
             {
                 XamlElementPanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringNewParticipantProfileId.Visibility = Visibility.Collapsed;

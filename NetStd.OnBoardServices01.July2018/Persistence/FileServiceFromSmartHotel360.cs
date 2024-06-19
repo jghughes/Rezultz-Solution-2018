@@ -36,7 +36,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
 
             var stream = assembly.GetManifestResourceStream(resourceName);
 
-            if (stream == null) return string.Empty;
+            if (stream is null) return string.Empty;
 
             using var reader = new StreamReader(stream);
 

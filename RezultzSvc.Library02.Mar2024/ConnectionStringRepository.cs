@@ -54,13 +54,13 @@ namespace RezultzSvc.Library02.Mar2024
 
             try
             {
-                if (accountName == null)
+                if (accountName is null)
                     throw new ArgumentNullException(nameof(accountName));
 
                 var allAzureStorageConnectionStrings = await GetConnectionStringsOfAllRecognisedAccountsInDatabaseAsync();
 
                 var connectionString =
-                    allAzureStorageConnectionStrings.Where(z => z != null)
+                    allAzureStorageConnectionStrings.Where(z => z is not null)
                         .FirstOrDefault(z => z.Contains($"AccountName={accountName};"));
 
 

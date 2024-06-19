@@ -27,11 +27,11 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             try
             {
-                if (seriesStandingLineItems == null)
+                if (seriesStandingLineItems is null)
                     throw new JghNullObjectInstanceException(nameof(seriesStandingLineItems));
 
 
-                var seriesStandingsList = seriesStandingLineItems.Where(z => z != null).ToArray();
+                var seriesStandingsList = seriesStandingLineItems.Where(z => z is not null).ToArray();
 
                 var answer = await PopulatePlacingInSubsetsOfRaceAndSexAndAgeGroupCombinedAsync(
                     seriesTotalIsOrderedByDescending,
@@ -54,7 +54,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             const string locus = "[PopulatePlacingsInRaceAsync]";
 
-            if (items == null)
+            if (items is null)
                 throw new JghNullObjectInstanceException(nameof(items));
 
             var lineItems = items;
@@ -64,7 +64,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             try
             {
-                var dictionaryOfAllLineItems = lineItems.Where(z => z != null).ToArray()
+                var dictionaryOfAllLineItems = lineItems.Where(z => z is not null).ToArray()
                     .ConvertArrayOfSequenceContainersToDictionaryKeyedOnUniqueId();
 
                 // in this case grouping is by raceCODE: because it's a simple key 
@@ -72,8 +72,8 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 // to cope with the situation where raceCODE is blank throughout, have to do it this way
 
                 var subGroups = from kvp in dictionaryOfAllLineItems
-                    where kvp.Value != null
-                    where kvp.Value.MostRecentResultItemToWhichThisSequenceApplies != null
+                    where kvp.Value is not null
+                    where kvp.Value.MostRecentResultItemToWhichThisSequenceApplies is not null
                     where !string.IsNullOrWhiteSpace(kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup)
                     let aString = kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup
                     group kvp by aString
@@ -128,7 +128,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 "Adding to database. Calculating placings and rankings by Sex and points within each race.";
             const string locus = "[PopulatePlacingsInSubsetsOfRaceAndSexCombinedAsync]";
 
-            if (items == null) throw new JghNullObjectInstanceException(nameof(items));
+            if (items is null) throw new JghNullObjectInstanceException(nameof(items));
 
             var lineItems = items;
 
@@ -140,11 +140,11 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
                 // in this case grouping is by race and Sex together: because it's a compound key, be sure to use a method chain like this not a linq select statement, otherwise it won't work as expected when all three compnents are empty
 
-                if (dictionaryOfAllLineItems != null)
+                if (dictionaryOfAllLineItems is not null)
                 {
                     var subGroups = dictionaryOfAllLineItems
-                        .Where(kvp => kvp.Value != null)
-                        .Where(kvp => kvp.Value.MostRecentResultItemToWhichThisSequenceApplies != null)
+                        .Where(kvp => kvp.Value is not null)
+                        .Where(kvp => kvp.Value.MostRecentResultItemToWhichThisSequenceApplies is not null)
                         .Where(kvp => !string.IsNullOrWhiteSpace(kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup))
                         .Where(kvp => !string.IsNullOrWhiteSpace(kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.Gender))
                         .GroupBy(kvp => new {Race = kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup, Sex = kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.Gender});
@@ -191,7 +191,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             try
             {
-                if (items == null)
+                if (items is null)
                     throw new JghNullObjectInstanceException(nameof(items));
 
                 var lineItems = items;
@@ -203,11 +203,11 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
                 // in this case grouping is by race and Sex and category together: because it's a compound key, be sure to use a method chain like this not a linq select statement, otherwise it won't work as expected when all three compnents are empty
 
-                if (dictionaryOfAllLineItems != null)
+                if (dictionaryOfAllLineItems is not null)
                 {
                     var subGroups = dictionaryOfAllLineItems
-                        .Where(kvp => kvp.Value != null)
-                        .Where(kvp => kvp.Value.MostRecentResultItemToWhichThisSequenceApplies != null)
+                        .Where(kvp => kvp.Value is not null)
+                        .Where(kvp => kvp.Value.MostRecentResultItemToWhichThisSequenceApplies is not null)
                         .Where(kvp => !string.IsNullOrWhiteSpace(kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup))
                         .Where(kvp => !string.IsNullOrWhiteSpace(kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.Gender))
                         .Where(kvp => !string.IsNullOrWhiteSpace(kvp.Value.MostRecentResultItemToWhichThisSequenceApplies.AgeGroup))
@@ -259,7 +259,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             try
             {
-                if (lineItems == null) throw new JghNullObjectInstanceException(nameof(lineItems));
+                if (lineItems is null) throw new JghNullObjectInstanceException(nameof(lineItems));
 
                 if (!lineItems.Any())
                 {
@@ -273,9 +273,9 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 // find the winner and calculate placings off him : for points calculations do OrderByDescending
 
                 var finishers = seriesTotalIsOrderedByDescending
-                    ? lineItems.Where(kvp => kvp.Value != null).OrderByDescending(kvp => kvp.Value.SequenceTotal)
+                    ? lineItems.Where(kvp => kvp.Value is not null).OrderByDescending(kvp => kvp.Value.SequenceTotal)
                         .ToArray()
-                    : lineItems.Where(kvp => kvp.Value != null).OrderBy(kvp => kvp.Value.SequenceTotal).ToArray();
+                    : lineItems.Where(kvp => kvp.Value is not null).OrderBy(kvp => kvp.Value.SequenceTotal).ToArray();
 
                 // OK. placing data
 
@@ -293,7 +293,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                     // ditto
                     foreach (var kvp in finishers)
                     {
-                        //if (kvp.Value == null) continue;
+                        //if (kvp.Value is null) continue;
 
                         var scratchPadItem = new ScratchPadItemForSeriesStandingsLineItem(kvp.Value)
                         {
@@ -325,7 +325,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
         {
             theDiscoveredValue = new();
 
-            if (theDictionary == null)
+            if (theDictionary is null)
                 return false;
 
             try
@@ -357,7 +357,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 		        foreach (var container in arrayOfTypeKelso2013SequenceContainers)
 		        {
-			        if (container == null)
+			        if (container is null)
 				        continue;
 
 			        if (answer.ContainsKey(container.ID)) continue;

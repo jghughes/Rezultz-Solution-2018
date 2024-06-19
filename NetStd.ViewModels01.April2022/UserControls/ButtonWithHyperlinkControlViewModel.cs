@@ -61,7 +61,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
         public void Populate(UriItem inputUriItem)
         {
-            if (inputUriItem == null) inputUriItem = new UriItem();
+            if (inputUriItem is null) inputUriItem = new UriItem();
 
             NavigateUri = new Uri(inputUriItem.ReferenceUriString ?? "https://unknown/");
             Content = inputUriItem.SourceUriString ?? string.Empty;

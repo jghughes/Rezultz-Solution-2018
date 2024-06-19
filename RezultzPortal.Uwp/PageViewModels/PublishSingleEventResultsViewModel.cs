@@ -1191,7 +1191,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             var dataTransferObjects = repositoryOfSplitIntervals.GetTimeStampsAsSplitDurationsPerPersonInRankOrder(int.MaxValue, 0, 0);
 
-            if (dataTransferObjects == null || !dataTransferObjects.Any()) throw new JghAlertMessageException("No valid split-intervals available to upload.");
+            if (dataTransferObjects is null || !dataTransferObjects.Any()) throw new JghAlertMessageException("No valid split-intervals available to upload.");
 
             var dataTransferObjectsAsJson = JghSerialisation.ToJsonFromObject(dataTransferObjects);
 
@@ -1422,7 +1422,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             var dataTransferObjects = ParticipantHubItem.ToDataTransferObject(participantDatabase.GetMasterList());
 
-            if (dataTransferObjects == null || !dataTransferObjects.Any()) throw new JghAlertMessageException("No participants available.");
+            if (dataTransferObjects is null || !dataTransferObjects.Any()) throw new JghAlertMessageException("No participants available.");
 
             var dataTransferObjectsAsJson = JghSerialisation.ToJsonFromObject(dataTransferObjects);
 
@@ -1701,7 +1701,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             var dataTransferObjects = repositoryOfSplitIntervals.GetDraftResultItemDataTransferObjectForAllContestantsInRankOrder();
 
-            if (dataTransferObjects == null || !dataTransferObjects.Any())
+            if (dataTransferObjects is null || !dataTransferObjects.Any())
             {
                 var missingDataReport = $"{JghString.LeftAlign("Dataset anomaly:", lhsWidth)} Failure. No valid results available to upload.";
 
@@ -1867,7 +1867,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             void AddDataset(PublishingModuleButtonControlViewModel buttonViewModel)
             {
-                if (buttonViewModel == null || buttonViewModel.IsDesignated == false)
+                if (buttonViewModel is null || buttonViewModel.IsDesignated == false)
                     return;
 
                 PublisherImportFileTargetItem importFileTargetItem = new(
@@ -2270,11 +2270,11 @@ namespace RezultzPortal.Uwp.PageViewModels
         {
             var publisherModuleProfile = PublishingModuleProfile;
 
-            if (publisherModuleProfile == null) return string.Empty;
+            if (publisherModuleProfile is null) return string.Empty;
 
             foreach (var buttonProfile in publisherModuleProfile.GuiButtonProfilesForPullingDatasetsFromPortalHub)
             {
-                if (buttonProfile == null)
+                if (buttonProfile is null)
                     continue;
 
                 switch (buttonProfile.IdentifierOfAssociatedDataset)
@@ -2295,7 +2295,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             foreach (var buttonProfile in publisherModuleProfile.GuiButtonProfilesForBrowsingFileSystemForDatasets)
             {
-                if (buttonProfile == null)
+                if (buttonProfile is null)
                     continue;
 
                 switch (i)
@@ -2337,7 +2337,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private bool DatasetImportButtonZeroise(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
-        if (buttonProfile == null || buttonVm == null)
+        if (buttonProfile is null || buttonVm is null)
             return true;
 
         buttonVm.Zeroise();
@@ -2347,7 +2347,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private bool DatasetImportButtonInitialiseFromProfile(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
-        if (buttonProfile == null || buttonVm == null)
+        if (buttonProfile is null || buttonVm is null)
             return true;
 
         buttonVm.IsDesignated = true;
@@ -2367,7 +2367,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private bool DatasetImportButtonPurgePreviouslyObtainedDataset(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
-        if (buttonProfile == null || buttonVm == null)
+        if (buttonProfile is null || buttonVm is null)
             return true;
 
         //buttonVm.IsDesignated = false;
@@ -2381,7 +2381,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private bool DatasetImportButtonIsAuthorisedToOperateToTrue(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
-        if (buttonProfile == null || buttonVm == null)
+        if (buttonProfile is null || buttonVm is null)
             return true;
 
         buttonVm.IsAuthorisedToOperate = true;
@@ -2391,7 +2391,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private bool DatasetImportButtonIsAuthorisedToOperateToFalse(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
-        if (buttonProfile == null || buttonVm == null)
+        if (buttonProfile is null || buttonVm is null)
             return true;
 
         buttonVm.IsAuthorisedToOperate = false;
@@ -2401,7 +2401,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private bool DatasetImportButtonIsDesignatedToIsVisible(PublisherButtonProfileItem buttonProfile, PublishingModuleButtonControlViewModel buttonVm)
     {
-        if (buttonProfile == null || buttonVm == null)
+        if (buttonProfile is null || buttonVm is null)
             return true;
 
         if (buttonVm.IsDesignated)
@@ -2416,7 +2416,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         public string PopulatePublishingProfileRelatedTextFields()
     {
-        if (PublishingModuleProfile == null)
+        if (PublishingModuleProfile is null)
         {
             CSharpPublisherModuleVeryShortDescriptionTextVm.Text = string.Empty;
             CSharpPublisherModuleShortDescriptionTextVm.Text = string.Empty;
@@ -2615,7 +2615,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         #region preflight checks
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is null)
             throw new JghAlertMessageException(StringsPortal.Unable_to_proceed__You_need_to_authenticate_yourself_before_proceeding_);
 
         if (!SeasonProfileAndIdentityValidationVm.GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole())
@@ -2660,7 +2660,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         var xx = CboLookupItemOfWorkingsForDisplayVm.GetItemByItemEnumString(EnumStringForProcessingReport);
 
-        if (xx != null) xx.Blurb = _sbFriendlyLogOfActivity.ToString();
+        if (xx is not null) xx.Blurb = _sbFriendlyLogOfActivity.ToString();
     }
 
         public void UpdateLogOfFilesThatWereTransferred(string blobNameOrFileName, string descriptionOfTransferAction, string descriptionOfDestination, string descriptionOfSizeAsBytes)
@@ -2669,7 +2669,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         var xx = CboLookupItemOfWorkingsForDisplayVm.GetItemByItemEnumString(EnumStringForLogOfFileTransfers);
 
-        if (xx != null) xx.Blurb = _sbFriendlyLogOfBlobAndFileTransfers.ToString();
+        if (xx is not null) xx.Blurb = _sbFriendlyLogOfBlobAndFileTransfers.ToString();
     }
 
         #endregion
@@ -2681,13 +2681,13 @@ namespace RezultzPortal.Uwp.PageViewModels
         if (!SeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem is null)
             throw new JghAlertMessageException(StringsPortal.SelectedSeriesIsNull);
 
-        if (PublishingModuleProfile == null)
+        if (PublishingModuleProfile is null)
             throw new JghAlertMessageException(StringsPortal.PublishingProfileNotFound);
     }
 
@@ -2699,16 +2699,16 @@ namespace RezultzPortal.Uwp.PageViewModels
         if (!SeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
             throw new JghAlertMessageException(StringsPortal.SeasonDataNotInitialised);
 
-        if (SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem == null)
+        if (SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is null)
             throw new JghAlertMessageException(StringsPortal.IdentityNotAuthenticated);
 
         if (!SeasonProfileAndIdentityValidationVm.GetIfCurrentlyAuthenticatedIdentityUserIsAuthorisedForRequiredWorkRole())
             throw new JghAlertMessageException($"{StringsPortal.Sorry_not_authorised_for_workrole}");
 
-        if (PublishingModuleProfile == null)
+        if (PublishingModuleProfile is null)
             throw new JghAlertMessageException(StringsPortal.PublishingProfileNotFound);
 
         if (!WorkSessionIsLaunched)
@@ -2799,16 +2799,16 @@ namespace RezultzPortal.Uwp.PageViewModels
         SeasonProfileAndIdentityValidationVm.SeasonProfileValidationIsVisible = ThisViewModelIsInitialised;
 
         SeasonProfileAndIdentityValidationVm.IdentityValidationIsVisible = ThisViewModelIsInitialised &&
-                                                                           SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem != null;
+                                                                           SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is not null;
 
         PublishingModuleValidationUserControlIsVisible = ThisViewModelIsInitialised &&
-                                                         SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem != null &&
-                                                         SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem != null;
+                                                         SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is not null &&
+                                                         SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is not null;
 
         var readyToGo = ThisViewModelIsInitialised &&
-                        SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem != null &&
-                        SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem != null &&
-                        PublishingModuleProfile != null;
+                        SeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is not null &&
+                        SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem is not null &&
+                        PublishingModuleProfile is not null;
 
         LaunchWorkSessionButtonVm.IsVisible = readyToGo;
 
@@ -3026,22 +3026,22 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         public bool LastKnownGoodGenesisOfThisViewModelIsNull()
     {
-        if (_seasonProfileItemUponLaunchOfWorkSession == null)
+        if (_seasonProfileItemUponLaunchOfWorkSession is null)
             return true;
 
-        if (_identityItemUponLaunchOfWorkSession == null)
+        if (_identityItemUponLaunchOfWorkSession is null)
             return true;
 
-        if (_seriesItemUponLaunchOfWorkSession == null)
+        if (_seriesItemUponLaunchOfWorkSession is null)
             return true;
 
-        if (_eventItemUponLaunchOfWorkSession == null)
+        if (_eventItemUponLaunchOfWorkSession is null)
             return true;
 
-        if (BlobTargetOfPublishedResultsUponLaunchOfWorkSession == null)
+        if (BlobTargetOfPublishedResultsUponLaunchOfWorkSession is null)
             return true;
 
-        if (PublishingModuleProfile == null)
+        if (PublishingModuleProfile is null)
             return true;
 
         //if (string.IsNullOrWhiteSpace(TextBoxForEnteringPublishingProfileFileNameFragmentVm.Label))

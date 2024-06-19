@@ -138,7 +138,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Page_bases
         {
             Debug.WriteLine($"enter NavigateByPageToken = {pageToken}");
 
-            if (pageToken == null)
+            if (pageToken is null)
                 pageToken = string.Empty;
 
             var destinationRoute = pageToken;
@@ -172,7 +172,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Page_bases
             if (string.IsNullOrWhiteSpace(uriAsString))
                 return string.Empty;
 
-            if (nameValuePairs == null)
+            if (nameValuePairs is null)
                 return uriAsString;
 
             var keyValuePairs = nameValuePairs.ToArray();

@@ -113,10 +113,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             try
             {
-                if (model == null)
+                if (model is null)
                     return [];
 
-                var answer = model.Select(FromModel).Where(z => z != null).ToArray();
+                var answer = model.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -133,7 +133,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         public static SearchQueryItem ToSearchQuerySuggestionItem(ParticipantHubItemDisplayObject displayObject)
         {
-            if (displayObject == null)
+            if (displayObject is null)
                 return null;
 
             var answer = new SearchQueryItem(0, displayObject.Guid, ToLabel(displayObject));
@@ -148,10 +148,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             try
             {
-                if (displayObject == null)
+                if (displayObject is null)
                     return [];
 
-                var answer = displayObject.Select(ToSearchQuerySuggestionItem).Where(z => z != null).ToArray();
+                var answer = displayObject.Select(ToSearchQuerySuggestionItem).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -290,7 +290,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         public static string ToLabel(ParticipantHubItemDisplayObject displayObject)
         {
-            if (displayObject == null)
+            if (displayObject is null)
                 return string.Empty;
 
             var label = JghString.ConcatWithSeparator("    ",

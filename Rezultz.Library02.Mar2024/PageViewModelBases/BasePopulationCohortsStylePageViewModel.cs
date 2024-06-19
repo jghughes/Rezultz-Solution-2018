@@ -371,7 +371,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
                 var manyKindsOfCohorts = currentEvent.EventSettingsItem.EventAnalysisItems;
 
                 manyKindsOfCohorts = manyKindsOfCohorts
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .OrderBy(z => z.DisplayRank)
                     .ThenBy(z => z.Label)
                     .ToArray();
@@ -534,7 +534,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
                 var selectedCohortEnumString = CboLookupKindOfCohortVm.CurrentItem?.EnumString;
 
-                if (_currentRepositoryWithCohorts == null)
+                if (_currentRepositoryWithCohorts is null)
                     return string.Empty;
 
                 var tableOfCohorts = await PopulateTableOfCohortLineItems(_currentRepositoryWithCohorts, selectedCohortEnumString);
@@ -735,7 +735,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
             // null repository is a perfectly legitimate outcome for all those occasions where data hasn't been upload yet or event is in the future
 
-            if (repository != null)
+            if (repository is not null)
                 cohortAnalysisLineItems = desiredCohortEnumString switch
                 {
                     EnumStrings.HistogramForEachRace => await repository.GetRaceCohortsFoundAsync(),
@@ -748,7 +748,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
             cohortAnalysisLineItems ??= [];
 
             var rowCollection = cohortAnalysisLineItems
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .OrderBy(z => z.NameOfCohort).ToList();
 
 
@@ -781,9 +781,9 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
                     out var _))
                 return true;
 
-            if (currentEventProfile?.EventSettingsItem?.UriItems == null) return true;
+            if (currentEventProfile?.EventSettingsItem?.UriItems is null) return true;
 
-            foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z != null))
+            foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z is not null))
             {
                 if (!JghFilePathValidator.IsValidBlobName(uriItem.BlobName, out var _))
                     continue;
@@ -818,20 +818,20 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
             if (!GlobalSeasonProfileAndIdentityValidationVm.ThisViewModelIsInitialised)
                 throw new JghAlertMessageException("Season profile not initialised. Please enter a valid ID.");
 
-            if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem == null)
+            if (GlobalSeasonProfileAndIdentityValidationVm.CurrentlyValidatedSeasonProfileItem is null)
                 throw new JghAlertMessageException("Season profile not loaded. Please enter a valid ID.");
 
-            if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm == null)
+            if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm is null)
                 throw new JghAlertMessageException("Season profile loaded but list of series is null.");
 
 
-            if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem == null)
+            if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem is null)
                 throw new JghAlertMessageException("Season profile loaded but series not yet selected.");
 
             if (!GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm.ItemsSource.Any())
                 throw new JghInvalidValueException(Strings2017.List_of_events_is_empty);
 
-            if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm.CurrentItem == null)
+            if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm.CurrentItem is null)
                 throw new JghAlertMessageException("Season profile loaded but event not selected.");
         }
 

@@ -66,10 +66,10 @@
 
 //        try
 //        {
-//            if (model == null)
+//            if (model is null)
 //                return Array.Empty<UriItemViewModel>();
 
-//            var viewModel = model.Select(FromModel).Where(z => z != null).ToArray();
+//            var viewModel = model.Select(FromModel).Where(z => z is not null).ToArray();
 
 //            return viewModel;
 //        }

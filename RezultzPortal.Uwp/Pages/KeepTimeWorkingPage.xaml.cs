@@ -57,7 +57,7 @@ namespace RezultzPortal.Uwp.Pages
 
             try
             {
-                if (PagesViewModel == null)
+                if (PagesViewModel is null)
                     throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
                 DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -92,7 +92,7 @@ namespace RezultzPortal.Uwp.Pages
 
         private void RadioBtnDesiredControlPanelToBeDisplayed_OnChecked(object sender, RoutedEventArgs e)
         {
-            if (RadioBtnShowPanelForGunStarts.IsChecked != null && (bool)RadioBtnShowPanelForGunStarts.IsChecked)
+            if (RadioBtnShowPanelForGunStarts.IsChecked is not null && (bool)RadioBtnShowPanelForGunStarts.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringGunStartTimeStamps.Visibility = Visibility.Visible;
@@ -102,7 +102,7 @@ namespace RezultzPortal.Uwp.Pages
 
 
             }
-            else if (RadioBtnShowPanelForTimingMatSignals.IsChecked != null && (bool)RadioBtnShowPanelForTimingMatSignals.IsChecked)
+            else if (RadioBtnShowPanelForTimingMatSignals.IsChecked is not null && (bool)RadioBtnShowPanelForTimingMatSignals.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringGunStartTimeStamps.Visibility = Visibility.Collapsed;
@@ -112,7 +112,7 @@ namespace RezultzPortal.Uwp.Pages
 
 
             }
-            else if (RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked != null && (bool)RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked)
+            else if (RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked is not null && (bool)RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Visible;
                 PanelForEnteringGunStartTimeStamps.Visibility = Visibility.Collapsed;
@@ -122,7 +122,7 @@ namespace RezultzPortal.Uwp.Pages
 
 
             }
-            else if (RadioBtnShowPanelForSearchBoxUserControl.IsChecked != null && (bool)RadioBtnShowPanelForSearchBoxUserControl.IsChecked)
+            else if (RadioBtnShowPanelForSearchBoxUserControl.IsChecked is not null && (bool)RadioBtnShowPanelForSearchBoxUserControl.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringGunStartTimeStamps.Visibility = Visibility.Collapsed;
@@ -132,7 +132,7 @@ namespace RezultzPortal.Uwp.Pages
 
             }
 
-            else if (RadioBtnCloseAllPanels.IsChecked != null && (bool)RadioBtnCloseAllPanels.IsChecked)
+            else if (RadioBtnCloseAllPanels.IsChecked is not null && (bool)RadioBtnCloseAllPanels.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringGunStartTimeStamps.Visibility = Visibility.Collapsed;
@@ -142,7 +142,7 @@ namespace RezultzPortal.Uwp.Pages
 
             }
 
-            else if (RadioBtnShowPanelForDisplayingParticipantInfo.IsChecked != null && (bool)RadioBtnShowPanelForDisplayingParticipantInfo.IsChecked)
+            else if (RadioBtnShowPanelForDisplayingParticipantInfo.IsChecked is not null && (bool)RadioBtnShowPanelForDisplayingParticipantInfo.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelForEnteringGunStartTimeStamps.Visibility = Visibility.Collapsed;

@@ -51,7 +51,7 @@ namespace Rezultz.Uwp.Pages
 
             try
             {
-                if (ViewModel == null)
+                if (ViewModel is null)
                     throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
                 DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -114,7 +114,7 @@ namespace Rezultz.Uwp.Pages
 
             try
             {
-                if (ViewModel == null)
+                if (ViewModel is null)
                     throw new ArgumentNullException(nameof(ViewModel));
 
                 if (ViewModel.SavePopulationCohortsToDocumentsAsHtmlWebpageButtonVm.IsAuthorisedToOperate == false)
@@ -140,7 +140,7 @@ namespace Rezultz.Uwp.Pages
 
                 var file = await PickSaveFile(fileSavePicker);
 
-                if (file == null)
+                if (file is null)
                 {
                     ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                     return;
@@ -234,8 +234,8 @@ namespace Rezultz.Uwp.Pages
             {
                 #region null value error handling
 
-                if (file == null) throw new ArgumentNullException(nameof(file));
-                if (bytesToBeSaved == null) throw new ArgumentNullException(nameof(bytesToBeSaved));
+                if (file is null) throw new ArgumentNullException(nameof(file));
+                if (bytesToBeSaved is null) throw new ArgumentNullException(nameof(bytesToBeSaved));
 
                 #endregion
 

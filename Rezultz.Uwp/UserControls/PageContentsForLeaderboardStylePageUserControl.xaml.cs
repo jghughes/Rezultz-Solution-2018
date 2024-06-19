@@ -101,7 +101,7 @@ namespace Rezultz.Uwp.UserControls
 
         try
         {
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new NullReferenceException(
                     "The Datacontext is not an object of type LeaderboardStylePageViewModelBase. This is mandatory.");
 
@@ -146,12 +146,12 @@ namespace Rezultz.Uwp.UserControls
 
         try
         {
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new NullReferenceException(
                     "The Datacontext is not an object of type LeaderboardStylePageViewModelBase. This is mandatory.");
 
 
-            if (args.ChosenSuggestion != null)
+            if (args.ChosenSuggestion is not null)
             {
                 // user selected an item, take an action on it here
                 await ViewModel.OnFinalSearchQuerySubmittedAsTextAsync((string) args.ChosenSuggestion);
@@ -184,7 +184,7 @@ namespace Rezultz.Uwp.UserControls
         {
             #region null value error handling
 
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new ArgumentNullException(nameof(ViewModel));
 
             #endregion
@@ -247,7 +247,7 @@ namespace Rezultz.Uwp.UserControls
 
                     dataGridDesigner = ViewModel.DataGridDesignerForFavorites;
 
-                    if (dataGridVm == null || dataGridDesigner?.DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects != true) // although misleadingly named, this is the correct property to check
+                    if (dataGridVm is null || dataGridDesigner?.DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects != true) // although misleadingly named, this is the correct property to check
                     {
                         ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                         return;
@@ -261,7 +261,7 @@ namespace Rezultz.Uwp.UserControls
 
                     dataGridDesigner = ViewModel.DataGridDesignerForLeaderboard;
 
-                    if (dataGridVm == null || dataGridDesigner?.DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects != true)
+                    if (dataGridVm is null || dataGridDesigner?.DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects != true)
                     {
                         ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                         return;
@@ -289,7 +289,7 @@ namespace Rezultz.Uwp.UserControls
 
             var file = await PickSaveFile(fileSavePicker);
 
-            if (file == null)
+            if (file is null)
             {
                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                 return;
@@ -470,8 +470,8 @@ namespace Rezultz.Uwp.UserControls
         {
             #region null value error handling
 
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            if (bytesToBeSaved == null) throw new ArgumentNullException(nameof(bytesToBeSaved));
+            if (file is null) throw new ArgumentNullException(nameof(file));
+            if (bytesToBeSaved is null) throw new ArgumentNullException(nameof(bytesToBeSaved));
 
             #endregion
 

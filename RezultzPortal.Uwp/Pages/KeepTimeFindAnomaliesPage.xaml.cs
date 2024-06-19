@@ -48,7 +48,7 @@ namespace RezultzPortal.Uwp.Pages
 
             try
             {
-                if (PagesViewModel == null)
+                if (PagesViewModel is null)
                     throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
                 DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -84,27 +84,27 @@ namespace RezultzPortal.Uwp.Pages
 
         private void RadioBtnSelectDesiredControlPanelToBeDisplayed_OnChecked(object sender, RoutedEventArgs e)
         {
-            if (RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked != null && (bool)RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked)
+            if (RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked is not null && (bool)RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Visible;
                 PanelContainingSearchUserControl.Visibility = Visibility.Collapsed;
                 PanelContainingButtonToPullParticipants.Visibility = Visibility.Collapsed;
             }
-            else if (RadioBtnShowPanelForSearchBoxUserControl.IsChecked != null && (bool)RadioBtnShowPanelForSearchBoxUserControl.IsChecked)
+            else if (RadioBtnShowPanelForSearchBoxUserControl.IsChecked is not null && (bool)RadioBtnShowPanelForSearchBoxUserControl.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelContainingSearchUserControl.Visibility = Visibility.Visible;
                 PanelContainingButtonToPullParticipants.Visibility = Visibility.Collapsed;
             }
 
-            else if (RadioBtnCloseAllPanels.IsChecked != null && (bool)RadioBtnCloseAllPanels.IsChecked)
+            else if (RadioBtnCloseAllPanels.IsChecked is not null && (bool)RadioBtnCloseAllPanels.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelContainingSearchUserControl.Visibility = Visibility.Collapsed;
                 PanelContainingButtonToPullParticipants.Visibility = Visibility.Collapsed;
 
             }
-            else if (RadioBtnShowPanelForAddingParticipantInfo.IsChecked != null && (bool)RadioBtnShowPanelForAddingParticipantInfo.IsChecked)
+            else if (RadioBtnShowPanelForAddingParticipantInfo.IsChecked is not null && (bool)RadioBtnShowPanelForAddingParticipantInfo.IsChecked)
             {
                 PanelOfCheckBoxesForFilteringRowsAndColumnsOfDataGrid.Visibility = Visibility.Collapsed;
                 PanelContainingSearchUserControl.Visibility = Visibility.Collapsed;

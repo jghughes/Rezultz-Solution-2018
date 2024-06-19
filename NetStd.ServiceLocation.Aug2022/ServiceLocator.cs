@@ -19,6 +19,6 @@ namespace NetStd.ServiceLocation.Aug2022
 
         public static void SetLocatorProvider(ServiceLocatorProvider newProvider) => _currentProvider = newProvider;
 
-        public static bool IsLocationProviderSet => _currentProvider != null;
+        public static bool IsLocationProviderSet => _currentProvider is not null;
     }
 }

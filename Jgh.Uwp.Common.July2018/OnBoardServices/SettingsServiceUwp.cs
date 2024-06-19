@@ -50,7 +50,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
             try
             {
                 if (string.IsNullOrEmpty(key)) throw new ArgumentException("Key is null or empty. Unable to proceed.");
-                if (value == null) throw new ArgumentException("Data-object is null. Insertion of null is forbidden. Unable to proceed.");
+                if (value is null) throw new ArgumentException("Data-object is null. Insertion of null is forbidden. Unable to proceed.");
 
                 #region serialise the object to Json
 

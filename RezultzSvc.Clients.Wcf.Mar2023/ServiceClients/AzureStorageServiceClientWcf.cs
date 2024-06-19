@@ -450,7 +450,7 @@ namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
                 if (string.IsNullOrWhiteSpace(account)) throw new ArgumentNullException(nameof(account));
                 if (string.IsNullOrWhiteSpace(container)) throw new ArgumentNullException(nameof(container));
                 if (string.IsNullOrWhiteSpace(blob)) throw new ArgumentNullException(nameof(blob));
-                if (bytesToUpload == null) throw new ArgumentNullException(nameof(bytesToUpload));
+                if (bytesToUpload is null) throw new ArgumentNullException(nameof(bytesToUpload));
 
 
 				if (!NetworkInterface.GetIsNetworkAvailable())
@@ -626,7 +626,7 @@ namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
             //Closing the client gracefully closes the connection and cleans up resources at both ends of the wire
             //// see https://learn.microsoft.com/en-us/dotnet/framework/wcf/samples/use-close-abort-release-wcf-client-resources
 
-            if (_svcProxy == null) return;
+            if (_svcProxy is null) return;
 
             try
             {

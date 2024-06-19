@@ -603,7 +603,7 @@ namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
         //Closing the client gracefully closes the connection and cleans up resources at both ends of the wire
         //// see https://learn.microsoft.com/en-us/dotnet/framework/wcf/samples/use-close-abort-release-wcf-client-resources
 
-        if (_svcProxy == null) return;
+        if (_svcProxy is null) return;
 
         try
         {

@@ -92,7 +92,7 @@ public class PublisherForMyLapsElectronicTimingSystem2024Csv : PublisherBase
 
             //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
 
-            if (publisherInputItem == null)
+            if (publisherInputItem is null)
                 throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null <PublisherInputItem>.");
 
             if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))

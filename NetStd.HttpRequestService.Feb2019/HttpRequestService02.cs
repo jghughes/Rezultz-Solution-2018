@@ -314,7 +314,7 @@ namespace NetStd.HttpRequestService.Feb2019
                     var responseResult = await ReadResponseAsync<TObject200Ok>(responseMessageItem, allResponseHeaders, cancellationToken).ConfigureAwait(false);
 
                     // ToDo: nSwag includes the following code. Question. Is this desirable if the svc intentionally returns null or a nullable type? I guess we should do it the NSwag way and fix any of my services that return null when they shouldn't.
-                    if (responseResult.Object == null)
+                    if (responseResult.Object is null)
                         throw new JghApiException($"{nullWasReturnedErrorMessage} <{typeof(TObject200Ok).FullName}>.",
                             responseMessageItem.StatusCode, responseMessageItem.RequestMessage.ToString(), responseResult.Text, allResponseHeaders, null);
 
@@ -324,7 +324,7 @@ namespace NetStd.HttpRequestService.Feb2019
                 {
                     var responseResult = await ReadResponseAsync<TObject400BadRequest>(responseMessageItem, allResponseHeaders, cancellationToken).ConfigureAwait(false);
 
-                    if (responseResult.Object == null)
+                    if (responseResult.Object is null)
                         throw new JghApiException($"{nullWasReturnedErrorMessage} <{typeof(TObject400BadRequest).FullName}>.",
                             responseMessageItem.StatusCode, responseMessageItem.RequestMessage.ToString(), responseResult.Text, allResponseHeaders, null);
 
@@ -334,7 +334,7 @@ namespace NetStd.HttpRequestService.Feb2019
                 {
                     var responseResult = await ReadResponseAsync<TResponseObject500InternalServerError>(responseMessageItem, allResponseHeaders, cancellationToken).ConfigureAwait(false);
 
-                    if (responseResult.Object == null)
+                    if (responseResult.Object is null)
                         throw new JghApiException($"{nullWasReturnedErrorMessage} <{typeof(TResponseObject500InternalServerError).FullName}>.", responseMessageItem.StatusCode, responseMessageItem.RequestMessage.ToString(), responseResult.Text,
                             allResponseHeaders, null);
 
@@ -342,14 +342,14 @@ namespace NetStd.HttpRequestService.Feb2019
                 }
                 case (int) HttpStatusCode.Unauthorized or (int) HttpStatusCode.Forbidden or (int) HttpStatusCode.MethodNotAllowed: //system error
                 {
-                    var responseBody = responseMessageItem.Content == null ? null : await responseMessageItem.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var responseBody = responseMessageItem.Content is null ? null : await responseMessageItem.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                     throw new JghApiException($"The server actively refused the call. Error status code ({httpStatusCodeAsInt}).",
                         responseMessageItem.StatusCode, responseMessageItem.RequestMessage.ToString(), responseBody, allResponseHeaders, null);
                 }
                 default:
                 {
-                    var responseBody = responseMessageItem.Content == null ? null : await responseMessageItem.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var responseBody = responseMessageItem.Content is null ? null : await responseMessageItem.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                     throw new JghApiException($"The client received an unexpected error status code ({httpStatusCodeAsInt}).",
                         responseMessageItem.StatusCode, responseMessageItem.RequestMessage.ToString(), responseBody, allResponseHeaders, null);
@@ -359,7 +359,7 @@ namespace NetStd.HttpRequestService.Feb2019
 
         protected virtual async Task<ObjectResponseResult<TObjectToBeDeserialised>> ReadResponseAsync<TObjectToBeDeserialised>(HttpResponseMessage httpResponseMessageItem, IReadOnlyDictionary<string, IEnumerable<string>> headers, CancellationToken cancellationToken)
         {
-            if (httpResponseMessageItem?.Content == null)
+            if (httpResponseMessageItem?.Content is null)
                 return new ObjectResponseResult<TObjectToBeDeserialised>(default, string.Empty);
 
             const string deserialisationFailedMessage = "Error. An unknown/unexpected type was received that could not be deserialised. The type being expected was";
@@ -406,12 +406,12 @@ namespace NetStd.HttpRequestService.Feb2019
 
         private Dictionary<string, IEnumerable<string>> EnumerateAllResponseHeaders(HttpResponseMessage response)
         {
-            if (response == null)
+            if (response is null)
                 return new Dictionary<string, IEnumerable<string>>();
 
             var headersBeingConsolidated = response.Headers.ToDictionary(h => h.Key, h => h.Value);
 
-            if (response.Content?.Headers == null)
+            if (response.Content?.Headers is null)
                 return headersBeingConsolidated;
 
             foreach (var item in response.Content.Headers) headersBeingConsolidated[item.Key] = item.Value;
@@ -433,7 +433,7 @@ namespace NetStd.HttpRequestService.Feb2019
             routeBuilder.Append(controllerRoute);
             routeBuilder.Append(actionRoute);
 
-            if (queryParameters == null)
+            if (queryParameters is null)
                 return routeBuilder;
 
             var keyValuePairs = queryParameters.ToArray();
@@ -473,11 +473,11 @@ namespace NetStd.HttpRequestService.Feb2019
                 {
                     var name = Enum.GetName(value.GetType(), value);
 
-                    if (name != null)
+                    if (name is not null)
                     {
                         var field = value.GetType().GetTypeInfo().GetDeclaredField(name);
 
-                        if (field != null)
+                        if (field is not null)
                             if (field.GetCustomAttribute(typeof(EnumMemberAttribute)) is EnumMemberAttribute attribute)
                                 return attribute.Value ?? name;
 

@@ -50,15 +50,15 @@ namespace RezultzSvc.Agents.Mar2024.SvcAgents
     {
         #region null checks
 
-        if (thisSeriesProfileItem == null) throw new JghAlertMessageException("SeriesItem is null.");
+        if (thisSeriesProfileItem is null) throw new JghAlertMessageException("SeriesItem is null.");
 
-        if (thisSeriesProfileItem.ContainerForParticipantHubItemData == null) throw new JghAlertMessageException("ContainerForParticipantHubData is null.");
+        if (thisSeriesProfileItem.ContainerForParticipantHubItemData is null) throw new JghAlertMessageException("ContainerForParticipantHubData is null.");
 
         if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForParticipantHubItemData.AccountName)) throw new JghAlertMessageException("ContainerForParticipantHubData.AccountName is null.");
 
         if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForParticipantHubItemData.ContainerName)) throw new JghAlertMessageException("ContainerForParticipantHubData.ContainerName is null.");
 
-        if (thisEventProfileItem == null) throw new JghAlertMessageException("EventItem is null.");
+        if (thisEventProfileItem is null) throw new JghAlertMessageException("EventItem is null.");
 
         #endregion
 

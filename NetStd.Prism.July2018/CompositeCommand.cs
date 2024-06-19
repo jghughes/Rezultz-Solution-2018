@@ -46,7 +46,7 @@ namespace NetStd.Prism.July2018
         /// <param name="command">The command to register.</param>
         public virtual void RegisterCommand(ICommand command)
         {
-            if (command == null) throw new ArgumentNullException(nameof(command));
+            if (command is null) throw new ArgumentNullException(nameof(command));
             if (command == this)
             {
                 throw new ArgumentException(Resources.CannotRegisterCompositeCommandInItself);
@@ -78,7 +78,7 @@ namespace NetStd.Prism.July2018
         /// <param name="command">The command to unregister.</param>
         public virtual void UnregisterCommand(ICommand command)
         {
-            if (command == null) throw new ArgumentNullException(nameof(command));
+            if (command is null) throw new ArgumentNullException(nameof(command));
             bool removed;
             lock (_registeredCommands)
             {
@@ -213,9 +213,9 @@ namespace NetStd.Prism.July2018
         protected virtual void OnCanExecuteChanged()
         {
             var handler = CanExecuteChanged;
-            if (handler != null)
+            if (handler is not null)
             {
-                if (_synchronizationContext != null && _synchronizationContext != SynchronizationContext.Current)
+                if (_synchronizationContext is not null && _synchronizationContext != SynchronizationContext.Current)
                     _synchronizationContext.Post(o => handler.Invoke(this, EventArgs.Empty), null);
                 else
                     handler.Invoke(this, EventArgs.Empty);

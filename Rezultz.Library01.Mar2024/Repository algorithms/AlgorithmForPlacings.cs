@@ -24,7 +24,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 			try
 			{
-				if (results == null)
+				if (results is null)
 					throw new JghNullObjectInstanceException(nameof(results));
                 
                 int i = 1;
@@ -56,7 +56,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             var tcs = new TaskCompletionSource<PopulationCohortItem[]>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            if (groupingsOfPlacedResults == null)
+            if (groupingsOfPlacedResults is null)
             {
                 tcs.TrySetResult([]);
 
@@ -69,14 +69,14 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             {
                 foreach (var group in groupingsOfPlacedResults)
                 {
-                    if (group == null) continue;
+                    if (group is null) continue;
 
                     var lineItem = new PopulationCohortItem
                     {
                         NameOfCohort = group.Key,
-                        SexMaleCount = group.Where(z => z != null).Count(z => z.MostRecentResultItemToWhichThisSequenceApplies.Gender == Symbols.SymbolMale),
-                        SexFemaleCount = group.Where(z => z != null).Count(z => z.MostRecentResultItemToWhichThisSequenceApplies.Gender == Symbols.SymbolFemale),
-                        SexOtherCount = group.Where(z => z != null).Count(z => z.MostRecentResultItemToWhichThisSequenceApplies.Gender == Symbols.SymbolNonBinary),
+                        SexMaleCount = group.Where(z => z is not null).Count(z => z.MostRecentResultItemToWhichThisSequenceApplies.Gender == Symbols.SymbolMale),
+                        SexFemaleCount = group.Where(z => z is not null).Count(z => z.MostRecentResultItemToWhichThisSequenceApplies.Gender == Symbols.SymbolFemale),
+                        SexOtherCount = group.Where(z => z is not null).Count(z => z.MostRecentResultItemToWhichThisSequenceApplies.Gender == Symbols.SymbolNonBinary),
                     };
 
                     answer.Add(lineItem.NameOfCohort, lineItem);
@@ -112,7 +112,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
             var tcs = new TaskCompletionSource<PopulationCohortItem[]>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            if (groupingsOfPlacedResults == null)
+            if (groupingsOfPlacedResults is null)
             {
                 tcs.TrySetResult([]);
 
@@ -125,14 +125,14 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             {
                 foreach (var group in groupingsOfPlacedResults)
                 {
-                    if (group == null) continue;
+                    if (group is null) continue;
 
                     var lineItem = new PopulationCohortItem
                     {
                         NameOfCohort = group.Key,
-                        SexMaleCount = group.Where(z => z != null).Count(z => z.Gender == Symbols.SymbolMale),
-                        SexFemaleCount = group.Where(z => z != null).Count(z => z.Gender == Symbols.SymbolFemale),
-                        SexOtherCount = group.Where(z => z != null).Count(z => z.Gender == Symbols.SymbolNonBinary),
+                        SexMaleCount = group.Where(z => z is not null).Count(z => z.Gender == Symbols.SymbolMale),
+                        SexFemaleCount = group.Where(z => z is not null).Count(z => z.Gender == Symbols.SymbolFemale),
+                        SexOtherCount = group.Where(z => z is not null).Count(z => z.Gender == Symbols.SymbolNonBinary),
                     };
 
                     answer.Add(lineItem.NameOfCohort, lineItem);
@@ -172,7 +172,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 			try
 			{
-				if (results == null)
+				if (results is null)
 					throw new JghNullObjectInstanceException(nameof(results));
 
 				//var results = individuals;
@@ -185,8 +185,8 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 				// in this case grouping is by raceCODE: because it's a simple key be sure to use a LINQ declaration like this not a method chain to cope with the situation where raceCODE is blank throughout, have to do it this way
 
 				var subGroups = from kvp in dictionaryOfAllResults
-								where kvp.Value != null
-								where kvp.Value.DerivedData != null
+								where kvp.Value is not null
+								where kvp.Value.DerivedData is not null
 								where kvp.Value.DerivedData.IsValidDuration
 								let theRaceCode = kvp.Value.RaceGroup
 								group kvp by theRaceCode
@@ -239,7 +239,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 			try
 			{
-				if (results == null)
+				if (results is null)
 					throw new JghNullObjectInstanceException(nameof(results));
 
 
@@ -250,10 +250,10 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 				// in this case grouping is by race and Sex together: because it's a compound key, be sure to use a method chain like this not a linq select statement, otherwise it won't work as expected when all three compnents are empty
 
-				if (dictionaryOfAllResults != null)
+				if (dictionaryOfAllResults is not null)
 				{
 					var subGroups = dictionaryOfAllResults
-						.Where(item => item.Value.DerivedData != null)
+						.Where(item => item.Value.DerivedData is not null)
 						.Where(item => item.Value.DerivedData.IsValidDuration)
 						.GroupBy(item => new {Race = item.Value.RaceGroup, item.Value.Gender }).ToArray();
 
@@ -305,7 +305,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 			try
 			{
-				if (results == null)
+				if (results is null)
 					throw new JghNullObjectInstanceException(nameof(results));
 
 				if (!results.Any())
@@ -315,10 +315,10 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 				// in this case grouping is by race and Sex and age group together: because it's a compound key, be sure to use a method chain like this not a linq select statement, otherwise it won't work as expected when all three compnents are empty
 
-				if (dictionaryOfAllResults != null)
+				if (dictionaryOfAllResults is not null)
 				{
 					var subGroups = dictionaryOfAllResults
-						.Where(item => item.Value.DerivedData != null)
+						.Where(item => item.Value.DerivedData is not null)
 						.Where(item => item.Value.DerivedData.IsValidDuration)
 						.GroupBy(item => new {Race = item.Value.RaceGroup, item.Value.Gender, CategoryID = item.Value.AgeGroup });
 
@@ -373,7 +373,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 			try
 			{
-				if (results == null)
+				if (results is null)
 				{
 					tcs.TrySetException(new JghNullObjectInstanceException(nameof(results)));
 					return tcs.Task;
@@ -392,7 +392,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 				KeyValuePair<int, ResultItem>[] participantsInCorrectOrder;
 
-				participantsInCorrectOrder = results.Where(kvp => kvp.Value.DerivedData != null)
+				participantsInCorrectOrder = results.Where(kvp => kvp.Value.DerivedData is not null)
 					.Where(kvp => kvp.Value.DerivedData.IsValidDuration)
 					.Where(kvp => kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds > 1)
 					.OrderByDescending(kvp => kvp.Value.DerivedData.CalculatedNumOfSplitsCompleted)
@@ -401,7 +401,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 				var winnerKvp = participantsInCorrectOrder.FirstOrDefault();
 
-				if (winnerKvp.Value?.DerivedData == null)
+				if (winnerKvp.Value?.DerivedData is null)
 				{
 					tcs.TrySetResult(new());
 					return tcs.Task;
@@ -419,7 +419,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 				foreach (var kvp in participantsInCorrectOrder)
 				{
-					if (kvp.Value == null) continue;
+					if (kvp.Value is null) continue;
 
 					var scratchPadItem =
 						new ScratchPadItemForDerivedResultData(kvp.Value

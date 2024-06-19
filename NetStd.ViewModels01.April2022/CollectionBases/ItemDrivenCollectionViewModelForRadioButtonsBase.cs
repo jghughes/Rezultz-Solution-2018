@@ -33,10 +33,10 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
                     DummyCommandExecuteActionThatDoesNothing,
                     DummyCommandCanExecuteFuncThatIsAlwaysFalse);
 
-            if (onSelectionChangedExecuteAction == null)
+            if (onSelectionChangedExecuteAction is null)
                 onSelectionChangedExecuteAction = DummyCommandExecuteActionThatDoesNothing;
 
-            if (onSelectionChangedCanExecuteFunc == null)
+            if (onSelectionChangedCanExecuteFunc is null)
                 onSelectionChangedCanExecuteFunc = DummyCommandCanExecuteFuncThatIsAlwaysFalse;
 
             _asInstantiatedDelegateCommand =
@@ -181,7 +181,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void MakeVisibleIfItemsSourceIsAny()
         {
-            if (ItemsSource == null)
+            if (ItemsSource is null)
             {
                 IsVisible = false;
                 return;
@@ -192,7 +192,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void MakeVisibleIfItemsSourceIsGreaterThanOne()
         {
-            if (ItemsSource == null)
+            if (ItemsSource is null)
             {
                 IsVisible = false;
                 return;
@@ -203,7 +203,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void MakeVisibleIfItemsSourceIsGreaterThanTwo()
         {
-            if (ItemsSource == null)
+            if (ItemsSource is null)
             {
                 IsVisible = false;
                 return;
@@ -228,7 +228,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void MakeAuthorisedToOperateIfItemsSourceIsAny()
         {
-            if (ItemsSource == null)
+            if (ItemsSource is null)
             {
                 IsAuthorisedToOperate = false;
                 return;
@@ -243,7 +243,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         private int FindIndexOfSelectedItem()
         {
-            if (SelectedItem == null)
+            if (SelectedItem is null)
                 return -1;
 
             var answer = JghArrayHelpers.SelectArrayIndexOfItemInArrayByItemEquality(ItemsSource.ToArray(), SelectedItem);
@@ -257,7 +257,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public string GetItemByItemIndex(int index)
         {
-            if (ItemsSource == null)
+            if (ItemsSource is null)
                 return null;
 
             return JghArrayHelpers.SelectItemFromArrayByArrayIndex(ItemsSource.ToArray(),
@@ -266,7 +266,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public void SaveSelectedItemAsLastKnownGood()
         {
-            if (SelectedItem == null)
+            if (SelectedItem is null)
             {
                 LastKnownGoodSelectedItem = string.Empty;
 
@@ -278,7 +278,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
 
         public bool SelectedItemIsTheSameAsLastKnownGood()
         {
-            if (SelectedItem == null)
+            if (SelectedItem is null)
             {
                 return LastKnownGoodSelectedItem == string.Empty;
             }
@@ -305,7 +305,7 @@ namespace NetStd.ViewModels01.April2022.CollectionBases
         {
             ExtinguishOnSelectionChangedCommand();
 
-            if (candidateItem != null && ItemsSource.Contains(candidateItem)) // beware how equality comparer might or might not work for the particular type
+            if (candidateItem is not null && ItemsSource.Contains(candidateItem)) // beware how equality comparer might or might not work for the particular type
             {
                 SelectedItem = candidateItem; // beware. target user control raises SelectionChanged event. recursive
 

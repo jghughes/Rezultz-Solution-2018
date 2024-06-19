@@ -46,14 +46,14 @@ public class JghSerialisableException
             if (!string.IsNullOrWhiteSpace(Source))
                 theList.Add($"Source: {Source}");
 
-            if (Data != null)
+            if (Data is not null)
             {
                 theList.Add("Data:");
 
                 theList.AddRange(Data.ToArray().Select(kvp => $"DataItem: {kvp.Key}={kvp.Value}"));
             }
 
-            if (InnerException != null)
+            if (InnerException is not null)
             {
                 theList.Add("");
                 theList.Add($"InnerException:");
@@ -77,7 +77,7 @@ public class JghSerialisableException
     {
         ClassName = ex.GetType().ToString();
         Message = ex.Message;
-        InnerException = ex.InnerException == null ? null : new JghSerialisableException(ex.InnerException);
+        InnerException = ex.InnerException is null ? null : new JghSerialisableException(ex.InnerException);
         StackTraceString = ex.StackTrace;
     }
 
@@ -92,7 +92,7 @@ public class JghSerialisableException
 
         try
         {
-            if (dto == null)
+            if (dto is null)
                 return null; // important to return null here, not a new instance, in order to make the recursion work properly
 
             var answer = new JghSerialisableException
@@ -126,10 +126,10 @@ public class JghSerialisableException
 
         try
         {
-            if (dto == null)
+            if (dto is null)
                 return [];
 
-            var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+            var answer = dto.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
 
             return answer;
         }
@@ -146,12 +146,12 @@ public class JghSerialisableException
 
     public static JghSerialisableException FindInnermostException(JghSerialisableException ex)
     {
-        if (ex == null)
+        if (ex is null)
             return null;
 
         var e = ex;
 
-        while (e.InnerException != null)
+        while (e.InnerException is not null)
             e = e.InnerException;
 
         return e;
@@ -166,17 +166,17 @@ public class JghSerialisableException
             $"StackTrace: {StackTraceString}",
             $"HResult: {HResult}",
             $"Source: {Source}",
-            InnerException == null ? "InnerException: null" : $"InnerException: {InnerException}"
+            InnerException is null ? "InnerException: null" : $"InnerException: {InnerException}"
         };
 
-        if (Data != null)
+        if (Data is not null)
         {
             theList.Add("Data:");
 
             theList.AddRange(Data.ToArray().Select(kvp => $"DataItem: {kvp.Key}={kvp.Value}"));
         }
 
-        theList.Add(InnerException == null ? "InnerException: null" : $"InnerException: {InnerException}");
+        theList.Add(InnerException is null ? "InnerException: null" : $"InnerException: {InnerException}");
 
         return JghString.ConcatAsParagraphs(theList.ToArray());
     }

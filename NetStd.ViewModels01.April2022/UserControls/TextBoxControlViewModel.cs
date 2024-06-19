@@ -14,10 +14,10 @@ namespace NetStd.ViewModels01.April2022.UserControls
         public TextBoxControlViewModel(Action onTextChangedExecuteAction,
             Func<bool> onTextChangedCanExecuteFunc)
         {
-            if (onTextChangedExecuteAction == null)
+            if (onTextChangedExecuteAction is null)
                 throw new ArgumentNullException(nameof(onTextChangedExecuteAction));
 
-            if (onTextChangedCanExecuteFunc == null)
+            if (onTextChangedCanExecuteFunc is null)
                 throw new ArgumentNullException(nameof(onTextChangedCanExecuteFunc));
 
             _defaultOnTextChangedCommand =

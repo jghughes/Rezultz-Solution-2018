@@ -132,7 +132,7 @@ namespace NetStd.Exceptions.Mar2024.Helpers
 
         private static string[] MakeACleanCollectionOfTextsExcludingTheLastItem(string[] arrayOfTexts, out string lastItem)
         {
-            if (arrayOfTexts == null)
+            if (arrayOfTexts is null)
                 throw new ArgumentNullException(nameof(arrayOfTexts));
 
             lastItem = null;

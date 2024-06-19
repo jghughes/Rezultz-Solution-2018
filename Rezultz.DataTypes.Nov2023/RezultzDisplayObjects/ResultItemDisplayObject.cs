@@ -203,7 +203,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
                 #endregion
 
-                if (model.DerivedData == null) return displayObject;
+                if (model.DerivedData is null) return displayObject;
 
                 #region format fields that will be populated unconditionally from derived data
 
@@ -247,7 +247,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
                 // as long as it's not a Dnx, if it's a valid duration it is possible to
                 // calculate and in turn display all the calculated fields - add them in.  
 
-                if (model.DerivedData != null && model.DerivedData.IsValidDuration & !model.DerivedData.IsValidDnx)
+                if (model.DerivedData is not null && model.DerivedData.IsValidDuration & !model.DerivedData.IsValidDnx)
                 {
                     displayObject.PlaceCalculatedOverallAsString = JghString.PadLeftOrBlankIfZero(model.DerivedData.PlaceCalculatedOverallInt, 5, ' ');
                     //viewModel.PlaceCalculatedOverallAsString = JghConvert.ToRightAlignedOrBlank(model.DerivedData.PlaceCalculatedOverallInt);
@@ -301,10 +301,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
             try
             {
-                if (model == null)
+                if (model is null)
                     return [];
 
-                var answer = model.Select(FromModel).Where(z => z != null).ToArray();
+                var answer = model.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -330,7 +330,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
             const string locus = "[FromItemToSeriesPointsFormat]";
 
-            if (sequenceContainerItem == null) return null;
+            if (sequenceContainerItem is null) return null;
 
             const int roundDecimalTo0Place = 0;
             const int roundDecimalTo1Place = 1;
@@ -395,10 +395,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
             try
             {
-                if (sequenceContainerItem == null)
+                if (sequenceContainerItem is null)
                     return [];
 
-                var answer = (from item in sequenceContainerItem where item!.MostRecentResultItemToWhichThisSequenceApplies != null select FromItemToSeriesPointsFormat(item, scoresToCountForPoints)).ToArray();
+                var answer = (from item in sequenceContainerItem where item!.MostRecentResultItemToWhichThisSequenceApplies is not null select FromItemToSeriesPointsFormat(item, scoresToCountForPoints)).ToArray();
 
                 return answer;
             }
@@ -418,7 +418,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
             const string failure = "Mapping cumulative individual tour duration.";
             const string locus = "[ToSeasonTourDurationResultDisplayFormat]";
 
-            if (sequenceContainerItem == null) return null;
+            if (sequenceContainerItem is null) return null;
 
             const int roundDecimalTo1Place = 1;
             const string format = JghTimeSpan.HhmmssfPattern;
@@ -481,10 +481,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
             try
             {
-                if (sequenceContainerItem == null)
+                if (sequenceContainerItem is null)
                     return [];
 
-                var answer = sequenceContainerItem.Where(z => z!.MostRecentResultItemToWhichThisSequenceApplies != null).Select(FromItemToSeriesTourDurationFormat).ToArray();
+                var answer = sequenceContainerItem.Where(z => z!.MostRecentResultItemToWhichThisSequenceApplies is not null).Select(FromItemToSeriesTourDurationFormat).ToArray();
 
                 return answer;
             }
@@ -1248,12 +1248,12 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
         private static string GetDataPointAsTypeDoubleAsStringOrBlankIfNearZeroOrBracketedIfNotOneOfTheBest(Dictionary<int, PointsDataPoint> pointsDictionary, int eventNum, int roundDecimalToNthPlace)
         {
-            if (pointsDictionary == null)
+            if (pointsDictionary is null)
                 return string.Empty;
 
             var dataPoint = GetDataPoint(pointsDictionary, eventNum);
 
-            if (dataPoint == null)
+            if (dataPoint is null)
                 return string.Empty;
 
             if (dataPoint.IsOneOfTheBestNdatapoints)
@@ -1265,7 +1265,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
         private static double GetDataPoint(Dictionary<int, double> pointsDictionary, int eventNum)
         {
-            if (pointsDictionary == null)
+            if (pointsDictionary is null)
                 return 0;
 
             return pointsDictionary.ContainsKey(eventNum) ? pointsDictionary[eventNum] : 0.0;
@@ -1273,7 +1273,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzDisplayObjects
 
         private static PointsDataPoint GetDataPoint(Dictionary<int, PointsDataPoint> pointsDictionary, int eventNum)
         {
-            if (pointsDictionary == null)
+            if (pointsDictionary is null)
                 return null;
 
             //var key = eventNum;

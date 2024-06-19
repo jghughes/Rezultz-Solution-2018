@@ -15,7 +15,7 @@ namespace NetStd.DataTransferObjects.Mar2024
     {
         try
         {
-            if (ex == null)
+            if (ex is null)
                 return null; // important to return null here, in order to make the recursion work and not loop infinitely
 
             var answer = new ExceptionDto
@@ -78,11 +78,11 @@ namespace NetStd.DataTransferObjects.Mar2024
                 {
                     var name = Enum.GetName(value.GetType(), value);
 
-                    if (name != null)
+                    if (name is not null)
                     {
                         var field = value.GetType().GetTypeInfo().GetDeclaredField(name);
 
-                        if (field != null)
+                        if (field is not null)
                             if (field.GetCustomAttribute(typeof(EnumMemberAttribute)) is EnumMemberAttribute attribute)
                                 return attribute.Value ?? name;
 

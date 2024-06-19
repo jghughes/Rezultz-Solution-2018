@@ -58,7 +58,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     throw new JghCommunicationFailureException(StringsMar2023.NoConnection);
 
-                if (profileFileNameFragment == null) throw new ArgumentNullException(nameof(profileFileNameFragment));
+                if (profileFileNameFragment is null) throw new ArgumentNullException(nameof(profileFileNameFragment));
 
 				var queryParameters = new List<KeyValuePair<string, string>>
 				{
@@ -114,7 +114,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     throw new JghCommunicationFailureException(StringsMar2023.NoConnection);
 
-                if (profileFileNameFragment == null) throw new ArgumentNullException(nameof(profileFileNameFragment));
+                if (profileFileNameFragment is null) throw new ArgumentNullException(nameof(profileFileNameFragment));
 
                 var queryParameters = new List<KeyValuePair<string, string>>
                 {
@@ -231,7 +231,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     throw new JghCommunicationFailureException(StringsMar2023.NoConnection);
 
-                if (eventProfileDto == null) throw new ArgumentNullException(nameof(eventProfileDto));
+                if (eventProfileDto is null) throw new ArgumentNullException(nameof(eventProfileDto));
 				if (string.IsNullOrWhiteSpace(eventProfileDto.DatabaseAccountName)) throw new ArgumentNullException(nameof(eventProfileDto.DatabaseAccountName));
                 if (string.IsNullOrWhiteSpace(eventProfileDto.DataContainerName)) throw new ArgumentNullException(nameof(eventProfileDto.DataContainerName));
 
@@ -296,7 +296,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     throw new JghCommunicationFailureException(StringsMar2023.NoConnection);
 
-                if (seriesProfileDto == null) throw new ArgumentNullException(nameof(seriesProfileDto));
+                if (seriesProfileDto is null) throw new ArgumentNullException(nameof(seriesProfileDto));
 
                 var route = HttpRequestServiceHelpers.AppendNameValuePairsToUriInQueryStringFormat(ThisControllerRoute, Routes.PopulateAllEventsInSingleSeriesWithAllResults);
 

@@ -87,7 +87,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
                 allSubFolders.AddRange((await GetAllSubFoldersAsync(storageFolder)));
             }
 
-            var answer = allSubFolders.Where(z => z != null).ToArray();
+            var answer = allSubFolders.Where(z => z is not null).ToArray();
 
             return answer;
         }
@@ -317,7 +317,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
                 {
                     var namesOfMoreDeletedThings = await DeleteDirectoryAsync(subfolder.Path);
 
-                    if (namesOfMoreDeletedThings != null)
+                    if (namesOfMoreDeletedThings is not null)
                         listOfNamesOfThingsDeletedInTheFolder.AddRange(namesOfMoreDeletedThings);
                 }
 
@@ -367,7 +367,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
 
                 var allSubFolders = await GetFolders(thisFolder);
 
-                var answer = allSubFolders.Where(z => z != null).Select(z => z.Path).ToArray();
+                var answer = allSubFolders.Where(z => z is not null).Select(z => z.Path).ToArray();
 
                 return answer;
             }
@@ -421,7 +421,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
                 if (!JghFilePathValidator.IsValidNtfsDirectoryPath(folder, true))
                     return string.Empty; // no point bothering with anything further
 
-                if (textContents == null)
+                if (textContents is null)
                     return string.Empty;
 
                 #endregion
@@ -733,7 +733,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
 
                 #endregion
 
-                var filePaths = allStorageFiles.Where(z => z != null).Select(z => z.Path);
+                var filePaths = allStorageFiles.Where(z => z is not null).Select(z => z.Path);
 
                 return filePaths.ToArray();
             }

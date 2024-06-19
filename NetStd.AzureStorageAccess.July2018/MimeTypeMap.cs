@@ -710,7 +710,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
         public static string GetMimeType(string extension)
         {
-            if (extension == null)
+            if (extension is null)
             {
                 throw new ArgumentNullException(nameof(extension));
             }
@@ -725,7 +725,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
         public static string GetExtension(string mimeType, bool throwErrorIfNotFound = true)
         {
-            if (mimeType == null)
+            if (mimeType is null)
             {
                 throw new ArgumentNullException(nameof(mimeType));
             }

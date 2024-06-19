@@ -98,7 +98,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
         /// </returns>
         public static async Task<int> ShowMessageAsync(string message, Exception ex)
         {
-            var consolidatedMessage = (ex == null)
+            var consolidatedMessage = (ex is null)
                 ? message
                 : JghString.ConcatAsSentences(message,
                     JghExceptionHelpers.PrintRedactedExceptionMessage(JghExceptionHelpers.ConvertToCarrier(null, null, ex)));
@@ -171,7 +171,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
             {
                 var howToReportAnError = StringsUwpCommon.HowToReportAnErrorV2;
 
-                var consolidatedMessage = ex == null
+                var consolidatedMessage = ex is null
                     ? message
                     : JghString.ConcatAsParagraphs(
                         message,
@@ -285,7 +285,7 @@ namespace Jgh.Uwp.Common.July2018.OnBoardServices
             {
                 var howToReportAnError = StringsUwpCommon.HowToReportAnErrorV2;
 
-                var consolidatedMessage = ex == null
+                var consolidatedMessage = ex is null
                     ? JghString.ConcatAsSentences(message)
                     : JghString.ConcatAsParagraphs(
                         message,

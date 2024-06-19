@@ -503,7 +503,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
 	//				}
 	//			};
 
-	//		var answer = results.Where(z => z != null).Select(MakePrettyPrintedFavoriteString).ToArray();
+	//		var answer = results.Where(z => z is not null).Select(MakePrettyPrintedFavoriteString).ToArray();
 
 	//		return answer;
 	//	}
@@ -519,7 +519,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
 
 	//	public string MakePrettyPrintedFavoriteString(ResultItem resultItem)
 	//	{
-	//		if (resultItem?.DerivedData == null ) return string.Empty;
+	//		if (resultItem?.DerivedData is null ) return string.Empty;
 
 	//		var myString = resultItem.DerivedData.PlaceCalculatedOverallInt.ToString();
 

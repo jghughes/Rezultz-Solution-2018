@@ -115,7 +115,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 HeadersVm.SaveAsLastKnownGood();
                 HeadersVm.IsVisible = true;
 
-                if (currentEvent?.EventSettingsItem != null)
+                if (currentEvent?.EventSettingsItem is not null)
                 {
                     var shortHandSettings = currentEvent.EventSettingsItem;
 
@@ -220,7 +220,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 // reinstate Race and RaceID fields - only for display reasons (races are handled under the umbrella of utility classification)
 
-                foreach (var result in averageSplits.Where(z => z != null).Where(z => z.UtilityClassification != null)) result.RaceGroup = result.UtilityClassification;
+                foreach (var result in averageSplits.Where(z => z is not null).Where(z => z.UtilityClassification is not null)) result.RaceGroup = result.UtilityClassification;
 
                 AllDataGridLineItemDisplayObjects = ResultItemDisplayObject.FromModel(averageSplits); // 
                 
@@ -425,7 +425,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
         protected override async Task<bool> CboLookUpCategoryFiltersChangeToMatchPersonWithTargetBibNumberAsync(ResultItemDisplayObject personWithBibNumberSpecifiedForOpenOnLaunch)
         {
-            if (personWithBibNumberSpecifiedForOpenOnLaunch == null) return true;
+            if (personWithBibNumberSpecifiedForOpenOnLaunch is null) return true;
 
             await CboLookupRaceCategoryFilterVm.ChangeSelectedIndexToMatchItemLabelAsync(personWithBibNumberSpecifiedForOpenOnLaunch.RaceGroup);
 

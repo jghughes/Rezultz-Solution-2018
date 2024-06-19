@@ -35,7 +35,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var errors = value as ICollection<string>;
-            return errors != null && errors.Count > 0 ? errors.ElementAt(0) : null;
+            return errors is not null && errors.Count > 0 ? errors.ElementAt(0) : null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

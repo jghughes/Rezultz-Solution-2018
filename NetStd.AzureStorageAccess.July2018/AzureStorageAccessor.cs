@@ -46,7 +46,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 /*
@@ -121,7 +121,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 /*
@@ -196,7 +196,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 var blobItems = new List<BlobItem>();
@@ -284,7 +284,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 /*
@@ -366,7 +366,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 /*
@@ -439,7 +439,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 /*
@@ -510,10 +510,10 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
-                if (content == null)
+                if (content is null)
                     throw new ArgumentNullException(nameof(content));
 
                 /*
@@ -587,10 +587,10 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
-                if (content == null)
+                if (content is null)
                     throw new ArgumentNullException(nameof(content));
 
                 /*
@@ -678,7 +678,7 @@ namespace NetStd.AzureStorageAccess.July2018
 
             try
             {
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new ArgumentNullException(nameof(accountConnectionString));
 
                 /*

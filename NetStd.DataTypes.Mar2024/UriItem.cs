@@ -61,10 +61,10 @@ namespace NetStd.DataTypes.Mar2024
 
             try
             {
-                if (dataTransferObject == null)
+                if (dataTransferObject is null)
                     return [];
 
-                var answer = dataTransferObject.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+                var answer = dataTransferObject.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
                 return answer;
             }
 
@@ -115,10 +115,10 @@ namespace NetStd.DataTypes.Mar2024
 
             try
             {
-                if (item == null)
+                if (item is null)
                     return [];
 
-                var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+                var answer = item.Select(ToDataTransferObject).Where(z => z is not null).ToArray();
 
                 return answer;
             }

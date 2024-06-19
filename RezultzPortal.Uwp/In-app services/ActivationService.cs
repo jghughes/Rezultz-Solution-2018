@@ -45,20 +45,20 @@ namespace RezultzPortal.Uwp.In_app_services
 
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
-                if (Window.Current.Content == null)
+                if (Window.Current.Content is null)
                 {
                     // Create a Frame to act as the navigation context and navigate to the first page
                     Window.Current.Content = _shell?.Value ?? new Frame();
                     NavigationService.NavigationFailed += (sender, e) => { throw e.Exception; };
                     NavigationService.Navigated += Frame_Navigated;
-                    if (SystemNavigationManager.GetForCurrentView() != null) SystemNavigationManager.GetForCurrentView().BackRequested += ActivationService_BackRequested;
+                    if (SystemNavigationManager.GetForCurrentView() is not null) SystemNavigationManager.GetForCurrentView().BackRequested += ActivationService_BackRequested;
                 }
             }
 
             var activationHandler = GetActivationHandlers()
                 .FirstOrDefault(h => h.CanHandle(activationArgs));
 
-            if (activationHandler != null) await activationHandler.HandleAsync(activationArgs);
+            if (activationHandler is not null) await activationHandler.HandleAsync(activationArgs);
 
             if (IsInteractive(activationArgs))
             {

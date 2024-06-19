@@ -504,7 +504,7 @@ namespace Rezultz.Uwp.DependencyInjection
         }
         public void RegisterIAlertMessageServiceProvider(IAlertMessageService implementingObject)
         {
-            if (implementingObject == null)
+            if (implementingObject is null)
                 _dependencyContainer.Register<IAlertMessageService, AlertMessageServiceDummy>();
             else
                 _dependencyContainer.Register(() => implementingObject);
@@ -516,7 +516,7 @@ namespace Rezultz.Uwp.DependencyInjection
         }
         public void RegisterILeaderboardListPresentationServiceProvider(ILeaderboardDataGridPresentationService serviceImplementingObject)
         {
-            if (serviceImplementingObject == null)
+            if (serviceImplementingObject is null)
                 _dependencyContainer.Register<ILeaderboardDataGridPresentationService, LeaderboardDataGridPresentationServiceDummy>();
             else
                 _dependencyContainer.Register(() => serviceImplementingObject);
@@ -528,7 +528,7 @@ namespace Rezultz.Uwp.DependencyInjection
         }
         public void RegisterIFavoritesListPresentationServiceProvider(IFavoritesDataGridPresentationService serviceImplementingObject)
         {
-            if (serviceImplementingObject == null)
+            if (serviceImplementingObject is null)
                 _dependencyContainer
                     .Register<IFavoritesDataGridPresentationService, FavoritesDataGridPresentationServiceDummy>();
             else
@@ -541,7 +541,7 @@ namespace Rezultz.Uwp.DependencyInjection
         }
         public void RegisterIPopulationCohortsPresentationServiceProvider(IPopulationCohortsDataGridPresentationService serviceImplementingObject)
         {
-            if (serviceImplementingObject == null)
+            if (serviceImplementingObject is null)
                 _dependencyContainer
                     .Register<IPopulationCohortsDataGridPresentationService, PopulationCohortsDataGridPresentationServiceDummy>();
             else

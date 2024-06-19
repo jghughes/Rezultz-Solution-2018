@@ -21,7 +21,7 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
             {
                 var descendantObject = GetDescendantProperty(propertyPathInXamlBindingSyntax, parentObject);
 
-                if (descendantObject == null)
+                if (descendantObject is null)
                     return true;
 
                 if (descendantObject is string)
@@ -63,10 +63,10 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
             {
                 #region null checks
 
-                if (propertyPathInXamlBindingSyntax == null)
+                if (propertyPathInXamlBindingSyntax is null)
                     throw new JghInvalidValueException($"{nameof(propertyPathInXamlBindingSyntax)} is null.");
 
-                if (objectBeingReflected == null)
+                if (objectBeingReflected is null)
                     throw new JghInvalidValueException($"{nameof(objectBeingReflected)} is null.");
 
                 #endregion
@@ -81,7 +81,7 @@ namespace Rezultz.Library02.Mar2024.DataGridDesigners
 
                     #region throw meaningful exception if not found
 
-                    if (propertyInfo == null)
+                    if (propertyInfo is null)
                     {
                         throw new JghInvalidValueException($"Coding error. Missing or mismatched property path or fragment. Property path is <{propertyPathInXamlBindingSyntax}>. Missing path fragment is <{propertyNameAtThisLevel}>.");
                     }

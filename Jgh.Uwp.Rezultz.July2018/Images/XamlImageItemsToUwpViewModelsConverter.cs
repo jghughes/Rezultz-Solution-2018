@@ -14,7 +14,7 @@ namespace Jgh.Uwp.Rezultz.July2018.Images
 
         private static UwpImageItem TranslateImageItemToPlatformType(UriItem uriItem)
         {
-            if (uriItem == null) return new UwpImageItem();
+            if (uriItem is null) return new UwpImageItem();
 
             var answer = new UwpImageItem(uriItem);
 
@@ -38,7 +38,7 @@ namespace Jgh.Uwp.Rezultz.July2018.Images
                 if (value is not UriItem[] imageItems) return new UwpImageItemViewModel[0];
 
                 var vms = imageItems
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(z => new UwpImageItemViewModel(TranslateImageItemToPlatformType(z))).ToArray();
 
                 return vms;

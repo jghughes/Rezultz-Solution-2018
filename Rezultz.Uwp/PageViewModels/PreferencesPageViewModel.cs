@@ -115,7 +115,7 @@ namespace Rezultz.Uwp.PageViewModels
 
         public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
         {
-            if (_lastKnownGoodSeasonProfile == null)
+            if (_lastKnownGoodSeasonProfile is null)
                 return true;
 
             return _lastKnownGoodSeasonProfile != GlobalSeasonProfileAndIdentityValidationVm?.CurrentlyValidatedSeasonProfileItem;

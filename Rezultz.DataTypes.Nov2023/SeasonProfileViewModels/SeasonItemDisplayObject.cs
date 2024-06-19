@@ -94,7 +94,7 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
             {
                 arrayOfModel ??= [];
 
-                var arrayOfViewModel = arrayOfModel.Select(FromModel).Where(z => z != null).ToArray();
+                var arrayOfViewModel = arrayOfModel.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return arrayOfViewModel;
             }

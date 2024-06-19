@@ -17,7 +17,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
 
 	        var desiredRowHeight = 40.0; // arbitrary default. 40 should be ample for typical fonts if parameter conversion fails 
 
-            if (value == null)
+            if (value is null)
                 return desiredRowHeight;
 
             var conversionSucceeded = JghConvert.TryConvertToInt32((string)parameter, out var integerEquivalent, out _);

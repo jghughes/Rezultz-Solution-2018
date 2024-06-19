@@ -22,7 +22,7 @@ Modify the NavigationService class Navigate() method to use page names not viewm
             }
 
             // Don't open the same page multiple times
-            if (Frame.Content?.GetType() != page || (parameter != null && !parameter.Equals(_lastParamUsed)))
+            if (Frame.Content?.GetType() != page || (parameter is not null && !parameter.Equals(_lastParamUsed)))
             {
                 var navigationResult = Frame.Navigate(page, parameter, infoOverride);
 

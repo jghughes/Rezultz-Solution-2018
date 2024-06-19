@@ -272,7 +272,7 @@ namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
                 if (string.IsNullOrWhiteSpace(dataContainer)) throw new ArgumentNullException(nameof(dataContainer));
                 if (string.IsNullOrWhiteSpace(tablePartition)) throw new ArgumentNullException(nameof(tablePartition));
                 if (string.IsNullOrWhiteSpace(tableRowKey)) throw new ArgumentNullException(nameof(tableRowKey));
-                if (dataTransferObject == null) throw new ArgumentNullException(nameof(dataTransferObject));
+                if (dataTransferObject is null) throw new ArgumentNullException(nameof(dataTransferObject));
 
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     throw new JghCommunicationFailureException(StringsWcfClients.NoConnection);
@@ -350,7 +350,7 @@ namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
             {
                 if (string.IsNullOrWhiteSpace(databaseAccount)) throw new ArgumentNullException(nameof(databaseAccount));
                 if (string.IsNullOrWhiteSpace(dataContainer)) throw new ArgumentNullException(nameof(dataContainer));
-                if (dataTransferObject == null) throw new ArgumentNullException(nameof(dataTransferObject));
+                if (dataTransferObject is null) throw new ArgumentNullException(nameof(dataTransferObject));
 
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     throw new JghCommunicationFailureException(StringsWcfClients.NoConnection);
@@ -600,7 +600,7 @@ namespace RezultzSvc.Clients.Wcf.Mar2023.ServiceClients
             //Closing the client gracefully closes the connection and cleans up resources at both ends of the wire
             //// see https://learn.microsoft.com/en-us/dotnet/framework/wcf/samples/use-close-abort-release-wcf-client-resources
 
-            if (_svcProxy == null) return;
+            if (_svcProxy is null) return;
 
             try
             {

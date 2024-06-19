@@ -72,7 +72,7 @@ public class MyLaps2024HelperCsv
 
         var arrayOfColumnHeadings = relevantRowsWithoutEscapeLiterals.Skip(NumberOfRowsPrecedingRowOfColumnHeadings).FirstOrDefault()?.Split(',');
 
-        if (arrayOfColumnHeadings == null) throw new JghAlertMessageException("Unable to find any column headings in the provided MyLaps data. It is therefore impossible to interpret the data.");
+        if (arrayOfColumnHeadings is null) throw new JghAlertMessageException("Unable to find any column headings in the provided MyLaps data. It is therefore impossible to interpret the data.");
 
         // example of headings from MyLaps : "Pos","Bib#","Athlete","Finish Time","Race","Age","Gender"
         var indexOfBibColumn = Array.IndexOf(arrayOfColumnHeadings, SrcXeBib);
@@ -116,7 +116,7 @@ public class MyLaps2024HelperCsv
 
             var participantIsDiscovered = false;
 
-            if (dictionaryOfParticipants != null)
+            if (dictionaryOfParticipants is not null)
                 participantIsDiscovered = dictionaryOfParticipants.TryGetValue(bibOfThiRepeatingRow, out discoveredParticipantHubItem);
 
             #endregion
@@ -125,7 +125,7 @@ public class MyLaps2024HelperCsv
 
             ResultItem thisRepeatingResultItem;
 
-            if (participantIsDiscovered && discoveredParticipantHubItem != null)
+            if (participantIsDiscovered && discoveredParticipantHubItem is not null)
             {
                 thisRepeatingResultItem = new ResultItem
                 {
@@ -156,7 +156,7 @@ public class MyLaps2024HelperCsv
                     IsSeries = false
                 };
 
-                if (dictionaryOfParticipants != null)
+                if (dictionaryOfParticipants is not null)
                     conversionReportSb.AppendLine(
                         $"Warning! Participant master list fails to have a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>");
             }

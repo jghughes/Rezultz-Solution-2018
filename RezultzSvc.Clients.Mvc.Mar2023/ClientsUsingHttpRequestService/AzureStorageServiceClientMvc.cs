@@ -352,7 +352,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService
             if (string.IsNullOrWhiteSpace(account)) throw new ArgumentNullException(nameof(account));
             if (string.IsNullOrWhiteSpace(container)) throw new ArgumentNullException(nameof(container));
             if (string.IsNullOrWhiteSpace(blob)) throw new ArgumentNullException(nameof(blob));
-            if (bytesToUpload == null) throw new ArgumentNullException(nameof(bytesToUpload));
+            if (bytesToUpload is null) throw new ArgumentNullException(nameof(bytesToUpload));
 
             var queryParameters = new List<KeyValuePair<string, string>>
             {

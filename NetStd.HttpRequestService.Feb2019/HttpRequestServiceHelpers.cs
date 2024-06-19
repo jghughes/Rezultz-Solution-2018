@@ -16,7 +16,7 @@ namespace NetStd.HttpRequestService.Feb2019
 
             var route = $"{controller}/{action}";
 
-            if (queryParameters == null)
+            if (queryParameters is null)
                 return route;
 
             var keyValuePairs = queryParameters.ToArray();

@@ -134,7 +134,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 var twoKindsOfSeasonStandings = currentSeries.MoreSeriesInformationItems ?? [];
 
                 twoKindsOfSeasonStandings = twoKindsOfSeasonStandings
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .OrderBy(z => z.DisplayRank)
                     .ThenBy(z => z.Label)
                     .ToArray();
@@ -156,7 +156,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 #region bale if CboListOfMoreInfo is empty or unselected
 
-                if (CboLookupMoreInfoItemVm.ItemsSource == null)
+                if (CboLookupMoreInfoItemVm.ItemsSource is null)
                 {
                     await ZeroiseAsync();
 
@@ -364,10 +364,10 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 await ThrowExceptionIfRepositoryOfSeriesTotalsNotFound(); // bale
 
-                if (CboLookupMoreInfoItemVm == null)
+                if (CboLookupMoreInfoItemVm is null)
                     throw new Exception($"The {nameof(CboLookupMoreInfoItemVm)} object is null.");
 
-                if (CboLookupMoreInfoItemVm.CurrentItem == null)
+                if (CboLookupMoreInfoItemVm.CurrentItem is null)
                     throw new JghInvalidValueException($"The {nameof(CboLookupMoreInfoItemVm)} GetCurrentItem() method returned null.");
 
                 switch (CboLookupMoreInfoItemVm?.CurrentItem?.EnumString)
@@ -450,9 +450,9 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                     out var _))
                 return true;
 
-            if (currentEventProfile?.EventSettingsItem?.UriItems == null) return true;
+            if (currentEventProfile?.EventSettingsItem?.UriItems is null) return true;
 
-            foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z != null))
+            foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z is not null))
             {
                 if (!JghFilePathValidator.IsValidBlobName(uriItem.BlobName, out var _))
                     continue;
@@ -470,7 +470,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
         private async Task<bool> ThrowExceptionIfRepositoryOfSeriesTotalsNotFound()
         {
-            if (_repositoryOfSeriesStandings == null)
+            if (_repositoryOfSeriesStandings is null)
             {
                 await ZeroiseDataGridVmsAndDesignersAsync();
 

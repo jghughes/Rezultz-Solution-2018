@@ -458,10 +458,10 @@ public class DataGridDesigner
 
         try
         {
-            if (columnsToBeDisplayed == null)
+            if (columnsToBeDisplayed is null)
                 return [];
 
-            columnsToBeDisplayed = columnsToBeDisplayed.Where(z => z != null).ToList();
+            columnsToBeDisplayed = columnsToBeDisplayed.Where(z => z is not null).ToList();
 
             // generate fully qualified property names for accessing viewmodels later on using reflection
 
@@ -471,7 +471,7 @@ public class DataGridDesigner
             // do cell text formatting
 
             var answer = columnsToBeDisplayed
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Select(z => DoTextFormattingSpecifications(z, LabelsOfColumnsToBeLeftAligned, LabelsOfColumnsToBeUpperCase, LabelsOfColumnsToBeNonSpecificCase));
 
 
@@ -498,7 +498,7 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null || _parentEventProfile == null || !DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects)
+            if (_parentSeriesProfile is null || _parentEventProfile is null || !DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects)
                 throw new JghAlertMessageException("Designer not yet initialised. No results displayed.");
 
             #endregion
@@ -558,7 +558,7 @@ public class DataGridDesigner
 
                     title2 = eventTitle;
 
-                    if (DatagridTitleAndBlurbInformationItem != null)
+                    if (DatagridTitleAndBlurbInformationItem is not null)
                     {
                         subjectMatter = DatagridTitleAndBlurbInformationItem.Title;
 
@@ -583,7 +583,7 @@ public class DataGridDesigner
 
                     //title2 = seriesSubtitle;
 
-                    if (DatagridTitleAndBlurbInformationItem != null)
+                    if (DatagridTitleAndBlurbInformationItem is not null)
                     {
                         subjectMatter = DatagridTitleAndBlurbInformationItem.Title;
 
@@ -610,7 +610,7 @@ public class DataGridDesigner
 
                     //title2 = seriesSubtitle;
 
-                    if (DatagridTitleAndBlurbInformationItem != null)
+                    if (DatagridTitleAndBlurbInformationItem is not null)
                     {
                         subjectMatter = DatagridTitleAndBlurbInformationItem.Title;
 
@@ -671,7 +671,7 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null || _parentEventProfile == null || !DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects)
+            if (_parentSeriesProfile is null || _parentEventProfile is null || !DesignerIsInitialisedForLeaderboardOfResultItemDisplayObjects)
                 throw new JghAlertMessageException("Designer not yet initialised. No results displayed.");
 
             #endregion
@@ -707,7 +707,7 @@ public class DataGridDesigner
                     #endregion
 
                     displayObjects = _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects
-                        .Where(z => z != null)
+                        .Where(z => z is not null)
                         .OrderBy(z => z.RaceGroup)
                         .ThenBy(z => z.PlaceCalculatedOverallAsString).ToArray();
 
@@ -719,7 +719,7 @@ public class DataGridDesigner
 
                     title1 = seriesTitle;
 
-                    if (DatagridTitleAndBlurbInformationItem != null)
+                    if (DatagridTitleAndBlurbInformationItem is not null)
                     {
                         subjectMatter = DatagridTitleAndBlurbInformationItem.Title;
 
@@ -731,7 +731,7 @@ public class DataGridDesigner
                     #endregion
 
                     displayObjects = _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects
-                        .Where(z => z != null)
+                        .Where(z => z is not null)
                         .OrderBy(z => z.PlaceCalculatedOverallAsString).ToArray();
 
                     break;
@@ -742,7 +742,7 @@ public class DataGridDesigner
 
                     title1 = seriesTitle;
 
-                    if (DatagridTitleAndBlurbInformationItem != null)
+                    if (DatagridTitleAndBlurbInformationItem is not null)
                     {
                         subjectMatter = DatagridTitleAndBlurbInformationItem.Title;
 
@@ -756,7 +756,7 @@ public class DataGridDesigner
                     #endregion
 
                     displayObjects = _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects
-                        .Where(z => z != null)
+                        .Where(z => z is not null)
                         .OrderBy(z => z.RaceGroup)
                         .ThenByDescending(z => z.PointsCalculatedRank).ToArray();
 
@@ -768,7 +768,7 @@ public class DataGridDesigner
 
                     title1 = seriesTitle;
 
-                    if (DatagridTitleAndBlurbInformationItem != null)
+                    if (DatagridTitleAndBlurbInformationItem is not null)
                     {
                         subjectMatter = DatagridTitleAndBlurbInformationItem.Title;
 
@@ -780,7 +780,7 @@ public class DataGridDesigner
                     #endregion
 
                     displayObjects = _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects
-                        .Where(z => z != null)
+                        .Where(z => z is not null)
                         .OrderBy(z => z.RaceGroup)
                         .ThenByDescending(z => z.TotalDurationFromAlgorithmInSecondsRank).ToArray();
                     break;
@@ -827,7 +827,7 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null || _parentEventProfile == null || !DesignerIsInitialisedForParticipantHubItemDisplayObjects)
+            if (_parentSeriesProfile is null || _parentEventProfile is null || !DesignerIsInitialisedForParticipantHubItemDisplayObjects)
                 throw new JghAlertMessageException("Designer not yet initialised. No results displayed.");
 
             #endregion
@@ -849,7 +849,7 @@ public class DataGridDesigner
             #endregion
 
             var displayObjects = _finalisedDataGridRowsOfParticipantHubItemDisplayObjects
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .OrderBy(z => z.Bib)
                 .ThenBy(z => z.LastName).ToArray();
 
@@ -892,7 +892,7 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null || _parentEventProfile == null || !DesignerIsInitialisedForTimeStampHubItemDisplayObjects)
+            if (_parentSeriesProfile is null || _parentEventProfile is null || !DesignerIsInitialisedForTimeStampHubItemDisplayObjects)
                 throw new JghAlertMessageException("Designer not yet initialised. No results displayed.");
 
             #endregion
@@ -914,7 +914,7 @@ public class DataGridDesigner
             #endregion
 
             var displayObjects = _finalisedDataGridRowsOfTimeStampHubItemDisplayObjects
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .OrderBy(z => z.TimeStamp)
                 .ToArray();
 
@@ -958,7 +958,7 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null || _parentEventProfile == null || !DesignerIsInitialisedForSplitIntervalDisplayObjects)
+            if (_parentSeriesProfile is null || _parentEventProfile is null || !DesignerIsInitialisedForSplitIntervalDisplayObjects)
                 throw new JghAlertMessageException("Designer not yet initialised. No results displayed.");
 
             #endregion
@@ -980,7 +980,7 @@ public class DataGridDesigner
             #endregion
 
             var displayObjects = _finalisedDataGridRowsOfSplitIntervalsPerPersonDisplayObjects
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .OrderBy(z => z.RaceGroup)
                 .ThenBy(z => z.CalculatedRankOverall)
                 .ToArray();
@@ -1160,10 +1160,10 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null)
+            if (_parentSeriesProfile is null)
                 throw new JghNullObjectInstanceException(nameof(_parentSeriesProfile));
 
-            if (_parentEventProfile == null)
+            if (_parentEventProfile is null)
                 throw new JghNullObjectInstanceException(nameof(_parentEventProfile));
 
             if (!DesignerIsInitialisedForPopulationCohortItemDisplayObjects)
@@ -1208,14 +1208,14 @@ public class DataGridDesigner
 
             title2 = eventTitle;
 
-            if (DatagridTitleAndBlurbInformationItem != null)
+            if (DatagridTitleAndBlurbInformationItem is not null)
             {
                 title3 = string.Format(DatagridTitleAndBlurbInformationItem?.Title ?? string.Empty);
 
                 title3 = title3.ToUpper();
             }
 
-            if (_localCboListOfMoreInfoCurrentItem != null)
+            if (_localCboListOfMoreInfoCurrentItem is not null)
             {
                 title4 = string.Format(_localCboListOfMoreInfoCurrentItem?.Title ?? string.Empty);
 
@@ -1319,7 +1319,7 @@ public class DataGridDesigner
             dataGridRows ??= [];
 
             var answerAsColumnSpecInventory =
-                columnSpecificationItems.Where(z => z != null).Select(z => z.ShallowMemberwiseCloneCopy).ToArray();
+                columnSpecificationItems.Where(z => z is not null).Select(z => z.ShallowMemberwiseCloneCopy).ToArray();
 
             #endregion
 
@@ -1349,7 +1349,7 @@ public class DataGridDesigner
 
                     var text = string.Empty;
 
-                    if (cellContentAsObject != null)
+                    if (cellContentAsObject is not null)
                         text = cellContentAsObject.ToString();
 
                     workSheetCell[i, j] = text;
@@ -1499,7 +1499,7 @@ public class DataGridDesigner
 
             rowCollection ??= [];
 
-            var dataGridRows = rowCollection.Where(z => z != null).ToArray();
+            var dataGridRows = rowCollection.Where(z => z is not null).ToArray();
             // be sure to remove nulls here, before we do any array ops
 
             _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects = dataGridRows;
@@ -1532,7 +1532,7 @@ public class DataGridDesigner
                     "Designer is already initialised. You are not allowed to initialise it more than once. Program error. Sorry.");
 
 
-            var cohortAnalysisLineItemViewModels = rowCollection.Where(z => z != null).ToArray();
+            var cohortAnalysisLineItemViewModels = rowCollection.Where(z => z is not null).ToArray();
             // be sure to remove nulls here, before we do any array ops
 
             _finalisedDataGridRowsOfPopulationCohortItemDisplayObjects = cohortAnalysisLineItemViewModels;
@@ -1565,7 +1565,7 @@ public class DataGridDesigner
                     "Designer is already initialised. You are not allowed to initialise it more than once. Program error. Sorry.");
 
             var lineItemViewModels = rowCollection
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .ToArray();
 
             _finalisedDataGridRowsOfParticipantHubItemDisplayObjects = lineItemViewModels;
@@ -1597,7 +1597,7 @@ public class DataGridDesigner
                 throw new InvalidOperationException(
                     "Designer is already initialised. You are not allowed to initialise it more than once. Program error. Sorry.");
 
-            var lineItemViewModels = rowCollection.Where(z => z != null)
+            var lineItemViewModels = rowCollection.Where(z => z is not null)
                 .ToArray();
 
             _finalisedDataGridRowsOfTimeStampHubItemDisplayObjects = lineItemViewModels;
@@ -1630,7 +1630,7 @@ public class DataGridDesigner
                     "Designer is already initialised. You are not allowed to initialise it more than once. Program error. Sorry.");
 
             var lineItemViewModels = rowCollection
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .ToArray();
 
             _finalisedDataGridRowsOfSplitIntervalsPerPersonDisplayObjects = lineItemViewModels;
@@ -1667,21 +1667,21 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null)
+            if (_parentSeriesProfile is null)
                 throw new JghNullObjectInstanceException(nameof(_parentSeriesProfile));
 
             if (isJustForSingleEvent)
-                if (_parentEventProfile == null)
+                if (_parentEventProfile is null)
                     throw new JghNullObjectInstanceException(nameof(_parentEventProfile));
 
-            if (_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects == null)
+            if (_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects is null)
                 throw new JghNullObjectInstanceException(nameof(_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects));
 
-            if (_parentSeriesProfile.DefaultEventSettingsForAllEvents.RaceSpecificationItems == null)
+            if (_parentSeriesProfile.DefaultEventSettingsForAllEvents.RaceSpecificationItems is null)
                 throw new JghNullObjectInstanceException(nameof(_parentSeriesProfile.DefaultEventSettingsForAllEvents.RaceSpecificationItems));
 
             if (isJustForSingleEvent)
-                if (_parentEventProfile.EventSettingsItem.RaceSpecificationItems == null)
+                if (_parentEventProfile.EventSettingsItem.RaceSpecificationItems is null)
                     throw new JghNullObjectInstanceException(nameof(_parentEventProfile.EventSettingsItem.RaceSpecificationItems));
 
             #endregion
@@ -1736,7 +1736,7 @@ public class DataGridDesigner
 
             var dictionaryOfResultsPerRace = new JghListDictionary<string, ResultItemDisplayObject>();
 
-            foreach (var resultViewModel in _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects.Where(z => z != null))
+            foreach (var resultViewModel in _finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects.Where(z => z is not null))
                 if (resultsMustBeGroupedByRace)
                     dictionaryOfResultsPerRace.Add(
                         string.IsNullOrWhiteSpace(resultViewModel.RaceGroup)
@@ -1751,7 +1751,7 @@ public class DataGridDesigner
 
             var arrayOfRaceSb = new List<StringBuilder>();
 
-            foreach (var thisRaceKvp in dictionaryOfResultsPerRace.Where(z => z.Value != null))
+            foreach (var thisRaceKvp in dictionaryOfResultsPerRace.Where(z => z.Value is not null))
             {
                 #region process this race
 
@@ -1819,21 +1819,21 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null)
+            if (_parentSeriesProfile is null)
                 throw new JghNullObjectInstanceException(nameof(_parentSeriesProfile));
 
             if (isJustForSingleEvent)
-                if (_parentEventProfile == null)
+                if (_parentEventProfile is null)
                     throw new JghNullObjectInstanceException(nameof(_parentEventProfile));
 
-            if (_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects == null)
+            if (_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects is null)
                 throw new JghNullObjectInstanceException(nameof(_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects));
 
-            if (_parentSeriesProfile.DefaultEventSettingsForAllEvents.RaceSpecificationItems == null)
+            if (_parentSeriesProfile.DefaultEventSettingsForAllEvents.RaceSpecificationItems is null)
                 throw new JghNullObjectInstanceException(nameof(_parentSeriesProfile.DefaultEventSettingsForAllEvents.RaceSpecificationItems));
 
             if (isJustForSingleEvent)
-                if (_parentEventProfile.EventSettingsItem.RaceSpecificationItems == null)
+                if (_parentEventProfile.EventSettingsItem.RaceSpecificationItems is null)
                     throw new JghNullObjectInstanceException(nameof(_parentEventProfile.EventSettingsItem.RaceSpecificationItems));
 
             #endregion
@@ -1907,7 +1907,7 @@ public class DataGridDesigner
             #region TransformSingleresultViewModelIntoXElement for each result one by one
 
             var displayObjectArray = displayObjects
-                .Where(z => z != null).ToArray();
+                .Where(z => z is not null).ToArray();
 
 
             var collectionOfXe = await JghParallel.SelectAsParallelWorkStealingAsync(
@@ -1916,7 +1916,7 @@ public class DataGridDesigner
                     TransformDataGridRowItemIntoXElement(z, relevantColumnSpecificationItems,
                         ResultDto.XeResult),
                 500);
-            if (collectionOfXe == null) throw new ArgumentNullException(nameof(collectionOfXe));
+            if (collectionOfXe is null) throw new ArgumentNullException(nameof(collectionOfXe));
 
             // be sure to delete any duplicates that inadvertently creep in (which they do!)
 
@@ -2043,14 +2043,14 @@ public class DataGridDesigner
         {
             #region null checks
 
-            if (_parentSeriesProfile == null)
+            if (_parentSeriesProfile is null)
                 throw new JghNullObjectInstanceException(nameof(_parentSeriesProfile));
 
             if (isJustForSingleEvent)
-                if (_parentEventProfile == null)
+                if (_parentEventProfile is null)
                     throw new JghNullObjectInstanceException(nameof(_parentEventProfile));
 
-            if (_finalisedDataGridRowsOfPopulationCohortItemDisplayObjects == null)
+            if (_finalisedDataGridRowsOfPopulationCohortItemDisplayObjects is null)
                 throw new JghNullObjectInstanceException(nameof(_finalisedDataGridRowsOfLeaderboardOfResultItemDisplayObjects));
 
             #endregion
@@ -2112,7 +2112,7 @@ public class DataGridDesigner
                 relevantColumnSpecificationItems));
 
             var lineItems = _finalisedDataGridRowsOfPopulationCohortItemDisplayObjects
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .ToArray();
 
             var prettyRowsOfText = await JghParallel.SelectAsParallelWorkStealingAsync(
@@ -2193,7 +2193,7 @@ public class DataGridDesigner
             #region Transform each displayobject into XElement by one
 
             var displayObjectArray = displayObject
-                .Where(z => z != null).ToArray();
+                .Where(z => z is not null).ToArray();
 
             var collectionOfXe = await JghParallel.SelectAsParallelWorkStealingAsync(
                 displayObjectArray,
@@ -2347,7 +2347,7 @@ public class DataGridDesigner
             #region Transform each displayobject into XElement by one
 
             var displayObjectArray = displayObject
-                .Where(z => z != null).ToArray();
+                .Where(z => z is not null).ToArray();
 
             var collectionOfXe = await JghParallel.SelectAsParallelWorkStealingAsync(
                 displayObjectArray,
@@ -2501,7 +2501,7 @@ public class DataGridDesigner
             #region Transform each displayobject into XElement by one
 
             var displayObjectArray = displayObject
-                .Where(z => z != null).ToArray();
+                .Where(z => z is not null).ToArray();
 
             var collectionOfXe = await JghParallel.SelectAsParallelWorkStealingAsync(
                 displayObjectArray,

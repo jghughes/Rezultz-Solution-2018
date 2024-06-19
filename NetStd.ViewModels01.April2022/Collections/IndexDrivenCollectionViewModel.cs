@@ -28,7 +28,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 		{
 			var answer = JghArrayHelpers.SelectArrayIndexOfItemInArrayByItemId(ItemsSource, searchParameter);
 
-			return ItemsSource == null
+			return ItemsSource is null
 				? -1
 				: answer;
 		}
@@ -38,7 +38,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 			var answer = JghArrayHelpers.SelectItemFromArrayByItemEnumString(ItemsSource,
 				searchParameter);
 
-			return ItemsSource == null
+			return ItemsSource is null
 				? null
 				: answer;
 		}
@@ -48,7 +48,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 			var answer = JghArrayHelpers.SelectItemFromArrayByItemLabel(ItemsSource,
 				searchParameter);
 
-			return ItemsSource == null
+			return ItemsSource is null
 				? null
 				: answer;
 		}

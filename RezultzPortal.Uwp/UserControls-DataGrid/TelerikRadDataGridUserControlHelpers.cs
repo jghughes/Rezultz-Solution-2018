@@ -22,7 +22,7 @@ namespace RezultzPortal.Uwp.UserControls_DataGrid
 
             try
             {
-                if (theDataGrid == null) return;
+                if (theDataGrid is null) return;
 
                 theDataGrid.AutoGenerateColumns = false; // NB
 
@@ -32,7 +32,7 @@ namespace RezultzPortal.Uwp.UserControls_DataGrid
 
                 foreach (var columnSpecificationItem in columnSpecificationItems)
                 {
-                    if (columnSpecificationItem?.NameOfAssociatedPropertyInXamlBindingSyntax == null)
+                    if (columnSpecificationItem?.NameOfAssociatedPropertyInXamlBindingSyntax is null)
                         continue; // cautionary measure
 
                     if (columnSpecificationItem.NameOfAssociatedPropertyInXamlBindingSyntax.Length <= DataGridDesigner.LengthOfPrefixForViewModelChildPropertyNames)

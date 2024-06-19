@@ -343,7 +343,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                 if (!JghFilePathValidator.IsValidNtfsFileOrFolderName(fileName))
                     return null;
 
-                if (textContents == null)
+                if (textContents is null)
                     return null;
 
                 #endregion
@@ -745,7 +745,7 @@ namespace NetStd.OnBoardServices01.July2018.Persistence
                     {
                         var moreFilePaths = GetFilePaths(subDirectoryPath, store);
 
-                        if (moreFilePaths != null) filePaths.AddRange(moreFilePaths);
+                        if (moreFilePaths is not null) filePaths.AddRange(moreFilePaths);
                     }
 
                     #endregion

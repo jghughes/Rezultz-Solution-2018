@@ -31,7 +31,7 @@ namespace NetStd.Prism.July2018
             _action = () =>
             {
                 action?.Invoke();
-                if (Next == null) return;
+                if (Next is null) return;
                 Next.UnsubscribeListener();
                 GenerateNextNode();
             };
@@ -42,14 +42,14 @@ namespace NetStd.Prism.July2018
             _inpcObject = inpcObject;
             _inpcObject.PropertyChanged += OnPropertyChanged;
 
-            if (Next != null) GenerateNextNode();
+            if (Next is not null) GenerateNextNode();
         }
 
         private void GenerateNextNode()
         {
             var propertyInfo = _inpcObject.GetType().GetRuntimeProperty(PropertyName); // TODO: To cache, if the step consume significant performance. Note: The type of _inpcObject may become its base type or derived type.
             var nextProperty = propertyInfo.GetValue(_inpcObject);
-            if (nextProperty == null) return;
+            if (nextProperty is null) return;
             if (nextProperty is not INotifyPropertyChanged nextInpcObject)
                 throw new InvalidOperationException("Trying to subscribe PropertyChanged listener in object that " +
                                                     $"owns '{Next.PropertyName}' property, but the object does not implements INotifyPropertyChanged.");
@@ -59,7 +59,7 @@ namespace NetStd.Prism.July2018
 
         private void UnsubscribeListener()
         {
-            if (_inpcObject != null)
+            if (_inpcObject is not null)
                 _inpcObject.PropertyChanged -= OnPropertyChanged;
 
             Next?.UnsubscribeListener();
@@ -67,10 +67,10 @@ namespace NetStd.Prism.July2018
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // Invoke action when e.PropertyName == null in order to satisfy:
+            // Invoke action when e.PropertyName is null in order to satisfy:
             //  - DelegateCommandFixture.GenericDelegateCommandObservingPropertyShouldRaiseOnEmptyPropertyName
             //  - DelegateCommandFixture.NonGenericDelegateCommandObservingPropertyShouldRaiseOnEmptyPropertyName
-            if (e?.PropertyName == PropertyName || e?.PropertyName == null)
+            if (e?.PropertyName == PropertyName || e?.PropertyName is null)
             {
                 _action?.Invoke();
             }

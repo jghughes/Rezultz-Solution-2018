@@ -102,12 +102,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var populatedEventItem = await _leaderboardResultsSvcAgent.PopulateSingleEventWithResultsAsync(databaseAccountName, dataContainerName, eventProfileToWhichThisRepositoryBelongs, CancellationToken.None);
 
-                if (populatedEventItem?.ResultItemsForEventAsPublished == null)
+                if (populatedEventItem?.ResultItemsForEventAsPublished is null)
                     throw new JghResultsData404Exception($"{NoResults} <{eventProfileToWhichThisRepositoryBelongs.Label}>");
 
                 var rawPreprocessedResults = Array.Empty<ResultItem>();
 
-                if (populatedEventItem.ResultItemsForEventAsPublished != null)
+                if (populatedEventItem.ResultItemsForEventAsPublished is not null)
                     rawPreprocessedResults = populatedEventItem.ResultItemsForEventAsPublished;
 
                 await PopulateRepositoryAsync(rawPreprocessedResults);
@@ -172,12 +172,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var answerAsEventItem = eventProfileToWhichThisRepositoryBelongs;
 
-                if (answerAsEventItem.ResultItemsForEventAsPublished == null || !answerAsEventItem.ResultItemsForEventAsPublished.Any())
+                if (answerAsEventItem.ResultItemsForEventAsPublished is null || !answerAsEventItem.ResultItemsForEventAsPublished.Any())
                     throw new JghResultsData404Exception($"{NoResults} ({eventProfileToWhichThisRepositoryBelongs.Label})");
 
                 var rawPreprocessedResults = Array.Empty<ResultItem>();
 
-                if (answerAsEventItem.ResultItemsForEventAsPublished != null)
+                if (answerAsEventItem.ResultItemsForEventAsPublished is not null)
                     rawPreprocessedResults = answerAsEventItem.ResultItemsForEventAsPublished;
 
                 await PopulateRepositoryAsync(rawPreprocessedResults);
@@ -209,7 +209,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (resultsData == null)
+                if (resultsData is null)
                     throw new JghNullObjectInstanceException(nameof(resultsData));
 
                 await PopulateRepositoryAsync(resultsData);
@@ -395,7 +395,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             var aa = SelectPlacedResults() ?? [];
 
             var bb = SelectValidDnxResults()
-                .Where(item => item.DerivedData != null)
+                .Where(item => item.DerivedData is not null)
                 .Where(item => JghString.AreNotEqualIgnoreOrdinalCase(item.DerivedData.DnxStringFromAlgorithm, Symbols.SymbolDns))
                 .OrderBy(item => item.ToString())
                 .ToArray();
@@ -441,10 +441,10 @@ namespace Rezultz.Library01.Mar2024.Repositories
             {
                 #region null checks
 
-                if (rawPreprocessedResults == null)
+                if (rawPreprocessedResults is null)
                     throw new JghNullObjectInstanceException(nameof(rawPreprocessedResults));
 
-                if (_eventProfileToWhichThisBelongs == null)
+                if (_eventProfileToWhichThisBelongs is null)
                     throw new JghNullObjectInstanceException(
                         nameof(_eventProfileToWhichThisBelongs));
 
@@ -499,7 +499,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         {
             foreach (var thisItem in resultsUndergoingConversion)
             {
-                if (thisItem == null) continue;
+                if (thisItem is null) continue;
 
                 thisItem.DerivedData = new()
                 {
@@ -545,10 +545,10 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (results == null)
+                if (results is null)
                     throw new JghNullObjectInstanceException(nameof(results));
 
-                results = results.Where(z => z != null).ToArray();
+                results = results.Where(z => z is not null).ToArray();
 
                 _tableOfRaces = results.Select(z => z.RaceGroup).Distinct().OrderBy(z => z).ToArray();
                 _tableOfGenders = results.Select(z => z.Gender).Distinct().OrderBy(z => z).ToArray();
@@ -570,14 +570,14 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private ResultItem[] SelectAllIndividualResults()
         {
-            return _allProcessedResultsForThisEvent.Where(item => item != null).ToArray();
+            return _allProcessedResultsForThisEvent.Where(item => item is not null).ToArray();
         }
 
         private ResultItem[] SelectPlacedResults()
         {
             return _allProcessedResultsForThisEvent
-                .Where(item => item != null)
-                .Where(item => item.DerivedData != null)
+                .Where(item => item is not null)
+                .Where(item => item.DerivedData is not null)
                 .Where(item => !item.DerivedData.IsValidDnx)
                 .Where(item => item.DerivedData.IsValidDuration)
                 .OrderBy(item => item.DerivedData.PlaceCalculatedOverallInt).ToArray();
@@ -586,8 +586,8 @@ namespace Rezultz.Library01.Mar2024.Repositories
         private ResultItem[] SelectValidDnxResults()
         {
             return _allProcessedResultsForThisEvent
-                .Where(item => item != null)
-                .Where(item => item.DerivedData != null)
+                .Where(item => item is not null)
+                .Where(item => item.DerivedData is not null)
                 .Where(item => item.DerivedData.IsValidDnx)
                 .OrderBy(item => item.DerivedData.DnxStringFromAlgorithm)
                 .ThenBy(ResultItem.FormatFullName)

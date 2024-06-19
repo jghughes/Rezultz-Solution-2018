@@ -63,7 +63,7 @@ public class PublisherForRezultzPortalTimingSystem2021 : PublisherBase
 
             //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
 
-            if (publisherInputItem == null)
+            if (publisherInputItem is null)
                 throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null.");
 
             if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))
@@ -106,7 +106,7 @@ public class PublisherForRezultzPortalTimingSystem2021 : PublisherBase
 
                 var dummy2 = dummy1.Element(ResultDto.XeRootForArrayOfResult);
 
-                if (dummy2 == null) throw new JghAlertMessageException($"The root of this file is wrongly named. The obligatory name is <{ResultDto.XeRootForArrayOfResult}>. Please investigate the file.");
+                if (dummy2 is null) throw new JghAlertMessageException($"The root of this file is wrongly named. The obligatory name is <{ResultDto.XeRootForArrayOfResult}>. Please investigate the file.");
 
                 var resultsFromSystemHub = JghSerialisation.ToObjectFromXml<ResultDto[]>(contentsOfDatasetAsString, [typeof(ResultDto[])]);
 

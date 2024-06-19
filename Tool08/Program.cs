@@ -340,12 +340,12 @@ namespace Tool08
         
         var publisherOutput = await RaceResultsPublishingSvcAgent.ProcessPreviouslyUploadedSourceDataIntoPublishableResultsForSingleEventAsync("21portal", seriesLabel, eventLabel, seriesProfileItem, FilesToBeProcessedByPublisherModule.ToArray());
 
-        if (publisherOutput == null)
+        if (publisherOutput is null)
         {
             throw new FileNotFoundException($"Failure. RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() returned NULL. This should never really occur other than in explicit testing of what happens when a previously uploaded file mysteriously disappears.");
         }
 
-        if (publisherOutput.ComputedResults == null)
+        if (publisherOutput.ComputedResults is null)
         {
             JghConsoleHelper.WriteLine($"Failure. RaceResultsPublishingSvcAgent.ObtainResultsForSingleEventProcessedFromPreviouslyUploadedDatasetsAsync() returned a NULL ComputedResults object array - signifying a handled failure (needing to be reported).");
             JghConsoleHelper.WriteLine("This is what the user sees in the conversion report TextBlock on the GUI when the svc method returns:");

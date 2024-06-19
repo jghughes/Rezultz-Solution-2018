@@ -240,16 +240,16 @@ namespace NetStd.ViewModels01.April2022.UserControls
 
             SearchQueryItem[] filteredSearchQueryItems;
 
-            if (AllSearchQueryItems == null)
+            if (AllSearchQueryItems is null)
             {
                 filteredSearchQueryItems = [];
             }
             else
             {
-                if (searchBoxTextFragmentEnteredByUser == null)
+                if (searchBoxTextFragmentEnteredByUser is null)
                 {
                     filteredSearchQueryItems = (from item in AllSearchQueryItems
-                        where item != null
+                        where item is not null
                         select item).ToArray();
                 }
                 else
@@ -260,7 +260,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
                         filteredSearchQueryItems = [];
                     else
                         filteredSearchQueryItems = (from item in AllSearchQueryItems
-                            where item != null
+                            where item is not null
                             where JghString.TmLr(item.SearchQueryAsString).Contains(JghString.TmLr(searchBoxTextFragmentEnteredByUser))
                             select item).ToArray();
                 }
@@ -269,7 +269,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
             var truncatedListOfFilteredSearchQueryItems = filteredSearchQueryItems.Take((int)_defaultMaxNumberOfSearchBoxSuggestions).ToArray();
 
             var answer = truncatedListOfFilteredSearchQueryItems
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Select(z => z.SearchQueryAsString)
                 .Where(z => !string.IsNullOrWhiteSpace(z))
                 .ToArray();
@@ -295,13 +295,13 @@ namespace NetStd.ViewModels01.April2022.UserControls
                     return [];
                 }
 
-                if (AllSearchQueryItems == null)
+                if (AllSearchQueryItems is null)
                     throw new ArgumentNullException(nameof(AllSearchQueryItems));
 
                 #endregion
 
                 var subsetOfQualifyingSearchQueryItems = (from item in AllSearchQueryItems
-                    where item != null
+                    where item is not null
                     where JghString.TmLr(item.SearchQueryAsString) == JghString.TmLr(selectedSearchQueryString)
                     select item).ToArray();
 
@@ -362,7 +362,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
         public void MakeVisibleIfThereAreThingsToBeSearched()
         {
             IsVisible = true;
-            //IsVisible = PopulationOfThingsToBeSearched.Any(z => z != null);
+            //IsVisible = PopulationOfThingsToBeSearched.Any(z => z is not null);
         }
 
         public void CaptureIsAuthorisedToOperateValue()

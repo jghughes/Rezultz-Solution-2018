@@ -83,10 +83,10 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         protected static void AddToCollectionIfIHasIsAuthorisedToOperate(List<object> theList, object theItem)
         {
-            if (theList == null)
+            if (theList is null)
                 return;
 
-            if (theItem == null)
+            if (theItem is null)
                 return;
 
             if (theList.Contains(theItem))
@@ -98,10 +98,10 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         protected static void AddToCollectionIfIHasIsVisible(List<object> theList, object theItem)
         {
-            if (theList == null)
+            if (theList is null)
                 return;
 
-            if (theItem == null)
+            if (theItem is null)
                 return;
 
             if (theList.Contains(theItem))

@@ -53,7 +53,7 @@ namespace NetStd.Prism.July2018
         /// <exception cref="ArgumentNullException">When both <paramref name="executeMethod"/> and <paramref name="canExecuteMethod"/> ar <see langword="null" />.</exception>
         public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
         {
-            if (executeMethod == null || canExecuteMethod == null)
+            if (executeMethod is null || canExecuteMethod is null)
                 throw new ArgumentNullException(nameof(executeMethod), Resources.DelegateCommandDelegatesCannotBeNull);
 
             TypeInfo genericTypeInfo = typeof(T).GetTypeInfo();

@@ -77,10 +77,10 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
             try
             {
-                if (dto == null)
+                if (dto is null)
                     return [];
 
-                var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+                var answer = dto.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
 
                 return answer;
 

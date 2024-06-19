@@ -34,7 +34,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
                 var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-                if (accountConnectionString == null)
+                if (accountConnectionString is null)
                     throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
                 Response<bool> answer =
@@ -48,7 +48,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             var blobItems = await _azureStorageAccessor.ListBlobsInContainerAsync(
@@ -63,7 +63,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             var answer = await _azureStorageAccessor.GetIfBlobExistsAsync(accountConnectionString,
@@ -77,7 +77,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
                 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             Response<BlobContentInfo> response = await _azureStorageAccessor.UploadStringAsync(
@@ -96,7 +96,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             Response<BlobContentInfo> response = await _azureStorageAccessor.UploadBytesAsync(
@@ -115,7 +115,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             Response<BlobDownloadResult> response = await _azureStorageAccessor.DownloadAsync(accountConnectionString, containerName, blobName, CancellationToken.None);
@@ -132,7 +132,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             var answer = await _azureStorageAccessor.GetAbsoluteUriOfBlobAsync(
@@ -146,7 +146,7 @@ namespace RezultzSvc.Library02.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(accountName);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             var answer = await _azureStorageAccessor.DeleteBlobIfExistsAsync(

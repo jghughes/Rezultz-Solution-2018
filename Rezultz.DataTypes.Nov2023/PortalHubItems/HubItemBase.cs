@@ -76,9 +76,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
         {
             JghListDictionary<string, T> answer = new();
 
-            if (listHubItems == null) return answer;
+            if (listHubItems is null) return answer;
 
-            foreach (var hubItem in listHubItems.Where(z => z != null).Where(z => z.Bib != null).OrderBy(z => z.Bib).ThenByDescending(z => z.WhenTouchedBinaryFormat))
+            foreach (var hubItem in listHubItems.Where(z => z is not null).Where(z => z.Bib is not null).OrderBy(z => z.Bib).ThenByDescending(z => z.WhenTouchedBinaryFormat))
             {
                 answer.Add(hubItem.Bib, hubItem);
             }
@@ -90,9 +90,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
         {
             JghListDictionary<string, T> answer = new();
 
-            if (listHubItems == null) return answer;
+            if (listHubItems is null) return answer;
 
-            foreach (var hubItem in listHubItems.Where(z => z != null).Where(z => !string.IsNullOrWhiteSpace(z.OriginatingItemGuid)).OrderByDescending(z => z.WhenTouchedBinaryFormat))
+            foreach (var hubItem in listHubItems.Where(z => z is not null).Where(z => !string.IsNullOrWhiteSpace(z.OriginatingItemGuid)).OrderByDescending(z => z.WhenTouchedBinaryFormat))
             {
                 answer.Add(hubItem.OriginatingItemGuid, hubItem);
             }

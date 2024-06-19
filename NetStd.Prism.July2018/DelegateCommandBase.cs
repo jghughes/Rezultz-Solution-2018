@@ -37,9 +37,9 @@ namespace NetStd.Prism.July2018
         protected virtual void OnCanExecuteChanged()
         {
             var handler = CanExecuteChanged;
-            if (handler != null)
+            if (handler is not null)
             {
-                if (_synchronizationContext != null && _synchronizationContext != SynchronizationContext.Current)
+                if (_synchronizationContext is not null && _synchronizationContext != SynchronizationContext.Current)
                     _synchronizationContext.Post(o => handler.Invoke(this, EventArgs.Empty), null);
                 else
                     handler.Invoke(this, EventArgs.Empty);

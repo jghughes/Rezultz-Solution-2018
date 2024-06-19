@@ -582,10 +582,10 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 HeadersVm.SaveAsLastKnownGood();
 
-                if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm != null)
+                if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm is not null)
                     SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.Label = $"{SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem?.Label}   Target initialised at {DateTime.Now:HH:mm}";
 
-                if (SeasonProfileAndIdentityValidationVm.CboLookupEventVm != null)
+                if (SeasonProfileAndIdentityValidationVm.CboLookupEventVm is not null)
                     SeasonProfileAndIdentityValidationVm.CboLookupEventVm.Label = $"{SeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem?.Label}   Target initialised at {DateTime.Now:HH:mm}";
 
                 await PopulateCboLookupGroupLabelForGroupStartAsync(SeasonProfileAndIdentityValidationVm.CboLookupEventVm?.CurrentItem);
@@ -1477,7 +1477,7 @@ namespace RezultzPortal.Uwp.PageViewModels
                 var touchedBy = SeasonProfileAndIdentityValidationVm.CurrentlyAuthenticatedIdentityItem?.UserName;
 
 
-                if (EditTemplateForRepositoryItemBeingEdited == null || EditTemplateForRepositoryItemBeingEdited.IsEmpty())
+                if (EditTemplateForRepositoryItemBeingEdited is null || EditTemplateForRepositoryItemBeingEdited.IsEmpty())
                     throw new JghAlertMessageException("No timestamp info available to use. Please select a timestamp before proceeding.");
 
                 var timeStampBinaryFormat = EditTemplateForRepositoryItemBeingEdited.GetBinaryTimeStamp();
@@ -1997,14 +1997,14 @@ namespace RezultzPortal.Uwp.PageViewModels
             if (MustDisplayModifiedEntriesAsWell)
             {
                 entries = RepositoryOfHubStyleEntries.GetAllEntriesAsRawData()
-                    .Where(z => z != null).ToArray();
+                    .Where(z => z is not null).ToArray();
 
                 foreach (var timeStampHubItem in entries) timeStampHubItem.Comment = string.Empty;
             }
             else
             {
                 entries = RepositoryOfHubStyleEntries.GetYoungestDescendentOfEachOriginatingItemGuidIncludingDitches()
-                    .Where(z => z != null).ToArray();
+                    .Where(z => z is not null).ToArray();
 
                 foreach (var timeStampHubItem in entries) timeStampHubItem.Comment = string.Empty;
 
@@ -2148,7 +2148,7 @@ namespace RezultzPortal.Uwp.PageViewModels
             #region prepare data
 
             var rows = (await RepositoryOfHubStyleEntries.GetFromLocalStorageBackupAsync(localDataLocation.Item1, localDataLocation.Item2))
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Select(TimeStampHubItemDisplayObject.FromModel)
                 .ToArray();
 
@@ -2332,12 +2332,12 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             if (MustDisplayTimeStampsNotIntervalsForTxxInSplitIntervalsPerPersonItems)
                 displayObjects = splitIntervalsForAllPeople
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(SplitIntervalConsolidationForParticipantDisplayObject.FromModelShowingTimeStampTxx)
                     .ToArray();
             else
                 displayObjects = splitIntervalsForAllPeople
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(SplitIntervalConsolidationForParticipantDisplayObject.FromModel)
                     .ToArray();
 
@@ -2417,7 +2417,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 DataGridOfItemsInRepository.SaveSelectedItemAsLastKnownGood();
 
-                if (DataGridOfItemsInRepository.SelectedItem == null)
+                if (DataGridOfItemsInRepository.SelectedItem is null)
                 {
                     await RejectItemBeingEditedButtonOnClickAsync();
 
@@ -2507,7 +2507,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 #region null checks
 
-                if (DataGridOfItemsInRepository.SelectedItem == null)
+                if (DataGridOfItemsInRepository.SelectedItem is null)
                     throw new JghAlertMessageException("Nothing selected. Select an item.");
 
                 if (EditTemplateForRepositoryItemBeingEdited.OneOrMoreEntriesAreInvalid(out var dirtyErrorMessage))
@@ -2654,7 +2654,7 @@ namespace RezultzPortal.Uwp.PageViewModels
             {
                 var searchResults = SearchFunctionForSplitIntervalsPerPersonVm.GetSubsetOfSearchQueryItemsThatEquateToSelectedSearchQuery(finalQuerySubmitted);
 
-                await OrchestrateActionsToBeTakenWhenSearchOutcomeForSplitIntervalsIsToHandAsync(searchResults.Where(z => z != null).ToArray());
+                await OrchestrateActionsToBeTakenWhenSearchOutcomeForSplitIntervalsIsToHandAsync(searchResults.Where(z => z is not null).ToArray());
             }
 
             #region try catch
@@ -2682,12 +2682,12 @@ namespace RezultzPortal.Uwp.PageViewModels
             {
                 #region null checks
 
-                if (DataGridOfSplitIntervalsPerPerson == null) return;
+                if (DataGridOfSplitIntervalsPerPerson is null) return;
 
-                if (discoveredQueryItems == null)
+                if (discoveredQueryItems is null)
                     throw new JghNullObjectInstanceException(nameof(discoveredQueryItems));
 
-                if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() == null)
+                if (!discoveredQueryItems.Any() || discoveredQueryItems.FirstOrDefault() is null)
                     throw new JghAlertMessageException(nothingFound);
 
                 #endregion
@@ -2699,7 +2699,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 var firstItemWithMatchingGuid = DataGridOfSplitIntervalsPerPerson.ItemsSource.FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Guid, discoveredTag));
 
-                if (firstItemWithMatchingGuid == null)
+                if (firstItemWithMatchingGuid is null)
                     throw new JghAlertMessageException(nothingFound);
 
                 var skip = Math.Max(DataGridOfSplitIntervalsPerPerson.ItemsSource.IndexOf(firstItemWithMatchingGuid) - prequels, 0);
@@ -2813,7 +2813,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private async Task PopulateCboLookupGroupLabelForGroupStartAsync(EventItemDisplayObject eventItemAtMomentOfInitialisation)
         {
-            if (eventItemAtMomentOfInitialisation == null)
+            if (eventItemAtMomentOfInitialisation is null)
             {
                 await CboLookupGroupLabelForGroupStartVm.ZeroiseAsync();
                 await CboLookupOnlySubGroupOfSingleRaceInSplitIntervalsPerPersonDataGrid.ZeroiseAsync();
@@ -2827,9 +2827,9 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             var raceSpecificationItems = currentEvent?.EventSettingsItem?.RaceSpecificationItems;
 
-            if (raceSpecificationItems == null || !raceSpecificationItems.Any()) return;
+            if (raceSpecificationItems is null || !raceSpecificationItems.Any()) return;
 
-            var raceLookUpItems = raceSpecificationItems.Where(raceSpecificationItemVm => raceSpecificationItemVm != null)
+            var raceLookUpItems = raceSpecificationItems.Where(raceSpecificationItemVm => raceSpecificationItemVm is not null)
                 .Where(raceSpecificationItemVm => !string.IsNullOrWhiteSpace(raceSpecificationItemVm.Label))
                 .Select(raceSpecificationItemVm => new CboLookupItemDisplayObject {Label = raceSpecificationItemVm.Label}).ToList();
 
@@ -2866,11 +2866,11 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         private static TimeStampHubItem[] FilterAndInsertACommentInTimingMatEntriesThatOccurInTightClusters(TimeStampHubItem[] entries, double deltaSeconds, int clusterSizeThreshold)
         {
-            if (entries == null)
+            if (entries is null)
                 return [];
 
             var timestampsFromFirstToLast = entries
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => z.RecordingModeEnum == EnumStrings.KindOfEntryIsTimeStampForTimingMatSignal)
                 .OrderBy(z => z.TimeStampBinaryFormat)
                 .ToArray();
@@ -2982,7 +2982,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 var participantHubItem = _participantDatabase.GetParticipantFromMasterList(JghString.TmLr(displayObject.Bib));
 
-                if (participantHubItem == null)
+                if (participantHubItem is null)
                 {
                     displayObject.Comment = JghString.ConcatAsSentences(displayObject.Comment, "Missing participant. No known participant has this ID.");
 
@@ -3024,7 +3024,7 @@ namespace RezultzPortal.Uwp.PageViewModels
             {
                 var mostRecentlyEnteredHubItem = RepositoryOfHubStyleEntries.GetYoungestDescendentWithSameOriginatingItemGuid(displayObject.GetSourceItemOriginatingItemGuid());
 
-                if (mostRecentlyEnteredHubItem == null) return displayObject;
+                if (mostRecentlyEnteredHubItem is null) return displayObject;
 
                 if (mostRecentlyEnteredHubItem.GetBothGuids() == displayObject.GetSourceItemBothGuids())
                     return displayObject;
@@ -3047,17 +3047,17 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             var answer = new Tuple<string, string>(string.Empty, string.Empty);
 
-            if (thisSeriesProfileItem == null) return answer;
+            if (thisSeriesProfileItem is null) return answer;
 
             if (thisSeriesProfileItem
-                    .ContainerForTimestampHubItemData == null)
+                    .ContainerForTimestampHubItemData is null)
                 return new Tuple<string, string>(string.Empty, string.Empty);
 
             if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForTimestampHubItemData.AccountName)) return answer;
 
             if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForTimestampHubItemData.ContainerName)) return answer;
 
-            if (thisEventProfileItem == null) return answer;
+            if (thisEventProfileItem is null) return answer;
 
             #endregion
 

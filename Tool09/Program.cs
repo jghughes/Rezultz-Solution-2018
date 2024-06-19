@@ -181,7 +181,7 @@ namespace Tool09
 
                 var person = kvp.Value.FirstOrDefault();
 
-                if (person == null) continue;
+                if (person is null) continue;
 
                 JghConsoleHelper.WriteLine($"<{kvp.Key}  {person.First}  {person.Last}  {person.RaceGroup}  {person.T01}>");
             }
@@ -198,7 +198,7 @@ namespace Tool09
 
                 var person = kvp.Value.FirstOrDefault();
 
-                if (person == null) continue;
+                if (person is null) continue;
 
                 JghConsoleHelper.WriteLine($"<{kvp.Key}  {person.FullName}  {person.RaceGroup}  {person.DurationAsString}>");
             }

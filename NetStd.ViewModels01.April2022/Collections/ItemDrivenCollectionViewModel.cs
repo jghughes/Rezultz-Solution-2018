@@ -27,7 +27,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 
 		public T GetItemByItemId(int searchParameter)
 		{
-			if (ItemsSource == null)
+			if (ItemsSource is null)
 				return null;
 
 			return JghArrayHelpers.SelectItemFromArrayByItemId(ItemsSource.ToArray(),
@@ -36,7 +36,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 
 		public T GetItemByItemEnumString(string searchParameter)
 		{
-			if (ItemsSource == null)
+			if (ItemsSource is null)
 				return null;
 
 			return JghArrayHelpers.SelectItemFromArrayByItemEnumString(ItemsSource.ToArray(),

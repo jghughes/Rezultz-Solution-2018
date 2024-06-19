@@ -116,7 +116,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 #region figure out which events are eligible for points thus far in the season (only for reporting purposes at the end of this method)
 
-                if (_seriesProfileItemToWhichThisRepositoryBelongs.EventProfileItems == null)
+                if (_seriesProfileItemToWhichThisRepositoryBelongs.EventProfileItems is null)
                     throw new JghNullObjectInstanceException(nameof(_seriesProfileItemToWhichThisRepositoryBelongs
                         .EventProfileItems));
 
@@ -197,7 +197,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         public static double GetValueOfDataPointFromDictionaryOfDataPoints(Dictionary<int, double> dictionaryOfDataPoints, int lineItemIndex)
         {
-            if (dictionaryOfDataPoints == null)
+            if (dictionaryOfDataPoints is null)
                 return 0;
 
             return dictionaryOfDataPoints.ContainsKey(lineItemIndex) ? dictionaryOfDataPoints[lineItemIndex] : 0.0;
@@ -482,7 +482,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 foreach (var kvp in dictionaryOfRepositoriesOfResults)
                 {
-                    if (kvp.Value == null) continue;
+                    if (kvp.Value is null) continue;
 
                     // for points, be sure to exclude individual results for people not registered for the whole season i.e. without series licenses
 
@@ -491,7 +491,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                     var yy = await xx.GetPlacedResultsAsync();
 
                     var listOfEligibleFinishers = yy
-                        .Where(z => z != null)
+                        .Where(z => z is not null)
                         .Where(z => z.IsSeries)
                         .ToArray();
 
@@ -507,7 +507,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 var allResultsInAllEventsInSeries = new List<ResultItem>();
 
                 foreach (var kvp in dictionaryOfListsOfThoseEligibleForSeriesAwards)
-                    if (kvp.Value != null)
+                    if (kvp.Value is not null)
                         allResultsInAllEventsInSeries.AddRange(kvp.Value);
 
                 await PopulateRepositoryOfSequenceContainers(allResultsInAllEventsInSeries.ToArray());
@@ -532,7 +532,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             var listOfRepositories = dictionaryOfRepositoriesOfResults.Select(z => z.Value).ToList();
 
-            foreach (var repositoryOfResults in listOfRepositories.Where(z => z != null))
+            foreach (var repositoryOfResults in listOfRepositories.Where(z => z is not null))
             {
                 var eventToWhichRepositoryBelongs =
                     await repositoryOfResults.GetEventToWhichThisRepositoryBelongsAsync();
@@ -564,7 +564,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             try
             {
                 var repositoriesOfIndividualResults = from kvp in dictionaryOfRepositoriesOfIndividualResults
-                    where kvp.Value != null
+                    where kvp.Value is not null
                     select kvp.Value;
 
 
@@ -577,12 +577,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 var omnibusListOfRaceSpecifications = new List<RaceSpecificationItem>();
 
                 foreach (var eventItem in listOfEventItems)
-                    if (eventItem?.EventSettingsItem.RaceSpecificationItems != null)
+                    if (eventItem?.EventSettingsItem.RaceSpecificationItems is not null)
                         omnibusListOfRaceSpecifications.AddRange(eventItem.EventSettingsItem.RaceSpecificationItems.ToList());
 
                 var lookupTableUnderGoingCreation = new Dictionary<string, RaceSpecificationItem>();
 
-                foreach (var raceSpecificationItem in omnibusListOfRaceSpecifications.Where(z => z.Label != null))
+                foreach (var raceSpecificationItem in omnibusListOfRaceSpecifications.Where(z => z.Label is not null))
                     // for simplicity and speed, first arrivals take precedence
                     if (!lookupTableUnderGoingCreation.ContainsKey(raceSpecificationItem.Label))
                         lookupTableUnderGoingCreation.Add(raceSpecificationItem.Label, raceSpecificationItem);
@@ -605,7 +605,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private void AddDataPointToDictionaryOfDataPoints(Dictionary<int, double> dictionaryOfDataPoints, int dataPointIndex, double dataPointValue)
         {
-            if (dictionaryOfDataPoints == null) return;
+            if (dictionaryOfDataPoints is null) return;
 
             if (dictionaryOfDataPoints.ContainsKey(dataPointIndex))
                 dictionaryOfDataPoints[dataPointIndex] = dataPointValue;
@@ -641,8 +641,8 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var cloneOfAllResultsItemsInAllEventsInSeriesForPoints = MakeCloneOfResults(allResultItemsInAllEventsInSeries);
 
-                foreach (var resultItem in cloneOfAllResultsItemsInAllEventsInSeriesForPoints.Where(z => z != null)
-                             .Where(z => z.DerivedData != null))
+                foreach (var resultItem in cloneOfAllResultsItemsInAllEventsInSeriesForPoints.Where(z => z is not null)
+                             .Where(z => z.DerivedData is not null))
                 {
                     var eventNumber = resultItem.ScratchPadIndex;
 
@@ -737,8 +737,8 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 #endregion
 
                 _pointsStandings =
-                    seriesStandingsItemsWithAllIndividualsDulyRankedBySeasonTotals.Where(z => z != null)
-                        .Where(z => z.MostRecentResultItemToWhichThisSequenceApplies != null).ToArray();
+                    seriesStandingsItemsWithAllIndividualsDulyRankedBySeasonTotals.Where(z => z is not null)
+                        .Where(z => z.MostRecentResultItemToWhichThisSequenceApplies is not null).ToArray();
 
                 #region generate unique IDs for all attribute values and cross-index into individual results
 
@@ -878,8 +878,8 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 #endregion
 
                 _tourDurationStandings =
-                    seriesStandingsItemsWithAllIndividualsDulyRankedBySeasonTotals.Where(z => z != null)
-                        .Where(z => z.MostRecentResultItemToWhichThisSequenceApplies != null).ToArray();
+                    seriesStandingsItemsWithAllIndividualsDulyRankedBySeasonTotals.Where(z => z is not null)
+                        .Where(z => z.MostRecentResultItemToWhichThisSequenceApplies is not null).ToArray();
 
                 #region generate unique IDs for all attribute values and cross-index into individual results
 
@@ -906,10 +906,10 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private static ResultItem[] MakeCloneOfResults(IEnumerable<ResultItem> results)
         {
-            if (results == null) return null;
+            if (results is null) return null;
 
             return (from result in results
-                where result != null
+                where result is not null
                 select result.ShallowMemberwiseCloneCopyIncludingDerivedData).ToArray();
         }
 
@@ -920,13 +920,13 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (pointsStandings == null)
+                if (pointsStandings is null)
                     throw new JghNullObjectInstanceException(nameof(pointsStandings));
 
                 var results = pointsStandings
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(z => z.MostRecentResultItemToWhichThisSequenceApplies)
-                    .Where(z => z != null).ToArray();
+                    .Where(z => z is not null).ToArray();
 
                 _pointsTableOfRaces = results.Select(z => z.RaceGroup).Distinct().OrderBy(z => z).ToArray();
                 _pointsTableOfGenders = results.Select(z => z.Gender).Distinct().OrderBy(z => z).ToArray();
@@ -953,13 +953,13 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (tourDurationStandings == null)
+                if (tourDurationStandings is null)
                     throw new JghNullObjectInstanceException(nameof(tourDurationStandings));
 
                 var results = tourDurationStandings
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(z => z.MostRecentResultItemToWhichThisSequenceApplies)
-                    .Where(z => z != null).ToArray();
+                    .Where(z => z is not null).ToArray();
 
                 _tourTableOfRaces = results.Select(z => z.RaceGroup).Distinct().OrderBy(z => z).ToArray();
                 _tourTableOfGenders = results.Select(z => z.Gender).Distinct().OrderBy(z => z).ToArray();
@@ -986,12 +986,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (sequenceItems == null) return [];
+                if (sequenceItems is null) return [];
 
                 var scratchpad = sequenceItems
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(z => z.MostRecentResultItemToWhichThisSequenceApplies)
-                    .Where(z => z != null).ToArray();
+                    .Where(z => z is not null).ToArray();
 
 
                 return (await JghParallel.SelectAsParallelWorkStealingAsync(
@@ -1025,12 +1025,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (allJekylls == null)
+                if (allJekylls is null)
                     throw new JghNullObjectInstanceException(nameof(allJekylls));
 
                 var subGroupsOfJekylls = (from jekyll in allJekylls
-                    where jekyll != null
-                    where jekyll.MostRecentResultItemToWhichThisSequenceApplies != null
+                    where jekyll is not null
+                    where jekyll.MostRecentResultItemToWhichThisSequenceApplies is not null
                     let primaryKey = jekyll.MostRecentResultItemToWhichThisSequenceApplies.Identifier
                     group jekyll by primaryKey
                     into subGroupsofOneOrTwoJekyllsForEachIndividual
@@ -1040,7 +1040,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 foreach (var subGroupOfJekyllsForAnIndividual in subGroupsOfJekylls)
                 {
-                    if (subGroupOfJekyllsForAnIndividual == null)
+                    if (subGroupOfJekyllsForAnIndividual is null)
                         continue;
 
                     switch (subGroupOfJekyllsForAnIndividual.Count())
@@ -1059,7 +1059,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                             var earliestEvent = subGroupOfJekyllsForAnIndividual
                                 .OrderBy(item => item.MostRecentResultItemToWhichThisSequenceApplies.ScratchPadIndex).FirstOrDefault();
 
-                            if ((mostRecentEvent == null) | (earliestEvent == null))
+                            if ((mostRecentEvent is null) | (earliestEvent is null))
                                 continue;
 
                             Debug.WriteLine($"{mostRecentEvent.MostRecentResultItemToWhichThisSequenceApplies.Identifier} changed from {earliestEvent.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup} to {mostRecentEvent.MostRecentResultItemToWhichThisSequenceApplies.RaceGroup}");
@@ -1123,13 +1123,13 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             try
             {
-                if (allJekylls == null)
+                if (allJekylls is null)
                     throw new JghNullObjectInstanceException(nameof(allJekylls));
 
 
                 var subGroupsOfJekylls = (from jekyll in allJekylls
-                    where jekyll != null
-                    where jekyll.MostRecentResultItemToWhichThisSequenceApplies != null
+                    where jekyll is not null
+                    where jekyll.MostRecentResultItemToWhichThisSequenceApplies is not null
                     let primaryKey = jekyll.MostRecentResultItemToWhichThisSequenceApplies.Identifier
                     group jekyll by primaryKey
                     into subGroupsofOneOrTwoJekyllsForEachIndividual
@@ -1139,7 +1139,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 foreach (var subGroupOfJekyllsForAnIndividual in subGroupsOfJekylls)
                 {
-                    if (subGroupOfJekyllsForAnIndividual == null)
+                    if (subGroupOfJekyllsForAnIndividual is null)
                         continue;
 
                     switch (subGroupOfJekyllsForAnIndividual.Count())
@@ -1175,7 +1175,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private SequenceContainerItem[] SelectAllIndividualResults()
         {
-            return _pointsStandings.Where(item => item != null).ToArray();
+            return _pointsStandings.Where(item => item is not null).ToArray();
         }
 
         #endregion

@@ -15,7 +15,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         public static string ToAgeCategoryDescriptionFromBirthYear(int yearOfBirth, AgeGroupSpecificationItem[] ageGroupSpecifications)
         {
-            if (ageGroupSpecifications == null || !ageGroupSpecifications.Any())
+            if (ageGroupSpecifications is null || !ageGroupSpecifications.Any())
                 return string.Empty;
 
             var now = DateTime.Now;
@@ -23,11 +23,11 @@ namespace Rezultz.Library01.Mar2024.Repositories
             var age = now.Year - yearOfBirth;
 
             var ageGroupSpecification = ageGroupSpecifications
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => age >= z.AgeLower)
                 .FirstOrDefault(z => age <= z.AgeUpper);
 
-            if (ageGroupSpecification == null || string.IsNullOrWhiteSpace(ageGroupSpecification.Label))
+            if (ageGroupSpecification is null || string.IsNullOrWhiteSpace(ageGroupSpecification.Label))
                 return string.Empty;
 
             var answer = ageGroupSpecification.Label;
@@ -56,7 +56,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             #region null checks
 
-            if (repositoryOfParticipants == null)
+            if (repositoryOfParticipants is null)
             {
                 _repositoryIsBootstrapped = true;
 
@@ -65,7 +65,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers = repositoryOfParticipants.GetYoungestDescendentOfEachOriginatingItemGuidIncludingDitches();
 
-            if (_backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers == null)
+            if (_backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers is null)
             {
                 _repositoryIsBootstrapped = true;
 
@@ -76,7 +76,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             
             #region annotate entries featuring missing row details - if any
 
-            foreach (var row in _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => z != null))
+            foreach (var row in _backingStoreGetYoungestDescendentOfEachOriginatingItemGuidIncludingDitchesAndDuplicateIdentifiers.Where(z => z is not null))
             {
                 row.Comment = string.Empty; // clear any previous work
 
@@ -290,7 +290,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                     .OrderBy(z => z.WhenTouchedBinaryFormat)
                     .LastOrDefault(); // take the most recent entry, crush the other entries.
 
-                if (mostRecentEntryForThisIdentifier == null || mostRecentEntryForThisIdentifier.MustDitchOriginatingItem) 
+                if (mostRecentEntryForThisIdentifier is null || mostRecentEntryForThisIdentifier.MustDitchOriginatingItem) 
                     continue; // if the most recent entry is a ditch, the contestant is non-existent. ignore this contestant.
 
                 answer.Add(mostRecentEntryForThisIdentifier.Bib, mostRecentEntryForThisIdentifier);

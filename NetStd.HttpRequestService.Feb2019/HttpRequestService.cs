@@ -144,7 +144,7 @@ namespace NetStd.HttpRequestService.Feb2019
 
         // oh oh. if we arrive here, the server has return an unsuccessful status code. we have to interpret it if we can and throw something meaningful
 
-        var content = response.Content == null ? string.Empty : await response.Content.ReadAsStringAsync();
+        var content = response.Content is null ? string.Empty : await response.Content.ReadAsStringAsync();
 
         if (response.StatusCode is HttpStatusCode.Forbidden or HttpStatusCode.MethodNotAllowed or HttpStatusCode.Unauthorized)
         {

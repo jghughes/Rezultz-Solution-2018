@@ -25,18 +25,18 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             {
                 #region get ready
 
-                if (eventProfileToWhichThisRepositoryBelongs == null)
+                if (eventProfileToWhichThisRepositoryBelongs is null)
                     return allPlacedResults;
 
 
-                if (allPlacedResults == null)
+                if (allPlacedResults is null)
                     throw new JghNullObjectInstanceException(nameof(allPlacedResults));
 
                 #endregion
 
                 var pseudoSingleSplitResults = new List<ResultItem>();
 
-                foreach (var finisher in allPlacedResults.Where(z => z != null).Where(z => z.DerivedData != null))
+                foreach (var finisher in allPlacedResults.Where(z => z is not null).Where(z => z.DerivedData is not null))
                 {
                     if (!finisher.DerivedData.IsValidDuration) continue; // belt and braces
 
@@ -78,7 +78,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                         double normalisationFactor;
 
 
-                        if (matchingRaceSpec == null)
+                        if (matchingRaceSpec is null)
                         {
                             normalisationFactor = 1.0;
                         }

@@ -56,7 +56,7 @@ public class PublisherFactory
         {
             #region ensure that we have a CSharpModuleCodeName that complies with the codename in the publisher profile file i.e. that a code module exists. If not, bale.
 
-            if (profileXe == null)
+            if (profileXe is null)
                 throw new JghPublisherServiceFaultException("Unable to proceed. Publisher profile xml file is empty. Unable to build publisher.");
 
 

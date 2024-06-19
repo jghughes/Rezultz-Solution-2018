@@ -40,7 +40,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg, StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
             Response<bool> answer =
@@ -53,7 +53,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             var accountConnectionString = await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg,
                     StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
@@ -79,7 +79,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
                 var item = JghSerialisation.ToObjectFromJson<T>(contentAsString); // and a single IHubItemDataTransferObject
 
-                if (item == null || string.IsNullOrWhiteSpace(item.Guid) || string.IsNullOrWhiteSpace(item.OriginatingItemGuid)) continue;
+                if (item is null || string.IsNullOrWhiteSpace(item.Guid) || string.IsNullOrWhiteSpace(item.OriginatingItemGuid)) continue;
 
                 var bothGuids = JghString.Concat(item.OriginatingItemGuid, item.Guid);
 

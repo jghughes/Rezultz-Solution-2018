@@ -126,7 +126,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             try
             {
-                if (inputText == null)
+                if (inputText is null)
                     throw new ArgumentNullException(nameof(inputText));
 
                 return XElement.Parse(inputText); // automatically throws if invalid
@@ -149,7 +149,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         {
             var childXe = parentXe?.Element(nameOfChild);
 
-            if (childXe == null)
+            if (childXe is null)
                 return string.Empty;
 
             var value = childXe.Value; // empirically this blows up when the Value itself contains xml : for that use our cunning alternative method: GetChildElementValueVerbatim()
@@ -163,7 +163,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         {
             var childXe = parentXe?.Element(nameOfChild);
 
-            if (childXe == null)
+            if (childXe is null)
                 return string.Empty;
 
             var value = childXe.ToString(); // this works
@@ -191,12 +191,12 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         // ReSharper disable once IdentifierTypo
         static PublisherButtonProfileItemDto[] GetComputerGuiButtonProfileDtos(XElement parentXe)
         {
-            if (parentXe == null)
+            if (parentXe is null)
                 return [];
 
             var buttonXElements = GetChildElements(parentXe, PublisherButtonProfileItemDto.XeGuiButtonProfile);
 
-            if (buttonXElements == null || !buttonXElements.Any())
+            if (buttonXElements is null || !buttonXElements.Any())
                 return [];
 
             return buttonXElements.Select(thisButtonXe => new PublisherButtonProfileItemDto

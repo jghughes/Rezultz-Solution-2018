@@ -279,7 +279,7 @@ internal class Program
 
                 var arrayOfColumnHeadings = relevantRowsWithoutEscapeLiterals.Skip(numberOfRowsPreceedingRowOfFieldNames).FirstOrDefault()?.Split(',');
 
-                if (arrayOfColumnHeadings == null)
+                if (arrayOfColumnHeadings is null)
                 {
                     // bale if we don't have the headings row
                     SaveWorkToHardDriveAsXml(listOfComputedResultItemDataTransferObjects, fileItem);
@@ -325,7 +325,7 @@ internal class Program
 
                     ResultDto thisResultItemDto;
 
-                    if (participantItem == null)
+                    if (participantItem is null)
                     {
                         // "Pos","Bib#","Athlete","Finish Time","Race","Age","Gender"
 

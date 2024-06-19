@@ -14,7 +14,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Behaviours
             base.OnAttachedTo(bindable);
             AssociatedObject = bindable;
 
-            if (bindable.BindingContext != null)
+            if (bindable.BindingContext is not null)
             {
                 BindingContext = bindable.BindingContext;
             }

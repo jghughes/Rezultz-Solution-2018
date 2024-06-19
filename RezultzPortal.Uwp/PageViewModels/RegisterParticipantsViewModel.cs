@@ -431,10 +431,10 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             HeadersVm.SaveAsLastKnownGood();
 
-            if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm != null)
+            if (SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm is not null)
                 SeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.Label = $"{SeriesItemUponLaunchOfWorkSession.Label}   Target initialised at {DateTime.Now:HH:mm}";
 
-            if (SeasonProfileAndIdentityValidationVm.CboLookupEventVm != null)
+            if (SeasonProfileAndIdentityValidationVm.CboLookupEventVm is not null)
                 SeasonProfileAndIdentityValidationVm.CboLookupEventVm.Label = $"{EventItemUponLaunchOfWorkSession.Label}   Target initialised at {DateTime.Now:HH:mm}"; // placeholder. superfluous
 
             await PopulateCboLookupGroupLabelForGroupStartAsync(EventItemUponLaunchOfWorkSession);
@@ -1259,7 +1259,7 @@ namespace RezultzPortal.Uwp.PageViewModels
         var rawEntriesInLocalStorage = await RepositoryOfHubStyleEntries.GetFromLocalStorageBackupAsync(localDataLocation.Item1, localDataLocation.Item2) ?? [];
 
         var rawEntriesInLocalStorageAsDisplayObjects = rawEntriesInLocalStorage
-            .Where(z => z != null)
+            .Where(z => z is not null)
             .Select(ParticipantHubItemDisplayObject.FromModel)
             .ToArray();
 
@@ -1327,7 +1327,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             DataGridOfItemsInRepository.SaveSelectedItemAsLastKnownGood();
 
-            if (DataGridOfItemsInRepository.SelectedItem == null)
+            if (DataGridOfItemsInRepository.SelectedItem is null)
             {
                 await RejectItemBeingEditedButtonOnClickAsync();
 
@@ -1417,7 +1417,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
             #region null checks
 
-            if (DataGridOfItemsInRepository.SelectedItem == null)
+            if (DataGridOfItemsInRepository.SelectedItem is null)
                 throw new JghAlertMessageException("Nothing selected. Select an item.");
 
             if (EditTemplateForRepositoryItemBeingEdited.OneOrMoreEntriesAreInvalid(out var dirtyErrorMessage))
@@ -1554,9 +1554,9 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         var raceSpecificationItems = currentEvent?.EventSettingsItem?.RaceSpecificationItems;
 
-        if (raceSpecificationItems == null || !raceSpecificationItems.Any()) return;
+        if (raceSpecificationItems is null || !raceSpecificationItems.Any()) return;
 
-        var raceLookUpItems = raceSpecificationItems.Where(raceSpecificationItemVm => raceSpecificationItemVm != null)
+        var raceLookUpItems = raceSpecificationItems.Where(raceSpecificationItemVm => raceSpecificationItemVm is not null)
             .Where(raceSpecificationItemVm => !string.IsNullOrWhiteSpace(raceSpecificationItemVm.Label))
             .Select(raceSpecificationItemVm => new CboLookupItemDisplayObject {Label = raceSpecificationItemVm.Label}).ToList();
 
@@ -1589,7 +1589,7 @@ namespace RezultzPortal.Uwp.PageViewModels
         {
             var mostRecentlyEnteredHubItem = RepositoryOfHubStyleEntries.GetYoungestDescendentWithSameOriginatingItemGuid(thisDisplayObject.GetSourceItemOriginatingItemGuid());
 
-            if (mostRecentlyEnteredHubItem == null) return thisDisplayObject;
+            if (mostRecentlyEnteredHubItem is null) return thisDisplayObject;
 
             if (mostRecentlyEnteredHubItem.GetBothGuids() == thisDisplayObject.GetSourceItemBothGuids())
                 return thisDisplayObject;
@@ -1612,9 +1612,9 @@ namespace RezultzPortal.Uwp.PageViewModels
 
         var answer = new Tuple<string, string>(string.Empty, string.Empty);
 
-        if (thisSeriesProfileItem == null) return answer;
+        if (thisSeriesProfileItem is null) return answer;
 
-        if (thisSeriesProfileItem.ContainerForParticipantHubItemData == null) return answer;
+        if (thisSeriesProfileItem.ContainerForParticipantHubItemData is null) return answer;
 
         if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForParticipantHubItemData.AccountName)) return answer;
 

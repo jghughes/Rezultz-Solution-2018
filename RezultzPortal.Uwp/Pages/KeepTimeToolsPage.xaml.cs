@@ -118,7 +118,7 @@ public sealed partial class KeepTimeToolsPage
 
         try
         {
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
             DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -157,7 +157,7 @@ public sealed partial class KeepTimeToolsPage
         {
             #region null value error handling
 
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new ArgumentNullException(nameof(ViewModel));
 
             #endregion
@@ -219,13 +219,13 @@ public sealed partial class KeepTimeToolsPage
                     {
                         #region prepare timestamps
 
-                        if (XamlElementRadioButtonSystemMasterList.IsChecked != null && (bool)XamlElementRadioButtonSystemMasterList.IsChecked)
+                        if (XamlElementRadioButtonSystemMasterList.IsChecked is not null && (bool)XamlElementRadioButtonSystemMasterList.IsChecked)
                         {
                             var hubItems = RepositoryOfTimeStampHubItemEntries.GetAllEntriesAsRawData();
 
                             var dataTransferObjects = TimeStampHubItem.ToDataTransferObject(hubItems);
 
-                            if (dataTransferObjects == null)
+                            if (dataTransferObjects is null)
                             {
                                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(
                                     EnumsForGui.Restore);
@@ -237,11 +237,11 @@ public sealed partial class KeepTimeToolsPage
 
                             fileContentAsBytes = await GenerateAnswerAsBytes(desiredFileFormatEnum, dataTransferObjects);
                         }
-                        else if (XamlElementRadioButtonDisplayVersion.IsChecked != null && (bool)XamlElementRadioButtonDisplayVersion.IsChecked)
+                        else if (XamlElementRadioButtonDisplayVersion.IsChecked is not null && (bool)XamlElementRadioButtonDisplayVersion.IsChecked)
                         {
                             var dataGridPresenter = ViewModel.DataGridOfItemsInRepository;
 
-                            if (dataGridPresenter == null)
+                            if (dataGridPresenter is null)
                             {
                                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                                 return;
@@ -274,13 +274,13 @@ public sealed partial class KeepTimeToolsPage
                     {
                         #region prepare draft leaderboard
 
-                        if (XamlElementRadioButtonSystemMasterList.IsChecked != null && (bool)XamlElementRadioButtonSystemMasterList.IsChecked)
+                        if (XamlElementRadioButtonSystemMasterList.IsChecked is not null && (bool)XamlElementRadioButtonSystemMasterList.IsChecked)
                         {
                             var repositoryOfSplitIntervals = CreateRepositoryOfSplitIntervalsPerParticipant();
 
                             var dataTransferObjects = repositoryOfSplitIntervals.GetDraftResultItemDataTransferObjectForAllContestantsInRankOrder();
 
-                            if (dataTransferObjects == null)
+                            if (dataTransferObjects is null)
                             {
                                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
 
@@ -291,11 +291,11 @@ public sealed partial class KeepTimeToolsPage
 
                             fileContentAsBytes = await GenerateAnswerAsBytes(desiredFileFormatEnum, dataTransferObjects);
                         }
-                        else if (XamlElementRadioButtonDisplayVersion.IsChecked != null && (bool)XamlElementRadioButtonDisplayVersion.IsChecked)
+                        else if (XamlElementRadioButtonDisplayVersion.IsChecked is not null && (bool)XamlElementRadioButtonDisplayVersion.IsChecked)
                         {
                             var dataGridPresenter = ViewModel.DataGridOfSplitIntervalsPerPerson;
 
-                            if (dataGridPresenter == null)
+                            if (dataGridPresenter is null)
                             {
                                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                                 return;
@@ -358,7 +358,7 @@ public sealed partial class KeepTimeToolsPage
 
             var file = await PickSaveFile(fileSavePicker);
 
-            if (file == null)
+            if (file is null)
             {
                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                 return;
@@ -586,8 +586,8 @@ public sealed partial class KeepTimeToolsPage
         {
             #region null value error handling
 
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            if (bytesToBeSaved == null) throw new ArgumentNullException(nameof(bytesToBeSaved));
+            if (file is null) throw new ArgumentNullException(nameof(file));
+            if (bytesToBeSaved is null) throw new ArgumentNullException(nameof(bytesToBeSaved));
 
             #endregion
 

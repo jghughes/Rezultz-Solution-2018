@@ -32,7 +32,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             var accountConnectionString =
                 await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg,
                     StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
@@ -54,7 +54,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             var accountConnectionString =
                 await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg,
                     StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
@@ -87,7 +87,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
             var accountConnectionString =
                 await ConnectionStringRepository.GetAzureStorageAccountConnectionStringAsync(databaseAccount);
 
-            if (accountConnectionString == null)
+            if (accountConnectionString is null)
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg,
                     StringsRezultzSvc.AccountNameUnauthorisedMsg));
 

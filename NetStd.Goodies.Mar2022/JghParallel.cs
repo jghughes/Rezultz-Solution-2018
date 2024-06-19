@@ -57,7 +57,7 @@ namespace NetStd.Goodies.Mar2022
                 return [];
 
             var nonNullTasks = tasks
-                .Where(task => task != null).ToList();
+                .Where(task => task is not null).ToList();
 
             var allTasks = Task.WhenAll(nonNullTasks);
 
@@ -93,7 +93,7 @@ namespace NetStd.Goodies.Mar2022
                 return;
 
             var nonNullTasks = tasks
-                .Where(task => task != null).ToList();
+                .Where(task => task is not null).ToList();
 
             var allTasks = Task.WhenAll(nonNullTasks);
 
@@ -186,7 +186,7 @@ namespace NetStd.Goodies.Mar2022
 
                     var resultAsKvp = task.Result;
 
-                    if (resultAsKvp.Value != null)
+                    if (resultAsKvp.Value is not null)
                         arrayOfTaskOutputs[resultAsKvp.Key] = resultAsKvp;
                 }
 
@@ -363,7 +363,7 @@ namespace NetStd.Goodies.Mar2022
 
                 #region bale if one or more faults occurred on all threads
 
-                var collectionOfExceptions = taskFaults.Where(z => z != null).ToArray();
+                var collectionOfExceptions = taskFaults.Where(z => z is not null).ToArray();
 
                 if (collectionOfExceptions.Any())
                     throw new AggregateException(collectionOfExceptions);
@@ -601,7 +601,7 @@ namespace NetStd.Goodies.Mar2022
 
             var flattenedSource = new List<T>();
 
-            foreach (var innerCollection in outerCollection.Where(z => z != null))
+            foreach (var innerCollection in outerCollection.Where(z => z is not null))
                 flattenedSource.AddRange(innerCollection);
 
             return flattenedSource.ToArray();
@@ -647,7 +647,7 @@ namespace NetStd.Goodies.Mar2022
                 var outcome = Task.Run(
                     () =>
                     {
-                        var transformedItem = source.Where(z => z != null).Select(transform);
+                        var transformedItem = source.Where(z => z is not null).Select(transform);
 
                         return transformedItem;
                     });
@@ -655,7 +655,7 @@ namespace NetStd.Goodies.Mar2022
                 //var outcome = TaskEx.Run(
                 //    () =>
                 //    {
-                //        var transformedItem = source.Where(z => z != null).Select(transform);
+                //        var transformedItem = source.Where(z => z is not null).Select(transform);
 
                 //        return transformedItem;
                 //    });
@@ -694,7 +694,7 @@ namespace NetStd.Goodies.Mar2022
             {
                 KeyValuePair<int, TResult[]> answer;
 
-                var zz = item.Value.Where(z => z != null).ToArray();
+                var zz = item.Value.Where(z => z is not null).ToArray();
 
                 var transformedArray = await zz.SelectOnAStandAloneThreadAsync(transform);
 

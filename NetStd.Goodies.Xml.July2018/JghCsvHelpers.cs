@@ -15,7 +15,7 @@ namespace NetStd.Goodies.Xml.July2018
             out XDocument resultingXDocument,
             out string errorMessage)
         {
-            if (arrayOfCsvStrings == null)
+            if (arrayOfCsvStrings is null)
             {
                 errorMessage = "Null argument. csv text is null.";
                 resultingXDocument = null;
@@ -92,7 +92,7 @@ namespace NetStd.Goodies.Xml.July2018
         public static bool TryConvertOneOrMoreRowsOfCsvFieldsToArrayOfConstituentFields(string[] rowsOfCsvStrings,
             out string[] resultingArray, out string errorMessage)
         {
-            if (rowsOfCsvStrings == null || !rowsOfCsvStrings.Any())
+            if (rowsOfCsvStrings is null || !rowsOfCsvStrings.Any())
             {
                 errorMessage = "Null argument. list of expected field names is null or empty.";
                 resultingArray = null;
@@ -131,13 +131,13 @@ namespace NetStd.Goodies.Xml.July2018
             out XDocument resultingXDocument,
             out string errorMessage)
         {
-            if (arrayOfCsvStrings == null)
+            if (arrayOfCsvStrings is null)
             {
                 errorMessage = "Null argument. csv text is null.";
                 resultingXDocument = null;
                 return false;
             }
-            if (expectedFieldNames == null || !expectedFieldNames.Any())
+            if (expectedFieldNames is null || !expectedFieldNames.Any())
             {
                 errorMessage = "Null argument. list of expected field names is null or empty.";
                 resultingXDocument = null;

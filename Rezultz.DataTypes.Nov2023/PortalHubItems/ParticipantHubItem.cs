@@ -157,10 +157,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
             try
             {
-                if (dto == null)
+                if (dto is null)
                     return [];
 
-                var answer = dto.Select(FromDataTransferObject).Where(z => z != null).ToArray();
+                var answer = dto.Select(FromDataTransferObject).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -245,10 +245,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
             try
             {
-                if (item == null)
+                if (item is null)
                     return [];
 
-                var answer = item.Select(ToDataTransferObject).Where(z => z != null).ToArray();
+                var answer = item.Select(ToDataTransferObject).Where(z => z is not null).ToArray();
 
                 return answer;
 
@@ -273,7 +273,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalHubItems
 
         public static string ToLabel(ParticipantHubItem item)
         {
-            if (item == null) return string.Empty;
+            if (item is null) return string.Empty;
 
             return JghString.ConcatWithSeparator(" ", item.ClickCounter.ToString(), item.DatabaseActionEnum, item.Bib, item.FirstName, item.LastName, item.Rfid);
         }

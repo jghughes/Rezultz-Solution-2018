@@ -73,7 +73,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value is null)
                 return "String binding is null";
 
             var strValue = value as string;
@@ -263,7 +263,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     {
 	    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	    {
-		    //if (value == null) return "";
+		    //if (value is null) return "";
 
 		    if (value is not int) return "number not integer";
 
@@ -327,7 +327,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     {
 	    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	    {
-		    if (value == null) return "null value";
+		    if (value is null) return "null value";
 
 		    if (value is not DateTime myDateTime) return "wrong value";
 
@@ -344,7 +344,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     {
 	    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	    {
-		    if (value == null) return "null value";
+		    if (value is null) return "null value";
 
 		    if (value is not long dtAsBinary) return "wrong value";
 
@@ -428,7 +428,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     //{
     //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     //    {
-    //        return value == null ? Visibility.Visible : Visibility.Collapsed;
+    //        return value is null ? Visibility.Visible : Visibility.Collapsed;
     //    }
 
     //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -443,7 +443,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     //{
     //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     //    {
-    //        return value != null ? Visibility.Visible : Visibility.Collapsed;
+    //        return value is not null ? Visibility.Visible : Visibility.Collapsed;
     //    }
 
     //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -496,7 +496,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null;
+            return value is not null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

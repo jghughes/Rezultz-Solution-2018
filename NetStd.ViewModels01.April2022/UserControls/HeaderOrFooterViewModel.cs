@@ -73,7 +73,7 @@ namespace NetStd.ViewModels01.April2022.UserControls
         {
             Zeroise();
 
-            if (headings == null) return true;
+            if (headings is null) return true;
 
             var nonBlankTitles = new Dictionary<int, string>();
 

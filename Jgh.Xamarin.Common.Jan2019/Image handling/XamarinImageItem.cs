@@ -50,7 +50,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Image_handling
 
         //    try
         //    {
-        //        if (UriItem?.ImageAsBytes == null) ImageSource = fallback;
+        //        if (UriItem?.ImageAsBytes is null) ImageSource = fallback;
 
         //        var answer = MapByteArrayToImageSource(UriItem?.ImageAsBytes);
 
@@ -74,7 +74,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Image_handling
         /// <returns></returns>
         public static ImageSource MapByteArrayToImageSource(byte[] imageAsBytes)
         {
-            if (imageAsBytes == null)
+            if (imageAsBytes is null)
                 return null;
 
             try

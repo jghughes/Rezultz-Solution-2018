@@ -68,7 +68,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
 
-            if (publisherInputItem == null)
+            if (publisherInputItem is null)
                 throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null.");
 
             if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))
@@ -225,7 +225,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
             arrayOfIndividualResultXes = AddParticipantParticulars(arrayOfIndividualResultXes.ToList(),
                 participantMasterListRowXes.ToList(), out var errorMessage);
 
-            if (arrayOfIndividualResultXes == null)
+            if (arrayOfIndividualResultXes is null)
                 throw new Exception(errorMessage);
 
             #endregion
@@ -239,7 +239,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
             arrayOfIndividualResultXes = AddPointsAwarded(arrayOfIndividualResultXes.ToList(), pointsScaleLineItems,
                 out errorMessage);
 
-            if (arrayOfIndividualResultXes == null)
+            if (arrayOfIndividualResultXes is null)
                 throw new Exception(errorMessage);
 
             #endregion
@@ -517,7 +517,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (parentXContainer == null)
+            if (parentXContainer is null)
                 throw new ArgumentNullException(nameof(parentXContainer));
 
             if (string.IsNullOrWhiteSpace(nameOfRepeatingChildElement))
@@ -559,7 +559,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (parentXContainer == null)
+            if (parentXContainer is null)
                 throw new ArgumentNullException(nameof(parentXContainer));
 
             var repeaters = parentXContainer.Elements().ToArray();
@@ -600,13 +600,13 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (resultElements == null)
+            if (resultElements is null)
                 throw new ArgumentNullException(nameof(resultElements));
 
-            if (namesOfSuperfluousElements == null)
+            if (namesOfSuperfluousElements is null)
                 throw new ArgumentNullException(nameof(namesOfSuperfluousElements));
 
-            var arrayOfresultElements = resultElements.Where(z => z != null).ToArray();
+            var arrayOfresultElements = resultElements.Where(z => z is not null).ToArray();
 
             foreach (var resultElement in arrayOfresultElements)
             {
@@ -648,7 +648,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         try
         {
-            if (inputText == null)
+            if (inputText is null)
                 throw new ArgumentNullException(nameof(inputText));
 
             return XElement.Parse(inputText);
@@ -687,7 +687,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
     {
         #region null value error handling
 
-        if ((listOfIndividualResultsXe == null) | (participantMasterListLineItems == null))
+        if ((listOfIndividualResultsXe is null) | (participantMasterListLineItems is null))
         {
             errorMessage = "Null argument. One or both XDocuments are null. Null parent XElement.";
             return null;
@@ -725,7 +725,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                 var participantXe =
                     participantMasterListLineItems.FirstOrDefault(z => IsMatchingBibCode(z, bibCode));
 
-                if (participantXe != null)
+                if (participantXe is not null)
                 {
                     #region add the particulars to individualResultXe
 
@@ -852,7 +852,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         #region null value error handling
 
-        if ((listOfIndividualResultsXe == null) | (pointsScaleLineItems == null))
+        if ((listOfIndividualResultsXe is null) | (pointsScaleLineItems is null))
         {
             errorMessage = "Null argument. One or both XDocuments are null. Null parent XElement.";
             return null;
@@ -874,7 +874,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             var i = 1; // for debugging
 
-            foreach (var individualResultXe in listOfIndividualResultsXe.Where(z => z != null && z.HasElements))
+            foreach (var individualResultXe in listOfIndividualResultsXe.Where(z => z is not null && z.HasElements))
             {
                 if (!individualResultXe.Elements(ResultDto.XeRace).Any() ||
                     !individualResultXe.Elements(XePlaceString).Any()) continue;
@@ -897,7 +897,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
                     pointsScaleLineItems.FirstOrDefault(z =>
                         IsMatchingRaceCodeAndPlaceCode(z, raceCode, placeCode));
 
-                if (matchingPointsTableEntryXe != null)
+                if (matchingPointsTableEntryXe is not null)
                 {
                     debugSb.AppendLine(matchingPointsTableEntryXe.ToString());
 
@@ -951,19 +951,19 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         #endregion
 
-        if (pointScaleLineItemXe == null) throw new ArgumentNullException(nameof(pointScaleLineItemXe));
-        if (raceCode == null) throw new ArgumentNullException(nameof(raceCode));
-        if (placeCode == null) throw new ArgumentNullException(nameof(placeCode));
+        if (pointScaleLineItemXe is null) throw new ArgumentNullException(nameof(pointScaleLineItemXe));
+        if (raceCode is null) throw new ArgumentNullException(nameof(raceCode));
+        if (placeCode is null) throw new ArgumentNullException(nameof(placeCode));
 
         var raceXe = pointScaleLineItemXe.Element(PointsScaleXeNames.Race);
-        if (raceXe == null)
+        if (raceXe is null)
             return false;
 
         if (JghString.AreNotEqualIgnoreOrdinalCase(raceXe.Value, raceCode))
             return false;
 
         var placeXe = pointScaleLineItemXe.Element(PointsScaleXeNames.Place);
-        if (placeXe == null)
+        if (placeXe is null)
             return false;
 
         return JghString.AreEqualIgnoreOrdinalCase(placeXe.Value, placeCode);
@@ -986,12 +986,12 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         #endregion
 
-        if (participantXe == null) throw new ArgumentNullException(nameof(participantXe));
-        if (bibCode == null) throw new ArgumentNullException(nameof(bibCode));
+        if (participantXe is null) throw new ArgumentNullException(nameof(participantXe));
+        if (bibCode is null) throw new ArgumentNullException(nameof(bibCode));
 
         var participantBibXe = participantXe.Element(ParticipantMasterListXeNames.Bib);
 
-        if (participantBibXe == null) return false;
+        if (participantBibXe is null) return false;
 
         var bibCodesDoMatch = JghString.AreEqualIgnoreOrdinalCase(participantBibXe.Value, bibCode);
 

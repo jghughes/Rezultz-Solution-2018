@@ -487,7 +487,7 @@ internal class Program
 
         var candidateGenderSymbol = baby.Gender;
 
-        if (candidateGenderSymbol == null || string.IsNullOrWhiteSpace(candidateGenderSymbol))
+        if (candidateGenderSymbol is null || string.IsNullOrWhiteSpace(candidateGenderSymbol))
         {
             baby.Gender = Symbols.SymbolMale; // default
         }

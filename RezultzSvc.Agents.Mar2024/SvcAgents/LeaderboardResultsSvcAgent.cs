@@ -148,7 +148,7 @@ namespace RezultzSvc.Agents.Mar2024.SvcAgents
             var dataTransferObjectOut = SeriesProfileItem.ToDataTransferObject(seriesProfile);
 
             foreach (var thisEventItem in dataTransferObjectOut.EventProfileCollection
-                         .Where(z => z != null))
+                         .Where(z => z is not null))
             {
                 thisEventItem.DatabaseAccountName = databaseAccount;
                 thisEventItem.DataContainerName = dataContainer;

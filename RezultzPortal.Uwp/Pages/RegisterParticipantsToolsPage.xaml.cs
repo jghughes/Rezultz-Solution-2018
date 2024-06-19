@@ -96,7 +96,7 @@ namespace RezultzPortal.Uwp.Pages
 
         try
         {
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
             DependencyLocator.RegisterIAlertMessageServiceProvider(this);
@@ -134,7 +134,7 @@ namespace RezultzPortal.Uwp.Pages
         {
             #region null value error handling
 
-            if (ViewModel == null)
+            if (ViewModel is null)
                 throw new ArgumentNullException(nameof(ViewModel));
 
             #endregion
@@ -183,7 +183,7 @@ namespace RezultzPortal.Uwp.Pages
 
             byte[] fileContentAsBytes;
 
-            if (XamlElementRadioButtonSystemMasterList.IsChecked != null && (bool)XamlElementRadioButtonSystemMasterList.IsChecked)
+            if (XamlElementRadioButtonSystemMasterList.IsChecked is not null && (bool)XamlElementRadioButtonSystemMasterList.IsChecked)
             {
                 var participantDatabase = new ParticipantDatabase();
 
@@ -193,7 +193,7 @@ namespace RezultzPortal.Uwp.Pages
 
                 var dataTransferObjects = ParticipantHubItem.ToDataTransferObject(hubItems);
 
-                if (dataTransferObjects == null)
+                if (dataTransferObjects is null)
                 {
                     ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(
                         EnumsForGui.Restore);
@@ -205,11 +205,11 @@ namespace RezultzPortal.Uwp.Pages
 
                 fileContentAsBytes = await GenerateAnswerAsBytes(desiredFileFormatEnum, dataTransferObjects);
             }
-            else if (XamlElementRadioButtonDisplayVersion.IsChecked != null && (bool)XamlElementRadioButtonDisplayVersion.IsChecked)
+            else if (XamlElementRadioButtonDisplayVersion.IsChecked is not null && (bool)XamlElementRadioButtonDisplayVersion.IsChecked)
             {
                 var dataGridPresenter = ViewModel.DataGridOfItemsInRepository;
 
-                if (dataGridPresenter == null)
+                if (dataGridPresenter is null)
                 {
                     ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                     return;
@@ -244,7 +244,7 @@ namespace RezultzPortal.Uwp.Pages
 
             var file = await PickSaveFile(fileSavePicker);
 
-            if (file == null)
+            if (file is null)
             {
                 ViewModel.ToggleIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData(EnumsForGui.Restore);
                 return;
@@ -431,8 +431,8 @@ namespace RezultzPortal.Uwp.Pages
         {
             #region null value error handling
 
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            if (bytesToBeSaved == null) throw new ArgumentNullException(nameof(bytesToBeSaved));
+            if (file is null) throw new ArgumentNullException(nameof(file));
+            if (bytesToBeSaved is null) throw new ArgumentNullException(nameof(bytesToBeSaved));
 
             #endregion
 

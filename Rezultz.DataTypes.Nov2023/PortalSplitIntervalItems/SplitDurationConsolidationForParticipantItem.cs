@@ -55,9 +55,9 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
 
         public static string ToLabel(SplitDurationConsolidationForParticipantItem item)
         {
-            if (item == null) return string.Empty;
+            if (item is null) return string.Empty;
 
-            if (item.Participant == null)
+            if (item.Participant is null)
                 return item.Bib;
 
             var prettyGunStartDateTime = item.GunStartTimeStamp.TimeStampBinaryFormat == 0 ? string.Empty : JghDateTime.ToTimeLocalhhmmssf(item.GunStartTimeStamp.TimeStampBinaryFormat);
@@ -88,7 +88,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
                 return answer;
             }
 
-            if (item == null) return new ResultDto();
+            if (item is null) return new ResultDto();
             // nb. don't return null. logic downstream requires to know that IsAuthorisedToOperate == false
 
             // important to ensure that we always have a non-blank, valid Race. this will ensure
@@ -102,7 +102,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalSplitIntervalItems
                 RaceGroup = string.IsNullOrWhiteSpace(item.RaceGroupDeducedFromParticipant) ? Symbols.SymbolUncategorised : JghString.TmLr(item.RaceGroupDeducedFromParticipant)// must always have a default Race
             };
 
-            if (item.Participant != null)
+            if (item.Participant is not null)
             {
                 var xx = item.Participant;
 

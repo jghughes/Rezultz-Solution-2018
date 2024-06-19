@@ -56,7 +56,7 @@ namespace NetStd.OnBoardServices01.July2018.AlertMessages
         /// </returns>
         public async Task ShowMessageAsync(string message, Exception ex)
         {
-            var consolidatedMessage = ex == null
+            var consolidatedMessage = ex is null
                 ? message
                 : JghString.ConcatAsSentences(message,
                     JghExceptionHelpers.PrintRedactedExceptionMessage(JghExceptionHelpers.ConvertToCarrier(null, null, ex)));
@@ -151,7 +151,7 @@ namespace NetStd.OnBoardServices01.July2018.AlertMessages
             {
                 var howToReportAnError = StringsForAlertMessages.HowToReportAnErrorV2;
 
-                var consolidatedMessage = ex == null
+                var consolidatedMessage = ex is null
                     ? message
                     : JghString.ConcatAsParagraphs(message, JghExceptionHelpers.PrintRedactedExceptionMessage(JghExceptionHelpers.ConvertToCarrier(null, null, ex)),
                         howToReportAnError);
@@ -187,7 +187,7 @@ namespace NetStd.OnBoardServices01.July2018.AlertMessages
             {
                 var howToReportAnError = StringsForAlertMessages.HowToReportAnErrorV2;
 
-                var consolidatedMessage = ex == null
+                var consolidatedMessage = ex is null
                     ? JghString.ConcatAsSentences(message)
                     : JghString.ConcatAsParagraphs(
                         message,

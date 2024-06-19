@@ -51,17 +51,17 @@ public class TimeKeepingSvcAgent : SvcAgentBase, ITimeKeepingSvcAgent
     {
         #region null checks
 
-        if (thisSeriesProfileItem == null) throw new JghAlertMessageException("SeriesItem is null.");
+        if (thisSeriesProfileItem is null) throw new JghAlertMessageException("SeriesItem is null.");
 
         if (thisSeriesProfileItem
-                .ContainerForTimestampHubItemData == null)
+                .ContainerForTimestampHubItemData is null)
             throw new JghAlertMessageException("ContainerForTimestampHubData is null.");
 
         if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForTimestampHubItemData.AccountName)) throw new JghAlertMessageException("ContainerForTimestampHubData.AccountName is null.");
 
         if (string.IsNullOrWhiteSpace(thisSeriesProfileItem.ContainerForTimestampHubItemData.ContainerName)) throw new JghAlertMessageException("ContainerForTimestampHubData.ContainerName is null.");
 
-        if (thisEventProfileItem == null) throw new JghAlertMessageException("EventItem is null.");
+        if (thisEventProfileItem is null) throw new JghAlertMessageException("EventItem is null.");
 
         #endregion
 

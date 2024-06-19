@@ -484,7 +484,7 @@ internal class Program
             .Where(z => age >= z.AgeLowerBound)
             .FirstOrDefault(z => age <= z.AgeUpperBound);
 
-        if (ageGroupSpecification == null || string.IsNullOrWhiteSpace(ageGroupSpecification.Label))
+        if (ageGroupSpecification is null || string.IsNullOrWhiteSpace(ageGroupSpecification.Label))
             return string.Empty;
 
         var answer = ageGroupSpecification.Label;

@@ -68,7 +68,7 @@ namespace NetStd.OnBoardServices01.July2018.Settings
                 if (string.IsNullOrWhiteSpace(key))
                     throw new ArgumentException("Key is null or empty. Unable to proceed.");
 
-                if (value == null)
+                if (value is null)
                     throw new ArgumentException(
                         "Object representing the value of a setting is null. Insertion of null into settings is forbidden. Unable to proceed.");
 
@@ -316,7 +316,7 @@ namespace NetStd.OnBoardServices01.July2018.Settings
 
             try
             {
-                if (localSettings == null) return false;
+                if (localSettings is null) return false;
 
                 var json = JghSerialisation.ToJsonFromObject(localSettings);
 

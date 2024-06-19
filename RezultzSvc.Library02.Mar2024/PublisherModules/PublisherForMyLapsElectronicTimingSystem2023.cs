@@ -78,7 +78,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
             //throw new ArgumentNullException(nameof(publisherInputItem), "This is a showstopping exception thrown solely for the purpose of testing and debugging. Be sure to delete it when testing is finished.");
 
-            if (publisherInputItem == null)
+            if (publisherInputItem is null)
                 throw new ArgumentNullException(nameof(publisherInputItem), "Remote publishing service received an input object that was null.");
 
             if (!string.IsNullOrWhiteSpace(publisherInputItem.NullChecksFailureMessage))
@@ -202,7 +202,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
                 var arrayOfColumnHeadings = relevantRowsWithoutEscapeLiterals.Skip(NumberOfRowsPrecedingRowOfColumnHeadings).FirstOrDefault()?.Split(',');
 
-                if (arrayOfColumnHeadings == null) throw new JghAlertMessageException("Unable to find any column headings in the provided MyLaps data. It is therefore impossible to interpret the data.");
+                if (arrayOfColumnHeadings is null) throw new JghAlertMessageException("Unable to find any column headings in the provided MyLaps data. It is therefore impossible to interpret the data.");
 
                 // example of headings from MyLaps : "Pos","Bib#","Athlete","Finish Time","Race","Age","Gender"
                 var indexOfBibColumn = Array.IndexOf(arrayOfColumnHeadings, "Bib#");
@@ -245,7 +245,7 @@ public class PublisherForMyLapsElectronicTimingSystem2023 : PublisherBase
 
                     ResultItem thisResultItem;
 
-                    if (participantItem == null)
+                    if (participantItem is null)
                     {
                         // "Pos","Bib#","Athlete","Finish Time","Race","Age","Gender"
 

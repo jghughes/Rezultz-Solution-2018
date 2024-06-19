@@ -17,7 +17,7 @@ namespace NetStd.Goodies.Xml.July2018
         {
             var subGroups = sourceDocument.Descendants(nameOfParentOfTheDesiredLookupElement)
                 .Elements(nameOfDesiredLookupElement)
-                .Where(xe => xe != null)
+                .Where(xe => xe is not null)
                 .GroupBy(xe => JghString.TmLr(xe.Value)).ToArray();
 
             var collectionOfUniqueValuesOfTheThing = subGroups.OrderBy(xe => xe.Key).Select(xe => xe.Key).ToArray();
@@ -47,8 +47,8 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static XElement FindElementInXmlNormalisationLookupTableByStringValue(XContainer lookupTable, string value)
         {
-            if (lookupTable == null) throw new ArgumentNullException(nameof(lookupTable));
-            if (value == null) throw new ArgumentNullException(nameof(value));
+            if (lookupTable is null) throw new ArgumentNullException(nameof(lookupTable));
+            if (value is null) throw new ArgumentNullException(nameof(value));
 
             var entries = lookupTable.Descendants(LookupTableValueElementName)
                 .ToArray();
@@ -64,7 +64,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static XElement FindElementInXmlNormalisationLookupTableById(XContainer lookupTable, int id)
         {
-            if (lookupTable == null) throw new ArgumentNullException(nameof(lookupTable));
+            if (lookupTable is null) throw new ArgumentNullException(nameof(lookupTable));
 
             var iDElements = lookupTable.Descendants(LookupTableIdElementName)
                 .ToArray();
@@ -83,17 +83,17 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static string FindEntryInXmlNormalisationLookupTableById(XContainer lookupTable, int id)
         {
-            if (lookupTable == null) throw new ArgumentNullException(nameof(lookupTable));
+            if (lookupTable is null) throw new ArgumentNullException(nameof(lookupTable));
 
             string answer = null;
 
             var itemElement = FindElementInXmlNormalisationLookupTableById(lookupTable, id);
 
-            if (itemElement == null) return null;
+            if (itemElement is null) return null;
 
             var xe = itemElement.Element(LookupTableValueElementName);
 
-            if (xe != null)
+            if (xe is not null)
                 answer = xe.Value;
 
             return answer;
@@ -101,7 +101,7 @@ namespace NetStd.Goodies.Xml.July2018
 
         public static int FindIdInXmlNormalisationLookupTableByStringValue(XElement lookupTable, string value)
         {
-            if (lookupTable == null) throw new ArgumentNullException(nameof(lookupTable));
+            if (lookupTable is null) throw new ArgumentNullException(nameof(lookupTable));
 
             var answer = 0;
 
@@ -109,7 +109,7 @@ namespace NetStd.Goodies.Xml.July2018
 
             var xe = itemElement?.Element(LookupTableIdElementName);
 
-            if (xe == null) return 0;
+            if (xe is null) return 0;
 
             if (int.TryParse(xe.Value, out var parsedAnswer))
                 answer = parsedAnswer;
@@ -121,7 +121,7 @@ namespace NetStd.Goodies.Xml.July2018
         {
             var answer = new List<KeyValuePair<int, string>>();
 
-            if (lookupTable == null)
+            if (lookupTable is null)
                 return answer.ToArray();
 
             if (!lookupTable.Descendants(LookupTableIdElementName).Any())
@@ -131,7 +131,7 @@ namespace NetStd.Goodies.Xml.July2018
             {
                 var id = JghXElementHelpers.AsInt32(idElement);
 
-                if (idElement.Parent == null) continue;
+                if (idElement.Parent is null) continue;
 
                 var value = JghXElementHelpers.AsTmlr(
                     idElement.Parent.Element(LookupTableValueElementName));

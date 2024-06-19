@@ -19,7 +19,7 @@ namespace NetStd.Goodies.Mar2022
             if (theDictionary is null)
                 throw new ArgumentNullException(nameof(theDictionary));
 
-            return !theDictionary.Any() ? [] : theDictionary.Where(kvp => kvp.Value != null).Select(kvp => kvp.Value).ToArray();
+            return !theDictionary.Any() ? [] : theDictionary.Where(kvp => kvp.Value is not null).Select(kvp => kvp.Value).ToArray();
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace NetStd.Goodies.Mar2022
 
             var omnibusListOfKvps = new List<KeyValuePair<TKey, TValue>>();
 
-            foreach (var dictionary in arrayOfDictionaries.Where(z => z != null))
+            foreach (var dictionary in arrayOfDictionaries.Where(z => z is not null))
                 omnibusListOfKvps.AddRange(dictionary);
 
             var mergedDictionary = new Dictionary<TKey, TValue>();

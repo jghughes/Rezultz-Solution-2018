@@ -147,7 +147,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             var entryPoint = ConnectionStringRepository.GetStorageHierarchyEntryPoint();
 
-            if (entryPoint == null || string.IsNullOrWhiteSpace(entryPoint.AzureStorageAccountName))
+            if (entryPoint is null || string.IsNullOrWhiteSpace(entryPoint.AzureStorageAccountName))
                 throw new JghAzureRequestException(JghString.ConcatAsSentences(StringsRezultzSvc.ServiceIntervenedMsg,
                     StringsRezultzSvc.AccountNameUnauthorisedMsg));
 
@@ -173,7 +173,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
                 var theSeasonItemDataTransferObject = JghSerialisation.ToObjectFromJson<SeasonProfileDto>(contentAsString);
 
-                if (theSeasonItemDataTransferObject == null) continue;
+                if (theSeasonItemDataTransferObject is null) continue;
 
                 listOfDataTransferObjects.Add(theSeasonItemDataTransferObject);
             }
@@ -203,7 +203,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
         try
         {
-            if (eventProfileDto == null)
+            if (eventProfileDto is null)
                 throw new JghSeasonDataFile404Exception("Unable proceed. EventItem is null.");
 
             var populatedEventItem = await InsertPreprocessedResultsIntoEventItemAsync(eventProfileDto);
@@ -234,14 +234,14 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
         try
         {
-            if (seriesProfileDto == null)
+            if (seriesProfileDto is null)
                 throw new JghSeasonDataFile404Exception("Unable proceed. SeriesItem is null.");
 
             List<EventProfileDto> allEventsInSeries = [];
             List<Task<EventProfileDto>> allEventsInSeriesTasks = [];
 
             foreach (var thisEventItem in seriesProfileDto.EventProfileCollection
-                         .Where(z => z != null))
+                         .Where(z => z is not null))
             {
                 var advertisedDateOfEvent = DateTime.TryParse(thisEventItem.AdvertisedDateAsString, out var dateTime) ? dateTime.Date : DateTime.Today;
 
@@ -296,7 +296,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
                 {
                     var xx = await GetSeriesItemAsync(seriesSeasonDocumentTarget, failure, locus);
 
-                    if (xx != null) populatedTargetItemsAsList.Add(xx);
+                    if (xx is not null) populatedTargetItemsAsList.Add(xx);
                 }
                 catch
                 {
@@ -318,7 +318,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
 
         private async Task<SeriesProfileDto> GetSeriesItemAsync(EntityLocationDto databaseOfSeriesItemDocument, string failure, string locus)
     {
-        if (databaseOfSeriesItemDocument == null) throw new ArgumentNullException(nameof(databaseOfSeriesItemDocument));
+        if (databaseOfSeriesItemDocument is null) throw new ArgumentNullException(nameof(databaseOfSeriesItemDocument));
 
         try
         {
@@ -437,7 +437,7 @@ namespace RezultzSvc.Library01.Mar2024.SvcHelpers
         {
             var sb = new StringBuilder();
 
-            if (thisSeasonData == null)
+            if (thisSeasonData is null)
             {
                 sb.Append("FragmentInFileNameOfAssociatedProfileFile is null. This is a database error.");
             }

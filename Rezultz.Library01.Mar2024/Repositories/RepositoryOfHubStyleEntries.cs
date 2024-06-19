@@ -64,7 +64,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 		{
             #region null checks
 
-			if (item == null)
+			if (item is null)
 			{
 				errorMessage = "Item is null. Data error";
 
@@ -142,7 +142,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 		/// <returns></returns>
 		public bool TryAddRangeNoDuplicates(IEnumerable<T> items, out string errorMessage)
 		{
-            if (items == null)
+            if (items is null)
 			{
 				errorMessage = "Range of items is null. Data error.";
 
@@ -169,7 +169,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 		/// <param name="item"></param>
 		public void UpdateEntry(T item)
 		{
-			if (item == null || string.IsNullOrWhiteSpace(item.GetBothGuids()))
+			if (item is null || string.IsNullOrWhiteSpace(item.GetBothGuids()))
 				return;
 
 			if (!_dictionaryOfEverythingKeyedbyBothGuids.ContainsKey(item.GetBothGuids()))
@@ -248,7 +248,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
 		public bool ContainsEntryWithMatchingBothGuids(T item)
 		{
-			var answer = item != null && ContainsKeyAsBothGuids(item.GetBothGuids());
+			var answer = item is not null && ContainsKeyAsBothGuids(item.GetBothGuids());
 
 			return answer;
 		}
@@ -295,7 +295,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         public T[] GetAllEntriesAsRawDataNotYetPushed()
         {
             var answer = GetAllEntriesAsRawData()
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => z.IsStillToBePushed);
 
             return answer.ToArray();
@@ -309,7 +309,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         public T GetMostRecentEntry()
 		{
-			if (_everythingOrderedByDescendingTimestamp == null || !_everythingOrderedByDescendingTimestamp.Any())
+			if (_everythingOrderedByDescendingTimestamp is null || !_everythingOrderedByDescendingTimestamp.Any())
 				return new();
 
 			var answer = _everythingOrderedByDescendingTimestamp.FirstOrDefault();
@@ -341,7 +341,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 return default;
 
             var answer = GetAllUnDitchedYoungestDescendentsWithSameOriginatingItemGuidAsMasterList()
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => z.RecordingModeEnum == recordingModeEnum).OrderBy(z => z.WhenTouchedBinaryFormat)
                 .LastOrDefault();
 
@@ -354,7 +354,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 return null;
 
             var itemsForThisRecordingMode = GetAllUnDitchedYoungestDescendentsWithSameOriginatingItemGuidAsMasterList()
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => z.RecordingModeEnum == recordingModeEnum)
                 .ToArray();
 
@@ -371,7 +371,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var mostRecent = subgroupForThisIdentifierKvp.Value.OrderBy(z => z.WhenTouchedBinaryFormat).LastOrDefault();
 
-                if (mostRecent != null)
+                if (mostRecent is not null)
                 {
                     answer.Add(identifier, mostRecent);
                 }
@@ -386,7 +386,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                 return null;
 
             var interimAnswer = GetAllUnDitchedYoungestDescendentsWithSameOriginatingItemGuidAsMasterList()
-                .Where(z => z != null)
+                .Where(z => z is not null)
                 .Where(z => z.RecordingModeEnum == recordingModeEnum).ToArray();
 
 
@@ -397,7 +397,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         public bool IsMostRecentEntryWithSameOriginatingItemGuid(T candidateMostRecentItem)
         {
-            if (candidateMostRecentItem == null) return false;
+            if (candidateMostRecentItem is null) return false;
 
             MakeDictionaryOfMostRecentItemForEachOriginatingItemGuid();
 
@@ -459,7 +459,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
 			var whenPushed = DateTime.Now.ToBinary();
 
-			foreach (var item in pushed.Where(z => z != null).Where(z => z.GetBothGuids() != null))
+			foreach (var item in pushed.Where(z => z is not null).Where(z => z.GetBothGuids() is not null))
 			{
 				if (!_dictionaryOfEverythingKeyedbyBothGuids.TryGetValue(item.GetBothGuids(), out var discovered)) continue;
 
@@ -494,7 +494,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 		{
 			#region null checks
 
-			if (item == null)
+			if (item is null)
 				return;
 
 			if (string.IsNullOrWhiteSpace(item.GetBothGuids()))
@@ -538,7 +538,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
                     .GroupBy(z => z.OriginatingItemGuid)
                     .Where(subGroup => subGroup.Any())
                     .Select(subGroup => subGroup.OrderBy(z => z.WhenTouchedBinaryFormat).LastOrDefault())
-                    .Where(mostRecent => mostRecent != null);
+                    .Where(mostRecent => mostRecent is not null);
 
             foreach (var hubItem in allHubItems)
             {

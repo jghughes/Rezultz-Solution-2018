@@ -308,7 +308,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService02
                 if (string.IsNullOrWhiteSpace(dataContainer)) throw new ArgumentNullException(nameof(dataContainer));
                 if (string.IsNullOrWhiteSpace(tablePartition)) throw new ArgumentNullException(nameof(tablePartition));
                 if (string.IsNullOrWhiteSpace(tableRowKey)) throw new ArgumentNullException(nameof(tableRowKey));
-                if (dataTransferObject == null) throw new ArgumentNullException(nameof(dataTransferObject));
+                if (dataTransferObject is null) throw new ArgumentNullException(nameof(dataTransferObject));
 
                 var queryParameters = new List<KeyValuePair<string, object>>
                 {
@@ -390,7 +390,7 @@ namespace RezultzSvc.Clients.Mvc.Mar2023.ClientsUsingHttpRequestService02
 
                 if (string.IsNullOrWhiteSpace(databaseAccount)) throw new ArgumentNullException(nameof(databaseAccount));
                 if (string.IsNullOrWhiteSpace(dataContainer)) throw new ArgumentNullException(nameof(dataContainer));
-                if (dataTransferObject == null) throw new ArgumentNullException(nameof(dataTransferObject));
+                if (dataTransferObject is null) throw new ArgumentNullException(nameof(dataTransferObject));
 
                 var queryParameters = new List<KeyValuePair<string, object>>
                 {

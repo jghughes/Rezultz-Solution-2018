@@ -73,7 +73,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <exception cref="System.ArgumentException">throws Argument_InvalidPathChars if path contains invalid characters</exception>
 		public static string ChangeExtension(string path, string extension)
 		{
-			if (path != null)
+			if (path is not null)
 			{
 				CheckInvalidPathChars(path);
 
@@ -89,7 +89,7 @@ namespace NetStd.Goodies.Mar2022
 					if (ch == DirectorySeparatorChar || ch == AltDirectorySeparatorChar || ch == VolumeSeparatorChar)
 						break;
 				}
-				if (extension != null && path.Length != 0)
+				if (extension is not null && path.Length != 0)
 				{
 					if (extension.Length == 0 || extension[0] != '.')
 						s += ".";
@@ -218,7 +218,7 @@ namespace NetStd.Goodies.Mar2022
 		//
 		public static string GetFileName(string path)
 		{
-			if (path != null)
+			if (path is not null)
 			{
 				CheckInvalidPathChars(path);
 
@@ -237,7 +237,7 @@ namespace NetStd.Goodies.Mar2022
 		{
 			path = GetFileName(path);
 
-			if (path != null)
+			if (path is not null)
 			{
 				int i;
 
@@ -316,7 +316,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <returns></returns>
 		public static bool HasExtension(string path)
 		{
-			if (path != null)
+			if (path is not null)
 			{
 				CheckInvalidPathChars(path);
 

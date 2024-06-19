@@ -50,7 +50,7 @@ namespace Jgh.Xamarin.Common.Jan2019.OnBoardServices
                 if (string.IsNullOrEmpty(key))
                     throw new ArgumentException("Key is null or empty. Unable to proceed.");
 
-                if (value == null)
+                if (value is null)
                     throw new ArgumentException(
                         "Data-object is null. Insertion of null is forbidden. Unable to proceed.");
 

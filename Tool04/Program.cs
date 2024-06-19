@@ -360,7 +360,7 @@ internal class Program
                     //    var testRider = allMyLapsResultObjectForThisEvent.FirstOrDefault(z =>
                     //        z?.Bib == result.Bib);
 
-                    //    if (testRider != null)
+                    //    if (testRider is not null)
                     //    {
                     //        var fullName = testRider.FullName;
 
@@ -628,7 +628,7 @@ internal class Program
 
         var arrayOfColumnHeadings = relevantRowsWithoutEscapeLiterals.Skip(numberOfRowsPrecedingRowOfFieldNames).FirstOrDefault()?.Split(',');
 
-        if (arrayOfColumnHeadings == null)
+        if (arrayOfColumnHeadings is null)
         {
             JghConsoleHelper.WriteLine($"unable to read this csv file. We don't have any column headings in the header row. {myLapsFileItem.MyLapsFileInfo.Name}");
             return;
@@ -757,7 +757,7 @@ internal class Program
 
         var arrayOfColumnHeadings = relevantRowsWithoutEscapeLiterals.Skip(NumberOfRowsPrecedingRowOfFieldNames).FirstOrDefault()?.Split(',');
 
-        if (arrayOfColumnHeadings == null)
+        if (arrayOfColumnHeadings is null)
         {
             // bale if we don't have the headings row
             SaveFileOfPopulatedMyLapsResultItemsToHardDriveAsXml(candidateAnswer, myLapsFileItem);
@@ -870,7 +870,7 @@ internal class Program
         //    var testRider = myLapsResultObjects.FirstOrDefault(z =>
         //        z?.Bib == resultItem.Bib);
 
-        //    if (testRider != null)
+        //    if (testRider is not null)
         //    {
         //        var fullName = testRider.FullName;
 
@@ -903,7 +903,7 @@ internal class Program
 
         var myLapsCandidateMatch = myLapsResultObjects.FirstOrDefault(z => z?.Bib == resultItem.Bib);
 
-        if (myLapsCandidateMatch == null)
+        if (myLapsCandidateMatch is null)
         {
             matchingMyLapsResultObject = new MyLapsResultObject();
 
@@ -933,7 +933,7 @@ internal class Program
                                                                       z.RaceGroup == resultItem.RaceGroup &&
                                                                       JghString.TmLr(z.FullName).Contains(JghString.TmLr(resultItem.FirstName)) &&
                                                                       JghString.TmLr(z.FullName).Contains(JghString.TmLr(resultItem.LastName)));
-        if (successfulMatch != null)
+        if (successfulMatch is not null)
         {
             // success. we have a match
             matchingMyLapsResultObject = successfulMatch;

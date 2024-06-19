@@ -60,7 +60,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Behaviours
             }
 
             var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
-            if (eventInfo == null)
+            if (eventInfo is null)
             {
                 throw new ArgumentException($"EventToCommandBehavior: Can't register the '{EventName}' event.");
             }
@@ -76,12 +76,12 @@ namespace Jgh.Xamarin.Common.Jan2019.Behaviours
                 return;
             }
 
-            if (_eventHandler == null)
+            if (_eventHandler is null)
             {
                 return;
             }
             var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
-            if (eventInfo == null)
+            if (eventInfo is null)
             {
                 throw new ArgumentException($"EventToCommandBehavior: Can't de-register the '{EventName}' event.");
             }
@@ -91,17 +91,17 @@ namespace Jgh.Xamarin.Common.Jan2019.Behaviours
 
         void OnEvent(object sender, object eventArgs)
         {
-            if (Command == null)
+            if (Command is null)
             {
                 return;
             }
 
             object resolvedParameter;
-            if (CommandParameter != null)
+            if (CommandParameter is not null)
             {
                 resolvedParameter = CommandParameter;
             }
-            else if (Converter != null)
+            else if (Converter is not null)
             {
                 resolvedParameter = Converter.Convert(eventArgs, typeof(object), null, null);
             }
@@ -119,7 +119,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Behaviours
         static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var behavior = (EventToCommandBehavior)bindable;
-            if (behavior.AssociatedObject == null)
+            if (behavior.AssociatedObject is null)
             {
                 return;
             }

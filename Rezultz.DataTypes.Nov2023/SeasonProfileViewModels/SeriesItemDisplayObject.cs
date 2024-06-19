@@ -140,10 +140,10 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
 
             try
             {
-                if (model == null)
+                if (model is null)
                     return [];
 
-                var viewModel = model.Select(FromModel).Where(z => z != null).ToArray();
+                var viewModel = model.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return viewModel;
             }
@@ -171,10 +171,10 @@ namespace Rezultz.DataTypes.Nov2023.SeasonProfileViewModels
 
             try
             {
-                if (viewModel == null)
+                if (viewModel is null)
                     return [];
 
-                var answer = viewModel.Select(ObtainSourceModel).Where(z => z != null).ToArray();
+                var answer = viewModel.Select(ObtainSourceModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }

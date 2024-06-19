@@ -24,7 +24,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
 
             var strValue = value as string;
 
-            if (strValue == null)
+            if (strValue is null)
             {
                 throw new NotImplementedException(
                     "This ConvertBack method in the Debugging Converter has not been implemented and should never have been called");
@@ -95,7 +95,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value == null)
+            if (value is null)
                 return "String binding is null";
 
             var strValue = value as string;
@@ -338,7 +338,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string languag)
         {
-            //if (value == null) return "";
+            //if (value is null) return "";
 
             if (!(value is int)) return "number not integer";
 
@@ -402,7 +402,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value == null) return "null value";
+            if (value is null) return "null value";
 
             if (!(value is DateTime myDateTime)) return "wrong value";
 
@@ -420,7 +420,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value == null) return "null value";
+            if (value is null) return "null value";
 
             if (!(value is long dtAsBinary)) return "wrong value";
 
@@ -504,7 +504,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value == null ? Visibility.Visible : Visibility.Collapsed;
+            return value is null ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -519,7 +519,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value != null ? Visibility.Visible : Visibility.Collapsed;
+            return value is not null ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -579,7 +579,7 @@ namespace Jgh.Uwp.Common.July2018.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value != null;
+            return value is not null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

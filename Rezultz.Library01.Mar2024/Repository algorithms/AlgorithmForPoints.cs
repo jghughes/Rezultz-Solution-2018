@@ -28,21 +28,21 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             {
                 #region get ready
 
-                if (eventProfileToWhichThisRepositoryBelongs == null)
+                if (eventProfileToWhichThisRepositoryBelongs is null)
                     throw new JghNullObjectInstanceException(nameof(eventProfileToWhichThisRepositoryBelongs));
 
-                if (finisherResults == null)
+                if (finisherResults is null)
                     throw new JghNullObjectInstanceException(nameof(finisherResults));
 
-                if (allComputedResultsDnxIncluded == null)
+                if (allComputedResultsDnxIncluded is null)
                     throw new JghNullObjectInstanceException(nameof(allComputedResultsDnxIncluded));
 
                 #endregion
 
                 var dictionaryOfPointsForFinishers = GenerateDictionaryOfPointsForAllFinishers(finisherResults, eventProfileToWhichThisRepositoryBelongs);
 
-                foreach (var result in allComputedResultsDnxIncluded.Where(z => z != null)
-                    .Where(z => z.DerivedData != null))
+                foreach (var result in allComputedResultsDnxIncluded.Where(z => z is not null)
+                    .Where(z => z.DerivedData is not null))
                 {
                     result.DerivedData.PointsCalculated = dictionaryOfPointsForFinishers.ContainsKey(result.Identifier)
                         ? dictionaryOfPointsForFinishers[result.Identifier]
@@ -80,13 +80,13 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             var dictionaryOfCalculatedPointsForAllFinishers =
                 new Dictionary<Tuple<string, string, string, string>, double>();
 
-            if (allFinisherResults == null)
+            if (allFinisherResults is null)
                 return dictionaryOfCalculatedPointsForAllFinishers;
 
-            if (eventProfileToWhichThisRepositoryBelongs == null)
+            if (eventProfileToWhichThisRepositoryBelongs is null)
                 return dictionaryOfCalculatedPointsForAllFinishers;
 
-            if (eventProfileToWhichThisRepositoryBelongs.EventSettingsItem == null)
+            if (eventProfileToWhichThisRepositoryBelongs.EventSettingsItem is null)
                 return dictionaryOfCalculatedPointsForAllFinishers;
 
             var algorithmForPointsEnum =
@@ -102,8 +102,8 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
              *  we have all the metrics we need in the DerivedData for each finisher.
              */
             foreach (var individualResult in allFinisherResults
-                .Where(z => z != null)
-                .Where(z => z.DerivedData != null)
+                .Where(z => z is not null)
+                .Where(z => z.DerivedData is not null)
                 .Where(z => z.DerivedData.IsValidDuration = true))
             {
 
@@ -116,7 +116,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 RaceSpecificationItem raceSpecificationForThisRace = eventProfileToWhichThisRepositoryBelongs.EventSettingsItem.RaceSpecificationItems?
                     .FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Label, individualResult.RaceGroup));
 
-                if (raceSpecificationForThisRace != null)
+                if (raceSpecificationForThisRace is not null)
                 {
                     switch (algorithmForPointsEnum)
                     {
@@ -215,13 +215,13 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             SeriesProfileItem seriesProfileToWhichThisRepositoryBelongs)
         {
 
-            if (string.IsNullOrWhiteSpace(raceLabel) || seriesProfileToWhichThisRepositoryBelongs?.DefaultEventSettingsForAllEvents.RaceSpecificationItems == null)
+            if (string.IsNullOrWhiteSpace(raceLabel) || seriesProfileToWhichThisRepositoryBelongs?.DefaultEventSettingsForAllEvents.RaceSpecificationItems is null)
                 return 0;
 
             var matchingRaceSpec = seriesProfileToWhichThisRepositoryBelongs.DefaultEventSettingsForAllEvents.RaceSpecificationItems
                 .FirstOrDefault(z => JghString.AreEqualAndNeitherIsNullOrWhiteSpaceIgnoreOrdinalCase(z.Label, raceLabel));
 
-            if (matchingRaceSpec == null)
+            if (matchingRaceSpec is null)
                 return 0;
 
             var answer = matchingRaceSpec.SeniorityRankForPointsTransfer;

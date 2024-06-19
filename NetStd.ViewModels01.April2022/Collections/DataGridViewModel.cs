@@ -167,7 +167,7 @@ namespace NetStd.ViewModels01.April2022.Collections
         {
             HeadingRhsTextVm.IsVisible = true;
 
-            if (ItemsSource == null || ArrayOfSexFilter == null)
+            if (ItemsSource is null || ArrayOfSexFilter is null)
             {
                 HeadingRhsTextVm.Text = string.Empty;
 
@@ -180,7 +180,7 @@ namespace NetStd.ViewModels01.April2022.Collections
 		private void UpdateDataPagerVisibility()
 		{
 
-			if (ItemsSource == null)
+			if (ItemsSource is null)
 			{
 				DataPagerIsVisible = false;
 

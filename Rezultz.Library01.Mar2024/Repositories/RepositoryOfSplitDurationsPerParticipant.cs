@@ -17,10 +17,10 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         public bool LoadRepository(EventProfileItem thisEventProfile, IRepositoryOfHubStyleEntries<TimeStampHubItem> repositoryOfTimeStampHubItems, IRepositoryOfHubStyleEntries<ParticipantHubItem> repositoryOfParticipantHubItems)
         {
-            if (thisEventProfile == null)
+            if (thisEventProfile is null)
                 return true;
 
-            if (repositoryOfTimeStampHubItems == null)
+            if (repositoryOfTimeStampHubItems is null)
                 return true;
 
             #region load database of all participantProfiles
@@ -28,7 +28,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             _thisEventProfile = thisEventProfile;
 
 
-            //if (repositoryOfParticipantHubItems == null)
+            //if (repositoryOfParticipantHubItems is null)
             //    _participantDatabase.LoadDatabaseV2(Array.Empty<ParticipantHubItem>(), dateOfEvent);
             //else
             _participantDatabase.LoadDatabaseV2(repositoryOfParticipantHubItems);
@@ -90,7 +90,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 // figure out the governing RaceGroup of the individual when the event took place (could conceivably be an upgraded/downgraded RaceGroup if the individual changes categories)
 
-                if (consolidatedSplitIntervalsItem.Participant != null)
+                if (consolidatedSplitIntervalsItem.Participant is not null)
                 {
                     var dateOfEvent = _thisEventProfile.AdvertisedDate.Date;
 
@@ -122,7 +122,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 var collectionOfTimeStampsForThePerson = JghDictionaryHelpers.LookUpValueSafely(personKvp.Key, _listDictionaryOfContestantsWhoActivatedATimingMat);
 
-                if (collectionOfTimeStampsForThePerson != null) personKvp.Value.ListOfTimingMatTimeStamps = collectionOfTimeStampsForThePerson.ToList();
+                if (collectionOfTimeStampsForThePerson is not null) personKvp.Value.ListOfTimingMatTimeStamps = collectionOfTimeStampsForThePerson.ToList();
 
                 #endregion
 
@@ -132,7 +132,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 personKvp.Value.GunStartTimeStamp = JghDictionaryHelpers.LookUpValueSafely(personKvp.Key, _dictionaryOfContestantsWhoHadAnIndividualGunStart);
 
-                if (personKvp.Value.GunStartTimeStamp != null)
+                if (personKvp.Value.GunStartTimeStamp is not null)
                 {
                     // success
                     personKvp.Value.KindOfGunStart = EnumStrings.KindOfEntryIsTimeStampForGunStartForSingleIndividual; // for display in the datagrid only
@@ -143,7 +143,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 #region step 2: fallback, if the person is recognised and a member of a RaceGroup for which there was a GroupStart, use that and look no further
 
-                if (personKvp.Value.Participant == null)
+                if (personKvp.Value.Participant is null)
                 {
                     personKvp.Value.GunStartTimeStamp = null;
                     personKvp.Value.KindOfGunStart = string.Empty; // for display in the datagrid only
@@ -156,7 +156,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                     personKvp.Value.GunStartTimeStamp = JghDictionaryHelpers.LookUpValueSafely(governingRaceGroup, _dictionaryOfRacesThatHadAGunStart);
 
-                    if (personKvp.Value.GunStartTimeStamp == null)
+                    if (personKvp.Value.GunStartTimeStamp is null)
                     {
                         // failure
                         personKvp.Value.KindOfGunStart = string.Empty; // for display in the datagrid only
@@ -175,7 +175,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 #region step 3: penultimate fallback. If we reach here, the gunstart for this person did not have an individual or a group gun start. If there is a mass start, use that for him
 
-                if (_gunStartForEverybodyTimestamp != null)
+                if (_gunStartForEverybodyTimestamp is not null)
                 {
                     personKvp.Value.GunStartTimeStamp = _gunStartForEverybodyTimestamp;
 
@@ -200,7 +200,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             foreach (var contestantScratchPadKvp in _dictionaryOfEveryBodyWhoCompeted)
             {
-                if (contestantScratchPadKvp.Value.GunStartTimeStamp != null)
+                if (contestantScratchPadKvp.Value.GunStartTimeStamp is not null)
                     contestantScratchPadKvp.Value.ConsolidatedListOfAllTimeStamps.Add(contestantScratchPadKvp.Value.GunStartTimeStamp);
 
                 contestantScratchPadKvp.Value.ConsolidatedListOfAllTimeStamps.AddRange(contestantScratchPadKvp.Value.ListOfTimingMatTimeStamps);
@@ -279,7 +279,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             #region deduce age group specification
 
-            foreach (var contestantScratchPadKvp in _dictionaryOfEveryBodyWhoCompeted.Where(z => z.Value.Participant != null))
+            foreach (var contestantScratchPadKvp in _dictionaryOfEveryBodyWhoCompeted.Where(z => z.Value.Participant is not null))
             {
                 var ageGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(contestantScratchPadKvp.Value.Participant.BirthYear, _thisEventProfile?.EventSettingsItem?.AgeGroupSpecificationItems);
 
@@ -310,12 +310,12 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
         private static SplitDurationConsolidationForParticipantItem[] PopulatePseudoRanksForSubsetsOfRaceWithinEventAsync(IEnumerable<SplitDurationConsolidationForParticipantItem> consolidatedSplitIntervalItems)
         {
-            if (consolidatedSplitIntervalItems == null)
+            if (consolidatedSplitIntervalItems is null)
                 return [];
 
             var dictionaryOfRaces = new JghListDictionary<string, SplitDurationConsolidationForParticipantItem>();
 
-            foreach (var intervalsItem in consolidatedSplitIntervalItems.Where(z => z != null))
+            foreach (var intervalsItem in consolidatedSplitIntervalItems.Where(z => z is not null))
             {
                 dictionaryOfRaces.Add(intervalsItem.RaceGroupDeducedFromParticipant ?? string.Empty, intervalsItem);
             }
@@ -399,7 +399,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             if (!_repositoryIsBootstrapped)
                 return [];
 
-            if (_dictionaryOfEveryBodyWhoCompeted == null)
+            if (_dictionaryOfEveryBodyWhoCompeted is null)
                 return [];
 
             var rows = _dictionaryOfEveryBodyWhoCompeted.Select(z => z.Value).ToArray();
@@ -411,7 +411,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
             List<SplitDurationConsolidationForParticipantItem> answer = [];
 
-            foreach (var row in rows.Where(z => z != null))
+            foreach (var row in rows.Where(z => z is not null))
             {
                 row.Comment = string.Empty; // clear out prior work
 
@@ -453,7 +453,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 #region details of the attached participant profile that are potential show stoppers
 
-                if (row.Participant == null)
+                if (row.Participant is null)
                 {
                     row.Comment = JghString.ConcatAsSentences(row.Comment, "Unknown person. No visible participant has this ID.");
                 }
@@ -499,7 +499,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
             {
                 var resultItemDataTransferObject = SplitDurationConsolidationForParticipantItem.ToResultItemDataTransferObject(consolidatedSplitIntervalsItem);
 
-                if (consolidatedSplitIntervalsItem.Participant != null)
+                if (consolidatedSplitIntervalsItem.Participant is not null)
                     resultItemDataTransferObject.AgeGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(consolidatedSplitIntervalsItem.Participant.BirthYear, _thisEventProfile?.EventSettingsItem?.AgeGroupSpecificationItems);
 
                 answer.Add(resultItemDataTransferObject);

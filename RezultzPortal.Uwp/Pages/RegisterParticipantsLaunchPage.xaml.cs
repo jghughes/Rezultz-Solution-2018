@@ -58,7 +58,7 @@ namespace RezultzPortal.Uwp.Pages
 
             try
             {
-                if (PagesViewModel == null)
+                if (PagesViewModel is null)
                     throw new ArgumentNullException(StringsForXamlPages.DataContextIsNull);
 
                 DependencyLocator.RegisterIAlertMessageServiceProvider(this);

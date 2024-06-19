@@ -22,7 +22,7 @@ namespace RezultzPortal.Uwp.In_app_services
 
             var hub = new NotificationHub(hubName, accessSignature);
             var result = await hub.RegisterNativeAsync(channel.Uri);
-            if (result.RegistrationId != null)
+            if (result.RegistrationId is not null)
             {
                 // Registration was successful
             }

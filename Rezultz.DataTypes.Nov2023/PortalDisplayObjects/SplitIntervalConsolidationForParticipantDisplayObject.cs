@@ -119,7 +119,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
         public static SplitIntervalConsolidationForParticipantDisplayObject FromModel(SplitDurationConsolidationForParticipantItem model)
         {
 
-            if (model == null) return new SplitIntervalConsolidationForParticipantDisplayObject();
+            if (model is null) return new SplitIntervalConsolidationForParticipantDisplayObject();
             // nb. don't return null. logic downstream requires to know that IsAuthorisedToOperate == false
 
             var answer = new SplitIntervalConsolidationForParticipantDisplayObject
@@ -135,7 +135,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 Guid = model.Guid,
             };
 
-            if (model.GunStartTimeStamp == null)
+            if (model.GunStartTimeStamp is null)
             {
                 answer.KindOfGunStart = model.TallyOfTimingMatTimeStamps > 1 ? "first mat" : "indeterminate";
             }
@@ -153,7 +153,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             answer.CalculatedTotalCumulativeDuration = JghTimeSpan.ToPrettyDurationFromTicks(model.CalculatedCumulativeTotalDurationTicks);
 
-            if (model.Participant != null)
+            if (model.Participant is not null)
             {
                 var xx = model.Participant;
 
@@ -234,10 +234,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             try
             {
-                if (model == null)
+                if (model is null)
                     return [];
 
-                var answer = model.Select(FromModel).Where(z => z != null).ToArray();
+                var answer = model.Select(FromModel).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -255,7 +255,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
         public static SplitIntervalConsolidationForParticipantDisplayObject FromModelShowingTimeStampTxx(SplitDurationConsolidationForParticipantItem model)
         {
 
-            if (model == null) return new SplitIntervalConsolidationForParticipantDisplayObject();
+            if (model is null) return new SplitIntervalConsolidationForParticipantDisplayObject();
             // nb. don't return null. logic downstream requires to know that IsAuthorisedToOperate == false
 
             var answer = new SplitIntervalConsolidationForParticipantDisplayObject
@@ -271,7 +271,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
                 Guid = string.Empty
             };
 
-            if (model.GunStartTimeStamp == null)
+            if (model.GunStartTimeStamp is null)
             {
                 answer.KindOfGunStart = model.TallyOfTimingMatTimeStamps > 1 ? "first mat" : "indeterminate";
             }
@@ -291,7 +291,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             answer.CalculatedTotalCumulativeDuration = JghTimeSpan.ToPrettyDurationFromTicks(model.CalculatedCumulativeTotalDurationTicks);
 
-            if (model.Participant != null)
+            if (model.Participant is not null)
             {
                 var xx = model.Participant;
 
@@ -374,10 +374,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             try
             {
-                if (model == null)
+                if (model is null)
                     return [];
 
-                var answer = model.Select(FromModelShowingTimeStampTxx).Where(z => z != null).ToArray();
+                var answer = model.Select(FromModelShowingTimeStampTxx).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -394,7 +394,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         public static SearchQueryItem ToSearchQuerySuggestionItem(SplitIntervalConsolidationForParticipantDisplayObject displayObject)
         {
-            if (displayObject == null)
+            if (displayObject is null)
                 return null;
 
             var answer = new SearchQueryItem(0, displayObject.Guid, ToLabel(displayObject));
@@ -409,10 +409,10 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
             try
             {
-                if (displayObject == null)
+                if (displayObject is null)
                     return [];
 
-                var answer = displayObject.Select(ToSearchQuerySuggestionItem).Where(z => z != null).ToArray();
+                var answer = displayObject.Select(ToSearchQuerySuggestionItem).Where(z => z is not null).ToArray();
 
                 return answer;
             }
@@ -524,7 +524,7 @@ namespace Rezultz.DataTypes.Nov2023.PortalDisplayObjects
 
         public static string ToLabel(SplitIntervalConsolidationForParticipantDisplayObject displayObject)
         {
-            if (displayObject == null)
+            if (displayObject is null)
                 return string.Empty;
 
             var label = JghString.ConcatWithSeparator(" ",

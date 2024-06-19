@@ -170,7 +170,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                     currentEvent.EventSettingsItem.MoreInformationItems ?? [];
 
                 kindsOfMoreInfo = kindsOfMoreInfo
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .OrderBy(z => z.DisplayRank)
                     .ThenBy(z => z.Label)
                     .ToArray();
@@ -230,7 +230,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 var storageLocationForAllPostsInThisSeries = GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm?.CurrentItem?.LocationOfDocumentsPosted;
 
-                if (storageLocationForAllPostsInThisSeries != null)
+                if (storageLocationForAllPostsInThisSeries is not null)
                 {
                     targetToPost.AccountName = storageLocationForAllPostsInThisSeries.DatabaseAccountName;
                     targetToPost.ContainerName = storageLocationForAllPostsInThisSeries.DataContainerName;
@@ -426,7 +426,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 if (CboLookupMoreInfoItemVm?.SelectedIndex == -1)
                     return true;
 
-                if (CboLookupMoreInfoItemVm?.CurrentItem?.EnumString == null)
+                if (CboLookupMoreInfoItemVm?.CurrentItem?.EnumString is null)
                     return true;
 
                 #endregion
@@ -513,9 +513,9 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                     out var _))
                 return true;
 
-            if (currentEventProfile?.EventSettingsItem?.UriItems == null) return true;
+            if (currentEventProfile?.EventSettingsItem?.UriItems is null) return true;
 
-            foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z != null))
+            foreach (var uriItem in currentEventProfile.EventSettingsItem.UriItems.Where(z => z is not null))
             {
                 if (!JghFilePathValidator.IsValidBlobName(uriItem.BlobName, out var _))
                     continue;
@@ -583,7 +583,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 #region populate CboEventLookup
 
-                if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem == null)
+                if (GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem is null)
                     return true;
 
                 //await PopulateCboEventLookupAndRelatedInformationForTheFirstTimeAsync();
@@ -591,7 +591,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 var listOfEventItems = GlobalSeasonProfileAndIdentityValidationVm.CboLookupSeriesVm.CurrentItem?.ArrayOfEventItems ?? [];
 
                 listOfEventItems = listOfEventItems
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .OrderBy(z => z.DisplayRank)
                     .ThenByDescending(z => z.AdvertisedDateTime)
                     .ThenBy(z => z.Label)
@@ -604,7 +604,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 var bestGuessChoiceOfEventItemToKickOffWith =
                     JghArrayHelpers.SelectMostRecentItemBeforeDateTimeNowInArrayOfItemsOrFailingThatPickTheEarliest(EventItemDisplayObject.ObtainSourceModel(GlobalSeasonProfileAndIdentityValidationVm.CboLookupEventVm.ItemsSource.ToArray()));
 
-                if (bestGuessChoiceOfEventItemToKickOffWith == null)
+                if (bestGuessChoiceOfEventItemToKickOffWith is null)
                     throw new Jgh404Exception(
                         "No Event particulars found. bestGuessChoiceOfEventItemToKickOffWith is null. Unable to proceed.");
 

@@ -13,7 +13,7 @@ namespace Jgh.Uwp.Rezultz.July2018.Images
 
         private static UwpImageItem TranslateImageItemToPlatformType(UriItem uriItem)
         {
-            if (uriItem == null) return new UwpImageItem();
+            if (uriItem is null) return new UwpImageItem();
 
             var answer = new UwpImageItem(uriItem);
 

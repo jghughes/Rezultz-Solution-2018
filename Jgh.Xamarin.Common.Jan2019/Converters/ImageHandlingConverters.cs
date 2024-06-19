@@ -14,7 +14,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
 
         private static XamarinImageItem TranslateImageItemToPlatformType(UriItem uriItem)
         {
-            if (uriItem == null) return new XamarinImageItem();
+            if (uriItem is null) return new XamarinImageItem();
 
             var answer = new XamarinImageItem {UriItem = uriItem};
 
@@ -38,7 +38,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
                 if (value is not UriItem[] imageItems) return new XamarinImageItemViewModel[0];
 
                 var answer = imageItems
-                    .Where(z => z != null)
+                    .Where(z => z is not null)
                     .Select(z => new XamarinImageItemViewModel(TranslateImageItemToPlatformType(z))).ToArray();
 
                 return answer;
@@ -63,7 +63,7 @@ namespace Jgh.Xamarin.Common.Jan2019.Converters
 
         private static XamarinImageItem TranslateImageItemToPlatformType(UriItem uriItem)
         {
-            if (uriItem == null) return new XamarinImageItem();
+            if (uriItem is null) return new XamarinImageItem();
 
             var answer = new XamarinImageItem(uriItem);
 

@@ -186,7 +186,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
         {
             HeadingRhsTextVm.IsVisible = true;
             
-            if (ItemsSource == null || ArrayOfSexFilter == null)
+            if (ItemsSource is null || ArrayOfSexFilter is null)
             {
                 HeadingRhsTextVm.Text = string.Empty;
 
@@ -210,7 +210,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
         private async Task<bool> UpdateDataPagerVisibilityAsync()
         {
 
-            if (ItemsSource == null)
+            if (ItemsSource is null)
             {
                 DataPagerIsVisible = false;
 
@@ -237,10 +237,10 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
 
                 try
                 {
-                    if (itemsHavingSexIdProperty == null || !itemsHavingSexIdProperty.Any())
+                    if (itemsHavingSexIdProperty is null || !itemsHavingSexIdProperty.Any())
                         return answer;
 
-                    foreach (var individualResult in itemsHavingSexIdProperty.Where(z => z != null))
+                    foreach (var individualResult in itemsHavingSexIdProperty.Where(z => z is not null))
                         if (answer.ContainsKey(individualResult.Gender))
                             answer[individualResult.Gender]++;
                         else
@@ -262,8 +262,8 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
                 "Unable to calculate totals of male and female participants and format in a one-liner summary.";
             const string locus = "[GetGenderTotalsInFormatOfSingleLineReport]";
 
-            if (itemsHavingSexIdProperty == null || !itemsHavingSexIdProperty.Any() ||
-                itemsHavingIdsAndLabels == null || !itemsHavingIdsAndLabels.Any())
+            if (itemsHavingSexIdProperty is null || !itemsHavingSexIdProperty.Any() ||
+                itemsHavingIdsAndLabels is null || !itemsHavingIdsAndLabels.Any())
                 return string.Empty;
 
             const string spacer = " /  ";
@@ -274,7 +274,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
 
                 Dictionary<string, int> dictionaryOfTalliesByGender = CalculateGenderFieldTotals(itemsHavingSexIdProperty);
 
-                Dictionary<string, string> dictionaryOfGenderDisplayLabels = itemsHavingIdsAndLabels.Where(z => z != null)
+                Dictionary<string, string> dictionaryOfGenderDisplayLabels = itemsHavingIdsAndLabels.Where(z => z is not null)
                     .ToDictionary(sex => sex.Label, sex => sex.Label);
 
                 foreach (var genderTallyKvp in dictionaryOfTalliesByGender)
@@ -298,7 +298,7 @@ namespace Rezultz.Library02.Mar2024.DataGridViewmodels
 
                 var sb = new StringBuilder();
 
-                foreach (var summary in genderSummaries.Where(z => z != null))
+                foreach (var summary in genderSummaries.Where(z => z is not null))
                     sb.Append(summary);
 
                 sb.Append(totalParticipantsSummary);
