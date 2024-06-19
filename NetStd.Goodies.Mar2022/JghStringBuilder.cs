@@ -44,14 +44,14 @@ namespace NetStd.Goodies.Mar2022
 
         public void AppendLine(StringBuilder sb)
     {
-        if (sb == null || sb.Length == 0) return;
+        if (sb is null || sb.Length == 0) return;
 
         _sb.AppendLine(sb.ToString());
     }
 
         public void AppendLine(JghStringBuilder sb)
     {
-        if (sb == null) return;
+        if (sb is null) return;
 
         _sb.AppendLine(sb.ToString());
     }
@@ -91,7 +91,7 @@ namespace NetStd.Goodies.Mar2022
 
         public string AppendLineThenToString(JghStringBuilder sb)
     {
-        if (sb == null) return null;
+        if (sb is null) return null;
 
         _sb.AppendLine(sb.ToString());
 

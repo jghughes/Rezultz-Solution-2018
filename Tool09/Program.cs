@@ -7,7 +7,7 @@ namespace Tool09
 {
     internal class Program
     {
-        private const string Description = "This console program (Tool09) reads up to four .csv files of MyLaps timing data and compares them to a file of Portal split interval data, looking for missing people.";
+        private const string Description = "This console program (Tool09) reads files of MyLaps timing data and compares the electronic data from the timing mat to a (potentially totally different) set of timing data recorded in the timing tent using the Portal timing system. The purpose of doing this is to search for gaps in the data by means of comparison. Based on empirical experience, there are typically about ten anomalies in a Kelso event because the electronic mat misses people. The Portal timing team also misses people, but generallly fewer. The pipeline for this tool is that data is exported from MyLaps in Excel format, then exported from Excel in .csv format, and then finally imported into this tool as .csv and deserialised and analysed. Portal data is exported effortlessly by clicking the export button on the Portal Timing Tools screen.";
 
         #region variables
 
@@ -74,7 +74,7 @@ namespace Tool09
 
             #endregion
 
-            #region try deserialise Results from portal timing system file of split intervals
+            #region try deserialise Results from portal timing system file of split durations (ResultDto[])
 
             ResultDto[]? provisionalResultsFromPortal;
 

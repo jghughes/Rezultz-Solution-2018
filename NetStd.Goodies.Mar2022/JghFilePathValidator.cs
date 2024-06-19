@@ -479,13 +479,13 @@ namespace NetStd.Goodies.Mar2022
 		{
 			// Step 1. null checks
 
-			if (defaultEndpointsProtocol == null)
+			if (defaultEndpointsProtocol is null)
 				throw new ArgumentNullException(nameof(defaultEndpointsProtocol));
 
-			if (accountName == null)
+			if (accountName is null)
 				throw new ArgumentNullException(nameof(accountName));
 
-			if (accountKey == null)
+			if (accountKey is null)
 				throw new ArgumentNullException(nameof(accountKey));
 
 			// Step 2. validate account name

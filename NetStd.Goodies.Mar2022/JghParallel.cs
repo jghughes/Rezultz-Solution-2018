@@ -53,7 +53,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>Collection of objects returned upon completion of each task</returns>
         public static async Task<T[]> WhenAllAsync<T>(Task<T>[] tasks) where T : class
         {
-            if (tasks == null)
+            if (tasks is null)
                 return [];
 
             var nonNullTasks = tasks
@@ -89,7 +89,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>void</returns>
         public static async Task WhenAllAsync<T>(Task[] tasks)
         {
-            if (tasks == null)
+            if (tasks is null)
                 return;
 
             var nonNullTasks = tasks
@@ -138,11 +138,11 @@ namespace NetStd.Goodies.Mar2022
 
             #region check for null parameters
 
-            if (source == null) return [];
+            if (source is null) return [];
 
             if (!source.Any()) return [];
 
-            if (transform == null) return [];
+            if (transform is null) return [];
 
             #endregion
 
@@ -241,11 +241,11 @@ namespace NetStd.Goodies.Mar2022
             {
                 #region check for null parameters
 
-                if (source == null) return [];
+                if (source is null) return [];
 
                 if (!source.Any()) return [];
 
-                if (transform == null) return [];
+                if (transform is null) return [];
 
                 #endregion
 
@@ -272,7 +272,7 @@ namespace NetStd.Goodies.Mar2022
 
                 IList<KeyValuePair<int, TSource>> indexedSource = EstablishTheOrder(source);
 
-                if (indexedSource == null) return [];
+                if (indexedSource is null) return [];
 
                 var remainingActiveThreads = threadCount;
 
@@ -407,7 +407,7 @@ namespace NetStd.Goodies.Mar2022
             {
                 #region check paramaters
 
-                if (sourceCollection == null) return null;
+                if (sourceCollection is null) return null;
 
                 if (!sourceCollection.Any()) return [];
 
@@ -571,7 +571,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>Flattened collection</returns>
         private static T[] UndoPartition<T>(IEnumerable<KeyValuePair<int, T[]>> source) where T : class
         {
-            if (source == null) return null;
+            if (source is null) return null;
 
             var outerCollection = source.ToArray();
 
@@ -593,7 +593,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>Flattened collection</returns>
         private static T[] UndoPartition<T>(IEnumerable<T[]> source) where T : class, new()
         {
-            if (source == null) return null;
+            if (source is null) return null;
 
             var outerCollection = source.ToArray();
 
@@ -636,11 +636,11 @@ namespace NetStd.Goodies.Mar2022
             const string locus = "[SelectOnAStandAloneThreadAsync]";
 
 
-            if (source == null) return [];
+            if (source is null) return [];
 
             if (!source.Any()) return [];
 
-            if (transform == null) return [];
+            if (transform is null) return [];
 
             try
             {
@@ -686,7 +686,7 @@ namespace NetStd.Goodies.Mar2022
 
             //  Note: don't use this as standalone parallel Select method. on its own it confers no speed up
 
-            if (item.Value == null) return new KeyValuePair<int, TResult[]>(item.Key, null);
+            if (item.Value is null) return new KeyValuePair<int, TResult[]>(item.Key, null);
 
             if (!item.Value.Any()) return new KeyValuePair<int, TResult[]>(item.Key, []);
 

@@ -18,7 +18,7 @@ namespace NetStd.Goodies.Mar2022
         {
             manyItems ??= [];
 
-            if (theItem == null)
+            if (theItem is null)
                 return manyItems;
 
             if (manyItems.Contains(theItem))
@@ -38,7 +38,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>Null if array is null or empty or index is out of bounds.</returns>
         public static T SelectItemFromArrayByArrayIndex<T>(T[] manyItems, int searchIndex) where T : class
         {
-            if (manyItems == null || !manyItems.Any())
+            if (manyItems is null || !manyItems.Any())
                 return null;
 
             if ((searchIndex < 0) | (searchIndex > manyItems.Count() - 1))
@@ -54,7 +54,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The first occurrence of the item. Null if array is null or empty or searchParameter is Guid.Empty.</returns>
         public static T SelectItemFromArrayByItemGuidString<T>(T[] manyItems, string searchParameter) where T : class, IHasGuid
 		{
-			if (manyItems == null || !manyItems.Any() || searchParameter == null)
+			if (manyItems is null || !manyItems.Any() || searchParameter is null)
 				return null;
 
 			if (string.IsNullOrWhiteSpace(searchParameter))
@@ -75,7 +75,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <returns>The first occurrence of the item. Null if array is null or empty or ID not found.</returns>
 		public static T SelectItemFromArrayByItemId<T>(T[] manyItems, int searchParameter) where T : class, IHasItemID
         {
-	        if (manyItems == null || !manyItems.Any())
+	        if (manyItems is null || !manyItems.Any())
 		        return null;
 
 	        var answer = (from item in manyItems
@@ -93,7 +93,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The first occurrence of the item. Null if array is null or empty or Bib not found.</returns>
         public static T SelectItemFromArrayByItemBib<T>(T[] manyItems, string searchParameter) where T : class, IHasBib
         {
-            if (manyItems == null || !manyItems.Any() || searchParameter == null)
+            if (manyItems is null || !manyItems.Any() || searchParameter is null)
                 return null;
 
             var answer = (from item in manyItems
@@ -112,7 +112,7 @@ namespace NetStd.Goodies.Mar2022
         public static T[] SelectItemsFromArrayByItemBib<T>(T[] manyItems, string searchParameter)
             where T : class, IHasBib
         {
-            if (manyItems == null || !manyItems.Any() || searchParameter == null)
+            if (manyItems is null || !manyItems.Any() || searchParameter is null)
                 return null;
 
             var answer = (from item in manyItems
@@ -131,7 +131,7 @@ namespace NetStd.Goodies.Mar2022
         public static T SelectItemFromArrayByItemLabel<T>(T[] manyItems, string searchParameter)
 	        where T : class, IHasLabel
         {
-	        if (manyItems == null || !manyItems.Any() || searchParameter == null)
+	        if (manyItems is null || !manyItems.Any() || searchParameter is null)
 		        return null;
 
 	        var answer = (from item in manyItems
@@ -150,7 +150,7 @@ namespace NetStd.Goodies.Mar2022
         public static T SelectItemFromArrayByItemEnumString<T>(T[] manyItems, string searchParameter)
 	        where T : class, IHasEnumString
         {
-	        if (manyItems == null || !manyItems.Any() || searchParameter == null)
+	        if (manyItems is null || !manyItems.Any() || searchParameter is null)
 		        return null;
 
 	        var answer = (from item in manyItems
@@ -171,7 +171,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>-1 if array is null or empty or no matching item exists.</returns>
         public static int SelectArrayIndexOfItemInArrayByItemEquality<T>(T[] manyItems, T searchItem)
         {
-            if (manyItems == null || !manyItems.Any())
+            if (manyItems is null || !manyItems.Any())
                 return -1;
 
             var arrayIndexOfTheItem = Array.IndexOf(manyItems, searchItem); // method returns -1 if not found
@@ -186,7 +186,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>Index of first matching occurrence or -1 if array is null or empty or no matching items exist.</returns>
         public static int SelectArrayIndexOfItemInArrayByItemId<T>(T[] manyItems, int searchParameter) where T : class, IHasItemID
         {
-            if (manyItems == null || !manyItems.Any())
+            if (manyItems is null || !manyItems.Any())
                 return -1;
 
             var collectionToBeSearched = (from item in manyItems
@@ -212,7 +212,7 @@ namespace NetStd.Goodies.Mar2022
         public static int SelectArrayIndexOfItemInArrayByItemEnumString<T>(T[] manyItems, string searchParameter)
             where T : class, IHasEnumString
         {
-            if (manyItems == null || !manyItems.Any())
+            if (manyItems is null || !manyItems.Any())
                 return -1;
 
             var collectionToBeSearched = (from item in manyItems
@@ -240,7 +240,7 @@ namespace NetStd.Goodies.Mar2022
         public static int SelectArrayIndexOfItemInArrayByItemLabel<T>(T[] manyItems, string searchParameter)
 	        where T : class, IHasLabel
         {
-	        if (manyItems == null || !manyItems.Any() || searchParameter == null)
+	        if (manyItems is null || !manyItems.Any() || searchParameter is null)
 		        return -1;
 
 	        var collectionToBeSearched = (from item in manyItems
@@ -283,7 +283,7 @@ namespace NetStd.Goodies.Mar2022
         public static T[] SelectItemsByCodeNameOfSuperset<T>(T[] manyItems, string searchParameterOfSuperset)
             where T : class, IHasCodeNameOfSuperset
         {
-            if (manyItems == null || !manyItems.Any() || searchParameterOfSuperset == null)
+            if (manyItems is null || !manyItems.Any() || searchParameterOfSuperset is null)
                 return [];
 
             var candidates = (from thisItem in manyItems
@@ -301,7 +301,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>Populated array. Empty array if the collection is null or empty.</returns>
         public static T[] PopulateItemsInArrayWithSequentialIDsStartingWithOne<T>(T[] manyItems) where T : class, IHasItemID
         {
-            if (manyItems == null || !manyItems.Any())
+            if (manyItems is null || !manyItems.Any())
                 return [];
 
             var i = 1;
@@ -329,7 +329,7 @@ namespace NetStd.Goodies.Mar2022
         public static T SelectMostRecentItemInItemArrayBeforeDateTimeNow<T>(T[] items)
             where T : class, IHasAdvertisedDate, new()
         {
-            if (items == null) return null;
+            if (items is null) return null;
 
             if (!items.Any()) return null;
 
@@ -351,7 +351,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The earliest item. Null if the collection is null or empty or contains no items that occurred in the past.</returns>
         public static T SelectEarliestItemInItemArray<T>(T[] items) where T : class, IHasAdvertisedDate, new()
         {
-            if (items == null) return null;
+            if (items is null) return null;
 
             if (!items.Any()) return null;
 
@@ -376,7 +376,7 @@ namespace NetStd.Goodies.Mar2022
         public static T SelectMostRecentItemBeforeDateTimeNowInArrayOfItemsOrFailingThatPickTheEarliest<T>(T[] manyItems)
             where T : class, IHasAdvertisedDate, new()
         {
-            if (manyItems == null) return null;
+            if (manyItems is null) return null;
 
             if (!manyItems.Any()) return null;
 
@@ -400,7 +400,7 @@ namespace NetStd.Goodies.Mar2022
         public static Dictionary<int, T> ConvertArrayToDictionaryKeyedOnFreshAscendingIndex<T>(T[] manyItems,
             int specifiedStartingKey) where T : class
         {
-            if (manyItems == null)
+            if (manyItems is null)
                 throw new ArgumentNullException(nameof(manyItems));
 
             if (!manyItems.Any())
@@ -433,7 +433,7 @@ namespace NetStd.Goodies.Mar2022
         {
             #region null checks
 
-            if (manyItems == null)
+            if (manyItems is null)
                 throw new ArgumentNullException(nameof(manyItems));
 
             if (!manyItems.Any())
@@ -445,7 +445,7 @@ namespace NetStd.Goodies.Mar2022
 
             foreach (var item in manyItems)
             {
-                if (item == null)
+                if (item is null)
                     continue;
 
                 if (answer.ContainsKey(item.ID)) continue;
@@ -462,7 +462,7 @@ namespace NetStd.Goodies.Mar2022
 
             foreach (var array in arrays)
             {
-                if (array == null)
+                if (array is null)
                     continue;
 
                 answer.AddRange(array);

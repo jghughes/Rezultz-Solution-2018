@@ -24,7 +24,7 @@ namespace NetStd.Goodies.Mar2022
 
             try
             {
-                if (inputStream == null) return [];
+                if (inputStream is null) return [];
 
                 using (inputStream)
                 using (var memorystream = new MemoryStream())
@@ -59,7 +59,7 @@ namespace NetStd.Goodies.Mar2022
 
             try
             {
-                if (inputStream == null) return string.Empty;
+                if (inputStream is null) return string.Empty;
 
                 using (inputStream)
 

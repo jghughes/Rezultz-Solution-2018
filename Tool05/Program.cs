@@ -290,7 +290,7 @@ internal class Program
         foreach (var fileItem in fileItems)
             try
             {
-                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+                #region step 1 - deserialise contents of this file with JghSerialisation.ToObjectFromJson. This should normally succeed.
 
                 var seriesProfileDtoFromJson = new SeriesProfileDto();
 
@@ -366,7 +366,7 @@ internal class Program
         foreach (var fileItem in fileItems)
             try
             {
-                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+                #region step 1 - deserialise contents of this file with JghSerialisation.ToObjectFromXml. This should normally succeed.
 
                 var computerProfileDtoFromXml = new PublisherModuleProfileItemDto();
 
@@ -430,7 +430,7 @@ internal class Program
         foreach (var fileItem in fileItems)
             try
             {
-                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+                #region step 1 - deserialise contents of this file with JghSerialisation.ToObjectFromJson. This should normally succeed.
 
                 var seasonProfileDtoFromJson = new SeasonProfileDto();
 
@@ -494,7 +494,7 @@ internal class Program
         foreach (var fileItem in fileItems)
             try
             {
-                #region step 1 - deserialise contents of this file with Newtonsoft deserialiser. This should normally succeed.
+                #region step 1 - deserialise contents of this file with JghSerialisation.ToObjectFromJson. This should normally succeed.
 
                 var seriesProfileDtoFromJson = new SeriesProfileDto();
 
@@ -574,14 +574,14 @@ internal class Program
 
                 #endregion
 
-                #region step 2 de-serialise using hand-written deserialiser
+                #region step 2 de-serialise using JghSerialisation.ToXmlFromObject
 
                 try
                 {
                     var fileContentsAsDto = ToComputerProfileFromXml(fileItem.FileContentsAsText);
 
                     JghConsoleHelper.WriteLineWrappedInOne($"FINISHED WITH THIS FILE. TEST MAY HAVE " +
-                                                           $"SUCCEEDED. Hand-written de-serialiser did not blow up parsing the contents of this file to ComputerProfileDto [{fileItem.FileInfo.Name}] ");
+                                                           $"SUCCEEDED. JghSerialisation.ToXmlFromObject did not blow up parsing the contents of this file to ComputerProfileDto [{fileItem.FileInfo.Name}] ");
                     JghConsoleHelper.WriteLineFollowedByOne("ooo000ooo");
                     JghConsoleHelper.WriteLineWrappedInOne("DISPLAYING: Round-tripped ComputerProfileDto");
 
@@ -594,7 +594,7 @@ internal class Program
                 }
                 catch (Exception e)
                 {
-                    JghConsoleHelper.WriteLineFollowedByOne($"Test failure: Hand-written de-serialiser blew up trying to parse contents of this file to ComputerProfileDto. [{fileItem.FileInfo.Name}]");
+                    JghConsoleHelper.WriteLineFollowedByOne($"Test failure: JghSerialisation.ToXmlFromObject blew up trying to parse contents of this file to PublisherModuleProfileItemDto. [{fileItem.FileInfo.Name}]");
                     JghConsoleHelper.WriteLineFollowedByOne(e.Message);
                     JghConsoleHelper.WriteLineFollowedByOne($"FINISHED WITH THIS FILE. TEST FAILED. [{fileItem.FileInfo.Name}] ");
                 }

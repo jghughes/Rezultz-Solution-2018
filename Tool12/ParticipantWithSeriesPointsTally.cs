@@ -81,25 +81,25 @@ namespace Tool12
                     Position = JghConvert.ToInt32(x.Position),
                     FullName = JghString.TmLr(x.FullName),
                     IsSeries = true,
-                    Bib = JghString.TmLr(x.Bib),
-                    Rfid = JghString.TmLr(x.Rfid),
+                    Bib = JghString.TmLr(x.Plate),
+                    Rfid = JghString.TmLr(x.BibTag),
                     Age = JghConvert.ToInt32(x.Age),
                     Sex = JghString.TmLr(x.Sex),
-                    RaceGroup = JghString.TmLr(x.RaceGroup),
-                    SeriesPointTopNine = JghConvert.ToInt32(x.PointsTotalTopNine),
-                    SeriesPointsOverall = JghConvert.ToInt32(x.PointsTotalOverall),
-                    T01 = JghConvert.ToInt32(x.T01),
-                    T02 = JghConvert.ToInt32(x.T02),
-                    T03 = JghConvert.ToInt32(x.T03),
-                    T04 = JghConvert.ToInt32(x.T04),
-                    T05 = JghConvert.ToInt32(x.T05),
-                    T06 = JghConvert.ToInt32(x.T06),
-                    T07 = JghConvert.ToInt32(x.T07),
-                    T08 = JghConvert.ToInt32(x.T08),
-                    T09 = JghConvert.ToInt32(x.T09),
-                    T10 = JghConvert.ToInt32(x.T10),
-                    T11 = JghConvert.ToInt32(x.T11),
-                    T12 = JghConvert.ToInt32(x.T12),
+                    RaceGroup = JghString.TmLr(x.Category),
+                    SeriesPointTopNine = JghConvert.ToInt32(x.PointsTopNine),
+                    SeriesPointsOverall = JghConvert.ToInt32(x.PointsOverall),
+                    T01 = JghConvert.ToInt32(x.R1),
+                    T02 = JghConvert.ToInt32(x.R2),
+                    T03 = JghConvert.ToInt32(x.R3),
+                    T04 = JghConvert.ToInt32(x.R4),
+                    T05 = JghConvert.ToInt32(x.R5),
+                    T06 = JghConvert.ToInt32(x.R6),
+                    T07 = JghConvert.ToInt32(x.R7),
+                    T08 = JghConvert.ToInt32(x.R8),
+                    T09 = JghConvert.ToInt32(x.R9),
+                    T10 = JghConvert.ToInt32(x.R10),
+                    T11 = JghConvert.ToInt32(x.R11),
+                    T12 = JghConvert.ToInt32(x.R12),
                     Comment = JghString.TmLr(x.Comment),
                 };
 
@@ -163,7 +163,7 @@ namespace Tool12
 
             try
             {
-                if (dataTransferObject == null)
+                if (dataTransferObject is null)
                     return [];
 
                 var answer = dataTransferObject.Select(FromDataTransferObject).ToArray();
@@ -195,25 +195,25 @@ namespace Tool12
                 {
                     Position = x.Position.ToString(),
                     FullName = JghString.TmLr(x.FullName),
-                    Bib = JghString.TmLr(x.Bib),
-                    Rfid = JghString.TmLr(x.Rfid),
+                    Plate = JghString.TmLr(x.Bib),
+                    BibTag = JghString.TmLr(x.Rfid),
                     Age = x.Age.ToString(),
                     Sex = JghString.TmLr(x.Sex),
-                    RaceGroup = JghString.TmLr(x.RaceGroup),
-                    PointsTotalTopNine = x.SeriesPointTopNine.ToString(),
-                    PointsTotalOverall = x.SeriesPointsOverall.ToString(),
-                    T01 = x.T01.ToString(),
-                    T02 = x.T02.ToString(),
-                    T03 = x.T03.ToString(),
-                    T04 = x.T04.ToString(),
-                    T05 = x.T05.ToString(),
-                    T06 = x.T06.ToString(),
-                    T07 = x.T07.ToString(),
-                    T08 = x.T08.ToString(),
-                    T09 = x.T09.ToString(),
-                    T10 = x.T10.ToString(),
-                    T11 = x.T11.ToString(),
-                    T12 = x.T12.ToString(),
+                    Category = JghString.TmLr(x.RaceGroup),
+                    PointsTopNine = x.SeriesPointTopNine.ToString(),
+                    PointsOverall = x.SeriesPointsOverall.ToString(),
+                    R1 = x.T01.ToString(),
+                    R2 = x.T02.ToString(),
+                    R3 = x.T03.ToString(),
+                    R4 = x.T04.ToString(),
+                    R5 = x.T05.ToString(),
+                    R6 = x.T06.ToString(),
+                    R7 = x.T07.ToString(),
+                    R8 = x.T08.ToString(),
+                    R9 = x.T09.ToString(),
+                    R10 = x.T10.ToString(),
+                    R11 = x.T11.ToString(),
+                    R12 = x.T12.ToString(),
                     Comment = JghString.TmLr(x.Comment)
                 };
 
@@ -240,7 +240,7 @@ namespace Tool12
 
             try
             {
-                if (item == null)
+                if (item is null)
                     return [];
 
                 var answer = item.Select(ToDataTransferObject).ToArray();

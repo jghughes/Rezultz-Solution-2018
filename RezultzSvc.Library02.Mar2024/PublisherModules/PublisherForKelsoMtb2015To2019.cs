@@ -138,7 +138,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             #endregion
 
-            #region rename all specified XElement names by cunning means of editing the document as plain text
+            #region rename all specified XElement values by cunning means of editing the document as plain text
 
             conversionReportSb.AppendLine("renaming XElement values ....");
 

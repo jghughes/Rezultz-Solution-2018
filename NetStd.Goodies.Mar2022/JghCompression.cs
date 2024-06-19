@@ -25,7 +25,7 @@ namespace NetStd.Goodies.Mar2022
 
             try
             {
-                if (bytes == null)
+                if (bytes is null)
                     throw new ArgumentNullException(nameof(bytes));
 
                 inputStream = new MemoryStream(bytes);
@@ -65,7 +65,7 @@ namespace NetStd.Goodies.Mar2022
 
             try
             {
-                if (bytes == null)
+                if (bytes is null)
                     throw new ArgumentNullException(nameof(bytes));
 
                 var compressedStream = new MemoryStream(bytes);

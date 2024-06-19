@@ -5,7 +5,7 @@ namespace Tool11
     [DataContract(Namespace = "", Name = XeParticipant)]
     public class BabyParticipantDto
     {
-        #region Names
+        #region Data member names
 
         public const string XeDataRootForSimpleArray = "ArrayOf" + $"{XeParticipant}";
         // this is the obligatorily named root element for a container of an array of simple stand-alone elements.

@@ -15,60 +15,58 @@ using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 using RezultzSvc.Library02.Mar2024.SvcHelpers;
 
-namespace RezultzSvc.Library02.Mar2024.PublisherModules
+namespace RezultzSvc.Library02.Mar2024.PublisherModules;
+
+/// <remarks>
+///     This module relies for source data on the Excel '97 files received from Andrew Haddow from the MyLaps electronic
+///     timing system.
+///     Each of the four races has its own file. In each file, the relevant columns are 'Gun Time' and 'Bib'.
+///     Andrew uses RaceRoster to publicise results on the Kelso website. He chooses Excel as his
+///     preferred MyLaps export format. He cuts and pasts selected columns from Excel into a TextBox in
+///     RaceRoster, assigning the columns to the correct fields in RaceRoster. He emails these files to JGH.
+///     JGH exports the contents of the files in .csv format. These are the files that this module uses.
+///     The module gets the Participant master list (json) and the SeriesProfile file (json) from the
+///     Rezultz portal, and does all translations and computations and deduces a resulting array of
+///     ResultItems i.e. a leaderboard in the format required by the Rezultz 2018 import API.
+///     At time of writing, the publishing module profile file specifies 1 + 4 = 5 [gui-button-profile].
+///     The one for Jgh.SymbolsStringsConstants.Mar2022.EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub
+///     is specified in the profile in the collection [gui-button-profiles-for-importing-input-datasets-from-portal-hub].
+///     The four "MyLaps" buttons are specified in the collection
+///     [gui-buttons-for-browsing-file-system-for-input-datasets].
+///     These are the buttons that the user clicks to get info from the hub and browse the hard drive and these are the
+///     datasets expected here. See:
+///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-24mylapcsv.xml
+/// </remarks>
+public class PublisherForMyLapsElectronicTimingSystem2024Csv : PublisherBase
 {
-    /// <remarks>
-    ///     This module relies for source data on the Excel '97 files received from Andrew Haddow from the MyLaps electronic timing system.
-    ///     Each of the four races has its own file. In each file, the relevant columns are 'Gun Time' and 'Bib'.
-    ///
-    ///     Andrew uses RaceRoster to publicise results on the Kelso website. He chooses Excel as his
-    ///     preferred MyLaps export format. He cuts and pasts selected columns from Excel into a TextBox in
-    ///     RaceRoster, assigning the columns to the correct fields in RaceRoster. He emails these files to JGH.
-    /// 
-    ///     JGH exports the contents of the files in .csv format. These are the files that this module uses. 
-    /// 
-    ///     The module gets the Participant master list (json) and the SeriesProfile file (json) from the
-    ///     Rezultz portal, and does all translations and computations and deduces a resulting array of
-    ///     ResultItems i.e. a leaderboard in the format required by the Rezultz 2018 import API.
-    ///
-    ///     At time of writing, the publishing module profile file specifies 1 + 4 = 5 [gui-button-profile].
-    ///     The one for Jgh.SymbolsStringsConstants.Mar2022.EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub
-    ///     is specified in the profile in the collection [gui-button-profiles-for-importing-input-datasets-from-portal-hub].
-    ///     The four "MyLaps" buttons are specified in the collection [gui-buttons-for-browsing-file-system-for-input-datasets].
-    ///     These are the buttons that the user clicks to get info from the hub and browse the hard drive and these are the
-    ///     datasets expected here. See:
-    ///     https://systemrezultzlevel1.blob.core.windows.net/publishingmoduleprofiles/publisherprofile-24mylapcsv.xml
-    /// </remarks>
-    public class PublisherForMyLapsElectronicTimingSystem2024Csv : PublisherBase
-    {
-        private const string Locus2 = nameof(PublisherForMyLapsElectronicTimingSystem2024Csv);
-        private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
+    private const string Locus2 = nameof(PublisherForMyLapsElectronicTimingSystem2024Csv);
+    private const string Locus3 = "[RezultzSvc.Library02.Mar2024]";
 
-        #region variables
+    #region variables
 
-        private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
+    private readonly AzureStorageServiceMethodsHelper _storage = new(new AzureStorageAccessor());
 
-        #endregion
+    #endregion
 
-        #region helpers
+    #region helpers
 
-        private static AgeGroupSpecificationItem[] GetAgeGroupSpecificationItems(SeriesProfileItem seriesMetaDataItem)
+    private static AgeGroupSpecificationItem[] GetAgeGroupSpecificationItems(SeriesProfileItem seriesMetaDataItem)
     {
         var arrayOfAgeGroupSpecificationItem = seriesMetaDataItem.DefaultEventSettingsForAllEvents.AgeGroupSpecificationItems;
 
         return arrayOfAgeGroupSpecificationItem;
     }
 
-        #endregion
+    #endregion
 
-        #region methods
+    #region methods
 
-        public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
+    public override void ExtractCustomXmlInformationFromAssociatedPublisherProfileFile()
     {
         throw new NotImplementedException(); // nothing required at time of writing
     }
 
-        public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
+    public override async Task<PublisherOutputItem> DoAllTranslationsAndComputationsToGenerateResultsAsync(PublisherInputItem publisherInputItem)
     {
         const string failure = "Unable to compute results for specified event based on datasets uploaded for processing.";
         const string locus = "[DoAllTranslationsAndComputationsToGenerateResultsAsync()]";
@@ -79,7 +77,8 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         JghStringBuilder ranToCompletionMsgSb = new();
 
-        JghStringBuilder conversionReportSb = new(); conversionReportSb.AppendLineFollowedByOne("Processing report:");
+        JghStringBuilder conversionReportSb = new();
+        conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
         List<MyLapsFile> myLapsFiles = [];
 
@@ -113,7 +112,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             #endregion
 
-            #region fetch MyLaps timing data files from Azure
+            #region fetch MyLaps timing data files from Azure to where the were uploaded a moment ago in the publishing sequence
 
             foreach (var target in myLapsFileTargets)
             {
@@ -133,7 +132,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
             #endregion
 
-            #region fetch previously uploaded participant master list
+            #region fetch previously uploaded participant master list uploaded a moment ago in the publishing sequence
 
             conversionReportSb.AppendLine("Doing null checks to confirm that we have a previously uploaded master list of participants.");
 
@@ -269,20 +268,19 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
         #endregion
     }
 
-        #endregion
+    #endregion
 
-        #region constants
+    #region constants
 
-        private const string IdentifierOfDatasetOfMyLapsTimingData = "MyLaps"; // the identifier for MyLaps timing data files here originates from the profile file. Can be anything you like there, but must be kept in sync here
+    private const string IdentifierOfDatasetOfMyLapsTimingData = "MyLaps"; // the identifier for MyLaps timing data files here originates from the profile file. Can be anything you like there, but must be kept in sync here
 
-        private const string EnumForParticipantListFromPortal = EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub;
+    private const string EnumForParticipantListFromPortal = EnumsForPublisherModule.ParticipantsAsJsonFromRemotePortalHub;
 
-        private const int LhsWidth = 50;
-        private const int LhsWidthPlus1 = LhsWidth + 1;
-        private const int LhsWidthLess4 = LhsWidth - 4;
-        private const int LhsWidthLess5 = LhsWidth - 5;
-        private const int LhsWidthLess7 = LhsWidth - 7;
+    private const int LhsWidth = 50;
+    private const int LhsWidthPlus1 = LhsWidth + 1;
+    private const int LhsWidthLess4 = LhsWidth - 4;
+    private const int LhsWidthLess5 = LhsWidth - 5;
+    private const int LhsWidthLess7 = LhsWidth - 7;
 
-        #endregion
-    }
+    #endregion
 }

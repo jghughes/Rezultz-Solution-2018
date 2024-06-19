@@ -16,7 +16,7 @@ namespace NetStd.Goodies.Mar2022
         /// <exception cref="System.ArgumentNullException">The Dictionary cannot be null.</exception>
         public static TValue[] ConvertDictionaryToArray<TKey, TValue>(IDictionary<TKey, TValue> theDictionary)
         {
-            if (theDictionary == null)
+            if (theDictionary is null)
                 throw new ArgumentNullException(nameof(theDictionary));
 
             return !theDictionary.Any() ? [] : theDictionary.Where(kvp => kvp.Value != null).Select(kvp => kvp.Value).ToArray();
@@ -32,7 +32,7 @@ namespace NetStd.Goodies.Mar2022
         /// <exception cref="System.ArgumentNullException">The Dictionary cannot be null.</exception>
         public static KeyValuePair<TKey, TValue>[] ConvertDictionaryToKeyValuePairArray<TKey, TValue>(IDictionary<TKey, TValue> theDictionary)
         {
-            if (theDictionary == null)
+            if (theDictionary is null)
                 throw new ArgumentNullException(nameof(theDictionary));
 
             return !theDictionary.Any() ? [] : theDictionary.ToArray();
@@ -49,7 +49,7 @@ namespace NetStd.Goodies.Mar2022
         /// <exception cref="System.ArgumentNullException">The array cannot be null.</exception>
         public static Dictionary<TKey, TValue> ConvertKeyValuePairArrayToDictionary<TKey, TValue>(KeyValuePair<TKey, TValue>[] theArray)
         {
-            if (theArray == null)
+            if (theArray is null)
                 throw new ArgumentNullException(nameof(theArray));
 
             return !theArray.Any() ? new Dictionary<TKey, TValue>() : theArray.ToDictionary(z => z.Key, z => z.Value);
@@ -65,7 +65,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The dictionary keyed on index with values of TValue.</returns>
         public static Dictionary<int, TValue> ConvertArrayToIndexedDictionary<TValue> (TValue[] theArray)
         {
-            if (theArray == null)
+            if (theArray is null)
                 return new Dictionary<int, TValue>();
 
             if(!theArray.Any())
@@ -77,7 +77,7 @@ namespace NetStd.Goodies.Mar2022
             {
                 var item = theArray[i];
 
-                if (item == null)
+                if (item is null)
                     continue;
 
                 answer.Add(i, item);
@@ -100,7 +100,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The value associated with the key, or null if the dictionary is null or empty or the key is not found.</returns>
         public static TValue LookUpValueSafely<TKey, TValue>(TKey key, IDictionary<TKey, TValue> theDictionary) where TValue : class
         {
-            if (theDictionary == null || !theDictionary.Any() || key == null)
+            if (theDictionary is null || !theDictionary.Any() || key is null)
                 return null;
 
             return theDictionary.TryGetValue(key, out var value) ? value : null;
@@ -121,7 +121,7 @@ namespace NetStd.Goodies.Mar2022
         /// </returns>
         public static string LookUpValueSafely<TKey>(TKey key, IDictionary<TKey, string> theDictionary)
         {
-            if (theDictionary == null || !theDictionary.Any() || key == null)
+            if (theDictionary is null || !theDictionary.Any() || key is null)
                 return null;
 
             var value = theDictionary.TryGetValue(key, out var value1) ? value1 : null;
@@ -140,7 +140,7 @@ namespace NetStd.Goodies.Mar2022
         /// </returns>
         public static string LookUpValueSafely(string key, IDictionary<string, string> theDictionary)
         {
-            if (theDictionary == null || !theDictionary.ContainsKey(key) || string.IsNullOrWhiteSpace(key) )
+            if (theDictionary is null || !theDictionary.ContainsKey(key) || string.IsNullOrWhiteSpace(key) )
                 return null;
 
             var answer = theDictionary[key];
@@ -160,7 +160,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The value associated with the key, or zero if the dictionary is null or empty or the key is not found.</returns>
         public static int LookUpValueSafely<TKey>(TKey key, IDictionary<TKey, int> theDictionary)
         {
-	        if (theDictionary == null || !theDictionary.Any() || key == null)
+	        if (theDictionary is null || !theDictionary.Any() || key is null)
 		        return 0;
 
 	        var value = theDictionary.TryGetValue(key, out var value1) ? value1 : 0;
@@ -180,7 +180,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The value associated with the key, or zero if the dictionary is null or empty or the key is not found.</returns>
         public static double LookUpValueSafely<TKey>(TKey key, IDictionary<TKey, double> theDictionary)
         {
-	        if (theDictionary == null || !theDictionary.Any() || key == null)
+	        if (theDictionary is null || !theDictionary.Any() || key is null)
 		        return 0;
 
 	        var value = theDictionary.TryGetValue(key, out var value1) ? value1 : 0;
@@ -200,7 +200,7 @@ namespace NetStd.Goodies.Mar2022
         /// </returns>
         public static bool StringDictionaryKvpValueIsMatch(string key, string value, IDictionary<string, string> theDictionary)
         {
-            if (theDictionary == null || string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value))
+            if (theDictionary is null || string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value))
                 return false;
 
             var valueObtained = LookUpValueSafely(key, theDictionary);
@@ -225,7 +225,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>The merged dictionary or an empty dictionary if the input array of dictionaries is null.</returns>
         public static Dictionary<TKey, TValue> MergeMultipleDictionaries<TKey, TValue>(IDictionary<TKey, TValue>[] arrayOfDictionaries, bool firstKvpTakePrecedence)
         {
-            if (arrayOfDictionaries == null) return new Dictionary<TKey, TValue>();
+            if (arrayOfDictionaries is null) return new Dictionary<TKey, TValue>();
 
             var omnibusListOfKvps = new List<KeyValuePair<TKey, TValue>>();
 
@@ -266,7 +266,7 @@ namespace NetStd.Goodies.Mar2022
         {
             theDiscoveredValue = null; // dummy. only applicable if the dictionary is null.
 
-            if (theDictionary == null)
+            if (theDictionary is null)
                 return false;
 
             var answer = theDictionary.TryGetValue(theLookupKey, out theDiscoveredValue);
@@ -284,13 +284,13 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>True if the value is not null and the operation completes successfully, false otherwise.</returns>
         public static bool AddOrUpdateSafely<TValue>(string theLookupKey, TValue theValue, IDictionary<string, TValue> theDictionary) where TValue : class
         {
-	        if (theDictionary == null)
+	        if (theDictionary is null)
 		        return false;
 
 	        if (string.IsNullOrWhiteSpace(theLookupKey))
 		        return false;
 
-	        if (theValue == null)
+	        if (theValue is null)
 		        return false;
 
 	        if (theDictionary.ContainsKey(theLookupKey))
@@ -311,10 +311,10 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>True if the value is not null and the operation completes successfully, false otherwise.</returns>
         public static bool AddOrUpdateSafely<TValue>(int theLookupKey, TValue theValue, IDictionary<int, TValue> theDictionary) where TValue : class
         {
-	        if (theDictionary == null)
+	        if (theDictionary is null)
 		        return false;
 
-	        if (theValue == null)
+	        if (theValue is null)
 		        return false;
 
 	        if (theDictionary.ContainsKey(theLookupKey))
@@ -334,7 +334,7 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>True if the value is not null and the operation completes successfully, false otherwise.</returns>
         public static bool DeleteSafely<TValue>(int theLookupKey, IDictionary<int, TValue> theDictionary) where TValue : class
         {
-	        if (theDictionary == null)
+	        if (theDictionary is null)
 		        return false;
             
 		    theDictionary.Remove(theLookupKey);

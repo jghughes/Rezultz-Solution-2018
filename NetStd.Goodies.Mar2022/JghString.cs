@@ -29,7 +29,7 @@ namespace NetStd.Goodies.Mar2022
             if (string.IsNullOrWhiteSpace(text))
                 return string.Empty;
 
-            if (newSubstring == null)
+            if (newSubstring is null)
                 return text;
 
             var answer = text.Replace(oldSubstring, newSubstring);
@@ -42,7 +42,7 @@ namespace NetStd.Goodies.Mar2022
             if (string.IsNullOrWhiteSpace(text))
                 return string.Empty;
 
-            if (substringMappingDictionary == null || substringMappingDictionary.Count == 0) return text;
+            if (substringMappingDictionary is null || substringMappingDictionary.Count == 0) return text;
 
             return substringMappingDictionary.Aggregate(text, (current, kvp) => Replace(current, kvp.Key, kvp.Value));
         }
@@ -291,7 +291,7 @@ namespace NetStd.Goodies.Mar2022
         {
             var isValid = true;
 
-            if (value == null)
+            if (value is null)
             {
                 isValid = false;
             }
@@ -448,7 +448,7 @@ namespace NetStd.Goodies.Mar2022
 
         public static string[] ToTrimmedStrings(string[] inputStrings)
         {
-            if (inputStrings == null)
+            if (inputStrings is null)
                 return [];
 
             return inputStrings.Where(z => !string.IsNullOrWhiteSpace(z)).Select(x => x.Trim()).ToArray();
@@ -456,7 +456,7 @@ namespace NetStd.Goodies.Mar2022
 
         public static string[] ToTrimmedLowerCaseStrings(string[] inputStrings)
         {
-            if (inputStrings == null)
+            if (inputStrings is null)
                 return [];
 
             return inputStrings.Where(z => !string.IsNullOrWhiteSpace(z)).Select(TmLr).ToArray();
@@ -652,7 +652,7 @@ namespace NetStd.Goodies.Mar2022
         {
             const double epsilon = 0.05; // arbitrarily small
 
-            if (arbitraryString == null) return string.Empty;
+            if (arbitraryString is null) return string.Empty;
 
             // we want to handle the valid possibilities that arbitraryString could be a timespan, a double, an int, or text.
             // what we do here is start with the most complex possibility and work down to the simplest possibility
@@ -827,7 +827,7 @@ namespace NetStd.Goodies.Mar2022
 
         private static string[] MakeACleanCollectionOfTextsExcludingTheLastItem(string[] arrayOfTexts, out string lastItem)
 		{
-			if (arrayOfTexts == null)
+			if (arrayOfTexts is null)
 				throw new ArgumentNullException(nameof(arrayOfTexts));
 
 			lastItem = null;

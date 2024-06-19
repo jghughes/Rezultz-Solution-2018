@@ -252,8 +252,7 @@ namespace Tool07
 
         PrintReport(pathOfFile);
     }
-
-
+        
         private static XElement ParsePlainTextIntoXml(string inputText)
     {
         var failure = "Unable to parse text into xml.";
@@ -281,8 +280,7 @@ namespace Tool07
         #endregion
     }
 
-        private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer,
-            string nameOfRepeatingChildElement)
+        private static XElement[] ExtractListOfIndividualResults(XContainer parentXContainer, string nameOfRepeatingChildElement)
     {
         var failure = "Unable to extract child elements from parent Xml document.";
         const string locus = "[ExtractListOfIndividualResults]";

@@ -39,7 +39,7 @@ namespace NetStd.Goodies.Mar2022
 
 			try
 			{
-				if (inputObject == null)
+				if (inputObject is null)
 					return JsonConvert.SerializeObject(null, MakeSerialiserSettings());
 
 				var answer = JsonConvert.SerializeObject(inputObject, MakeSerialiserSettings());
@@ -138,8 +138,8 @@ namespace NetStd.Goodies.Mar2022
 
 	        try
 	        {
-		        if (inputObject == null) return new XElement("null");
-		        //if (inputObject == null) throw new ArgumentNullException(nameof(inputObject));
+		        if (inputObject is null) return new XElement("null");
+		        //if (inputObject is null) throw new ArgumentNullException(nameof(inputObject));
 
 		        XElement xElement;
 
@@ -188,8 +188,8 @@ namespace NetStd.Goodies.Mar2022
 
 	        try
 	        {
-		        if (inputObject == null) return new XElement("null");
-		        //if (inputObject == null) throw new ArgumentNullException(nameof(inputObject));
+		        if (inputObject is null) return new XElement("null");
+		        //if (inputObject is null) throw new ArgumentNullException(nameof(inputObject));
 
 		        XElement xElement;
 
@@ -231,8 +231,8 @@ namespace NetStd.Goodies.Mar2022
 
 			try
 			{
-				if (inputObject == null) return string.Empty;
-				//if (inputObject == null) throw new ArgumentNullException(nameof(inputObject));
+				if (inputObject is null) return string.Empty;
+				//if (inputObject is null) throw new ArgumentNullException(nameof(inputObject));
 
 				var xx = ToXElementFromObject(inputObject, knownTypes);
 
@@ -260,7 +260,7 @@ namespace NetStd.Goodies.Mar2022
 			try
 			{
 				if (string.IsNullOrWhiteSpace(inputString)) return default;
-				//if (inputString == null) throw new ArgumentNullException(nameof(inputString));
+				//if (inputString is null) throw new ArgumentNullException(nameof(inputString));
 
 				var inputAsByteArray = JghConvert.ToBytesUtf8FromString(inputString);
 
@@ -295,7 +295,7 @@ namespace NetStd.Goodies.Mar2022
 
 			try
 			{
-				if (inputXElement == null) return default;
+				if (inputXElement is null) return default;
 
 				var serialiser = new DataContractSerializer(typeof(T), knownTypes);
 

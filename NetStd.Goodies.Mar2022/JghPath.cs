@@ -144,7 +144,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <returns></returns>
 		public static string GetExtension(string path)
 		{
-			if (path == null)
+			if (path is null)
 				return null;
 
 			CheckInvalidPathChars(path);
@@ -195,7 +195,7 @@ namespace NetStd.Goodies.Mar2022
 
 		internal static StringBuilder RemoveLongPathPrefix(StringBuilder pathSb)
 		{
-			if (pathSb == null) return new StringBuilder();
+			if (pathSb is null) return new StringBuilder();
 
 			var path = pathSb.ToString();
 
@@ -274,7 +274,7 @@ namespace NetStd.Goodies.Mar2022
 		//        [ResourceConsumption(ResourceScope.Machine)]
 		//        public static string GetPathRoot(string path)
 		//        {
-		//            if (path == null) return null;
+		//            if (path is null) return null;
 		//            path = NormalizePath(path, false);
 		//            return path.Substring(0, GetRootLength(path));
 		//        }
@@ -300,7 +300,7 @@ namespace NetStd.Goodies.Mar2022
 		//        }
 		internal static bool IsRelative(string path)
 		{
-			if (path == null) throw new ArgumentNullException(nameof(path));
+			if (path is null) throw new ArgumentNullException(nameof(path));
 			if (path.Length >= 3 && path[1] == VolumeSeparatorChar && path[2] == DirectorySeparatorChar &&
 				(path[0] >= 'a' && path[0] <= 'z' || path[0] >= 'A' && path[0] <= 'Z') ||
 				path.Length >= 2 && path[0] == '\\' && path[1] == '\\')
@@ -346,7 +346,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <returns></returns>
 		public static bool IsPathRooted(string path)
 		{
-			if (path == null) return false;
+			if (path is null) return false;
 
 			CheckInvalidPathChars(path);
 
@@ -361,8 +361,8 @@ namespace NetStd.Goodies.Mar2022
 
 		public static string Combine(string path1, string path2)
 		{
-			if (path1 == null || path2 == null)
-				throw new ArgumentNullException(path1 == null ? "path1" : "path2");
+			if (path1 is null || path2 is null)
+				throw new ArgumentNullException(path1 is null ? "path1" : "path2");
 			CheckInvalidPathChars(path1);
 			CheckInvalidPathChars(path2);
 
@@ -371,8 +371,8 @@ namespace NetStd.Goodies.Mar2022
 
 		public static string Combine(string path1, string path2, string path3)
 		{
-			if (path1 == null || path2 == null || path3 == null)
-				throw new ArgumentNullException(path1 == null ? "path1" : path2 == null ? "path2" : "path3");
+			if (path1 is null || path2 is null || path3 is null)
+				throw new ArgumentNullException(path1 is null ? "path1" : path2 is null ? "path2" : "path3");
 			CheckInvalidPathChars(path1);
 			CheckInvalidPathChars(path2);
 			CheckInvalidPathChars(path3);
@@ -382,12 +382,12 @@ namespace NetStd.Goodies.Mar2022
 
 		public static string Combine(string path1, string path2, string path3, string path4)
 		{
-			if (path1 == null || path2 == null || path3 == null || path4 == null)
-				throw new ArgumentNullException(path1 == null
+			if (path1 is null || path2 is null || path3 is null || path4 is null)
+				throw new ArgumentNullException(path1 is null
 					? "path1"
-					: path2 == null
+					: path2 is null
 						? "path2"
-						: path3 == null
+						: path3 is null
 							? "path3"
 							: "path4");
 			CheckInvalidPathChars(path1);
@@ -399,14 +399,14 @@ namespace NetStd.Goodies.Mar2022
 		}
 		public static string Combine(string path1, string path2, string path3, string path4, string path5)
 		{
-			if (path1 == null || path2 == null || path3 == null || path4 == null || path5 == null)
-				throw new ArgumentNullException(path1 == null
+			if (path1 is null || path2 is null || path3 is null || path4 is null || path5 is null)
+				throw new ArgumentNullException(path1 is null
 						? "path1"
-						: path2 == null
+						: path2 is null
 							? "path2"
-							: path3 == null
+							: path3 is null
 								? "path3"
-								: path4 == null
+								: path4 is null
 									? "path4"
 									: "path5");
 			CheckInvalidPathChars(path1);
@@ -474,7 +474,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <returns></returns>
 		public static bool HasIllegalPathCharacters(string path, bool wildCardsAreInvalidToo = false)
 		{
-			if (path == null)
+			if (path is null)
 				return true;
 
 			if (wildCardsAreInvalidToo)
@@ -495,7 +495,7 @@ namespace NetStd.Goodies.Mar2022
 		/// <exception cref="System.ArgumentException">throws Argument_InvalidPathChars if path contains invalid characters</exception>
 		private static void CheckInvalidPathChars(string path, bool wildCardsAreInvalidToo = false)
 		{
-			if (path == null)
+			if (path is null)
 				throw new ArgumentNullException(nameof(path));
 
 			if (HasIllegalPathCharacters(path, wildCardsAreInvalidToo))

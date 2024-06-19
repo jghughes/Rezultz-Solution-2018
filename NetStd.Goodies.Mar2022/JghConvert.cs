@@ -9,7 +9,7 @@ namespace NetStd.Goodies.Mar2022
     {
         public static byte[] ToBytesUtf8FromString(string theString)
         {
-            if (theString == null) return null;
+            if (theString is null) return null;
 
             const string failure = "Unable to convert string into bytes.";
             const string locus = "[TransformStringToBytesUtf8]";
@@ -38,7 +38,7 @@ namespace NetStd.Goodies.Mar2022
 
         public static string ToStringFromUtf8Bytes(byte[] utf8EncodedBytes)
         {
-            if (utf8EncodedBytes == null) return null;
+            if (utf8EncodedBytes is null) return null;
 
             const string failure = "Unable to convert bytes into string.";
             const string locus = "[ToStringFromUtf8Bytes]";

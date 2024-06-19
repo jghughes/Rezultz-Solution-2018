@@ -16,8 +16,8 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>False if either collection is null or any item in either collection isn't contained in the other.</returns>
         public static bool AreTheSame<T>(IEnumerable<T> collectionA, IEnumerable<T> collectionB)
         {
-            if (collectionA == null) return false;
-            if (collectionB == null) return false;
+            if (collectionA is null) return false;
+            if (collectionB is null) return false;
 
             var copyA = collectionA.ToArray();
             var copyB = collectionB.ToArray();
@@ -39,8 +39,8 @@ namespace NetStd.Goodies.Mar2022
         /// <returns>False if either collection is null or any item in either collection isn't contained in the other.</returns>
         public static bool IsCopyOf<T>(IEnumerable<T> collectionA, IEnumerable<T> collectionB, IEqualityComparer<T> comparer)
         {
-            if (collectionA == null) return false;
-            if (collectionB == null) return false;
+            if (collectionA is null) return false;
+            if (collectionB is null) return false;
 
             var copyA = collectionA.ToArray();
             var copyB = collectionB.ToArray();
@@ -63,7 +63,7 @@ namespace NetStd.Goodies.Mar2022
 	        //var answer = longList.Reverse().Take(DesiredLengthOfShortListOfLastItems).Reverse().ToList();
 
 
-	        if (items == null)
+	        if (items is null)
 	        {
 		        return [];
 	        }
