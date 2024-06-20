@@ -55,9 +55,24 @@ public class JghMapper
 
             foreach (var name in associatedDataNames)
             {
-                if (name.Contains(' ')) continue; // blanks in XML names are prohibited - only the hexadecimal equivalent of blanks _x0020_ is allowed. Access automatically switches blanks with their heaxadecimal equivalent, Excel does not.
 
-                var childElement = _xElementBeingMapped.Element(name); // blows up if name contains a blank
+                XName kosherName;
+
+                try
+                {
+
+                    kosherName = XName.Get(name, string.Empty);
+                    // many different characters are forbidden in XNames, hence the need to skip the name if XName.Get() blows up.
+                    // Forbidden characters include common characters such as spaces,:,#,!,@,*,(,),/, \
+                    // Access automatically replaces forbidden characters with their hexadecimal characters when exporting a worksheet as xml, but Excel does not when exporting csv. Anyone's guess what a user might do.
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+
+
+                var childElement = _xElementBeingMapped.Element(kosherName); // blows up if name contains a blank
 
                 if (childElement is null) continue;
 

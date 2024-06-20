@@ -76,8 +76,8 @@ internal class Program
 
             #region confirm existence of participantHubItems .json file from portal
 
-            // NB: be sure that this file is totally up to date. changes are being made daily!
-            
+            // NB: be sure that this file is totally up-to-date. changes are being made daily!
+
             var path = Path.Combine(FolderContainingParticipantMasterListExportedFromRezultzPortal, FilenameOfParticipantMasterListExportedFromRezultzPortal);
 
             var portalParticipantFileInfo = new FileInfo(path);
@@ -92,7 +92,6 @@ internal class Program
             #endregion
 
             #region deserialise participantHubItems from .json file from Portal
-
 
             try
             {
@@ -204,7 +203,7 @@ internal class Program
 
             var defectiveEntriesInPoints = dictionaryOfParticipantsInKelsoSeriesPointsSpreadsheetsKeyedByBib.FindAllValues(z => z.IsDefective).OrderBy(z => z.RaceGroup).ThenBy(z => z.Bib).ToArray();
 
-            console.WriteLine($"Defective entries in Points: {defectiveEntriesInPoints.Length}");
+            console.WriteLinePrecededByOne($"DEFECTS in SERIESPOINTS spreadsheets: {defectiveEntriesInPoints.Length}");
 
             PrintPeople(defectiveEntriesInPoints);
 
@@ -220,16 +219,14 @@ internal class Program
                 .ToArray();
 
 
-            console.WriteLinePrecededByOne($"Bibs allocated by mistake in multiple categories in the Portal: {bibsAllocatedMoreThanOnceInPortal.Length}");
+            console.WriteLinePrecededByOne($"BIBS in PORTAL in more than one category (regrades, or possible errors): {bibsAllocatedMoreThanOnceInPortal.Length}");
 
             foreach (var bib in bibsAllocatedMoreThanOnceInPortal)
             {
                 var people = dictionaryOfParticipantsInPortalMasterListKeyedByBib[bib].Where(z => z is not null).ToArray();
 
-                var firstPerson = people.First();
-                console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FirstName} {firstPerson.FirstName} {firstPerson.BirthYear} ");
-                foreach (var person in people) console.Write($"/({person.RaceGroupBeforeTransition} {person.RaceGroupAfterTransition})");
-
+                foreach (var person in people)
+                    console.Write($"{JghString.LeftAlign(person.Bib, LhsWidthTiny)} {person.FirstName} {person.LastName} {person.BirthYear} ({person.RaceGroupBeforeTransition}->{person.RaceGroupAfterTransition})");
                 console.WriteLine();
             }
 
@@ -240,15 +237,28 @@ internal class Program
                 .Select(z => z.Key)
                 .ToArray();
 
-            console.WriteLinePrecededByOne($"Bibs allocated by mistake in multiple categories in Points: {bibsAllocatedMoreThanOnceInPoints.Length}");
+            console.WriteLinePrecededByOne($"BIBS in SERIESPOINTS spreadsheets in more than one category (regrades, or possible errors): {bibsAllocatedMoreThanOnceInPoints.Length}");
 
-            foreach (var bib in bibsAllocatedMoreThanOnceInPoints.Where(z => !string.IsNullOrWhiteSpace(z)))
+            foreach (var bib in bibsAllocatedMoreThanOnceInPoints)
             {
                 var people = dictionaryOfParticipantsInKelsoSeriesPointsSpreadsheetsKeyedByBib[bib].Where(z => z is not null).ToArray();
-                var firstPerson = people.First();
 
-                console.Write($"{JghString.LeftAlign(firstPerson.Bib, LhsWidthTiny)} {firstPerson.FullName} {firstPerson.Age} ");
-                foreach (var person in people) console.Write($"/{person.RaceGroup}");
+                var j = 0;
+
+                foreach (var person in people)
+                {
+                    switch (j)
+                    {
+                        case 0:
+                            console.Write($"{JghString.LeftAlign(person.Bib, LhsWidthTiny)} {person.FullName} {person.Age} {person.RaceGroup}");
+                            break;
+                        case > 0:
+                            console.Write($"/{person.RaceGroup}");
+                            break;
+                    }
+
+                    j++;
+                }
 
                 console.WriteLine();
             }
@@ -274,7 +284,7 @@ internal class Program
                 .Select(z => z.Key)
                 .ToArray();
 
-            console.WriteLinePrecededByOne($"Names mistakenly appearing in multiple locations in the Portal: {namesAllocatedMoreThanOnceInPortal.Length}");
+            console.WriteLinePrecededByOne($"NAMES in PORTAL in more than one category (errors): {namesAllocatedMoreThanOnceInPortal.Length}");
 
             foreach (var key in namesAllocatedMoreThanOnceInPortal) PrintPeople(participantsInPortalKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
 
@@ -295,7 +305,7 @@ internal class Program
                 .Select(z => z.Key)
                 .ToArray();
 
-            console.WriteLinePrecededByOne($"Names mistakenly appearing in multiple locations in Points - possibly across multiple categories (see above): {namesAllocatedMoreThanOnceInPoints.Length}");
+            console.WriteLinePrecededByOne($"NAMES in SERIESPOINTS spreadsheets in more than one category (regrades, or possible errors): {namesAllocatedMoreThanOnceInPoints.Length}");
 
             foreach (var key in namesAllocatedMoreThanOnceInPoints) PrintPeople(participantsInPortalKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
 
@@ -331,12 +341,12 @@ internal class Program
                 }
             }
 
-            console.WriteLinePrecededByOne($"Names common to Portal and Points with conflicting Bibs: {i}");
+            console.WriteLinePrecededByOne($"BIBS CONFLICTS between PORTAL and POINTS: {i}");
             console.WriteLine(sb.ToString());
 
             #endregion
 
-            #region list of 'missing' persons (comparatively speaking)
+            #region analyse 'missing' persons
 
             var seriesEntriesInPortal = dictionaryOfParticipantsInPortalMasterListKeyedByBib.FindAllValues(z => z.IsSeries).ToArray();
             var seriesEntriesWithPoints = dictionaryOfParticipantsInKelsoSeriesPointsSpreadsheetsKeyedByBib.FindAllValues(z => z.IsSeries).ToArray(); // tedious long way round. ha ha
@@ -344,20 +354,15 @@ internal class Program
             var allSeriesBibsInPortal = dictionaryOfParticipantsInPortalMasterListKeyedByBib.Keys.ToArray();
             var allSeriesBibsInPoints = dictionaryOfParticipantsInKelsoSeriesPointsSpreadsheetsKeyedByBib.Keys.ToArray();
 
-            //console.WriteLine();
-
-            //console.WriteLine($"Participants in the portal (series only): {seriesEntriesInPortal.Count()}");
-            //console.WriteLine($"Participants in the points master lists: {seriesEntriesWithPoints.Count()}");
-
             var missingBibsInPortal = allSeriesBibsInPoints.Except(allSeriesBibsInPortal).Except(conflictedBibsInPoints).ToList();
             var missingBibsInPoints = allSeriesBibsInPortal.Except(allSeriesBibsInPoints).Except(conflictedBibsInPortal).ToList();
 
             var peopleWithPointsWhoAreMissingInPortal = seriesEntriesWithPoints.Where(z => missingBibsInPortal.Contains(z.Bib)).Where(z => !z.IsDefective).ToArray();
-            console.WriteLinePrecededByOne($"There are people in the points master lists who need to be added to the portal: {peopleWithPointsWhoAreMissingInPortal.Length}");
+            console.WriteLinePrecededByOne($"PORTAL MISSING people: {peopleWithPointsWhoAreMissingInPortal.Length}");
             PrintPeople(peopleWithPointsWhoAreMissingInPortal);
 
             var seriesParticipantsInPortalWhoAreMissingInPoints = seriesEntriesInPortal.Where(z => missingBibsInPoints.Contains(z.Bib)).ToArray();
-            console.WriteLinePrecededByOne($"There are people in the Portal who need to be added to the points master lists: {seriesParticipantsInPortalWhoAreMissingInPoints.Length}");
+            console.WriteLinePrecededByOne($"SERIESPOINTS spreadsheets MISSING people: {seriesParticipantsInPortalWhoAreMissingInPoints.Length}");
             PrintPeople(seriesParticipantsInPortalWhoAreMissingInPoints);
 
             #endregion
@@ -428,8 +433,8 @@ internal class Program
         {
             ParticipantWithSeriesPoints item;
 
-            item = MustProcessXmlUsingSystemXmlSerializerNotJghMapper 
-                ? DeserialiseXmlToParticipantUsingSystemXmlSerializer(repeatXe)  // try out system deserialiser - not recommended
+            item = MustProcessXmlUsingSystemXmlSerializerNotJghMapper
+                ? DeserialiseXmlToParticipantUsingSystemXmlSerializer(repeatXe) // try out system deserialiser - not recommended
                 : DeserialiseXmlToParticipantUsingJghMapper(repeatXe); // use custom mapper - strongly recommended because is more versatile and robust and less easily flummoxed
 
             seriesParticipants.Add(item);
