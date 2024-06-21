@@ -269,52 +269,52 @@ internal class Program
 
             // portal
 
-            JghListDictionary<string, ParticipantHubItem> participantsInPortalKeyedByNameDictionary = [];
+            JghListDictionary<string, ParticipantHubItem> participantsInPortalMaterListKeyedByNameDictionary = [];
 
             foreach (var person in dictionaryOfParticipantsInPortalMasterListKeyedByBib.FindAllValues(z => z.IsSeries))
             {
                 var key = JghString.TmLr(JghString.Remove(' ', JghString.Concat(person.FirstName, person.LastName)));
 
                 if (!string.IsNullOrWhiteSpace(key))
-                    participantsInPortalKeyedByNameDictionary.Add(key, person);
+                    participantsInPortalMaterListKeyedByNameDictionary.Add(key, person);
             }
 
-            var namesAllocatedMoreThanOnceInPortal = participantsInPortalKeyedByNameDictionary
+            var namesAllocatedMoreThanOnceInPortal = participantsInPortalMaterListKeyedByNameDictionary
                 .Where(z => z.Value.Count > 1)
                 .Select(z => z.Key)
                 .ToArray();
 
             console.WriteLinePrecededByOne($"NAMES in PORTAL in more than one category (errors): {namesAllocatedMoreThanOnceInPortal.Length}");
 
-            foreach (var key in namesAllocatedMoreThanOnceInPortal) PrintPeople(participantsInPortalKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
+            foreach (var key in namesAllocatedMoreThanOnceInPortal) PrintPeople(participantsInPortalMaterListKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
 
             //points
 
-            JghListDictionary<string, ParticipantWithSeriesPoints> participantsWithPointsKeyedByNameDictionary = [];
+            JghListDictionary<string, ParticipantWithSeriesPoints> participantsInKelsoSeriesPointsKeyedByNameDictionary = [];
 
             foreach (var person in dictionaryOfParticipantsInKelsoSeriesPointsSpreadsheetsKeyedByBib.FindAllValues(z => z.IsSeries))
             {
                 var key = JghString.TmLr(JghString.Remove(' ', person.FullName));
 
                 if (!string.IsNullOrWhiteSpace(key))
-                    participantsWithPointsKeyedByNameDictionary.Add(key, person);
+                    participantsInKelsoSeriesPointsKeyedByNameDictionary.Add(key, person);
             }
 
-            var namesAllocatedMoreThanOnceInPoints = participantsWithPointsKeyedByNameDictionary
+            var namesAllocatedMoreThanOnceInPoints = participantsInKelsoSeriesPointsKeyedByNameDictionary
                 .Where(z => z.Value.Count > 1)
                 .Select(z => z.Key)
                 .ToArray();
 
             console.WriteLinePrecededByOne($"NAMES in SERIESPOINTS spreadsheets in more than one category (regrades, or possible errors): {namesAllocatedMoreThanOnceInPoints.Length}");
 
-            foreach (var key in namesAllocatedMoreThanOnceInPoints) PrintPeople(participantsInPortalKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
+            foreach (var key in namesAllocatedMoreThanOnceInPoints) PrintPeople(participantsInPortalMaterListKeyedByNameDictionary.FindAllValuesByKey(z => z == key));
 
             #endregion
 
             #region analyse names in both portal and points, but only those who have conflicting bibs
 
-            var allNameKeysInPortal = participantsInPortalKeyedByNameDictionary.Keys.ToList();
-            var allNameKeysInPoints = participantsWithPointsKeyedByNameDictionary.Keys.ToList();
+            var allNameKeysInPortal = participantsInPortalMaterListKeyedByNameDictionary.Keys.ToList();
+            var allNameKeysInPoints = participantsInKelsoSeriesPointsKeyedByNameDictionary.Keys.ToList();
 
             var distinctNameKeysInBothPortalAndPoints = allNameKeysInPortal.Intersect(allNameKeysInPoints).Distinct().ToArray();
 
@@ -327,8 +327,8 @@ internal class Program
 
             foreach (var key in distinctNameKeysInBothPortalAndPoints)
             {
-                var personInPortal = participantsInPortalKeyedByNameDictionary[key].FirstOrDefault();
-                var personInPoints = participantsWithPointsKeyedByNameDictionary[key].FirstOrDefault();
+                var personInPortal = participantsInPortalMaterListKeyedByNameDictionary[key].FirstOrDefault();
+                var personInPoints = participantsInKelsoSeriesPointsKeyedByNameDictionary[key].FirstOrDefault();
 
                 if (personInPortal is not null && personInPoints is not null && personInPortal.Bib != personInPoints.Bib)
                 {
@@ -347,38 +347,35 @@ internal class Program
             #endregion
 
 
-            #region analyse names in both portal and points, but only those who have conflicting RaceGroups
+            #region analyse names in both portal and points, but only those who have conflicting categories
 
-            var allNameKeysInPortal = participantsInPortalKeyedByNameDictionary.Keys.ToList();
-            var allNameKeysInPoints = participantsWithPointsKeyedByNameDictionary.Keys.ToList();
+            List<string> conflictedNamesInPortal = [];
+            List<string> conflictedNamesInPoints = [];
 
-            var distinctNameKeysInBothPortalAndPoints = allNameKeysInPortal.Intersect(allNameKeysInPoints).Distinct().ToArray();
+            JghStringBuilder sb2 = new();
 
-            List<string> conflictedBibsInPortal = [];
-            List<string> conflictedBibsInPoints = [];
-
-            JghStringBuilder sb = new();
-
-            var i = 0;
+            var i2 = 0;
 
             foreach (var key in distinctNameKeysInBothPortalAndPoints)
             {
-                var personInPortal = participantsInPortalKeyedByNameDictionary[key].FirstOrDefault();
-                var personInPoints = participantsWithPointsKeyedByNameDictionary[key].FirstOrDefault();
+                var personInPortal = participantsInPortalMaterListKeyedByNameDictionary[key].FirstOrDefault();
+                var personInPoints = participantsInKelsoSeriesPointsKeyedByNameDictionary[key].FirstOrDefault();
 
-                if (personInPortal is not null && personInPoints is not null && personInPortal.Bib != personInPoints.Bib)
+                var registeredRaceGroupInPortal = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(personInPortal), DateOfThisEvent);
+
+                if (personInPortal is not null && personInPoints is not null && registeredRaceGroupInPortal != personInPoints.RaceGroup)
                 {
-                    sb.AppendLine(
-                        $"Bib: Portal-Points={JghString.LeftAlign($"{personInPortal.Bib}-{personInPoints.Bib}", LhsWidthSmall)} {personInPoints.FullName}  RaceGroup: Portal/Points=({personInPortal.RaceGroupBeforeTransition}->{personInPortal.RaceGroupAfterTransition})/{personInPoints.RaceGroup}");
+                    sb2.AppendLine(
+                        $"Bib: RegisteredForSeriesInPortal/MyLaps={JghString.LeftAlign($"{personInPortal.Bib}-{personInPoints.Bib}", LhsWidthSmall)} {personInPoints.FullName}  RaceGroup: RegisteredForSeriesInPortal/MyLaps=({registeredRaceGroupInPortal})/{personInPoints.RaceGroup}");
 
-                    conflictedBibsInPortal.Add(personInPortal.Bib);
-                    conflictedBibsInPoints.Add(personInPoints.Bib);
-                    i += 1;
+                    conflictedNamesInPortal.Add(personInPortal.Bib);
+                    conflictedNamesInPoints.Add(personInPoints.Bib);
+                    i2 += 1;
                 }
             }
 
-            console.WriteLinePrecededByOne($"BIBS CONFLICTS between PORTAL and POINTS: {i}");
-            console.WriteLine(sb.ToString());
+            console.WriteLinePrecededByOne($"CATEGORY CONFLICTS between registered series category (in Portal master list) and Andrew's series points lists based on MyLaps: {i2}");
+            console.WriteLine(sb2.ToString());
 
             #endregion
 
@@ -392,8 +389,8 @@ internal class Program
             var allSeriesBibsInPortal = dictionaryOfParticipantsInPortalMasterListKeyedByBib.Keys.ToArray();
             var allSeriesBibsInPoints = dictionaryOfParticipantsInKelsoSeriesPointsSpreadsheetsKeyedByBib.Keys.ToArray();
 
-            var missingBibsInPortal = allSeriesBibsInPoints.Except(allSeriesBibsInPortal).Except(conflictedBibsInPoints).ToList();
-            var missingBibsInPoints = allSeriesBibsInPortal.Except(allSeriesBibsInPoints).Except(conflictedBibsInPortal).ToList();
+            var missingBibsInPortal = allSeriesBibsInPoints.Except(allSeriesBibsInPortal).Except(conflictedNamesInPoints).ToList();
+            var missingBibsInPoints = allSeriesBibsInPortal.Except(allSeriesBibsInPoints).Except(conflictedNamesInPortal).ToList();
 
             var peopleWithPointsWhoAreMissingInPortal = seriesEntriesWithPoints.Where(z => missingBibsInPortal.Contains(z.Bib)).Where(z => !z.IsDefective).ToArray();
             console.WriteLinePrecededByOne($"PORTAL MISSING people: {peopleWithPointsWhoAreMissingInPortal.Length}");
@@ -560,9 +557,11 @@ internal class Program
 
     private const bool MustProcessXmlUsingSystemXmlSerializerNotJghMapper = true;
 
+    private static readonly DateTime DateOfThisEvent = new(2024, 6, 18); // R5 June 18
+
     private const string FilenameOfDiagnosticReport = @"ParticipantMasterListDiagnosticReport.txt";
 
-    private const string FolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbSeriesPoints\";
+    private const string FolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\";
 
     private const string FolderContainingKelsoSeriesPointsFilesFromAndrewAsCsv = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbSeriesPoints\ExportedAsCsv\"; // for csv data
 
@@ -966,6 +965,34 @@ internal class Program
 
         #endregion
     }
+
+    public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
+    {
+        var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;
+
+        string answerAsRaceGroup;
+
+        if (isTransitionalParticipant)
+        {
+            if (DateTime.TryParse(participantItem.DateOfRaceGroupTransitionAsString, out var dateOfTransition))
+            {
+                var eventIsBeforeRaceGroupTransition = dateOfEvent < dateOfTransition;
+
+                answerAsRaceGroup = eventIsBeforeRaceGroupTransition ? participantItem.RaceGroupBeforeTransition : participantItem.RaceGroupAfterTransition;
+
+                return answerAsRaceGroup;
+            }
+
+            answerAsRaceGroup = participantItem.RaceGroupBeforeTransition;
+        }
+        else
+        {
+            answerAsRaceGroup = participantItem.RaceGroupBeforeTransition;
+        }
+
+        return answerAsRaceGroup;
+    }
+
 
     #endregion
 }
