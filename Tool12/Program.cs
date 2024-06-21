@@ -346,6 +346,44 @@ internal class Program
 
             #endregion
 
+
+            #region analyse names in both portal and points, but only those who have conflicting RaceGroups
+
+            var allNameKeysInPortal = participantsInPortalKeyedByNameDictionary.Keys.ToList();
+            var allNameKeysInPoints = participantsWithPointsKeyedByNameDictionary.Keys.ToList();
+
+            var distinctNameKeysInBothPortalAndPoints = allNameKeysInPortal.Intersect(allNameKeysInPoints).Distinct().ToArray();
+
+            List<string> conflictedBibsInPortal = [];
+            List<string> conflictedBibsInPoints = [];
+
+            JghStringBuilder sb = new();
+
+            var i = 0;
+
+            foreach (var key in distinctNameKeysInBothPortalAndPoints)
+            {
+                var personInPortal = participantsInPortalKeyedByNameDictionary[key].FirstOrDefault();
+                var personInPoints = participantsWithPointsKeyedByNameDictionary[key].FirstOrDefault();
+
+                if (personInPortal is not null && personInPoints is not null && personInPortal.Bib != personInPoints.Bib)
+                {
+                    sb.AppendLine(
+                        $"Bib: Portal-Points={JghString.LeftAlign($"{personInPortal.Bib}-{personInPoints.Bib}", LhsWidthSmall)} {personInPoints.FullName}  RaceGroup: Portal/Points=({personInPortal.RaceGroupBeforeTransition}->{personInPortal.RaceGroupAfterTransition})/{personInPoints.RaceGroup}");
+
+                    conflictedBibsInPortal.Add(personInPortal.Bib);
+                    conflictedBibsInPoints.Add(personInPoints.Bib);
+                    i += 1;
+                }
+            }
+
+            console.WriteLinePrecededByOne($"BIBS CONFLICTS between PORTAL and POINTS: {i}");
+            console.WriteLine(sb.ToString());
+
+            #endregion
+
+
+
             #region analyse 'missing' persons
 
             var seriesEntriesInPortal = dictionaryOfParticipantsInPortalMasterListKeyedByBib.FindAllValues(z => z.IsSeries).ToArray();

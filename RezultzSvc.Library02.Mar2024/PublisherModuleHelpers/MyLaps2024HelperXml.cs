@@ -96,7 +96,6 @@ public class MyLaps2024HelperXml
                     City = participantHubItem.City,
                     Team = participantHubItem.Team,
                     IsSeries = participantHubItem.IsSeries,
-                    RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
                 };
             }
             else
@@ -107,13 +106,21 @@ public class MyLaps2024HelperXml
                     LastName = GetTmlrValueOfXElementOrStringEmpty(SrcXeFullName, thisRepeatingChildElement),
                     Gender = GetTmlrValueOfXElementOrStringEmpty(SrcXeGender, thisRepeatingChildElement),
                     Age = JghConvert.ToInt32(GetTmlrValueOfXElementOrStringEmpty(SrcXeAge, thisRepeatingChildElement)),
-                    RaceGroup = GetTmlrValueOfXElementOrStringEmpty(SrcXeRaceGroup, thisRepeatingChildElement),
                     IsSeries = false // no option but to assume this. play safe
                 };
 
                 conversionReportSb.AppendLine(
                     $"Warning! Participant database on the hub fails to contain a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>.");
             }
+
+            // Note: the following is a bit of a hack. we are using the RaceGroup field to store the RaceGroup value from the MyLaps file. Only if it is empty do we fall back on the RaceGroup field in the hub.
+
+            var preferredRaceGroup = GetTmlrValueOfXElementOrStringEmpty(SrcXeRaceGroup, thisRepeatingChildElement);
+
+            thisRepeatingResultItem.RaceGroup = string.IsNullOrWhiteSpace(preferredRaceGroup) 
+                ? FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent) 
+                : preferredRaceGroup;
+
 
             #endregion
 

@@ -112,12 +112,12 @@ public class MyLaps2024HelperCsv
 
             #region if can see a bib number in the .csv, try find the matching participant in the master list that was uploaded a moment ago in the portal by the user (having been generated from the hub)
 
-            ParticipantHubItem discoveredParticipantHubItem = null;
+            ParticipantHubItem participantHubItem = null;
 
             var participantIsDiscovered = false;
 
             if (dictionaryOfParticipants is not null)
-                participantIsDiscovered = dictionaryOfParticipants.TryGetValue(bibOfThiRepeatingRow, out discoveredParticipantHubItem);
+                participantIsDiscovered = dictionaryOfParticipants.TryGetValue(bibOfThiRepeatingRow, out participantHubItem);
 
             #endregion
 
@@ -125,21 +125,21 @@ public class MyLaps2024HelperCsv
 
             ResultItem thisRepeatingResultItem;
 
-            if (participantIsDiscovered && discoveredParticipantHubItem is not null)
+            if (participantIsDiscovered && participantHubItem is not null)
             {
                 thisRepeatingResultItem = new ResultItem
                 {
-                    Bib = discoveredParticipantHubItem.Bib,
-                    FirstName = discoveredParticipantHubItem.FirstName,
-                    LastName = discoveredParticipantHubItem.LastName,
-                    MiddleInitial = discoveredParticipantHubItem.MiddleInitial,
-                    Gender = discoveredParticipantHubItem.Gender,
-                    Age = ParticipantDatabase.ToAgeFromBirthYear(discoveredParticipantHubItem.BirthYear),
-                    AgeGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(discoveredParticipantHubItem.BirthYear, ageGroupSpecificationItems),
-                    City = discoveredParticipantHubItem.City,
-                    Team = discoveredParticipantHubItem.Team,
-                    IsSeries = discoveredParticipantHubItem.IsSeries,
-                    RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(discoveredParticipantHubItem), dateOfThisEvent)
+                    Bib = participantHubItem.Bib,
+                    FirstName = participantHubItem.FirstName,
+                    LastName = participantHubItem.LastName,
+                    MiddleInitial = participantHubItem.MiddleInitial,
+                    Gender = participantHubItem.Gender,
+                    Age = ParticipantDatabase.ToAgeFromBirthYear(participantHubItem.BirthYear),
+                    AgeGroup = ParticipantDatabase.ToAgeCategoryDescriptionFromBirthYear(participantHubItem.BirthYear, ageGroupSpecificationItems),
+                    City = participantHubItem.City,
+                    Team = participantHubItem.Team,
+                    IsSeries = participantHubItem.IsSeries,
+                    RaceGroup = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
                 };
             }
             else
@@ -160,6 +160,15 @@ public class MyLaps2024HelperCsv
                     conversionReportSb.AppendLine(
                         $"Warning! Participant master list fails to have a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>");
             }
+
+            // Note: the following is a bit of a hack. we are using the RaceGroup field to store the RaceGroup value from the MyLaps file. Only if it is empty do we fall back on the RaceGroup field in the hub.
+
+            var preferredRaceGroup = GetTextItemFromArrayByIndexOrStringEmpty(arrayOfDataInRow, indexOfRaceGroup);
+
+            thisRepeatingResultItem.RaceGroup = string.IsNullOrWhiteSpace(preferredRaceGroup)
+                ? FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
+                : preferredRaceGroup;
+
 
             #endregion
 

@@ -1,23 +1,20 @@
-﻿using Jgh.SymbolsStringsConstants.Mar2022;
-using NetStd.Goodies.Mar2022;
+﻿using NetStd.Goodies.Mar2022;
 using Rezultz.DataTransferObjects.Nov2023.Results;
 using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 
-namespace Tool09
+namespace Tool09;
+
+internal class Program
 {
-    internal class Program
-    {
-        private const string Description = "This console program (Tool09) reads files of MyLaps timing data and compares the electronic data from the timing mat to a (potentially totally different) set of timing data recorded in the timing tent using the Portal timing system. The purpose of doing this is to search for gaps in the data by means of comparison. Based on empirical experience, there are typically about ten anomalies in a Kelso event because the electronic mat misses people. The Portal timing team also misses people, but generallly fewer. The pipeline for this tool is that data is exported from MyLaps in Excel format, then exported from Excel in .csv format, and then finally imported into this tool as .csv and deserialised and analysed. Portal data is exported effortlessly by clicking the export button on the Portal Timing Tools screen.";
+    #region variables
 
-        #region variables
+    private static readonly PortalTimingSystemFileBeingAnalysedItem ResultsPortalTimingSystemFileBeingAnalysed = new();
 
-        private static readonly PortalTimingSystemFileBeingAnalysedItem ResultsPortalTimingSystemFileBeingAnalysed = new();
+    #endregion
 
-        #endregion
+    #region the MEAT
 
-        #region the MEAT
-
-        private static async Task Main()
+    private static async Task Main()
     {
         #region intro
 
@@ -86,7 +83,7 @@ namespace Tool09
             }
             catch (Exception ex)
             {
-                JghConsoleHelper.WriteLine("Deserialisation failure. Results from portal file not obtained: " + ex.Message);
+                JghConsoleHelper.WriteLine("Deserialisation failure. Results from file exported from Portal not obtained: " + ex.Message);
                 return;
             }
 
@@ -170,11 +167,11 @@ namespace Tool09
 
             #region report people that are listed in Results from Portal but not in MyLaps
 
-            JghConsoleHelper.WriteLineWrappedByOne("People in Portal Timing data, but missing in MyLaps data:");
+            JghConsoleHelper.WriteLineWrappedByOne("MYLAPS SPREADSHEETS MISSING finishers:");
 
             foreach (var kvp in dictionaryOfPortalTimingSystemResults)
             {
-                if (kvp.Value.Any(z=> !string.IsNullOrWhiteSpace(z.DnxString)))
+                if (kvp.Value.Any(z => !string.IsNullOrWhiteSpace(z.DnxString)))
                     continue; // skip people who have a DNF, DNS, etc.
 
                 if (dictionaryOfMyLapsTimingSystemResults.ContainsKey(kvp.Key)) continue; //todo: check for DNF, DNS, etc. (currently the data is not available in the MyLaps files)
@@ -187,10 +184,10 @@ namespace Tool09
             }
 
             #endregion
-
+            
             #region report people that are listed in Results from Portal but not in MyLaps
 
-            JghConsoleHelper.WriteLineWrappedByOne("People in MyLaps data, but missing in Portal Timing data:");
+            JghConsoleHelper.WriteLineWrappedByOne("PORTAL HUB MISSING finishers:");
 
             foreach (var kvp in dictionaryOfMyLapsTimingSystemResults)
             {
@@ -214,11 +211,11 @@ namespace Tool09
         }
     }
 
-        #endregion
+    #endregion
 
-        #region helper methods
+    #region helper methods
 
-        private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
+    private static void SaveWorkToHardDriveAsXml(string xmlAsText, string outPutFolder, string outPutFilename, int numberOfItems)
     {
         var pathOfFile = Path.Combine(outPutFolder, outPutFilename);
 
@@ -229,18 +226,27 @@ namespace Tool09
         JghConsoleHelper.WriteLine($"{JghString.LeftAlign("Items saved", 20)} : {numberOfItems}");
     }
 
-        #endregion
+    #endregion
 
-        #region constants
+    #region parameters
 
-        private const int LhsWidth = 53;
-        private const string RequiredInputFileFormat = "xml";
+    private const string Description = "This console program (Tool09) reads files of MyLaps timing data and compares the electronic data from the timing mat " +
+                                       "to a (potentially totally different) set of timing data recorded in the timing tent using the Portal timing system. " +
+                                       "The purpose of doing this is to search for gaps in the data by means of comparison. Based on empirical experience, there are " +
+                                       "typically about ten anomalies in a Kelso event because the electronic mat misses people. The Portal timing team also misses " +
+                                       "people, but generallly fewer. The pipeline for this tool is that data is exported from MyLaps in Excel format, then exported " +
+                                       "from Excel in .csv format, and then finally imported into this tool as .csv and deserialised and analysed. Portal data is exported " +
+                                       "effortlessly by clicking the export button on the Portal Timing Tools screen.";
 
-        private const string InputFolderOfSplitIntervalsFromPortal = InputFolderFromMyLaps;
-        private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\H1E3versionExcelFlex\H1E3versionCsvFlex\";
+    private const int LhsWidth = 53;
 
-        private const string NameOfPortalRezultzFile = @"2024-06-07T16-15-19+DraftResultsForLeaderboard.xml";
+    private const string RequiredInputFileFormat = "xml";
 
-        #endregion
-    }
+    private const string InputFolderFromMyLaps = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R5 June 18\ExportedAsCsv\";
+
+    private const string InputFolderOfSplitIntervalsFromPortal = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R5 June 18\";
+
+    private const string NameOfPortalRezultzFile = @"2024-06-20T14-25-11+DraftResultsForLeaderboard.xml";
+
+    #endregion
 }

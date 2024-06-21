@@ -99,8 +99,6 @@ public static class AlgorithmForPointsV2
                      .Where(z => z.DerivedData is not null)
                      .Where(z => z.DerivedData.IsValidDuration = true))
         {
-            #region only required for cx. otherwise ignored. find the points scale as a precaution.
-
             double trophyPointsForThisRace = 0;
 
             Dictionary<int, double> pointsScaleAsDictionary = new();
@@ -135,7 +133,6 @@ public static class AlgorithmForPointsV2
                     }
                 }
 
-            #endregion
 
             dictionaryOfCalculatedPointsForAllFinishers[individualResult.Identifier] =
                 CalculatePointsForThisCompetitor(individualResult, algorithmForPointsEnum, trophyPointsForThisRace, pointsScaleAsDictionary, eventProfileToWhichThisRepositoryBelongs);
@@ -196,6 +193,9 @@ public static class AlgorithmForPointsV2
                 answer = 0;
                 break;
         }
+
+
+
 
         return answer;
     }
