@@ -25,7 +25,7 @@ public class MyLaps2024HelperCsv
 
     #region primary method
 
-    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile, Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, 
+    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile, Dictionary<string, ParticipantHubItem> dictionaryOfParticipants,
         AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent, JghStringBuilder conversionReportSb, int lhsWidth)
     {
         #region declarations
@@ -168,7 +168,6 @@ public class MyLaps2024HelperCsv
             thisRepeatingResultItem.RaceGroup = string.IsNullOrWhiteSpace(preferredRaceGroup)
                 ? FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
                 : preferredRaceGroup;
-
 
             #endregion
 
@@ -420,9 +419,10 @@ public class MyLaps2024HelperCsv
         string answer;
 
         if (string.IsNullOrWhiteSpace(inputDuration))
-            answer = $"{index,-3}  {resultItem.Bib,-3}  {resultItem.FirstName,-15} {resultItem.LastName,-15}  {resultItem.T01,-15}  {resultItem.DnxString,-3}";
+            answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}";
         else
-            answer = $"{index,-3}  {resultItem.Bib,-3}  {resultItem.FirstName,-15} {resultItem.LastName,-15}  {resultItem.T01,-15}  {resultItem.DnxString,-3}  ({inputDuration,-15})";
+            //answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}  {inputDuration,15})";
+            answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}";
 
         return answer;
     }

@@ -380,9 +380,10 @@ public class MyLaps2024HelperXml
         string answer;
 
         if (string.IsNullOrWhiteSpace(inputDuration))
-            answer = $"{index,-3}  {resultItem.Bib,-3}  {resultItem.FirstName,-15} {resultItem.LastName,-15}  {resultItem.T01,-15}  {resultItem.DnxString,-3}";
+            answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}";
         else
-            answer = $"{index,-3}  {resultItem.Bib,-3}  {resultItem.FirstName,-15} {resultItem.LastName,-15}  {resultItem.T01,-15}  {resultItem.DnxString,-3}  ({inputDuration,-15})";
+            //answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}  {inputDuration,15})";
+            answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}";
 
         return answer;
     }
