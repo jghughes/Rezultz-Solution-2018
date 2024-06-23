@@ -416,13 +416,9 @@ public class MyLaps2024HelperCsv
 
     public static string WriteOneLineReport(int index, ResultItem resultItem, string inputDuration)
     {
-        string answer;
-
-        if (string.IsNullOrWhiteSpace(inputDuration))
-            answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}";
-        else
-            //answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}  {inputDuration,15})";
-            answer = $"{index,3}  {resultItem.Bib,3}  {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,15}  {resultItem.DnxString,-3}";
+        var answer = string.IsNullOrWhiteSpace(inputDuration) 
+            ? $"{index,3} Bib: {resultItem.Bib,3} {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,-17} {resultItem.DnxString,3}" 
+            : $"{index,3} Bib: {resultItem.Bib,3} {$"{resultItem.FirstName} {resultItem.LastName}",-25} {resultItem.T01,-17} {resultItem.DnxString,3} Source value: {inputDuration,-17}";
 
         return answer;
     }

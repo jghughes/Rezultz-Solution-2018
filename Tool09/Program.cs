@@ -233,11 +233,13 @@ internal class Program
 
             #region report Bibs missing in Mylaps i.e. that are listed in Results from Portal but not in MyLaps
 
-            console.WriteLineWrappedByOne("MYLAPS TIMING SYSTEM MISSING finishers:");
+            JghStringBuilder sb = new();
+
+            var i = 0;
 
             foreach (var kvp in dictionaryOfPortalTimingSystemResultsKeyedByBib)
             {
-                if (kvp.Value.Any(z => !string.IsNullOrWhiteSpace(z.DnxString)))
+                if (kvp.Value.Any(z => (!string.IsNullOrWhiteSpace(z.DnxString))))
                     continue; // skip people who have a DNF, DNS, etc.
 
                 if (dictionaryOfMyLapsTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue; //todo: check for DNF, DNS, etc. (currently the data is not available in the MyLaps files)
@@ -246,17 +248,42 @@ internal class Program
 
                 if (person is null) continue;
 
-                console.WriteLine($"{$"Bib: Series={kvp.Key}", -15}  {$"{person.First}",10}  {$"{person.Last}", 15}  {$"Category: Series={person.RaceGroup}", -30}  {$"{person.T01}", 15}");
-                //sb2.AppendLine($"{$"Bib: Series/RaceDay={registeredSeriesParticipant.Bib}-{personInMyLapsTimingSystem.Bib}",-30} {$"{personInMyLapsTimingSystem.FullName}",-20} {$"Category: Series/RaceDay=({registeredRaceGroupOfSeriesParticipantInPortal})/{personInMyLapsTimingSystem.RaceGroup}",-50}");
+                sb.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{person.First} {person.Last}",-25}  {$"{person.T01}", 15}  IsSeries: {$"{person.IsSeries}", 5}  SeriesGroup: {person.RaceGroup}");
+
+                i += 1;
 
             }
+
+            console.WriteLineWrappedByOne($"MYLAPS TIMING SYSTEM: MISSING finishers: {i} (excluding Dnx outcomes in Portal)");
+
+            console.WriteLine(sb.ToString());
 
             #endregion
 
             #region report Bibs missing in Portal i.e. that are listed in Results from Portal but not in MyLaps
 
-            console.WriteLineWrappedByOne("PORTAL TIMING SYSTEM MISSING finishers:");
+            JghStringBuilder sb1 = new();
 
+            var j = 0;
+
+            foreach (var kvp in dictionaryOfMyLapsTimingSystemResultsKeyedByBib)
+            {
+               
+                if (dictionaryOfPortalTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue;
+
+                var person = kvp.Value.FirstOrDefault();
+
+                if (person is null) continue;
+
+                sb1.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{person.FullName}",-25} {$"{person.DurationAsString}",15}  RaceDayGroup: {person.RaceGroup}");
+
+                j += 1;
+
+            }
+
+            console.WriteLineWrappedByOne($"PORTAL TIMING SYSTEM: MISSING finishers: {j}");
+
+            console.WriteLine(sb1.ToString());
 
             #endregion
 
@@ -281,19 +308,20 @@ internal class Program
 
                 if (registeredRaceGroupOfSeriesParticipantInPortal == personInMyLapsTimingSystem.RaceGroup) continue;
 
-                sb2.AppendLine($"{$"Bib: Series/RaceDay={registeredSeriesParticipant.Bib}-{personInMyLapsTimingSystem.Bib}", -30} {$"{personInMyLapsTimingSystem.FullName}",-20} {$"Category: Series/RaceDay=({registeredRaceGroupOfSeriesParticipantInPortal})/{personInMyLapsTimingSystem.RaceGroup}",-50}"); 
+                sb2.AppendLine($"Bib: Series/RaceDay= {$"{registeredSeriesParticipant.Bib}-{personInMyLapsTimingSystem.Bib}", 8} {$"{personInMyLapsTimingSystem.FullName}",-25} Group: Series/RaceDay= {registeredRaceGroupOfSeriesParticipantInPortal}/{personInMyLapsTimingSystem.RaceGroup}"); 
                 
                 ii += 1;
             }
 
-            console.WriteLinePrecededByOne($"CATEGORY CONFLICTS between SeriesCategory and race-day category: {ii}");
+            console.WriteLineWrappedByOne($"CATEGORY CONFLICTS between SeriesGroup and RaceDayGroup: {ii}");
+
             console.WriteLine(sb2.ToString());
 
             #endregion
 
             #region wrap up
 
-            console.WriteLinePrecededByOne("Summary:");
+            console.WriteLineWrappedByOne("Diagnostic report:");
             var prettyFileName = JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileOfDiagnosticReport);
             SaveWorkToHardDrive(console.ToString(), FolderForDiagnosticReport, prettyFileName);
 
@@ -375,23 +403,20 @@ internal class Program
                                        "deserialised and analysed. Portal data is exported effortlessly by clicking the export button on the " +
                                        "Portal Timing Tools screen and exporting the data as timestamps consolidated into provisional results.";
 
-    private const int LhsWidthTiny = 5;
-    private const int LhsWidthSmall = 13;
     private const int LhsWidth = 40;
 
-    private static readonly DateTime DateOfThisEvent = new(2024, 6, 11); // R5 June 18
+    private static readonly DateTime DateOfThisEvent = new(2024, 5,14);
 
+    private const string FolderForCommonStuff = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R1 May 14\DiagnosticReport\";
+    private const string FolderForMyLapsTimingDataFiles = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R1 May 14\ExportedAsCsv\";
 
-    private const string FileOfParticipantMasterListFromPortal = @"2024-06-22T11-32-49+Participants.json";
-    private const string FolderForParticipantMasterListFromPortal = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R4 June 11\DiagnosticReport\";
-
-    private const string FileOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-06-22T16-16-00+DraftResultsForLeaderboard.xml";
-    private const string FolderForSplitIntervalsFromPortal = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R4 June 11\DiagnosticReport\";
-
-    private const string FolderForMyLapsTimingDataFiles = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R4 June 11\ExportedAsCsv\";
+    private const string FolderForParticipantMasterListFromPortal = FolderForCommonStuff;
+    private const string FolderForSplitIntervalsFromPortal = FolderForCommonStuff;
+    private const string FolderForDiagnosticReport = FolderForCommonStuff;
 
     private const string FileOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport.txt";
-    private const string FolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R4 June 11\DiagnosticReport\\";
+    private const string FileOfParticipantMasterListFromPortal = @"2024-06-22T11-32-49+Participants.json";
+    private const string FileOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-06-23T12-27-14+DraftResultsForLeaderboard.xml";
 
     #endregion
 }
