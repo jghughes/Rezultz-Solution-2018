@@ -26,9 +26,9 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
 
         public bool IsExcludedFromSeriesPointsTotal { get; set; }
 
-        public bool MustRankGendersTogetherForPoints { get; set; }
+        public bool MustRankGendersTogetherForSeriesPoints { get; set; }
 
-        public bool MustExcludeNonSeriesParticipantsFromRankingForPoints { get; set; }
+        public bool MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints { get; set; }
 
         public DateTime AdvertisedDate { get; set; }
 
@@ -69,8 +69,8 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                     TxxColumnHeader = x.TxxColumnHeader,
                     HtmlDocumentNameForPostedResults = x.HtmlDocumentNameForPostedResults,
                     IsExcludedFromSeriesPointsTotal = x.EventIsExcludedFromSeriesPoints,
-                    MustRankGendersTogetherForPoints = x.MustRankGendersTogetherForPoints,
-                    MustExcludeNonSeriesParticipantsFromRankingForPoints = x.MustExcludeNonSeriesParticipantsFromRankingForPoints,
+                    MustRankGendersTogetherForSeriesPoints = x.MustRankGendersTogetherForPoints,
+                    MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints = x.MustExcludeNonSeriesParticipantsFromRankingForPoints,
                     EventSettingsItem = EventSettingsItem.FromDataTransferObject(x.EventSettings),
                     ResultItemsForEventAsPublished = ResultItem.FromDataTransferObject(x.PublishedResultsForEvent)
                 };
@@ -138,8 +138,8 @@ namespace Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems
                     TxxColumnHeader = x.TxxColumnHeader,
                     HtmlDocumentNameForPostedResults = x.HtmlDocumentNameForPostedResults,
                     EventIsExcludedFromSeriesPoints = x.IsExcludedFromSeriesPointsTotal,
-                    MustRankGendersTogetherForPoints = x.MustRankGendersTogetherForPoints,
-                    MustExcludeNonSeriesParticipantsFromRankingForPoints = x.MustExcludeNonSeriesParticipantsFromRankingForPoints,
+                    MustRankGendersTogetherForPoints = x.MustRankGendersTogetherForSeriesPoints,
+                    MustExcludeNonSeriesParticipantsFromRankingForPoints = x.MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints,
                     EventSettings = EventSettingsItem.ToDataTransferObject(x.EventSettingsItem),
                     PublishedResultsForEvent = ResultItem.ToDataTransferObject(x.ResultItemsForEventAsPublished)
                 };

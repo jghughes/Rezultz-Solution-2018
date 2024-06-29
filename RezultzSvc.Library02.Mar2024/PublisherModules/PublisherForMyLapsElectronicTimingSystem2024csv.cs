@@ -80,7 +80,7 @@ public class PublisherForMyLapsElectronicTimingSystem2024Csv : PublisherBase
         JghStringBuilder conversionReportSb = new();
         conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
-        List<MyLapsFile> myLapsFiles = [];
+        List<MyLapsFileItem> myLapsFiles = [];
 
         List<ResultItem> allComputedResultItems = [];
 
@@ -127,7 +127,7 @@ public class PublisherForMyLapsElectronicTimingSystem2024Csv : PublisherBase
 
                 conversionReportSb.AppendLine($"MyLaps file found. <{target.EntityName}>");
 
-                myLapsFiles.Add(new MyLapsFile(IdentifierOfDatasetOfMyLapsTimingData, target.EntityName, myLapsTimingDataAsString));
+                myLapsFiles.Add(new MyLapsFileItem(IdentifierOfDatasetOfMyLapsTimingData, target.EntityName, myLapsTimingDataAsString));
             }
 
             #endregion

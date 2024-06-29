@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
 using NetStd.Interfaces01.July2018.HasProperty;
@@ -100,6 +101,10 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public string T15 { get; set; } = string.Empty;
 
+        public bool MustOverrideSeriesPoints { get; set; }
+
+        public string Comment { get; set; } = string.Empty;
+
         public DerivedDataItem DerivedData { get; set; } = new();
 
         public int ScratchPadIndex { get; set; } // foreign key linking to each event for calculating series points
@@ -150,6 +155,8 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                     T13 = JghTimeSpan.ToDurationOrDnxV2(x.T13, x.DnxString),
                     T14 = JghTimeSpan.ToDurationOrDnxV2(x.T14, x.DnxString),
                     T15 = JghTimeSpan.ToDurationOrDnxV2(x.T15, x.DnxString),
+                    MustOverrideSeriesPoints = x.MustOverrideSeriesPoints,
+                    Comment = JghString.TmLr(x.Comment),
                 };
 
                 return answer;
@@ -231,6 +238,8 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                     T13 = JghTimeSpan.ToDurationOrDnx(x.T13, x.DnxString),
                     T14 = JghTimeSpan.ToDurationOrDnx(x.T14, x.DnxString),
                     T15 = JghTimeSpan.ToDurationOrDnx(x.T15, x.DnxString),
+                    MustOverrideSeriesPoints = x.MustOverrideSeriesPoints,
+                    Comment = JghString.TmLr(x.Comment)
                 };
 
                 return answer;

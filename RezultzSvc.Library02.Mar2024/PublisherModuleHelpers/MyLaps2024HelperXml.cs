@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using Jgh.SymbolsStringsConstants.Mar2022;
 using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Goodies.Mar2022;
+using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using Rezultz.DataTypes.Nov2023.RezultzItems;
@@ -21,72 +22,106 @@ public class MyLaps2024HelperXml
 {
     #region primary method
 
-    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFile myLapsFile,
-        Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent,
-        JghStringBuilder conversionReportSb, int lhsWidth)
+    public static List<ResultItem> GenerateResultItemArrayFromMyLapsFile(MyLapsFileItem myLapsFileItem, Dictionary<string, ParticipantHubItem> dictionaryOfParticipants, 
+        AgeGroupSpecificationItem[] ageGroupSpecificationItems, DateTime dateOfThisEvent, JghStringBuilder conversionReportSb, int lhsWidth)
     {
         #region declarations
 
         var i = 0;
 
-        var durationAsPossiblyNastyString = string.Empty;
-
         List<ResultItem> answerAsResultItems = [];
 
         #endregion
 
-        #region try parse file contents as .xml
+        #region try parse file contents as single XElement container
 
-        var fileContentsAsXElement = XElement.Parse(myLapsFile.FileContents); // will blow if parsing fails
+        var fileContentsAsXElement = XElement.Parse(myLapsFileItem.FileContents); // will blow if parsing fails
 
-        var repeatingChildElements = fileContentsAsXElement.Elements().ToArray(); // Note: this returns the first level children i.e. all the individual MyLaps line items
+        var repeatingXElementsInFileContents = fileContentsAsXElement.Elements().ToArray(); // Note: this returns the first level children i.e. all the individual MyLaps line items
 
-        // bale if we don't have any data rows
-        if (!repeatingChildElements.Any())
-            return answerAsResultItems;
+       if (!repeatingXElementsInFileContents.Any())
+            return []; // bale if we don't have any data rows
 
         #endregion
 
-        #region process all the line items in the .xml file
+        #region deserialise all the repeating child XElements in the parent XElement
 
-        conversionReportSb.AppendLine($"{JghString.LeftAlign("MyLaps line items extracted", lhsWidth)} : {repeatingChildElements.Length}");
+        conversionReportSb.AppendLine($"{JghString.LeftAlign("MyLaps line-item XElements extracted", lhsWidth)} : {repeatingXElementsInFileContents.Length}");
 
-        conversionReportSb.AppendLine("Processing line items one by one.");
+        conversionReportSb.AppendLine("Processing repeating child XElements in XML file...");
 
-        foreach (var thisRepeatingChildElement in repeatingChildElements)
+        var deserialiser = new JghFreeFormDeserialiser(NewKeyMyLapsNamePairs); // use our custom mapper for xml
+
+        foreach (var thisRepeatingXElement in repeatingXElementsInFileContents)
         {
-            #region declarations
+            #region deserialise
 
-            ResultItem thisRepeatingResultItem;
+            deserialiser.Deserialise(thisRepeatingXElement);
+
+            var myLapsAsResultDto = new ResultDto
+            {
+                Bib = JghString.TmLr(deserialiser.GetFirstOrBlankAsString(ResultDto.XeBib)),
+                Last = JghString.TmLr(deserialiser.GetFirstOrBlankAsString(ResultDto.XeFullName)),
+                Sex = JghString.TmLr(deserialiser.GetFirstOrBlankAsString(ResultDto.XeSex)),
+                RaceGroup = JghString.TmLr(deserialiser.GetFirstOrBlankAsString(ResultDto.XeRace)),
+                Age = deserialiser.GetFirstOrDefaultAsInt(ResultDto.XeAge)
+            };
+
+            if (string.IsNullOrWhiteSpace(myLapsAsResultDto.Bib)) continue; //skip iff can't see a bib number in this row of .csv
+
+            #endregion
+
+            #region first things first, figure out if TO1 or Dnx
+
+            string bestGuessDuration;
+
+            var bestGuessDnx = string.Empty;
+
+            var bestGuessComment = string.Empty;
+
+            var durationAsPossiblyNastyString = deserialiser.GetFirstOrBlankAsString(ResultDto.XeT01);
 
             var mustSkipThisRowBecauseGunTimeIsInValid = false; // initial default
 
+            if (TryConvertTextToTimespan(durationAsPossiblyNastyString, out var calculatedDuration, out var conversionReport01))
+            {
+                bestGuessDuration = calculatedDuration.ToString("G");
+                bestGuessDnx = string.Empty;
+            }
+            else if (JghString.TmLr(durationAsPossiblyNastyString).Contains(MyLapsSymbolForDnf))
+            {
+                bestGuessDuration = string.Empty;
+                bestGuessDnx = Symbols.SymbolDnf;
+            }
+            else
+            {
+                bestGuessDuration = string.Empty;
+                bestGuessComment = $"<{MyLapsGunTime}> is invalid. {conversionReport01}";
+                mustSkipThisRowBecauseGunTimeIsInValid = true;
+            }
+
             #endregion
 
-            #region skip if can't see a bib number in thisRepeatingChildElement
+            #region if we succeed in seeing a bib number, try find the matching participant in the Rezultz Portal master list that was uploaded a moment ago in the publishing sequence from the portal by the user (having been generated from the hub)
 
-            var bibOfThisRepeatingXe = thisRepeatingChildElement.Elements(SrcXeBib).FirstOrDefault();
+            ParticipantHubItem participantHubItem = null;
 
-            if (bibOfThisRepeatingXe is null) continue;
+            var participantIsDiscovered = false;
 
-            if (string.IsNullOrWhiteSpace(bibOfThisRepeatingXe.Value)) continue;
-
-            #endregion
-
-            #region if can see a bib number, try find the matching participant in the master list that was previously uploaded (having been generated from the hub)
-
-            var participantIsFound = dictionaryOfParticipants.TryGetValue(bibOfThisRepeatingXe.Value, out var participantHubItem);
+            if (dictionaryOfParticipants is not null)
+                participantIsDiscovered = dictionaryOfParticipants.TryGetValue(myLapsAsResultDto.Bib, out participantHubItem);
 
             #endregion
 
             #region new up a ResultItem depending on whether or not the matching bib number is found
 
-            if (participantIsFound)
+            ResultItem computedResultItemForThisRow;
+
+            if (participantIsDiscovered && participantHubItem is not null)
             {
-                thisRepeatingResultItem = new ResultItem
+                computedResultItemForThisRow = new ResultItem
                 {
                     Bib = participantHubItem.Bib,
-                    Rfid = participantHubItem.Rfid,
                     FirstName = participantHubItem.FirstName,
                     LastName = participantHubItem.LastName,
                     MiddleInitial = participantHubItem.MiddleInitial,
@@ -96,73 +131,47 @@ public class MyLaps2024HelperXml
                     City = participantHubItem.City,
                     Team = participantHubItem.Team,
                     IsSeries = participantHubItem.IsSeries,
+                    DnxString = bestGuessDnx,
+                    T01 = bestGuessDuration,
+                    Comment = bestGuessComment
                 };
             }
             else
             {
-                thisRepeatingResultItem = new ResultItem
-                {
-                    Bib = bibOfThisRepeatingXe.Value,
-                    LastName = GetTmlrValueOfXElementOrStringEmpty(SrcXeFullName, thisRepeatingChildElement),
-                    Gender = GetTmlrValueOfXElementOrStringEmpty(SrcXeGender, thisRepeatingChildElement),
-                    Age = JghConvert.ToInt32(GetTmlrValueOfXElementOrStringEmpty(SrcXeAge, thisRepeatingChildElement)),
-                    IsSeries = false // no option but to assume this. play safe
-                };
+                myLapsAsResultDto.DnxString = bestGuessDnx;
+                myLapsAsResultDto.T01 = bestGuessDuration;
+                myLapsAsResultDto.Comment = bestGuessComment;
 
-                conversionReportSb.AppendLine(
-                    $"Warning! Participant database on the hub fails to contain a Bib number for <{thisRepeatingResultItem.Bib} {thisRepeatingResultItem.LastName} {thisRepeatingResultItem.RaceGroup}>.");
+                computedResultItemForThisRow = ResultItem.FromDataTransferObject(myLapsAsResultDto);
+
+                if (dictionaryOfParticipants is not null)
+                    conversionReportSb.AppendLine(
+                        $"Warning! Participant master list fails to have a Bib number for <{computedResultItemForThisRow.Bib} {computedResultItemForThisRow.LastName} {computedResultItemForThisRow.RaceGroup}>");
             }
-
-            // Note: the following is a bit of a hack. we are using the RaceGroup field to store the RaceGroup value from the MyLaps file. Only if it is empty do we fall back on the RaceGroup field in the hub.
-
-            var preferredRaceGroup = GetTmlrValueOfXElementOrStringEmpty(SrcXeRaceGroup, thisRepeatingChildElement);
-
-            thisRepeatingResultItem.RaceGroup = string.IsNullOrWhiteSpace(preferredRaceGroup) 
-                ? FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent) 
-                : preferredRaceGroup;
-
 
             #endregion
 
-            #region figure out TO1 (Gun Time) and Dnx (Overall)
+            #region figure out the RaceGroup
 
-            var possibleDnx = GetTmlrValueOfXElementOrStringEmpty(SrcXeOverall, thisRepeatingChildElement); //in MyLaps, DNF is in the column "Overall"
+            // Note: the following is a bit of a hack. we are using the RaceGroup field to store the RaceGroup value from the MyLaps row.
+            // Only if it is empty do we fall back on the RaceGroup field in the hub.
 
-            if (possibleDnx == JghString.TmLr(SrcValueDnf))
-            {
-                thisRepeatingResultItem.T01 = string.Empty;
-                thisRepeatingResultItem.DnxString = Symbols.SymbolDnf;
-            }
-            else
-            {
-                durationAsPossiblyNastyString = GetTmlrValueOfXElementOrStringEmpty(SrcXeGunTime, thisRepeatingChildElement);
+            var myLapsRaceGroup = myLapsAsResultDto.RaceGroup;
 
-                if (TryConvertTextToTimespan(durationAsPossiblyNastyString, out var myTimeSpan, out var conversionReport01))
-                {
-                    thisRepeatingResultItem.T01 = myTimeSpan.ToString("G");
-                    thisRepeatingResultItem.DnxString = string.Empty;
-                }
-                else if (JghString.TmLr(durationAsPossiblyNastyString).Contains("dnf"))
-                {
-                    thisRepeatingResultItem.T01 = string.Empty;
-                    thisRepeatingResultItem.DnxString = Symbols.SymbolDnf;
-                }
-                else
-                {
-                    thisRepeatingResultItem.T01 = $"<{SrcXeGunTime}> is invalid. {conversionReport01}";
-                    mustSkipThisRowBecauseGunTimeIsInValid = true;
-                }
-            }
+            computedResultItemForThisRow.RaceGroup = string.IsNullOrWhiteSpace(myLapsRaceGroup)
+                ? FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(participantHubItem), dateOfThisEvent)
+                : myLapsRaceGroup;
 
             #endregion
 
             #region around we go
 
             i += 1;
-            conversionReportSb.AppendLine(WriteOneLineReport(i, thisRepeatingResultItem, durationAsPossiblyNastyString));
+
+            conversionReportSb.AppendLine(WriteOneLineReport(i, computedResultItemForThisRow, durationAsPossiblyNastyString));
 
             if (!mustSkipThisRowBecauseGunTimeIsInValid)
-                answerAsResultItems.Add(thisRepeatingResultItem);
+                answerAsResultItems.Add(computedResultItemForThisRow);
 
             #endregion
         }
@@ -174,17 +183,26 @@ public class MyLaps2024HelperXml
 
     #endregion
 
-    #region xelements in xml files originating from Access and before that from MyLaps Excel spreadsheets from Andrew
+    #region NewKey/SourceElementName pairs for xelements in xml files originating from Jgh Access worksheet and before that from MyLaps Excel spreadsheets from Andrew
 
-    private const string SrcXeBib = "Bib_x0023_"; // the repeating element of the array
-    private const string SrcXeGunTime = "Gun_x0020_Time";
-    private const string SrcXeOverall = "Overall";
-    private const string SrcXeFullName = "Athlete";
-    private const string SrcXeGender = "Gender";
-    private const string SrcXeAge = "Age";
-    private const string SrcXeRaceGroup = "Race";
+    private const string MyLapsBib = "Bib_x0023_"; // the repeating element of the array
+    private const string MyLapsGunTime = "Gun_x0020_Time";
+    private const string MyLapsFullName = "Athlete";
+    private const string MyLapsGender = "Gender";
+    private const string MyLapsAge = "Age";
+    private const string MyLapsRaceGroup = "Race";
+    private const string MyLapsSymbolForDnf = "DNF"; // not a name. a value
 
-    private const string SrcValueDnf = "DNF"; // not a name. a value
+    private static KeyValuePair<string, string>[] NewKeyMyLapsNamePairs =>
+    [
+        new KeyValuePair<string, string>(ResultDto.XeBib, MyLapsBib),
+        new KeyValuePair<string, string>(ResultDto.XeT01, MyLapsGunTime),
+        new KeyValuePair<string, string>(ResultDto.XeFullName, MyLapsFullName),
+        new KeyValuePair<string, string>(ResultDto.XeSex, MyLapsGender),
+        new KeyValuePair<string, string>(ResultDto.XeAge, MyLapsAge),
+        new KeyValuePair<string, string>(ResultDto.XeRace, MyLapsRaceGroup)
+    ];
+
 
     #endregion
 
@@ -215,13 +233,6 @@ public class MyLaps2024HelperXml
         }
 
         return answerAsRaceGroup;
-    }
-
-    public static string GetTmlrValueOfXElementOrStringEmpty(string name, XElement xE)
-    {
-        var textItem = xE.Elements(name).FirstOrDefault();
-
-        return JghString.TmLr(textItem?.Value ?? string.Empty);
     }
 
     public static bool TryConvertTextToTimespan(string purportedTimeSpanAsText, out TimeSpan answer, out string conversionReport)

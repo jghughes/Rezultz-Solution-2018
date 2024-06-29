@@ -82,7 +82,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
         JghStringBuilder conversionReportSb = new(); conversionReportSb.AppendLineFollowedByOne("Processing report:");
 
-        List<MyLapsFile> myLapsFiles = [];
+        List<MyLapsFileItem> myLapsFiles = [];
 
         List<ResultItem> allComputedResultItems = [];
 
@@ -129,7 +129,7 @@ namespace RezultzSvc.Library02.Mar2024.PublisherModules
 
                 conversionReportSb.AppendLine($"MyLaps file found. <{target.EntityName}>");
 
-                myLapsFiles.Add(new MyLapsFile(IdentifierOfDatasetOfMyLapsTimingData, target.EntityName, myLapsTimingDataAsString));
+                myLapsFiles.Add(new MyLapsFileItem(IdentifierOfDatasetOfMyLapsTimingData, target.EntityName, myLapsTimingDataAsString));
             }
 
             #endregion

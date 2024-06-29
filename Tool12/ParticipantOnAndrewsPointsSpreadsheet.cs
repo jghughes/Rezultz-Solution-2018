@@ -6,7 +6,7 @@ using NetStd.Goodies.Mar2022;
 namespace Tool12
 {
     [Serializable]
-    public class ParticipantWithSeriesPoints
+    public class ParticipantOnAndrewsPointsSpreadsheet
     {
         #region properties
 
@@ -66,7 +66,7 @@ namespace Tool12
 
         #region methods
 
-        public static ParticipantWithSeriesPoints FromDataTransferObject(ParticipantWithSeriesPointsDto? dto)
+        public static ParticipantOnAndrewsPointsSpreadsheet FromDataTransferObject(ParticipantOnAndrewsPointsSpreadsheetDto? dto)
         {
             const string failure = "Populating InfantParticipant.";
             const string locus = "[FromDataTransferObject]";
@@ -74,9 +74,9 @@ namespace Tool12
 
             try
             {
-                var x = dto ?? new ParticipantWithSeriesPointsDto();
+                var x = dto ?? new ParticipantOnAndrewsPointsSpreadsheetDto();
 
-                var answer = new ParticipantWithSeriesPoints()
+                var answer = new ParticipantOnAndrewsPointsSpreadsheet()
                 {
                     Position = JghConvert.ToInt32(x.Position),
                     FullName = JghString.TmLr(x.FullName),
@@ -155,7 +155,7 @@ namespace Tool12
 
         }
 
-        public static ParticipantWithSeriesPoints[] FromDataTransferObject(ParticipantWithSeriesPointsDto[]? dataTransferObject)
+        public static ParticipantOnAndrewsPointsSpreadsheet[] FromDataTransferObject(ParticipantOnAndrewsPointsSpreadsheetDto[]? dataTransferObject)
         {
             const string failure = "Populating SeriesParticipantWithPointsTally.";
             const string locus = "[FromDataTransferObject]";
@@ -181,7 +181,7 @@ namespace Tool12
 
         }
 
-        public static ParticipantWithSeriesPointsDto ToDataTransferObject(ParticipantWithSeriesPoints? item)
+        public static ParticipantOnAndrewsPointsSpreadsheetDto ToDataTransferObject(ParticipantOnAndrewsPointsSpreadsheet? item)
         {
             const string failure = "Populating SeriesParticipantWithPointsTallyDto.";
             const string locus = "[ToDataTransferObject]";
@@ -189,9 +189,9 @@ namespace Tool12
             try
             {
 
-                var x = item ?? new ParticipantWithSeriesPoints();
+                var x = item ?? new ParticipantOnAndrewsPointsSpreadsheet();
 
-                var answer = new ParticipantWithSeriesPointsDto()
+                var answer = new ParticipantOnAndrewsPointsSpreadsheetDto()
                 {
                     Position = x.Position.ToString(),
                     FullName = JghString.TmLr(x.FullName),
@@ -232,7 +232,7 @@ namespace Tool12
             #endregion
         }
 
-        public static ParticipantWithSeriesPointsDto[] ToDataTransferObject(ParticipantWithSeriesPoints[]? item)
+        public static ParticipantOnAndrewsPointsSpreadsheetDto[] ToDataTransferObject(ParticipantOnAndrewsPointsSpreadsheet[]? item)
         {
 
             const string failure = "Populating SeriesParticipantWithPointsTallyDto[].";

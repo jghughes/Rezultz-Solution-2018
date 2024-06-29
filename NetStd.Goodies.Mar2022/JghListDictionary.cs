@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 // a very handy Dictionary inspired by the Prism team - but modified
 // https://raw.githubusercontent.com/PrismLibrary/Prism/master/src/Prism.Core/Common/JghListDictionary.cs
@@ -188,10 +189,16 @@ public sealed class JghListDictionary<TKey, TValue> : IDictionary<TKey, IList<TV
     /// <returns>The elements that match the condition defined by the specified predicate.</returns>
     public IEnumerable<TValue> FindAllValues(Predicate<TValue> valueFilter)
     {
-        foreach (var pair in this)
-        foreach (var value in pair.Value)
-            if (valueFilter(value))
-                yield return value;
+        return from pair in this from value in pair.Value where valueFilter(value) select value;
+    }
+
+    /// <summary>
+    ///     Retrieves all the elements in the ListDictionary.
+    /// </summary>
+    /// <returns>The elements that match the condition defined by the specified predicate.</returns>
+    public IEnumerable<KeyValuePair<TKey, TValue>> FindAllElements()
+    {
+        return from pair in this from value in pair.Value select new KeyValuePair<TKey, TValue>(pair.Key, value);
     }
 
     /// <summary>

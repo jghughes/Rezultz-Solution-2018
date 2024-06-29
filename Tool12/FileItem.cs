@@ -2,7 +2,7 @@
 
 namespace Tool12;
 
-internal class FileItem
+public class FileItem
 {
     public FileInfo FileInfo { get; set; } = new("DummyFileName.txt");
 

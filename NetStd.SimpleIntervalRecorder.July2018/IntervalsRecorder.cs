@@ -12,7 +12,7 @@ namespace NetStd.SimpleIntervalRecorder.July2018
     ///     The .NET version uses System.Diagnostics.Stopwatch class as its internal clock. Silverlight uses DateTime class.
     ///     Based on empirical research, system noise is such that neither this nor any other timer can
     ///     perform quality benchmarking using test periods less than 30 seconds. Increase the number of
-    ///     iterations of any operation being benchmarked so as to satisfy this requirement. For three-sig fig
+    ///     iterations of any operation being benchmarked to satisfy this requirement. For three-sig fig
     ///     repeatability of results, follow a test protocol that repeats thirty times.
     ///     To measure the once-off performance of this timer over 30 seconds, get the ReportedAccuracy property.
     /// </summary>

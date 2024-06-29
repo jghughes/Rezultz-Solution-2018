@@ -193,26 +193,26 @@ internal class Program
 
             #endregion
 
-            #region extract key info from .csv files
+            #region extract info from .csv files using freeform text parsing
 
-            foreach (var fileItem in ResultsPortalTimingSystemFileBeingAnalysed.ListOfMyLapsFileObjects)
+            foreach (var myLapsFileItem in ResultsPortalTimingSystemFileBeingAnalysed.ListOfMyLapsFileObjects)
             {
-                console.WriteLinePrecededByOne($"Processing .csv contents: {fileItem.MyLapsFileInfo.Name}");
+                console.WriteLinePrecededByOne($"Processing .csv contents: {myLapsFileItem.MyLapsFileInfo.Name}");
 
                 var conversionReport = new JghStringBuilder();
 
-                var myLapsFile = new MyLapsFile(fileItem.MyLapsFileInfo.Name, fileItem.MyLapsFileInfo.FullName, fileItem.MyLapsFileContentsAsText);
+                var myLapsFile = new RezultzSvc.Library02.Mar2024.PublisherModuleHelpers.MyLapsFileItem(myLapsFileItem.MyLapsFileInfo.Name, myLapsFileItem.MyLapsFileInfo.FullName, myLapsFileItem.MyLapsFileContentsAsText);
 
                 var listOfMyLapsResultItems = MyLaps2024HelperCsv.GenerateResultItemArrayFromMyLapsFile(myLapsFile, null, null, DateTime.Today, conversionReport, 30).ToList();
 
                 var xx = listOfMyLapsResultItems
-                    .Select(z => new MyLapsResultItem(z.Bib, z.FullName, z.T01, z.RaceGroup)).ToList();
+                    .Select(z => new MyLapsResultItem(z.Bib, z.FullName, z.T01, z.RaceGroup, z.Comment)).ToList();
 
-                fileItem.MyLapsFileContentsAsMyLapsResultObjects.AddRange(xx);
+                myLapsFileItem.MyLapsFileContentsAsMyLapsResultObjects.AddRange(xx);
 
                 console.WriteLine(conversionReport.ToString());
 
-                console.WriteLine($"Successfully(?) extracted .csv contents of {fileItem.MyLapsFileInfo.Name}: {fileItem.MyLapsFileContentsAsMyLapsResultObjects.Count} line items");
+                console.WriteLine($"Successfully(?) extracted .csv contents of {myLapsFileItem.MyLapsFileInfo.Name}: {myLapsFileItem.MyLapsFileContentsAsMyLapsResultObjects.Count} line items");
             }
 
             #endregion
@@ -288,7 +288,6 @@ internal class Program
             #endregion
 
             #region report people who raced in a different RaceGroup in MyLaps compared to RaceGroup they are registered for in the Portal for the series
-
 
             JghStringBuilder sb2 = new();
 

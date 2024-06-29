@@ -1,12 +1,12 @@
 ﻿namespace RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
 
-public class MyLapsFile
+public class MyLapsFileItem
 {
-    public MyLapsFile()
+    public MyLapsFileItem()
     {
     }
 
-    public MyLapsFile(string identifierOfDataSet, string fileName, string contents)
+    public MyLapsFileItem(string identifierOfDataSet, string fileName, string contents)
     {
         IdentifierOfDataset = identifierOfDataSet ?? string.Empty;
         FileName = fileName ?? string.Empty;

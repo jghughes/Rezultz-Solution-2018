@@ -10,12 +10,15 @@
 
         public string RaceGroup { get; set; }
 
-        public MyLapsResultItem(string bib, string fullName, string durationAsString, string raceGroup)
-    {
-        Bib = bib;
-        FullName = fullName;
-        DurationAsString = durationAsString;
-        RaceGroup = raceGroup;
-    }
+        public string Comment { get; set; }
+
+        public MyLapsResultItem(string bib, string fullName, string durationAsString, string raceGroup, string comment)
+        {
+            Bib = bib;
+            FullName = fullName;
+            DurationAsString = durationAsString;
+            RaceGroup = raceGroup;
+            Comment = comment;
+        }
     }
 }

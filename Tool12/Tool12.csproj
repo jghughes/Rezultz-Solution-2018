@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NetStd.Exceptions.Mar2024\NetStd.Exceptions.Mar2024.csproj" />
     <ProjectReference Include="..\NetStd.Goodies.Mar2022\NetStd.Goodies.Mar2022.csproj" />
+    <ProjectReference Include="..\NetStd.SimpleIntervalRecorder.July2018\NetStd.SimpleIntervalRecorder.July2018.csproj" />
     <ProjectReference Include="..\Rezultz.DataTransferObjects.Nov2023\Rezultz.DataTransferObjects.Nov2023.csproj" />
     <ProjectReference Include="..\Rezultz.DataTypes.Nov2023\Rezultz.DataTypes.Nov2023.csproj" />
   </ItemGroup>
