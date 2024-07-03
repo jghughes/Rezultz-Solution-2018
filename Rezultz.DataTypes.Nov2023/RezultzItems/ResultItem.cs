@@ -101,7 +101,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
 
         public string T15 { get; set; } = string.Empty;
 
-        public bool MustOverrideSeriesPoints { get; set; }
+        public bool IsExcludedFromSeriesPointsCalculationForSpecialReasons { get; set; }
 
         public string Comment { get; set; } = string.Empty;
 
@@ -155,7 +155,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                     T13 = JghTimeSpan.ToDurationOrDnxV2(x.T13, x.DnxString),
                     T14 = JghTimeSpan.ToDurationOrDnxV2(x.T14, x.DnxString),
                     T15 = JghTimeSpan.ToDurationOrDnxV2(x.T15, x.DnxString),
-                    MustOverrideSeriesPoints = x.MustOverrideSeriesPoints,
+                    IsExcludedFromSeriesPointsCalculationForSpecialReasons = x.IsExcludedFromSeriesPointsCalculationForSpecialReasons,
                     Comment = JghString.TmLr(x.Comment),
                 };
 
@@ -238,7 +238,7 @@ namespace Rezultz.DataTypes.Nov2023.RezultzItems
                     T13 = JghTimeSpan.ToDurationOrDnx(x.T13, x.DnxString),
                     T14 = JghTimeSpan.ToDurationOrDnx(x.T14, x.DnxString),
                     T15 = JghTimeSpan.ToDurationOrDnx(x.T15, x.DnxString),
-                    MustOverrideSeriesPoints = x.MustOverrideSeriesPoints,
+                    IsExcludedFromSeriesPointsCalculationForSpecialReasons = x.IsExcludedFromSeriesPointsCalculationForSpecialReasons,
                     Comment = JghString.TmLr(x.Comment)
                 };
 

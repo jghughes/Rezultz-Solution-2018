@@ -47,7 +47,7 @@ namespace Rezultz.DataTransferObjects.Nov2023.Results
         public const string XeT13 = "t13";
         public const string XeT14 = "t14";
         public const string XeT15 = "t15";
-        public const string XeMustOverrideSeriesPoints = "MustOverrideSeriesPoints";
+        public const string XeIsExcludedFromSeriesPointsCalculationForSpecialReasons = "is-excluded-from-series-points-calculation-for-special-reasons";
         public const string XeComment = "comment";
 
         public const string XeDnxString = "dnx";
@@ -140,8 +140,8 @@ namespace Rezultz.DataTransferObjects.Nov2023.Results
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 35, Name = XeT15)]
         public string T15 { get; set; } = string.Empty;
 
-        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 36, Name = XeMustOverrideSeriesPoints)]
-        public bool MustOverrideSeriesPoints { get; set; }
+        [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 36, Name = XeIsExcludedFromSeriesPointsCalculationForSpecialReasons)]
+        public bool IsExcludedFromSeriesPointsCalculationForSpecialReasons { get; set; }
 
         [DataMember(EmitDefaultValue = false, IsRequired = false, Order = 37, Name = XeComment)]
         public string Comment { get; set; } = string.Empty;

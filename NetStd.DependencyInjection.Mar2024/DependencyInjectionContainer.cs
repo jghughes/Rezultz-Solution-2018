@@ -69,7 +69,7 @@ namespace NetStd.DependencyInjection.Mar2024
 
                 TInterface xx = instanceReturningExpression();
 
-                if (xx is not null)
+                if (xx != null)
                     //_container.Use(xx);
                     _container.RegisterInstance(xx);
                 //_container.UseInstance(xx);

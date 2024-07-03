@@ -40,8 +40,7 @@ public static class AlgorithmForPoints
 
             var dictionaryOfPointsForFinishers = GenerateDictionaryOfPointsForAllFinishers(finisherResults, eventProfileToWhichThisRepositoryBelongs);
 
-            foreach (var result in allComputedResultsDnxIncluded.Where(z => z is not null)
-                         .Where(z => z.DerivedData is not null))
+            foreach (var result in allComputedResultsDnxIncluded.Where(z => z is not null).Where(z => z.DerivedData is not null))
                 result.DerivedData.PointsCalculated = dictionaryOfPointsForFinishers.TryGetValue(result.Identifier, out var pointsForFinisher)
                     ? pointsForFinisher
                     : 0;
@@ -114,23 +113,23 @@ public static class AlgorithmForPoints
                         trophyPointsForThisRace = raceSpecificationForThisRace.TrophyPoints;
                         break;
                     case EnumStringsForSeriesProfile.PointsScaleForEachRace:
-                    {
-                        var pointsScaleForThisRaceAsStringArray = raceSpecificationForThisRace.PointsScaleAsCsv.Split(',');
-
-                        var i = 1;
-
-                        foreach (var pointsValueAsString in pointsScaleForThisRaceAsStringArray)
                         {
-                            if (!JghConvert.TryConvertToDouble(pointsValueAsString, out var pointsValueAsDouble,
-                                    out _)) continue;
+                            var pointsScaleForThisRaceAsStringArray = raceSpecificationForThisRace.PointsScaleAsCsv.Split(',');
 
-                            pointsScaleAsDictionary.Add(i, pointsValueAsDouble);
+                            var i = 1;
 
-                            i += 1;
+                            foreach (var pointsValueAsString in pointsScaleForThisRaceAsStringArray)
+                            {
+                                if (!JghConvert.TryConvertToDouble(pointsValueAsString, out var pointsValueAsDouble,
+                                        out _)) continue;
+
+                                pointsScaleAsDictionary.Add(i, pointsValueAsDouble);
+
+                                i += 1;
+                            }
+
+                            break;
                         }
-
-                        break;
-                    }
                 }
 
 
@@ -149,45 +148,45 @@ public static class AlgorithmForPoints
         switch (algorithmForPointsEnum)
         {
             case EnumStringsForSeriesProfile.ProportionalToSpeed:
-            {
-                // mtb
+                {
+                    // mtb
 
-                answer = CalculateRelativeSpeedInSubsetAsDecimalRatio(
-                             individualResult.DerivedData.TotalDurationFromAlgorithmInSeconds,
-                             individualResult.DerivedData.TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds)
-                         * trophyPointsForThisRace;
-                break;
-            }
+                    answer = CalculateRelativeSpeedInSubsetAsDecimalRatio(
+                                 individualResult.DerivedData.TotalDurationFromAlgorithmInSeconds,
+                                 individualResult.DerivedData.TimeGapBehindWinnerOfSubsetOfSexWithinRaceInSeconds)
+                             * trophyPointsForThisRace;
+                    break;
+                }
             case EnumStringsForSeriesProfile.PointsScaleForEachRace:
-            {
-                try
                 {
-                    if (eventProfileToWhichThisRepositoryBelongs.MustRankGendersTogetherForSeriesPoints)
+                    try
                     {
-                        if (eventProfileToWhichThisRepositoryBelongs.MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints)
-                            answer = JghDictionaryHelpers.LookUpValueSafely(
-                                individualResult.DerivedData.PlaceCalculatedOverallIntExcludingNonSeriesParticipants, pointsScaleForThisRaceAsDictionary);
+                        if (eventProfileToWhichThisRepositoryBelongs.MustRankGendersTogetherForSeriesPoints)
+                        {
+                            if (eventProfileToWhichThisRepositoryBelongs.MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints)
+                                answer = JghDictionaryHelpers.LookUpValueSafely(
+                                    individualResult.DerivedData.PlaceCalculatedOverallIntExcludingNonSeriesParticipants, pointsScaleForThisRaceAsDictionary);
+                            else
+                                answer = JghDictionaryHelpers.LookUpValueSafely(
+                                    individualResult.DerivedData.PlaceCalculatedOverallInt, pointsScaleForThisRaceAsDictionary);
+                        }
                         else
-                            answer = JghDictionaryHelpers.LookUpValueSafely(
-                                individualResult.DerivedData.PlaceCalculatedOverallInt, pointsScaleForThisRaceAsDictionary);
+                        {
+                            if (eventProfileToWhichThisRepositoryBelongs.MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints)
+                                answer = JghDictionaryHelpers.LookUpValueSafely(
+                                    individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRaceExcludingNonSeriesParticipants, pointsScaleForThisRaceAsDictionary);
+                            else
+                                answer = JghDictionaryHelpers.LookUpValueSafely(
+                                    individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace, pointsScaleForThisRaceAsDictionary);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        if (eventProfileToWhichThisRepositoryBelongs.MustExcludeNonSeriesParticipantsFromRankingForSeriesPoints)
-                            answer = JghDictionaryHelpers.LookUpValueSafely(
-                                individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRaceExcludingNonSeriesParticipants, pointsScaleForThisRaceAsDictionary);
-                        else
-                            answer = JghDictionaryHelpers.LookUpValueSafely(
-                                individualResult.DerivedData.CalculatedRankInSubsetOfSexWithinRace, pointsScaleForThisRaceAsDictionary);
+                        return 0;
                     }
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
 
-                break;
-            }
+                    break;
+                }
 
             default:
                 answer = 0;

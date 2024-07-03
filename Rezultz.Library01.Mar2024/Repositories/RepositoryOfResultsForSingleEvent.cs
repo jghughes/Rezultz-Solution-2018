@@ -131,9 +131,7 @@ namespace Rezultz.Library01.Mar2024.Repositories
         {
             try
             {
-                await
-                    LoadPrePopulatedRepositoryOfResultsFailingNoisilyAsync(databaseAccountName, dataContainerName,
-                        eventProfileToWhichThisRepositoryBelongs);
+                await LoadPrePopulatedRepositoryOfResultsFailingNoisilyAsync(databaseAccountName, dataContainerName, eventProfileToWhichThisRepositoryBelongs);
 
                 return true;
             }
@@ -435,7 +433,6 @@ namespace Rezultz.Library01.Mar2024.Repositories
         {
             const string failure = "Assembling repository of results for event.";
             const string locus = "[PopulateRepositoryAsync]";
-
 
             try
             {

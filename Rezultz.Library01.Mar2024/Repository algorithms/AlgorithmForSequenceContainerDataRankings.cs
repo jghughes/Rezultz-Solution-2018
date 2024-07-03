@@ -18,11 +18,9 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 	    private const string Locus2 = nameof(AlgorithmForSequenceContainerDataRankings);
 	    private const string Locus3 = "[Rezultz.Library01.Mar2024]";
 
-        public static async Task<SequenceContainerItem[]> DoRankingsOfTotalsForAllIndividualsRelativeToTheirCompetitorsAsync(
-            bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] seriesStandingLineItems)
+        public static async Task<SequenceContainerItem[]> DoRankingsOfTotalsForAllIndividualsRelativeToTheirCompetitorsAsync(bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] seriesStandingLineItems)
         {
             const string failure = "Adding to repository. Calculating rankings.";
-
             const string locus = "[DoRankingsOfTotalsForAllIndividualsRelativeToTheirCompetitorsAsync]";
 
             try
@@ -30,13 +28,9 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                 if (seriesStandingLineItems is null)
                     throw new JghNullObjectInstanceException(nameof(seriesStandingLineItems));
 
-
                 var seriesStandingsList = seriesStandingLineItems.Where(z => z is not null).ToArray();
 
-                var answer = await PopulatePlacingInSubsetsOfRaceAndSexAndAgeGroupCombinedAsync(
-                    seriesTotalIsOrderedByDescending,
-                    await PopulatePlacingsInSubsetsOfRaceAndSexCombinedAsync(seriesTotalIsOrderedByDescending,
-                        await PopulatePlacingsInRaceAsync(seriesTotalIsOrderedByDescending, seriesStandingsList)));
+                var answer = await PopulatePlacingInSubsetsOfRaceAndSexAndAgeGroupCombinedAsync(seriesTotalIsOrderedByDescending, await PopulatePlacingsInSubsetsOfRaceAndSexCombinedAsync(seriesTotalIsOrderedByDescending, await PopulatePlacingsInRaceAsync(seriesTotalIsOrderedByDescending, seriesStandingsList)));
 
                 return answer;
             }
@@ -47,11 +41,9 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             }
         }
 
-        private static async Task<SequenceContainerItem[]> PopulatePlacingsInRaceAsync(bool seriesTotalIsOrderedByDescending,
-            SequenceContainerItem[] items)
+        private static async Task<SequenceContainerItem[]> PopulatePlacingsInRaceAsync(bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] items)
         {
             const string failure = "Adding to database. Calculating points rankings by race.";
-
             const string locus = "[PopulatePlacingsInRaceAsync]";
 
             if (items is null)
@@ -121,8 +113,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             }
         }
 
-        private static async Task<SequenceContainerItem[]> PopulatePlacingsInSubsetsOfRaceAndSexCombinedAsync(
-            bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] items)
+        private static async Task<SequenceContainerItem[]> PopulatePlacingsInSubsetsOfRaceAndSexCombinedAsync(bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] items)
         {
             const string failure =
                 "Adding to database. Calculating placings and rankings by Sex and points within each race.";
@@ -183,8 +174,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             }
         }
 
-        private static async Task<SequenceContainerItem[]> PopulatePlacingInSubsetsOfRaceAndSexAndAgeGroupCombinedAsync(
-            bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] items)
+        private static async Task<SequenceContainerItem[]> PopulatePlacingInSubsetsOfRaceAndSexAndAgeGroupCombinedAsync(bool seriesTotalIsOrderedByDescending, SequenceContainerItem[] items)
         {
             const string failure = "Adding to database. Calculating rankings by race, Sex and category.";
             const string locus = "[PopulatePlacingInSubsetsOfRaceAndSexAndAgeGroupCombinedAsync]";
@@ -247,9 +237,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             }
         }
 
-        private static Task<Dictionary<int, ScratchPadItemForSeriesStandingsLineItem>>
-            CalculateScratchPadForArbitrarySubsetOfSeasonStandingsTableLineItemsAsync(
-                bool seriesTotalIsOrderedByDescending, Dictionary<int, SequenceContainerItem> lineItems)
+        private static Task<Dictionary<int, ScratchPadItemForSeriesStandingsLineItem>> CalculateScratchPadForArbitrarySubsetOfSeasonStandingsTableLineItemsAsync(bool seriesTotalIsOrderedByDescending, Dictionary<int, SequenceContainerItem> lineItems)
         {
             const string failure = "Helper method. Calculating relative placing.";
 
@@ -319,9 +307,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             }
         }
 
-        private static bool TryGetScratchPadItemByUniqueItemId(
-            IDictionary<int, ScratchPadItemForSeriesStandingsLineItem> theDictionary, int theLookupKey,
-            out ScratchPadItemForSeriesStandingsLineItem theDiscoveredValue)
+        private static bool TryGetScratchPadItemByUniqueItemId(IDictionary<int, ScratchPadItemForSeriesStandingsLineItem> theDictionary, int theLookupKey, out ScratchPadItemForSeriesStandingsLineItem theDiscoveredValue)
         {
             theDiscoveredValue = new();
 
@@ -338,8 +324,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
             }
         }
 
-        public static Dictionary<int, SequenceContainerItem> ConvertArrayOfSequenceContainersToDictionaryKeyedOnUniqueId(
-	        this SequenceContainerItem[] sequenceItems)
+        private static Dictionary<int, SequenceContainerItem> ConvertArrayOfSequenceContainersToDictionaryKeyedOnUniqueId(this SequenceContainerItem[] sequenceItems)
         {
 	        const string failure = "Converting SequenceContainerItem[] to type dictionary keyed on object ID.";
 

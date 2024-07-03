@@ -323,7 +323,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 							if (!JghDictionaryHelpers.TryGetValueSafely(kvp.Key, out var theDiscoveredScratchPadItemValue, scratchPad))
 								continue;
 
-							// NB be sure to paste data fields into dictionaryOfAllindividualResults, not dictionaryOfIndividualResultsInSubgroup
+							// NB be sure to paste data fields into dictionaryOfAllIndividualResults, not dictionaryOfIndividualResultsInSubgroup
 
 							dictionaryOfAllResults[kvp.Key].DerivedData.TotalFinishersInSubsetOfAgeGroupWithinSexWithinRace = theDiscoveredScratchPadItemValue.TotalItemsInSubset;
                             dictionaryOfAllResults[kvp.Key].DerivedData.CalculatedRankInSubsetOfAgeGroupWithinSexWithinRace = theDiscoveredScratchPadItemValue.RankInSubsetInt;
@@ -406,15 +406,19 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 
 					scratchPadItem.RankInSubsetInt = i;
 
-					if(kvp.Value.IsSeries)
+                    //if (kvp.Value.FirstName == "nial")
+                    //{
+                    //    var rub = 1; // stop here
+                    //}
+
+                    if (!kvp.Value.IsSeries || kvp.Value.IsExcludedFromSeriesPointsCalculationForSpecialReasons)
                     {
-                        scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = j;
-                        j++;
+                        scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = 0;
                     }
                     else
                     {
-                        scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = 0;
-
+                        scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = j;
+                        j++;
                     }
 
                     scratchPadItem.TimeBehindWinnerOfSubsetInSeconds = kvp.Value.DerivedData.TotalDurationFromAlgorithmInSeconds - winningDurationSeconds;
@@ -437,7 +441,6 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
 		}
 
 		#endregion
-
 
 	}
 }

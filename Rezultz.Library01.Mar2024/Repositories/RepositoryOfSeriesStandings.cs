@@ -176,10 +176,6 @@ namespace Rezultz.Library01.Mar2024.Repositories
 
                 _repositoryIsInitialised = true;
 
-                //if (!eligibleEvents.Any())
-                //    throw new JghAlertMessageException(
-                //        ItWouldSeemThatNoEventsAreFlaggedAsBeingEligibleForSeriesStandingsAndRankingsAsYet);
-
                 return true;
             }
 
