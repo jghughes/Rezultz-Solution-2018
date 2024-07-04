@@ -406,16 +406,16 @@ internal class Program
 
     private static readonly DateTime DateOfThisEvent = new(2024, 5,14);
 
-    private const string FolderForCommonStuff = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R1 May 14\DiagnosticReport\";
-    private const string FolderForMyLapsTimingDataFiles = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R1 May 14\ExportedAsCsv\";
+    private const string FolderForCommonStuff = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R6 July 2\DiagnosticReport\";
+    private const string FolderForMyLapsTimingDataFiles = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R6 July 2\ExportedAsCsv\";
 
     private const string FolderForParticipantMasterListFromPortal = FolderForCommonStuff;
     private const string FolderForSplitIntervalsFromPortal = FolderForCommonStuff;
     private const string FolderForDiagnosticReport = FolderForCommonStuff;
 
-    private const string FileOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport.txt";
-    private const string FileOfParticipantMasterListFromPortal = @"2024-06-22T11-32-49+Participants.json";
-    private const string FileOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-06-23T12-27-14+DraftResultsForLeaderboard.xml";
+    private const string FileOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport R6 July 2.txt";
+    private const string FileOfParticipantMasterListFromPortal = @"2024-07-04T15-50-01+Participants.json";
+    private const string FileOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-04T15-54-25+DraftResultsForLeaderboard.xml";
 
     #endregion
 }
