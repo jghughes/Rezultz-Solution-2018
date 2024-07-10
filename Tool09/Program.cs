@@ -119,7 +119,7 @@ internal class Program
 
             #endregion
 
-            #region confirm existence of portal timing system file of split intervals
+            #region confirm existence of .xml file of consolidated split intervals exported manually from Portal timing system
 
             var resultsFileInfo = new FileInfo(FolderForInputDataFromRezultzPortal + FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal);
 
@@ -134,7 +134,7 @@ internal class Program
 
             #endregion
 
-            #region try deserialise Results from portal timing system file of split durations (ResultDto[])
+            #region try deserialise split intervals (ResultDto[])
 
             ResultDto[]? provisionalResultsFromPortal;
 
@@ -156,11 +156,10 @@ internal class Program
 
             #endregion
 
-            #region confirm existence of .csv files exported from Excel that exist in myLaps timing system results folder
+            #region confirm existence of .csv files exported manually from Excel files from Andrew
 
             var di = new DirectoryInfo(FolderForMyLapsTimingDataFilesFromAndrew); // Create a reference to the input directory.
 
-            var arrayOfInputFileInfo2 = di.EnumerateFiles().ToArray(); // Create an array representing all the files in the current directory of all types.
             var arrayOfInputFileInfo = di.GetFiles(); // Create an array representing all the files in the current directory of all types.
 
             if (arrayOfInputFileInfo.Length == 0) {
@@ -437,18 +436,24 @@ internal class Program
 
     private const int LhsWidth = 40;
 
-    private static readonly DateTime DateOfThisEvent = new(2024, 6,18);
+    private static readonly DateTime DateOfThisEvent = new(2024, 6,04);
 
-    private const string FolderForParticipantMasterListFromPortal = @"C:\Users\johng\holding pen\StuffByJohn\ParticipantsFromPortal\";
-    private const string FolderForMyLapsTimingDataFilesFromAndrew = @"C:\Users\johng\holding pen\StuffFromAndrew\2024-MyLaps-Timing-Data\R5-June-18\";
-    private const string FolderForInputDataFromRezultzPortal = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R5-June-18\InputFromRezultzPortal\";
-    private const string FolderForMyLapsVersusPortalComparison = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R5-June-18\MyLapsVersusPortalComparison\";
-
+    private const string FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons = @"MyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons-R1-May-14.xml";
     private const string FileNameOfParticipantMasterListFromPortal = @"2024-07-09T14-53-23+Participants.json";
-    private const string FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-09T15-07-43+SplitIntervalsFromRezultzPortalTimingSystem.xml";
-    private const string FileNameOfMyLapsVersusPortalComparison = @"MyLapsVersusPortalTimingDataDiagnosticReport-R5-June-18.txt";
-    private const string FileNameOfResultsForAdditionToMyLaps = @"SplitIntervalsFromPortalTimingSystemForAdditionToMyLaps-R5-June-18.xml";
-    private const string FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons = @"MyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons-R5-June-18.xml";
+    private const string FolderForParticipantMasterListFromPortal = @"C:\Users\johng\holding pen\StuffByJohn\ParticipantsFromPortal\";
+
+
+
+
+
+    private const string FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-10T13-12-59+SplitIntervalsFromRezultzPortalTimingSystem.xml";
+    private const string FileNameOfMyLapsVersusPortalComparison = @"MyLapsVersusPortalTimingDataDiagnosticReport-R3-June-04.txt";
+    private const string FileNameOfResultsForAdditionToMyLaps = @"SplitIntervalsFromPortalTimingSystemForAdditionToMyLaps-R3-June-04.xml";
+
+    private const string FolderForMyLapsTimingDataFilesFromAndrew = @"C:\Users\johng\holding pen\StuffFromAndrew\2024-MyLaps-Timing-Data\R3-June-04\ExportedDirectlyAsCsv\";
+    private const string FolderForInputDataFromRezultzPortal = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\InputFromRezultzPortal\";
+    private const string FolderForMyLapsVersusPortalComparison = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\MyLapsVersusPortalComparison\";
+
 
     #endregion
 }
