@@ -342,12 +342,12 @@ public sealed partial class KeepTimeToolsPage
             {
                 case exportTimeStampsButtonCommand:
                 {
-                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "Timestamps");
+                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "TimestampsFromRezultzPortalTimingSystem");
                     break;
                 }
                 case exportTimeStampsPairedIntoSplitsPerPersonButtonCommand:
                 {
-                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "SplitIntervalsExportedFromRezultzPortalTimingSystem");
+                    fileSavePicker = CreateFileSavePicker(desiredFileFormatEnum, "SplitIntervalsFromRezultzPortalTimingSystem");
                     break;
                 }
                 default:

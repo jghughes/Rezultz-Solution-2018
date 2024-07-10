@@ -411,7 +411,7 @@ namespace Rezultz.Library01.Mar2024.Repository_algorithms
                     //    var rub = 1; // stop here
                     //}
 
-                    if (!kvp.Value.IsSeries || kvp.Value.IsExcludedFromSeriesPointsCalculationForSpecialReasons)
+                    if (!kvp.Value.IsSeries || kvp.Value.IsExcludedFromAllSeriesPointsCalculationsForSpecialReasons)
                     {
                         scratchPadItem.RankInSubsetIntSkippingOverNonSeriesParticipants = 0;
                     }

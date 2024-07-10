@@ -18,11 +18,11 @@ internal class Program
         console.WriteLineFollowedByOne("Welcome.");
         console.WriteLineFollowedByOne(Description);
         console.WriteLine($"{JghString.LeftAlign("Presumed date of event:", LhsWidth)} {DateOfThisEvent:D}");
-        console.WriteLine($"{JghString.LeftAlign("Filename for Portal participants file:", LhsWidth)} {FileOfParticipantMasterListFromPortal}");
+        console.WriteLine($"{JghString.LeftAlign("Filename for Portal participants file:", LhsWidth)} {FileNameOfParticipantMasterListFromPortal}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for MyLaps data from Andrew:", LhsWidth)} {FolderForMyLapsTimingDataFilesFromAndrew}");
         console.WriteLine($"{JghString.LeftAlign("Folder for Portal participants file:", LhsWidth)} {FolderForParticipantMasterListFromPortal}");
-        console.WriteLine($"{JghString.LeftAlign("Folder for Portal split intervals:", LhsWidth)} {FolderForSplitIntervalsFromPortal}");
-        console.WriteLine($"{JghString.LeftAlign("Folder for MyLaps data from Andrew:", LhsWidth)} {FolderForMyLapsTimingDataFiles}");
-        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report document:", LhsWidth)} {FolderForDiagnosticReport}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for Portal split intervals:", LhsWidth)} {FolderForInputDataFromRezultzPortal}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FolderForMyLapsVersusPortalComparison}");
         console.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
         console.ReadLine();
 
@@ -35,14 +35,13 @@ internal class Program
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForSplitIntervalsFromPortal);
+                Directory.SetCurrentDirectory(FolderForInputDataFromRezultzPortal);
             }
             catch (DirectoryNotFoundException)
             {
-                console.WriteLine("Directory not found: " + FolderForSplitIntervalsFromPortal);
+                console.WriteLine("Directory not found: " + FolderForInputDataFromRezultzPortal);
                 return;
             }
-
 
             try
             {
@@ -55,26 +54,25 @@ internal class Program
                 return;
             }
 
-
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForMyLapsTimingDataFiles);
+                Directory.SetCurrentDirectory(FolderForMyLapsTimingDataFilesFromAndrew);
             }
             catch (DirectoryNotFoundException)
             {
-                console.WriteLine("Directory not found: " + FolderForMyLapsTimingDataFiles);
+                console.WriteLine("Directory not found: " + FolderForMyLapsTimingDataFilesFromAndrew);
                 return;
             }
 
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForDiagnosticReport);
+                Directory.SetCurrentDirectory(FolderForMyLapsVersusPortalComparison);
             }
             catch (DirectoryNotFoundException)
             {
-                console.WriteLine("Directory not found: " + FolderForDiagnosticReport);
+                console.WriteLine("Directory not found: " + FolderForMyLapsVersusPortalComparison);
                 return;
             }
 
@@ -84,7 +82,7 @@ internal class Program
 
             // NB: be sure that this file is totally up-to-date. changes are being made daily!
 
-            var path = Path.Combine(FolderForParticipantMasterListFromPortal, FileOfParticipantMasterListFromPortal);
+            var path = Path.Combine(FolderForParticipantMasterListFromPortal, FileNameOfParticipantMasterListFromPortal);
 
             var portalParticipantFileInfo = new FileInfo(path);
 
@@ -123,7 +121,7 @@ internal class Program
 
             #region confirm existence of portal timing system file of split intervals
 
-            var resultsFileInfo = new FileInfo(FolderForSplitIntervalsFromPortal + FileOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal);
+            var resultsFileInfo = new FileInfo(FolderForInputDataFromRezultzPortal + FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal);
 
             if (!resultsFileInfo.Exists)
             {
@@ -158,15 +156,19 @@ internal class Program
 
             #endregion
 
-            #region find all files that exist in myLaps timing system results folders
+            #region confirm existence of .csv files exported from Excel that exist in myLaps timing system results folder
 
-            var di = new DirectoryInfo(FolderForMyLapsTimingDataFiles); // Create a reference to the input directory.
+            var di = new DirectoryInfo(FolderForMyLapsTimingDataFilesFromAndrew); // Create a reference to the input directory.
 
+            var arrayOfInputFileInfo2 = di.EnumerateFiles().ToArray(); // Create an array representing all the files in the current directory of all types.
             var arrayOfInputFileInfo = di.GetFiles(); // Create an array representing all the files in the current directory of all types.
 
-            #endregion
+            if (arrayOfInputFileInfo.Length == 0) {
 
-            #region find all .csv files exported from Excel that exist in myLaps timing system results folder
+                console.WriteLinePrecededByOne($"{JghString.LeftAlign($"Problem: No files found in MyLaps timing data folder. [{FolderForMyLapsTimingDataFilesFromAndrew}]", LhsWidth)}");
+
+                return;
+            }
 
             foreach (var thisMyLapsFileInfo in arrayOfInputFileInfo.Where(z => z.FullName.EndsWith(".csv")))
             {
@@ -180,7 +182,7 @@ internal class Program
 
             #endregion
 
-            #region read text contents of files
+            #region read text contents of .csv files
 
             foreach (var myLapsFileObject in ResultsPortalTimingSystemFileBeingAnalysed.ListOfMyLapsFileObjects)
             {
@@ -217,7 +219,7 @@ internal class Program
 
             #endregion
 
-            #region convert lists of results to dictionaries keyed by Bib for easy analysis
+            #region convert lists of Portal and MyLaps results to dictionaries keyed by Bib for easy analysis
 
             JghListDictionary<string, ResultDto> dictionaryOfPortalTimingSystemResultsKeyedByBib = new();
 
@@ -226,14 +228,20 @@ internal class Program
             JghListDictionary<string, MyLapsResultItem> dictionaryOfMyLapsTimingSystemResultsKeyedByBib = new();
 
             foreach (var myLapsFile in ResultsPortalTimingSystemFileBeingAnalysed.ListOfMyLapsFileObjects)
-            foreach (var myLapsResult in myLapsFile.MyLapsFileContentsAsMyLapsResultObjects)
-                dictionaryOfMyLapsTimingSystemResultsKeyedByBib.Add(myLapsResult.Bib, myLapsResult);
+            {
+                foreach (var myLapsResult in myLapsFile.MyLapsFileContentsAsMyLapsResultObjects)
+                {
+                    dictionaryOfMyLapsTimingSystemResultsKeyedByBib.Add(myLapsResult.Bib, myLapsResult);
+                }
+            }
 
             #endregion
 
-            #region report Bibs missing in Mylaps i.e. that are listed in Results from Portal but not in MyLaps
+            #region report results missing in Mylaps i.e. that are listed in Results from Portal but not in MyLaps
 
             JghStringBuilder sb = new();
+
+            List<ResultDto> resultsForInclusionInMyLaps = [];
 
             var i = 0;
 
@@ -242,13 +250,15 @@ internal class Program
                 if (kvp.Value.Any(z => (!string.IsNullOrWhiteSpace(z.DnxString))))
                     continue; // skip people who have a DNF, DNS, etc.
 
-                if (dictionaryOfMyLapsTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue; //todo: check for DNF, DNS, etc. (currently the data is not available in the MyLaps files)
+                if (dictionaryOfMyLapsTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue; 
 
-                var person = kvp.Value.FirstOrDefault();
+                var portalResult = kvp.Value.FirstOrDefault();
 
-                if (person is null) continue;
+                if (portalResult is null) continue;
 
-                sb.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{person.First} {person.Last}",-25}  {$"{person.T01}", 15}  IsSeries: {$"{person.IsSeries}", 5}  SeriesGroup: {person.RaceGroup}");
+                resultsForInclusionInMyLaps.Add(portalResult);
+
+                sb.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{portalResult.First} {portalResult.Last}",-25}  {$"{portalResult.T01}", 15}  IsSeries: {$"{portalResult.IsSeries}", 5}  SeriesGroup: {portalResult.RaceGroup}");
 
                 i += 1;
 
@@ -258,9 +268,17 @@ internal class Program
 
             console.WriteLine(sb.ToString());
 
+            var resultsForInclusionInMyLapsAsXml = JghSerialisation.ToXElementFromObject(resultsForInclusionInMyLaps, new Type[] { typeof(ResultDto) });
+
+            SaveWorkToHardDrive(resultsForInclusionInMyLapsAsXml.ToString(),
+                FolderForMyLapsVersusPortalComparison,
+                JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfResultsForAdditionToMyLaps));
+
+
+
             #endregion
 
-            #region report Bibs missing in Portal i.e. that are listed in Results from Portal but not in MyLaps
+            #region report results missing in Portal i.e. that are listed in MyLaps but not in Results from Portal
 
             JghStringBuilder sb1 = new();
 
@@ -271,11 +289,11 @@ internal class Program
                
                 if (dictionaryOfPortalTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue;
 
-                var person = kvp.Value.FirstOrDefault();
+                var myLapsResult = kvp.Value.FirstOrDefault();
 
-                if (person is null) continue;
+                if (myLapsResult is null) continue;
 
-                sb1.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{person.FullName}",-25} {$"{person.DurationAsString}",15}  RaceDayGroup: {person.RaceGroup}");
+                sb1.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.DurationAsString}",15}  RaceDayGroup: {myLapsResult.RaceGroup}");
 
                 j += 1;
 
@@ -291,24 +309,31 @@ internal class Program
 
             JghStringBuilder sb2 = new();
 
+            //List<MyLapsResultItem> resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons = [];
+            List<ResultDto> forExclusionFromAllSeriesPointsCalculationsForSpecialReasons = [];
+
             var ii = 0;
 
             foreach (var listKeyedByBib in dictionaryOfMyLapsTimingSystemResultsKeyedByBib)
             {
-                var personInMyLapsTimingSystem = listKeyedByBib.Value.FirstOrDefault();
+                var myLapsResult = listKeyedByBib.Value.FirstOrDefault();
 
-                if (personInMyLapsTimingSystem is null) continue;
+                if (myLapsResult is null) continue;
 
-                var registeredSeriesParticipant = DictionaryOfParticipantsInPortalMasterListKeyedByBib[personInMyLapsTimingSystem.Bib].FirstOrDefault(z => z.IsSeries == true);
+                var registeredSeriesParticipant = DictionaryOfParticipantsInPortalMasterListKeyedByBib[myLapsResult.Bib].FirstOrDefault(z => z.IsSeries == true);
 
                 if (registeredSeriesParticipant is null) continue;
 
                 var registeredRaceGroupOfSeriesParticipantInPortal = FigureOutRaceGroup(ParticipantHubItem.ToDataTransferObject(registeredSeriesParticipant), DateOfThisEvent);
 
-                if (registeredRaceGroupOfSeriesParticipantInPortal == personInMyLapsTimingSystem.RaceGroup) continue;
+                if (registeredRaceGroupOfSeriesParticipantInPortal == JghString.TmLr(myLapsResult.RaceGroup)) continue;
 
-                sb2.AppendLine($"Bib: Series/RaceDay= {$"{registeredSeriesParticipant.Bib}-{personInMyLapsTimingSystem.Bib}", 8} {$"{personInMyLapsTimingSystem.FullName}",-25} Group: Series/RaceDay= {registeredRaceGroupOfSeriesParticipantInPortal}/{personInMyLapsTimingSystem.RaceGroup}"); 
-                
+                //resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons.Add(myLapsResult);
+
+                sb2.AppendLine($"Bib: Series/RaceDay= {$"{registeredSeriesParticipant.Bib}-{myLapsResult.Bib}", 8} {$"{myLapsResult.FullName}",-25} Group: Series/RaceDay= {registeredRaceGroupOfSeriesParticipantInPortal}/{myLapsResult.RaceGroup}");
+
+                forExclusionFromAllSeriesPointsCalculationsForSpecialReasons.Add(new ResultDto(){Bib = myLapsResult.Bib, Last = myLapsResult.FullName, IsExcludedFromAllSeriesPointsCalculationsForSpecialReasons = true} );
+
                 ii += 1;
             }
 
@@ -316,16 +341,24 @@ internal class Program
 
             console.WriteLine(sb2.ToString());
 
+            var resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml = JghSerialisation.ToXElementFromObject(forExclusionFromAllSeriesPointsCalculationsForSpecialReasons, new Type[] { typeof(ResultDto) });
+
+            SaveWorkToHardDrive(resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml.ToString(),
+                FolderForMyLapsVersusPortalComparison,
+                JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons));
+
+
             #endregion
 
             #region wrap up
 
-            console.WriteLineWrappedByOne("Diagnostic report:");
-            var prettyFileName = JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileOfDiagnosticReport);
-            SaveWorkToHardDrive(console.ToString(), FolderForDiagnosticReport, prettyFileName);
-
             console.WriteLinePrecededByOne("Everything complete. No further action required. Goodbye.");
             console.WriteLine("ooo0 - Goodbye - 0ooo");
+
+            SaveWorkToHardDrive(console.ToString(),
+                FolderForMyLapsVersusPortalComparison,
+                JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfMyLapsVersusPortalComparison));
+
             console.ReadLine();
 
             #endregion
@@ -384,8 +417,8 @@ internal class Program
 
         File.WriteAllText(pathOfFile, text);
 
-        Console.WriteLine($"{JghString.LeftAlign("File saved:", 15)} {outPutFilename}");
-        Console.WriteLine($"{JghString.LeftAlign("Folder:", 15)} {outPutFolder}");
+        console.WriteLine($"{JghString.LeftAlign("File saved:", 15)} {outPutFilename}");
+        console.WriteLine($"{JghString.LeftAlign("Folder:", 15)} {outPutFolder}");
     }
 
     #endregion
@@ -404,18 +437,18 @@ internal class Program
 
     private const int LhsWidth = 40;
 
-    private static readonly DateTime DateOfThisEvent = new(2024, 5,14);
+    private static readonly DateTime DateOfThisEvent = new(2024, 6,18);
 
-    private const string FolderForCommonStuff = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R6 July 2\DiagnosticReport\";
-    private const string FolderForMyLapsTimingDataFiles = @"C:\Users\johng\holding pen\StuffFromAndrew\2024mtbFromMyLaps\2024-Timing-Compendium\R6 July 2\ExportedAsCsv\";
+    private const string FolderForParticipantMasterListFromPortal = @"C:\Users\johng\holding pen\StuffByJohn\ParticipantsFromPortal\";
+    private const string FolderForMyLapsTimingDataFilesFromAndrew = @"C:\Users\johng\holding pen\StuffFromAndrew\2024-MyLaps-Timing-Data\R5-June-18\";
+    private const string FolderForInputDataFromRezultzPortal = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R5-June-18\InputFromRezultzPortal\";
+    private const string FolderForMyLapsVersusPortalComparison = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R5-June-18\MyLapsVersusPortalComparison\";
 
-    private const string FolderForParticipantMasterListFromPortal = FolderForCommonStuff;
-    private const string FolderForSplitIntervalsFromPortal = FolderForCommonStuff;
-    private const string FolderForDiagnosticReport = FolderForCommonStuff;
-
-    private const string FileOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport R6 July 2.txt";
-    private const string FileOfParticipantMasterListFromPortal = @"2024-07-04T15-50-01+Participants.json";
-    private const string FileOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-04T15-54-25+DraftResultsForLeaderboard.xml";
+    private const string FileNameOfParticipantMasterListFromPortal = @"2024-07-09T14-53-23+Participants.json";
+    private const string FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-09T15-07-43+SplitIntervalsFromRezultzPortalTimingSystem.xml";
+    private const string FileNameOfMyLapsVersusPortalComparison = @"MyLapsVersusPortalTimingDataDiagnosticReport-R5-June-18.txt";
+    private const string FileNameOfResultsForAdditionToMyLaps = @"SplitIntervalsFromPortalTimingSystemForAdditionToMyLaps-R5-June-18.xml";
+    private const string FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons = @"MyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons-R5-June-18.xml";
 
     #endregion
 }
