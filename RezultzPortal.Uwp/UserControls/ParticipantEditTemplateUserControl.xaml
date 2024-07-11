@@ -208,7 +208,7 @@
 
         <CheckBox Grid.Row="20" Grid.Column="4"
                   x:Name="XamlElementRegradeCheckBox"
-                  Content="Regraded? :"
+                  Content="Show regrade :"
                   IsChecked="{Binding Path=IsRegradedRaceGroup,  Mode=TwoWay}"
                   Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />
 

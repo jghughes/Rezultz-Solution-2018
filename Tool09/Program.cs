@@ -257,7 +257,7 @@ internal class Program
 
                 resultsForInclusionInMyLaps.Add(portalResult);
 
-                sb.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{portalResult.First} {portalResult.Last}",-25}  {$"{portalResult.T01}", 15}  IsSeries: {$"{portalResult.IsSeries}", 5}  SeriesGroup: {portalResult.RaceGroup}");
+                sb.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{portalResult.First} {portalResult.Last}",-25}  {$"{portalResult.T01}", 15}  IsSeries: {$"{portalResult.IsSeries}", 5}  SeriesGroup: {portalResult.RaceGroup}?");
 
                 i += 1;
 
