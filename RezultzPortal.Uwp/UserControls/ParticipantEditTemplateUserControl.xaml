@@ -49,6 +49,8 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="6" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -174,17 +176,17 @@
         <StackPanel Grid.Row="18" Grid.Column="2" Grid.ColumnSpan="3"
               BorderThickness="1" Orientation="Horizontal">
 
-            <RadioButton IsChecked="{Binding Path=IsSeries,  Mode=TwoWay}"
+            <CheckBox IsChecked="{Binding Path=IsSeries,  Mode=TwoWay}"
                          Content="Full series"
                          Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />
 
-            <RadioButton IsChecked="{Binding Path=IsSeries, Converter={StaticResource BooleanToNegation}, Mode=TwoWay}"
+            <CheckBox IsChecked="{Binding Path=IsSeries, Converter={StaticResource BooleanToNegation}, Mode=TwoWay}"
                          Content="One-off event"
                          Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />
 
         </StackPanel>
 
-        <TextBlock Grid.Row="20" Grid.Column="0" Text="Race  :"
+        <TextBlock Grid.Row="20" Grid.Column="0" Text="Series (and regrade?) :"
                    ToolTipService.ToolTip="Choose race to compete in for the series. Optionally upgrade/downgrade to a different race at some point during the series. A single transition is permitted during the series. A transition affects an individual's accumulation of points for the series."
                    Style="{StaticResource HereBodyTextBlockStyle}" />
 
@@ -206,22 +208,31 @@
             </interactivity:Interaction.Behaviors>
         </ComboBox>
 
-        <CheckBox Grid.Row="20" Grid.Column="4"
+        <!--<RadioButton Grid.Row="20" Grid.Column="4"
                   x:Name="XamlElementRegradeCheckBox"
-                  Content="Show regrade :"
+                  Content="Show more"
+                  Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />-->
+        <!--<CheckBox Grid.Row="20" Grid.Column="4"
+                  x:Name="XamlElementRegradeCheckBox"
+                  Content="Show more"
                   IsChecked="{Binding Path=IsRegradedRaceGroup,  Mode=TwoWay}"
-                  Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />
+                  Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />-->
 
-        <ComboBox Grid.Row="20" Grid.Column="6"
-                  DisplayMemberPath="Label"
-                  PlaceholderText="Choose..."
-                  ToolTipService.ToolTip="Choose to upgrade or downgrade to a different race at some stage during the series. For a participant who upgrades to a higher race, points accumulated prior to the transition are carried forward to the participant's total points for the series. For a participant who downgrades to a lower race, the points are lost."
-                  DataContext="{Binding Path=CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm}"
-                  IsEnabled="{Binding Path=IsAuthorisedToOperate}"
-                  ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
-                  SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
-                  Visibility="{Binding ElementName=XamlElementRegradeCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibility}}"
-                  Style="{StaticResource HereComboBoxStyle}">
+            <!--<TextBlock 
+                Text="Change selection to regrade or clear regrade:"
+                Style="{StaticResource HereBodyTextBlockStyle}"
+                Visibility="{Binding ElementName=XamlElementRegradeCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibility}}" />-->
+
+<ComboBox Grid.Row="20" Grid.Column="4"
+                      DisplayMemberPath="Label"
+                      PlaceholderText="Choose..."
+                      ToolTipService.ToolTip="Choose to upgrade or downgrade to a different race at some stage during the series. For a participant who upgrades to a higher race, points accumulated prior to the transition are carried forward to the participant's total points for the series. For a participant who downgrades to a lower race, the points are lost."
+                      DataContext="{Binding Path=CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm}"
+                      IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                      ItemsSource="{Binding Path=ItemsSource, Converter={StaticResource CboLookupItemDisplayObjectsGuardAgainstNull}}"
+                      SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
+                      Visibility="{Binding ElementName=XamlElementRegradeCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibility}}"
+                      Style="{StaticResource HereComboBoxStyle}">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="SelectionChanged">
                     <core:InvokeCommandAction
@@ -231,7 +242,8 @@
         </ComboBox>
 
 
-        <Grid Grid.Row="22" Grid.Column="4" Grid.RowSpan="4" Grid.ColumnSpan="3"
+
+<Grid Grid.Row="22" Grid.Column="4" Grid.RowSpan="4" Grid.ColumnSpan="3"
               Visibility="{Binding ElementName=XamlElementRegradeCheckBox, Path=IsChecked, Converter={StaticResource BooleanToVisibility}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

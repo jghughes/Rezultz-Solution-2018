@@ -89,7 +89,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
             public string Team { get; set; } = string.Empty;
 
-            public bool IsRegradedRaceGroup { get; set; }
+            //public bool IsRegradedRaceGroup { get; set; }
 
             public string RaceGroupBeforeTransition { get; set; } = string.Empty; // originates from Label element of RaceSpecificationItem in SeriesSettings
 
@@ -181,13 +181,13 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         }
 
 
-        private bool _backingstoreIsRegradedRaceGroup = true;
+        //private bool _backingstoreIsRegradedRaceGroup = true;
 
-        public bool IsRegradedRaceGroup
-        {
-            get => _backingstoreIsRegradedRaceGroup;
-            set => SetProperty(ref _backingstoreIsRegradedRaceGroup, value, AnyEditTemplateEntryChanged);
-        }
+        //public bool IsRegradedRaceGroup
+        //{
+        //    get => _backingstoreIsRegradedRaceGroup;
+        //    set => SetProperty(ref _backingstoreIsRegradedRaceGroup, value, AnyEditTemplateEntryChanged);
+        //}
 
 
         private string _backingstoreWhenTouchedDateForDisplayOnly = string.Empty;
@@ -226,7 +226,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
             BirthYear = BirthYear,
             City = City,
             Team = Team,
-            IsRegradedRaceGroup = IsRegradedRaceGroup,
+            //IsRegradedRaceGroup = IsRegradedRaceGroup,
             RaceGroupBeforeTransition = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm?.CurrentItem?.Label,
             RaceGroupAfterTransition = CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm?.CurrentItem?.Label,
             DateOfRaceGroupTransition = DateOfRaceGroupTransitionCalendarPickerVm?.Date,
@@ -253,7 +253,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         BirthYear = _myClipBoardForParticipantProfile.BirthYear;
         City = _myClipBoardForParticipantProfile.City;
         Team = _myClipBoardForParticipantProfile.Team;
-        IsRegradedRaceGroup = _myClipBoardForParticipantProfile.IsRegradedRaceGroup;
+        //IsRegradedRaceGroup = _myClipBoardForParticipantProfile.IsRegradedRaceGroup;
         await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.ChangeSelectedIndexToMatchItemLabelAsync(_myClipBoardForParticipantProfile.RaceGroupBeforeTransition);
         await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.ChangeSelectedIndexToMatchItemLabelAsync(_myClipBoardForParticipantProfile.RaceGroupAfterTransition);
         DateOfRaceGroupTransitionCalendarPickerVm.Date = _myClipBoardForParticipantProfile.DateOfRaceGroupTransition;
@@ -612,10 +612,10 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
                                                                           && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
                                                                           && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
 
-        IsRegradedRaceGroup = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
-                              && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
-                              && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
-    }
+            //    IsRegradedRaceGroup = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
+            //                          && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
+            //                          && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
+        }
 
         protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
