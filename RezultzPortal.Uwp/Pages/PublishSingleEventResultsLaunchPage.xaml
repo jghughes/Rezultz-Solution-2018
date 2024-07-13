@@ -391,6 +391,46 @@
 
                                     </StackPanel>
 
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm06"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button
+                                            Content="{Binding Path=Content}"
+                                            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                            Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
+                                            Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereImportDataButtonStyle}"
+                                            TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
+                                    <StackPanel Tag="BrowseHardDriveForFileAndUploadAsSourceDatasetButtonVm07"
+                                                Orientation="Vertical"
+                                                DataContext="{Binding Path=BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07}"
+                                                Visibility="{Binding Path=IsVisible}">
+
+                                        <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                                        <Button
+                                            Content="{Binding Path=Content}"
+                                            ToolTipService.ToolTip="{Binding Path=DatasetShortDescription}"
+                                            Click="BtnBrowseHardDriveForFileAndUploadAsSourceDataset_OnClick"
+                                            Tag="{Binding Path=DatasetIdentifyingEnum}"
+                                            IsEnabled="{Binding Path=IsAuthorisedToOperate}"
+                                            Style="{StaticResource HereImportDataButtonStyle}"
+                                            TabIndex="10" />
+
+                                        <userControls1:PublishingModuleImportFileFromHardDriveButtonUserControl />
+
+                                    </StackPanel>
+
                                 </StackPanel>
 
                             </StackPanel>
@@ -427,7 +467,6 @@
 
                                 </StackPanel>
                             </StackPanel>
-
 
                             <StackPanel
                                 Visibility="{Binding ElementName=XamlElementCheckBoxShowOptionalSteps, Path=IsChecked}">
@@ -674,7 +713,6 @@
                                     ToolTipService.ToolTip="Displays the datasets associated with each button in the publishing sequence. Displays feedback on the processing." />
 
                             </StackPanel>
-
 
                         </StackPanel>
 

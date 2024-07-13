@@ -106,17 +106,19 @@ namespace RezultzPortal.Uwp.PageViewModels
             PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonVm =
                 new PublishingModuleButtonControlViewModel(PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickExecuteAsync, PullTimestampsAndParticipantsFromRezultzHubAndUploadComputedLeaderboardAsSourceDataButtonOnClickCanExecute);
 
-            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm01 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07 = new PublishingModuleButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
 
-            ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm = new ButtonControlViewModel(ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickExecuteAsync,
-                ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute);
+            ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm =
+                new ButtonControlViewModel(ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickExecuteAsync, ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonOnClickCanExecute);
 
-            ExportProcessingReportToHardDriveButtonVm = new ButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
-            ExportLeaderboardToHardDriveButtonVm = new ButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of user control
+            ExportProcessingReportToHardDriveButtonVm = new ButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
+            ExportLeaderboardToHardDriveButtonVm = new ButtonControlViewModel(() => { }, () => false); // click event handled in code-behind of page
 
             UploadLeaderboardToPreviewStorageButtonVm =
                 new ButtonControlViewModel(UploadLeaderboardToPreviewStorageButtonOnClickExecuteAsync, UploadLeaderboardToPreviewStorageButtonOnClickCanExecute);
@@ -379,6 +381,8 @@ namespace RezultzPortal.Uwp.PageViewModels
         public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03 { get; }
         public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04 { get; }
         public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06 { get; }
+        public PublishingModuleButtonControlViewModel BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07 { get; }
 
         public ButtonControlViewModel ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm { get; }
 
@@ -1887,8 +1891,10 @@ namespace RezultzPortal.Uwp.PageViewModels
                 AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03);
                 AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04);
                 AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06);
+                AddDataset(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07);
 
-                return datasetsToBeProcessed.ToArray();
+                    return datasetsToBeProcessed.ToArray();
             }
 
             #region try catch handling
@@ -1925,7 +1931,9 @@ namespace RezultzPortal.Uwp.PageViewModels
                 && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02.DatasetAsRawString)
                 && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03.DatasetAsRawString)
                 && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04.DatasetAsRawString)
-                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05.DatasetAsRawString))
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06.DatasetAsRawString)
+                && string.IsNullOrWhiteSpace(BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07.DatasetAsRawString))
                 throw new JghAlertMessageException(StringsPortal.Unable_to_proceed__No_datasets_as_yet);
 
             #endregion
@@ -2315,9 +2323,15 @@ namespace RezultzPortal.Uwp.PageViewModels
                     case 5:
                         configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05);
                         break;
+                    case 6:
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06);
+                        break;
+                    case 7:
+                        configureButtonVmMethod(buttonProfile, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07);
+                        break;
                 }
 
-                i++;
+                    i++;
             }
 
             return string.Empty;
@@ -2778,6 +2792,8 @@ namespace RezultzPortal.Uwp.PageViewModels
                 BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03.IsAuthorisedToOperate = false;
                 BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04.IsAuthorisedToOperate = false;
                 BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06.IsAuthorisedToOperate = false;
+                BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07.IsAuthorisedToOperate = false;
 
                 ExportProcessingReportToHardDriveButtonVm.IsAuthorisedToOperate = true;
                 ExportLeaderboardToHardDriveButtonVm.IsAuthorisedToOperate = true;
@@ -2839,8 +2855,10 @@ namespace RezultzPortal.Uwp.PageViewModels
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07);
 
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm);
+            AddToCollectionIfIHasIsAuthorisedToOperate(answer, ProcessPreviouslyUploadedSourceDataIntoLeaderboardForSingleEventButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, ExportProcessingReportToHardDriveButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, ExportLeaderboardToHardDriveButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, UploadLeaderboardToPreviewStorageButtonVm);
@@ -2862,7 +2880,9 @@ namespace RezultzPortal.Uwp.PageViewModels
             BrowseHardDriveForFileAndUploadAsSourceDataButtonVm02,
             BrowseHardDriveForFileAndUploadAsSourceDataButtonVm03,
             BrowseHardDriveForFileAndUploadAsSourceDataButtonVm04,
-            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm05,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm06,
+            BrowseHardDriveForFileAndUploadAsSourceDataButtonVm07
         };
 
 

@@ -189,7 +189,7 @@ namespace RezultzPortal.Uwp.Pages
             #region clear updateable datafields in buttonvm to cater for the possibility that this is not the first time through which is quite normal
 
             if (xamlButtonThatUserClicked.DataContext is not PublishingModuleButtonControlViewModel buttonVm)
-                throw new Exception("Button DataContext as ComputerGuiButtonControlViewModel is null. Please report this problem.");
+                throw new Exception("The xamlButtonThatUserClicked DataContext as PublishingModuleButtonControlViewModel on parent vm PublishSingleEventResultsViewModel is null. Please report this problem.");
 
             buttonVm.DatasetHasBeenUploaded = false;
             buttonVm.DatasetFileNameForUpload = string.Empty;
