@@ -15,35 +15,35 @@ using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
 // ReSharper disable UnusedMethodReturnValue.Local
 
 
-namespace RezultzPortal.Uwp.EditTemplateViewModels
+namespace RezultzPortal.Uwp.EditTemplateViewModels;
+
+public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewModelBase, IHasZeroiseAsync
 {
-    public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewModelBase, IHasZeroiseAsync
+    #region constants
+
+    private const int DangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
+
+    #endregion
+
+    #region fields
+
+    private ClipBoardForParticipantProfile _myClipBoardForParticipantProfile;
+
+    #endregion
+
+    #region ctor
+
+    public ParticipantHubItemEditTemplateViewModel()
     {
-        #region constants
-
-        private const int DangerouslyBriefSafetyMarginForBindingEngineMilliSec = 50;
-
-        #endregion
-
-        #region fields
-
-        private ClipBoardForParticipantProfile _myClipBoardForParticipantProfile;
-
-        #endregion
-
-        #region ctor
-
-        public ParticipantHubItemEditTemplateViewModel()
-    {
-        CboLookUpGenderSpecificationItemsVm = new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(string.Empty, AnyEditTemplateEntryChanged, CboListOfGenderSpecificationItemsOnSelectionChangedCanExecute) {IsVisible = true};
+        CboLookUpGenderSpecificationItemsVm = new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(string.Empty, AnyEditTemplateEntryChanged, CboListOfGenderSpecificationItemsOnSelectionChangedCanExecute) { IsVisible = true };
 
         CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm =
             new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(string.Empty, CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedExecute, CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedCanExecute)
-                {IsVisible = true};
+                { IsVisible = true };
 
         CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm =
             new IndexDrivenCollectionViewModel<CboLookupItemDisplayObject>(string.Empty, CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedExecute, CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedCanExecute)
-                {IsVisible = true};
+                { IsVisible = true };
 
         // Note: I empirically proved in Aug 2022 that even on my super-fast machine anything less than 15 milliseconds destroys the binding engine during debug. 
 
@@ -66,153 +66,153 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.OverrideAndEndangerFactorySettingForSafetyMarginForGuiBindingEngine(DangerouslyBriefSafetyMarginForBindingEngineMilliSec);
 
-        DateOfRaceGroupTransitionCalendarPickerVm = new CalendarDatePickerControlViewModel(AnyEditTemplateEntryChanged, () => true) {Date = new DateTimeOffset(DateTime.Today)};
+        DateOfRaceGroupTransitionCalendarPickerVm = new CalendarDatePickerControlViewModel(AnyEditTemplateEntryChanged, () => true) { Date = new DateTimeOffset(DateTime.Today) };
     }
 
-        #endregion
+    #endregion
 
-        #region local type
+    #region local type
 
-        private class ClipBoardForParticipantProfile
-        {
-            public string LastName { get; set; } = string.Empty;
+    private class ClipBoardForParticipantProfile
+    {
+        public string LastName { get; set; } = string.Empty;
 
-            public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
 
-            public string MiddleInitial { get; set; } = string.Empty;
+        public string MiddleInitial { get; set; } = string.Empty;
 
-            public string Gender { get; set; } = string.Empty;
+        public string Gender { get; set; } = string.Empty;
 
-            public string BirthYear { get; set; } = "1900";
+        public string BirthYear { get; set; } = "1900";
 
-            public string City { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
 
-            public string Team { get; set; } = string.Empty;
+        public string Team { get; set; } = string.Empty;
 
-            //public bool IsRegradedRaceGroup { get; set; }
+        //public bool IsRegradedRaceGroup { get; set; }
 
-            public string RaceGroupBeforeTransition { get; set; } = string.Empty; // originates from Label element of RaceSpecificationItem in SeriesSettings
+        public string RaceGroupBeforeTransition { get; set; } = string.Empty; // originates from Label element of RaceSpecificationItem in SeriesSettings
 
-            public string RaceGroupAfterTransition { get; set; } = string.Empty; // originates from Label element of RaceSpecificationItem in SeriesSettings
+        public string RaceGroupAfterTransition { get; set; } = string.Empty; // originates from Label element of RaceSpecificationItem in SeriesSettings
 
-            public DateTimeOffset? DateOfRaceGroupTransition { get; set; } = DateTime.Today;
+        public DateTimeOffset? DateOfRaceGroupTransition { get; set; } = DateTime.Today;
 
-            public bool IsSeries { get; set; }
+        public bool IsSeries { get; set; }
 
-            public string SeriesIdentifier { get; set; } = string.Empty;
+        public string SeriesIdentifier { get; set; } = string.Empty;
 
-            public string EventIdentifiers { get; set; } = string.Empty;
-        }
+        public string EventIdentifiers { get; set; } = string.Empty;
+    }
 
-        #endregion
+    #endregion
 
-        #region props
+    #region props
 
-        private string _backingstoreFirstName = string.Empty;
+    private string _backingstoreFirstName = string.Empty;
 
-        public string FirstName
-        {
-            get => _backingstoreFirstName ?? string.Empty;
-            set => SetProperty(ref _backingstoreFirstName, value, AnyEditTemplateEntryChanged);
-        }
+    public string FirstName
+    {
+        get => _backingstoreFirstName ?? string.Empty;
+        set => SetProperty(ref _backingstoreFirstName, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreMiddleInitial = string.Empty;
+    private string _backingstoreMiddleInitial = string.Empty;
 
-        public string MiddleInitial
-        {
-            get => _backingstoreMiddleInitial ?? string.Empty;
-            set => SetProperty(ref _backingstoreMiddleInitial, value, AnyEditTemplateEntryChanged);
-        }
+    public string MiddleInitial
+    {
+        get => _backingstoreMiddleInitial ?? string.Empty;
+        set => SetProperty(ref _backingstoreMiddleInitial, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreLastName = string.Empty;
+    private string _backingstoreLastName = string.Empty;
 
-        public string LastName
-        {
-            get => _backingstoreLastName ?? string.Empty;
-            set => SetProperty(ref _backingstoreLastName, value, AnyEditTemplateEntryChanged);
-        }
+    public string LastName
+    {
+        get => _backingstoreLastName ?? string.Empty;
+        set => SetProperty(ref _backingstoreLastName, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreBirthYear = string.Empty;
+    private string _backingstoreBirthYear = string.Empty;
 
-        public string BirthYear
-        {
-            get => _backingstoreBirthYear ?? string.Empty;
-            set => SetProperty(ref _backingstoreBirthYear, value, AnyEditTemplateEntryChanged);
-        }
+    public string BirthYear
+    {
+        get => _backingstoreBirthYear ?? string.Empty;
+        set => SetProperty(ref _backingstoreBirthYear, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreCity = string.Empty;
+    private string _backingstoreCity = string.Empty;
 
-        public string City
-        {
-            get => _backingstoreCity ?? string.Empty;
-            set => SetProperty(ref _backingstoreCity, value, AnyEditTemplateEntryChanged);
-        }
+    public string City
+    {
+        get => _backingstoreCity ?? string.Empty;
+        set => SetProperty(ref _backingstoreCity, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreTeam = string.Empty;
+    private string _backingstoreTeam = string.Empty;
 
-        public string Team
-        {
-            get => _backingstoreTeam ?? string.Empty;
-            set => SetProperty(ref _backingstoreTeam, value, AnyEditTemplateEntryChanged);
-        }
+    public string Team
+    {
+        get => _backingstoreTeam ?? string.Empty;
+        set => SetProperty(ref _backingstoreTeam, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreSeriesIdentifier = string.Empty;
+    private string _backingstoreSeriesIdentifier = string.Empty;
 
-        public string SeriesIdentifier
-        {
-            get => _backingstoreSeriesIdentifier ?? string.Empty;
-            set => SetProperty(ref _backingstoreSeriesIdentifier, value, AnyEditTemplateEntryChanged);
-        }
+    public string SeriesIdentifier
+    {
+        get => _backingstoreSeriesIdentifier ?? string.Empty;
+        set => SetProperty(ref _backingstoreSeriesIdentifier, value, AnyEditTemplateEntryChanged);
+    }
 
-        private string _backingstoreEventIdentifiers = string.Empty;
+    private string _backingstoreEventIdentifiers = string.Empty;
 
-        public string EventIdentifiers
-        {
-            get => _backingstoreEventIdentifiers ?? string.Empty;
-            set => SetProperty(ref _backingstoreEventIdentifiers, value, AnyEditTemplateEntryChanged);
-        }
+    public string EventIdentifiers
+    {
+        get => _backingstoreEventIdentifiers ?? string.Empty;
+        set => SetProperty(ref _backingstoreEventIdentifiers, value, AnyEditTemplateEntryChanged);
+    }
 
-        private bool _backingstoreIsSeries = true; // arbitrary default because it's the most common participant
+    private bool _backingstoreIsSeries = true; // arbitrary default because it's the most common participant
 
-        public bool IsSeries
-        {
-            get => _backingstoreIsSeries;
-            set => SetProperty(ref _backingstoreIsSeries, value, AnyEditTemplateEntryChanged);
-        }
-
-
-        //private bool _backingstoreIsRegradedRaceGroup = true;
-
-        //public bool IsRegradedRaceGroup
-        //{
-        //    get => _backingstoreIsRegradedRaceGroup;
-        //    set => SetProperty(ref _backingstoreIsRegradedRaceGroup, value, AnyEditTemplateEntryChanged);
-        //}
+    public bool IsSeries
+    {
+        get => _backingstoreIsSeries;
+        set => SetProperty(ref _backingstoreIsSeries, value, AnyEditTemplateEntryChanged);
+    }
 
 
-        private string _backingstoreWhenTouchedDateForDisplayOnly = string.Empty;
+    //private bool _backingstoreIsRegradedRaceGroup = true;
 
-        public string WhenTouchedDateForDisplayOnly
-        {
-            get => _backingstoreWhenTouchedDateForDisplayOnly ?? string.Empty;
-            set => SetProperty(ref _backingstoreWhenTouchedDateForDisplayOnly, value, AnyEditTemplateEntryChanged);
-        }
+    //public bool IsRegradedRaceGroup
+    //{
+    //    get => _backingstoreIsRegradedRaceGroup;
+    //    set => SetProperty(ref _backingstoreIsRegradedRaceGroup, value, AnyEditTemplateEntryChanged);
+    //}
 
-        public CalendarDatePickerControlViewModel DateOfRaceGroupTransitionCalendarPickerVm { get; }
 
-        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpGenderSpecificationItemsVm { get; }
+    private string _backingstoreWhenTouchedDateForDisplayOnly = string.Empty;
 
-        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm { get; }
+    public string WhenTouchedDateForDisplayOnly
+    {
+        get => _backingstoreWhenTouchedDateForDisplayOnly ?? string.Empty;
+        set => SetProperty(ref _backingstoreWhenTouchedDateForDisplayOnly, value, AnyEditTemplateEntryChanged);
+    }
 
-        public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm { get; }
+    public CalendarDatePickerControlViewModel DateOfRaceGroupTransitionCalendarPickerVm { get; }
 
-        #endregion
+    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpGenderSpecificationItemsVm { get; }
 
-        #region commands
+    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm { get; }
 
-        #region CopyHubItemButtonOnClickAsync
+    public IndexDrivenCollectionViewModel<CboLookupItemDisplayObject> CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm { get; }
 
-        protected override async Task<string> CopyHubItemButtonOnClickAsync()
+    #endregion
+
+    #region commands
+
+    #region CopyHubItemButtonOnClickAsync
+
+    protected override async Task<string> CopyHubItemButtonOnClickAsync()
     {
         if (OneOrMoreEntriesAreInvalid(out var errorReason))
             return await Task.FromResult(errorReason);
@@ -238,11 +238,11 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return await Task.FromResult(Copied);
     }
 
-        #endregion
+    #endregion
 
-        #region PasteHubItemButtonOnClick
+    #region PasteHubItemButtonOnClick
 
-        protected override async Task<string> PasteHubItemButtonOnClickAsync()
+    protected override async Task<string> PasteHubItemButtonOnClickAsync()
     {
         _myClipBoardForParticipantProfile ??= new ClipBoardForParticipantProfile();
 
@@ -264,26 +264,26 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return Pasted;
     }
 
-        #endregion
+    #endregion
 
-        #region CboListOfGenderSpecificationItemsOnSelectionChangedAsync
+    #region CboListOfGenderSpecificationItemsOnSelectionChangedAsync
 
-        private bool CboListOfGenderSpecificationItemsOnSelectionChangedCanExecute()
+    private bool CboListOfGenderSpecificationItemsOnSelectionChangedCanExecute()
     {
         return CboLookUpGenderSpecificationItemsVm.IsAuthorisedToOperate &&
                IsAuthorisedToOperate;
     }
 
-        #endregion
+    #endregion
 
-        #region CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedAsync
+    #region CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedAsync
 
-        private bool CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedCanExecute()
+    private bool CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedCanExecute()
     {
         return CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.IsAuthorisedToOperate && IsAuthorisedToOperate;
     }
 
-        private void CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedExecute()
+    private void CboListOfRaceSpecificationItemsBeforeTransitionOnSelectionChangedExecute()
     {
         try
         {
@@ -307,16 +307,16 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         #endregion
     }
 
-        #endregion
+    #endregion
 
-        #region CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedAsync
+    #region CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedAsync
 
-        private bool CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedCanExecute()
+    private bool CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedCanExecute()
     {
         return CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.IsAuthorisedToOperate && IsAuthorisedToOperate;
     }
 
-        private void CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedExecute()
+    private void CboListOfRaceSpecificationItemsAfterTransitionOnSelectionChangedExecute()
     {
         try
         {
@@ -340,13 +340,13 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         #endregion
     }
 
-        #endregion
+    #endregion
 
-        #endregion
+    #endregion
 
-        #region methods
+    #region methods
 
-        public async Task<bool> PopulateWithItemBeingModifiedAsync(ParticipantHubItem itemBeingModified, RaceSpecificationItem[] raceSpecificationItems)
+    public async Task<bool> PopulateWithItemBeingModifiedAsync(ParticipantHubItem itemBeingModified, RaceSpecificationItem[] raceSpecificationItems)
     {
         #region Step 1. copy across all the straightforward property values from itemBeingModified to this template
 
@@ -379,14 +379,14 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         {
             await CboLookUpGenderSpecificationItemsVm.RefillItemsSourceAsync(new CboLookupItemDisplayObject[]
             {
-                new() {Label = Symbols.SymbolMale},
-                new() {Label = Symbols.SymbolFemale},
-                new() {Label = Symbols.SymbolNonBinary}
+                new() { Label = Symbols.SymbolMale },
+                new() { Label = Symbols.SymbolFemale },
+                new() { Label = Symbols.SymbolNonBinary }
             }); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
 
             if (raceSpecificationItems is not null)
             {
-                var races = raceSpecificationItems.Select(z => new CboLookupItemDisplayObject {Label = z.Label}).ToArray();
+                var races = raceSpecificationItems.Select(z => new CboLookupItemDisplayObject { Label = z.Label }).ToArray();
 
                 await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.RefillItemsSourceAsync(races.ToArray()); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
                 await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.RefillItemsSourceAsync(races.ToArray()); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
@@ -420,7 +420,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return true;
     }
 
-        public ParticipantHubItem MergeEditsBackIntoItemBeingModified(ParticipantHubItem itemBeingModified, string touchedBy)
+    public ParticipantHubItem MergeEditsBackIntoItemBeingModified(ParticipantHubItem itemBeingModified, string touchedBy)
     {
         if (itemBeingModified is null)
             return null;
@@ -480,7 +480,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return answer;
     }
 
-        public bool OneOrMoreEntriesAreInvalid(out string errorMessage)
+    public bool OneOrMoreEntriesAreInvalid(out string errorMessage)
     {
         if (MustDitchOriginatingItem)
         {
@@ -517,7 +517,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return true;
     }
 
-        public bool AllEntriesAreUnchangedSinceInitiallyPopulated()
+    public bool AllEntriesAreUnchangedSinceInitiallyPopulated()
     {
         var before = AsInitiallyPopulatedSemanticValue;
 
@@ -526,7 +526,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return before == after;
     }
 
-        public override async Task<bool> ZeroiseAsync()
+    public override async Task<bool> ZeroiseAsync()
     {
         await base.ZeroiseAsync();
 
@@ -549,7 +549,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return true;
     }
 
-        protected override void SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
+    protected override void SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
     {
         CopyHubItemButtonVm.IsAuthorisedToOperate = IsAuthorisedToOperate;
         PasteHubItemButtonVm.IsAuthorisedToOperate = IsAuthorisedToOperate;
@@ -559,10 +559,14 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.IsAuthorisedToOperate = IsAuthorisedToOperate;
     }
 
-        #region helpers
+    #region helpers
 
-        private string CurrentSemanticValue()
+    private string CurrentSemanticValue()
     {
+        var semanticValueOfDateOfTransition = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm?.CurrentItem?.Label == CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm?.CurrentItem?.Label
+            ? string.Empty
+            : DateOfRaceGroupTransitionCalendarPickerVm.Date?.Date.ToShortDateString();
+
         var answer = JghString.Concat(
             ValueOrDummy(JghString.TmLr(Bib)),
             ValueOrDummy(Rfid),
@@ -578,7 +582,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
             ValueOrDummy(EventIdentifiers),
             ValueOrDummy(CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm?.CurrentItem?.Label),
             ValueOrDummy(CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm?.CurrentItem?.Label),
-            ValueOrDummy(DateOfRaceGroupTransitionCalendarPickerVm.Date?.Date.ToShortDateString()),
+            ValueOrDummy(semanticValueOfDateOfTransition),
             MustDitchOriginatingItem.ToString()
         );
         //nb don't include the Guid fields. want to use the semantic comparison 
@@ -588,18 +592,18 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return answer;
     }
 
-        private static string ValueOrDummy(string value)
+    private static string ValueOrDummy(string value)
     {
         return string.IsNullOrWhiteSpace(value) ? "dummy" : value;
     }
 
-        #endregion
+    #endregion
 
-        #endregion
+    #endregion
 
-        #region Gui stuff
+    #region Gui stuff
 
-        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         CopyHubItemButtonVm.IsAuthorisedToOperate = !OneOrMoreEntriesAreInvalid(out var dummy);
         PasteHubItemButtonVm.IsAuthorisedToOperate = false;
@@ -612,12 +616,12 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
                                                                           && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
                                                                           && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
 
-            //    IsRegradedRaceGroup = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
-            //                          && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
-            //                          && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
-        }
+        //    IsRegradedRaceGroup = CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem is not null
+        //                          && CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem is not null
+        //                          && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
+    }
 
-        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         CopyHubItemButtonVm.IsVisible = makeVisible;
         PasteHubItemButtonVm.IsVisible = makeVisible;
@@ -631,7 +635,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
                                                               && CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.CurrentItem.Label != CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.CurrentItem.Label;
     }
 
-        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -645,11 +649,10 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return answer;
     }
 
-        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         return false;
     }
 
-        #endregion
-    }
+    #endregion
 }
