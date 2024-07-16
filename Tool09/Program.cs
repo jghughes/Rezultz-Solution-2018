@@ -22,7 +22,7 @@ internal class Program
         console.WriteLine($"{JghString.LeftAlign("Folder for MyLaps data from Andrew:", LhsWidth)} {FolderForMyLapsTimingDataFilesFromAndrew}");
         console.WriteLine($"{JghString.LeftAlign("Folder for Portal participants file:", LhsWidth)} {FolderForParticipantMasterListFromPortal}");
         console.WriteLine($"{JghString.LeftAlign("Folder for Portal split intervals:", LhsWidth)} {FolderForInputDataFromRezultzPortal}");
-        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FolderForMyLapsVersusPortalComparison}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FFolderForDiagnosticReport}");
         console.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
         console.ReadLine();
 
@@ -68,11 +68,11 @@ internal class Program
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FolderForMyLapsVersusPortalComparison);
+                Directory.SetCurrentDirectory(FFolderForDiagnosticReport);
             }
             catch (DirectoryNotFoundException)
             {
-                console.WriteLine("Directory not found: " + FolderForMyLapsVersusPortalComparison);
+                console.WriteLine("Directory not found: " + FFolderForDiagnosticReport);
                 return;
             }
 
@@ -270,7 +270,7 @@ internal class Program
             var resultsForInclusionInMyLapsAsXml = JghSerialisation.ToXElementFromObject(resultsForInclusionInMyLaps, new Type[] { typeof(ResultDto) });
 
             SaveWorkToHardDrive(resultsForInclusionInMyLapsAsXml.ToString(),
-                FolderForMyLapsVersusPortalComparison,
+                FFolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfResultsForAdditionToMyLaps));
 
 
@@ -343,7 +343,7 @@ internal class Program
             var resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml = JghSerialisation.ToXElementFromObject(forExclusionFromAllSeriesPointsCalculationsForSpecialReasons, new Type[] { typeof(ResultDto) });
 
             SaveWorkToHardDrive(resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml.ToString(),
-                FolderForMyLapsVersusPortalComparison,
+                FFolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons));
 
 
@@ -355,8 +355,8 @@ internal class Program
             console.WriteLine("ooo0 - Goodbye - 0ooo");
 
             SaveWorkToHardDrive(console.ToString(),
-                FolderForMyLapsVersusPortalComparison,
-                JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfMyLapsVersusPortalComparison));
+                FFolderForDiagnosticReport,
+                JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfDiagnosticReport));
 
             console.ReadLine();
 
@@ -447,12 +447,12 @@ internal class Program
 
 
     private const string FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-10T13-12-59+SplitIntervalsFromRezultzPortalTimingSystem.xml";
-    private const string FileNameOfMyLapsVersusPortalComparison = @"MyLapsVersusPortalTimingDataDiagnosticReport-R3-June-04.txt";
+    private const string FileNameOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport-R3-June-04.txt";
     private const string FileNameOfResultsForAdditionToMyLaps = @"SplitIntervalsFromPortalTimingSystemForAdditionToMyLaps-R3-June-04.xml";
 
     private const string FolderForMyLapsTimingDataFilesFromAndrew = @"C:\Users\johng\holding pen\StuffFromAndrew\2024-MyLaps-Timing-Data\R3-June-04\ExportedDirectlyAsCsv\";
     private const string FolderForInputDataFromRezultzPortal = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\InputFromRezultzPortal\";
-    private const string FolderForMyLapsVersusPortalComparison = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\MyLapsVersusPortalComparison\";
+    private const string FFolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\MyLapsVersusPortalComparison\";
 
 
     #endregion

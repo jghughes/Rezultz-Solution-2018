@@ -200,10 +200,12 @@ internal class Program
             console.WriteLine($"{JghString.LeftAlign(" - unchanged age group:", LhsWidth)} {babyParticipants.Count(z => z is {IsMidSeriesBirthday: true} and {DoesSwitchAgeGroup: false})}");
             console.WriteLine($"{JghString.LeftAlign(" - changed age group:", LhsWidth)} {babyParticipants.Count(z => z is {IsMidSeriesBirthday: true} and {DoesSwitchAgeGroup: true})}");
 
+
+            console.WriteLinePrecededByOne("Everything complete. No further action required.");
+            console.WriteLineWrappedByOne("ooo0 - Goodbye - 0ooo");
+
             SaveWorkToHardDrive(console.ToString(), FolderForReport, FilenameOfReport);
 
-            console.WriteLinePrecededByOne("Everything complete. No further action required. Goodbye.");
-            console.WriteLine("ooo0 - Goodbye - 0ooo");
             console.ReadLine();
 
             #endregion

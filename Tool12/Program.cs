@@ -437,10 +437,12 @@ internal class Program
 
             var prettyFileName = JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FilenameOfDiagnosticReport);
 
+
+            console.WriteLinePrecededByOne("Everything complete. No further action required.");
+            console.WriteLineWrappedByOne("ooo0 - Goodbye - 0ooo");
+
             SaveWorkToHardDrive(console.ToString(), FolderContainingDiagnosticReportDocument, prettyFileName);
 
-            console.WriteLinePrecededByOne("Everything complete. No further action required. Goodbye.");
-            console.WriteLine("ooo0 - Goodbye - 0ooo");
             console.ReadLine();
 
             #endregion
