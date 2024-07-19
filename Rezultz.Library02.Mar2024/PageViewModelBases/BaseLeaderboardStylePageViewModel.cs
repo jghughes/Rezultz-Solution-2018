@@ -63,7 +63,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
         LoadSourceDataButtonVm = new ButtonControlViewModel(LoadSourceDataButtonOnClickExecuteAsync, LoadSourceDataButtonOnClickCanExecute);
 
-        RefreshScreenButtonVm = new ButtonControlViewModel(RefreshScreenButtonOnClickExecuteAsync, RefreshScreenButtonOnClickCanExecute);
+        ApplyFiltersButtonVm = new ButtonControlViewModel(ApplyFiltersButtonOnClickExecuteAsync, ApplyFiltersButtonOnClickCanExecute);
 
         DisplayPodiumResultsOnlyToggleButtonVm = new ButtonControlViewModel(() => { }, () => false)
             ;
@@ -331,7 +331,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     public ButtonControlViewModel LoadSourceDataButtonVm { get; }
 
-    public ButtonControlViewModel RefreshScreenButtonVm { get; }
+    public ButtonControlViewModel ApplyFiltersButtonVm { get; }
 
     public ButtonControlViewModel DisplayPodiumResultsOnlyToggleButtonVm { get; }
 
@@ -485,23 +485,23 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
     #endregion
 
-    #region RefreshScreenButtonOnClickAsync - heap powerful
+    #region ApplyFiltersButtonOnClickAsync - heap powerful
 
-    private bool RefreshScreenButtonOnClickCanExecute()
+    private bool ApplyFiltersButtonOnClickCanExecute()
     {
-        return RefreshScreenButtonVm.IsAuthorisedToOperate;
+        return ApplyFiltersButtonVm.IsAuthorisedToOperate;
     }
 
-    private async void RefreshScreenButtonOnClickExecuteAsync()
+    private async void ApplyFiltersButtonOnClickExecuteAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
-        const string locus = "[RefreshScreenButtonOnClickExecuteAsync]";
+        const string locus = "[ApplyFiltersButtonOnClickExecuteAsync]";
 
         try
         {
             GlobalProgressIndicatorVm.OpenProgressIndicator(Strings2017.Working_____looking_for_information);
 
-            var messageOk = await RefreshScreenButtonOnClickOrchestrateAsync();
+            var messageOk = await ApplyFiltersButtonOnClickOrchestrateAsync();
 
             GlobalProgressIndicatorVm.FreezeProgressIndicator();
 
@@ -525,19 +525,19 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    public async Task<string> RefreshScreenButtonOnClickOrchestrateAsync()
+    public async Task<string> ApplyFiltersButtonOnClickOrchestrateAsync()
     {
         const string failure = "Unable to complete ICommand Execute action.";
-        const string locus = "[RefreshScreenButtonOnClickOrchestrateAsync]";
+        const string locus = "[ApplyFiltersButtonOnClickOrchestrateAsync]";
 
         try
         {
-            if (!RefreshScreenButtonOnClickCanExecute())
+            if (!ApplyFiltersButtonOnClickCanExecute())
                 return string.Empty;
 
             DeadenGui();
 
-            var outcome = await RefreshScreenButtonOnClickAsync();
+            var outcome = await ApplyFiltersButtonOnClickAsync();
 
             EnlivenGui();
 
@@ -559,12 +559,12 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         #endregion
     }
 
-    protected async Task<string> RefreshScreenButtonOnClickAsync()
+    protected async Task<string> ApplyFiltersButtonOnClickAsync()
     {
         // end of the line in the sequential drilling down from series to event to race to filter results by selected category
 
         const string failure = "Unable to filter and display or redisplay list of results fully.";
-        const string locus = "[RefreshScreenButtonOnClickAsync]";
+        const string locus = "[ApplyFiltersButtonOnClickAsync]";
 
         try
         {
@@ -1067,7 +1067,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
             await CboLookupRaceCategoryFilterVm.ChangeSelectedIndexAsync(0);
             // Races are unique: we commence with the index = 1 for the "first" item on the list, rather index = 0 meaning "all" , so we need to reset it here to 0
 
-            await RefreshScreenButtonOnClickAsync();
+            await ApplyFiltersButtonOnClickAsync();
 
             #endregion
 
@@ -2050,7 +2050,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
         var answer = new List<object>();
 
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, LoadSourceDataButtonVm);
-        AddToCollectionIfIHasIsAuthorisedToOperate(answer, RefreshScreenButtonVm);
+        AddToCollectionIfIHasIsAuthorisedToOperate(answer, ApplyFiltersButtonVm);
 
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, AddPersonToFavoritesButtonVm);
         AddToCollectionIfIHasIsAuthorisedToOperate(answer, DeletePersonFromFavoritesButtonVm);
@@ -2084,7 +2084,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
     public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         LoadSourceDataButtonVm.IsAuthorisedToOperate = true;
-        RefreshScreenButtonVm.IsAuthorisedToOperate = true;
+        ApplyFiltersButtonVm.IsAuthorisedToOperate = true;
 
         //CboLookupBlobNameToPublishResultsVm.MakeAuthorisedToOperateIfItemsSourceIsAny();
         CboLookupMoreInfoItemVm.MakeAuthorisedToOperateIfItemsSourceIsAny();
@@ -2137,7 +2137,7 @@ public abstract class BaseLeaderboardStylePageViewModel : BaseViewViewModel, ISe
 
         LoadSourceDataButtonVm.IsVisible = true;
 
-        RefreshScreenButtonVm.IsVisible = true;
+        ApplyFiltersButtonVm.IsVisible = true;
 
         ExportFavoritesButtonVm.IsVisible = DataGridOfFavoritesVm.ItemsSource.Any(); // NB
 

@@ -3,6 +3,7 @@ using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
+using System;
 using Tool12;
 
 namespace Tool09;
@@ -22,7 +23,7 @@ internal class Program
         console.WriteLine($"{JghString.LeftAlign("Folder for MyLaps data from Andrew:", LhsWidth)} {FolderForMyLapsTimingDataFilesFromAndrew}");
         console.WriteLine($"{JghString.LeftAlign("Folder for Portal participants file:", LhsWidth)} {FolderForParticipantMasterListFromPortal}");
         console.WriteLine($"{JghString.LeftAlign("Folder for Portal split intervals:", LhsWidth)} {FolderForInputDataFromRezultzPortal}");
-        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FFolderForDiagnosticReport}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FolderForDiagnosticReport}");
         console.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
         console.ReadLine();
 
@@ -68,11 +69,11 @@ internal class Program
             try
             {
                 // If this directory does not exist, a DirectoryNotFoundException is thrown when attempting to set the current directory.
-                Directory.SetCurrentDirectory(FFolderForDiagnosticReport);
+                Directory.SetCurrentDirectory(FolderForDiagnosticReport);
             }
             catch (DirectoryNotFoundException)
             {
-                console.WriteLine("Directory not found: " + FFolderForDiagnosticReport);
+                console.WriteLine("Directory not found: " + FolderForDiagnosticReport);
                 return;
             }
 
@@ -121,7 +122,7 @@ internal class Program
 
             #region confirm existence of .xml file of consolidated split intervals exported manually from Portal timing system
 
-            var resultsFileInfo = new FileInfo(FolderForInputDataFromRezultzPortal + FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal);
+            var resultsFileInfo = new FileInfo(FolderForInputDataFromRezultzPortal + FileNameOfTmeStampsConsolidatedIntoSplitIntervalProvisionalResultsFromPortal);
 
             if (!resultsFileInfo.Exists)
             {
@@ -220,7 +221,7 @@ internal class Program
 
             #region convert lists of Portal and MyLaps results to dictionaries keyed by Bib for easy analysis
 
-            JghListDictionary<string, ResultDto> dictionaryOfPortalTimingSystemResultsKeyedByBib = new();
+            JghListDictionary<string, ResultDto> dictionaryOfPortalTimingSystemResultsKeyedByBib = [];
 
             foreach (var resultDto in ResultsPortalTimingSystemFileBeingAnalysed.SingleRezultzFileContentsAsResultsDataTransferObjects) dictionaryOfPortalTimingSystemResultsKeyedByBib.Add(resultDto.Bib, resultDto);
 
@@ -235,6 +236,39 @@ internal class Program
             }
 
             #endregion
+
+
+            #region report top finishers in Mylaps
+
+            JghListDictionary<string, MyLapsResultItem> dictionaryOfTopFinishersKeyedByRaceGroup = [];
+
+            foreach (var kvp in dictionaryOfMyLapsTimingSystemResultsKeyedByBib)
+            {
+                var myLapsResult = kvp.Value.FirstOrDefault();
+
+                if (myLapsResult is null) continue;
+
+                dictionaryOfTopFinishersKeyedByRaceGroup.Add(myLapsResult.RaceGroup, myLapsResult);
+            }
+
+            console.WriteLineWrappedByOne($"MYLAPS TIMING SYSTEM: Top finishers: ");
+
+            foreach (var kvp in dictionaryOfTopFinishersKeyedByRaceGroup)
+            {
+                var myLapsResults = kvp.Value.OrderBy(z => z.DurationAsString).Take(5);
+
+                foreach (var myLapsResult in myLapsResults)
+                {
+                    console.WriteLine($"Bib:{$"{myLapsResult.Bib}",4} {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.RaceGroup}",-13} {$"{myLapsResult.DurationAsString}",15} ");
+
+                }
+
+                console.WriteLine();
+            }
+
+            #endregion
+
+
 
             #region report results missing in Mylaps i.e. that are listed in Results from Portal but not in MyLaps
 
@@ -257,7 +291,7 @@ internal class Program
 
                 resultsForInclusionInMyLaps.Add(portalResult);
 
-                sb.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{portalResult.First} {portalResult.Last}",-25}  {$"{portalResult.T01}", 15}  IsSeries: {$"{portalResult.IsSeries}", 5}  SeriesGroup: {portalResult.RaceGroup}?");
+                sb.AppendLine($"Bib:{$"{kvp.Key}",4} {$"{portalResult.First} {portalResult.Last}",-25} IsSeries={$"{portalResult.IsSeries}",-5} {$"{portalResult.RaceGroup}",-13} {$"{portalResult.T01}",15} ");
 
                 i += 1;
 
@@ -270,7 +304,7 @@ internal class Program
             var resultsForInclusionInMyLapsAsXml = JghSerialisation.ToXElementFromObject(resultsForInclusionInMyLaps, new Type[] { typeof(ResultDto) });
 
             SaveWorkToHardDrive(resultsForInclusionInMyLapsAsXml.ToString(),
-                FFolderForDiagnosticReport,
+                FolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfResultsForAdditionToMyLaps));
 
 
@@ -292,7 +326,9 @@ internal class Program
 
                 if (myLapsResult is null) continue;
 
-                sb1.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.DurationAsString}",15}  RaceDayGroup: {myLapsResult.RaceGroup}");
+                sb1.AppendLine($"Bib:{$"{kvp.Key}",4} {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.RaceGroup}",-13} {$"{myLapsResult.DurationAsString}",15}");
+
+                //sb1.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.DurationAsString}",15}  RaceDayGroup: {myLapsResult.RaceGroup}");
 
                 j += 1;
 
@@ -327,15 +363,12 @@ internal class Program
 
                 if (registeredRaceGroupOfSeriesParticipantInPortal == JghString.TmLr(myLapsResult.RaceGroup)) continue;
 
-                //resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons.Add(myLapsResult);
-
-                sb2.AppendLine($"Bib: Series/RaceDay= {$"{registeredSeriesParticipant.Bib}-{myLapsResult.Bib}", 8} {$"{myLapsResult.FullName}",-25} Group: Series/RaceDay= {registeredRaceGroupOfSeriesParticipantInPortal}/{myLapsResult.RaceGroup}");
-
+                sb2.AppendLine(
+                    $"Bib: Raced/Series={$"{registeredSeriesParticipant.Bib}-{myLapsResult.Bib}",8} {$"{myLapsResult.FullName}",-25} Raced: {myLapsResult.RaceGroup,-13} Series: {registeredRaceGroupOfSeriesParticipantInPortal,-13} {myLapsResult.DurationAsString,12} Not in series category");
+                //sb2.AppendLine($"Bib: Series/RaceDay= {$"{registeredSeriesParticipant.Bib}-{myLapsResult.Bib}", 8} {$"{myLapsResult.FullName}",-25} Group: Series/RaceDay= {registeredRaceGroupOfSeriesParticipantInPortal}/{myLapsResult.RaceGroup}");
                 forExclusionFromAllSeriesPointsCalculationsForSpecialReasons.Add(new ResultDto(){Bib = myLapsResult.Bib, Last = myLapsResult.FullName, IsExcludedFromAllSeriesPointsCalculationsForSpecialReasons = true} );
-
                 ii += 1;
             }
-
             console.WriteLineWrappedByOne($"CATEGORY CONFLICTS between SeriesGroup and RaceDayGroup: {ii}");
 
             console.WriteLine(sb2.ToString());
@@ -343,7 +376,7 @@ internal class Program
             var resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml = JghSerialisation.ToXElementFromObject(forExclusionFromAllSeriesPointsCalculationsForSpecialReasons, new Type[] { typeof(ResultDto) });
 
             SaveWorkToHardDrive(resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml.ToString(),
-                FFolderForDiagnosticReport,
+                FolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons));
 
 
@@ -352,10 +385,10 @@ internal class Program
             #region wrap up
 
             console.WriteLinePrecededByOne("Everything complete. No further action required. Goodbye.");
-            console.WriteLine("ooo0 - Goodbye - 0ooo");
+            console.WriteLineWrappedByOne("ooo0 - Goodbye - 0ooo");
 
             SaveWorkToHardDrive(console.ToString(),
-                FFolderForDiagnosticReport,
+                FolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfDiagnosticReport));
 
             console.ReadLine();
@@ -428,7 +461,8 @@ internal class Program
                                        "data from the timing mat to a (potentially totally different) set of timing data recorded in " +
                                        "the timing tent using the Portal timing system. The purpose of doing this is to search for gaps " +
                                        "in the data by means of comparison. Based on empirical experience, there are typically about ten " +
-                                       "anomalies in a Kelso event because the electronic mat misses people. The Portal timing team also misses " +
+                                       "anomalies each week because the electronic mat misses people. With a double-mat for redundancy, the anomalies are reduced " +
+                                       "The Portal timing team also misses " +
                                        "people, but generallly fewer. The pipeline for this tool is that data is exported from MyLaps in Excel " +
                                        "format, then exported from Excel in .csv format, and then finally imported into this tool as .csv and " +
                                        "deserialised and analysed. Portal data is exported effortlessly by clicking the export button on the " +
@@ -436,24 +470,19 @@ internal class Program
 
     private const int LhsWidth = 40;
 
-    private static readonly DateTime DateOfThisEvent = new(2024, 6,04);
+    private const string Event = "R6-July-02";
+    private static readonly DateTime DateOfThisEvent = new(2024, 7, 02);
+    private const string FileNameOfTmeStampsConsolidatedIntoSplitIntervalProvisionalResultsFromPortal = @"2024-07-17T14-11-13+SplitIntervalsFromRezultzPortalTimingSystem.xml";
 
-    private const string FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons = @"MyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons-R1-May-14.xml";
-    private const string FileNameOfParticipantMasterListFromPortal = @"2024-07-09T14-53-23+Participants.json";
+    private const string FileNameOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport-" + Event + ".txt";
+    private const string FileNameOfResultsForAdditionToMyLaps = @"SplitIntervalsFromPortalTimingSystemForAdditionToMyLaps-" + Event + ".xml";
+    private const string FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons = @"MyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons-" + Event + ".xml";
+    private const string FolderForMyLapsTimingDataFilesFromAndrew = @"C:\Users\johng\holding pen\StuffFromAndrew\2024-MyLaps-Timing-Data\" + Event + @"\ExportedDirectlyAsCsv\";
+    private const string FolderForInputDataFromRezultzPortal = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\" + Event + @"\InputFromRezultzPortal\";
+    private const string FolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\" + Event + @"\MyLapsVersusPortalComparison\";
+
+    private const string FileNameOfParticipantMasterListFromPortal = @"2024-07-17T14-01-53+Participants.json";
     private const string FolderForParticipantMasterListFromPortal = @"C:\Users\johng\holding pen\StuffByJohn\ParticipantsFromPortal\";
-
-
-
-
-
-    private const string FileNameOfTmeStampsConsolidatedIntoProvisionalResultsFromPortal = @"2024-07-10T13-12-59+SplitIntervalsFromRezultzPortalTimingSystem.xml";
-    private const string FileNameOfDiagnosticReport = @"MyLapsVersusPortalTimingDataDiagnosticReport-R3-June-04.txt";
-    private const string FileNameOfResultsForAdditionToMyLaps = @"SplitIntervalsFromPortalTimingSystemForAdditionToMyLaps-R3-June-04.xml";
-
-    private const string FolderForMyLapsTimingDataFilesFromAndrew = @"C:\Users\johng\holding pen\StuffFromAndrew\2024-MyLaps-Timing-Data\R3-June-04\ExportedDirectlyAsCsv\";
-    private const string FolderForInputDataFromRezultzPortal = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\InputFromRezultzPortal\";
-    private const string FFolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffByJohn\2024-MyLaps-Timing-Analysis\R3-June-04\MyLapsVersusPortalComparison\";
-
 
     #endregion
 }

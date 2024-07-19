@@ -338,7 +338,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
 
                 #endregion
 
-                var messageOk = await RefreshScreenButtonOnClickAsync(); // drill down
+                var messageOk = await ApplyFiltersButtonOnClickAsync(); // drill down
 
                 return messageOk;
             }

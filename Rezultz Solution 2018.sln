@@ -130,7 +130,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tool11", "Tool11\Tool11.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tool12", "Tool12\Tool12.csproj", "{8387947E-527D-4D9B-97BC-04682F8008CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tool13", "Tool13\Tool13.csproj", "{C0520295-D72D-4D8E-AD22-E993DEEFDEEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tool13", "Tool13\Tool13.csproj", "{C0520295-D72D-4D8E-AD22-E993DEEFDEEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

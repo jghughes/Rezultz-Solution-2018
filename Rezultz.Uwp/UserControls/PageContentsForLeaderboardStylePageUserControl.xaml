@@ -134,7 +134,7 @@
                 Command="{Binding Path=OnClickCommand}"
                 Content="Apply filters"
                 ToolTipService.ToolTip="filter rows according to chosen criteria"
-                DataContext="{Binding Path=RefreshScreenButtonVm}"
+                DataContext="{Binding Path=ApplyFiltersButtonVm}"
                 Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
                 Style="{StaticResource HereOrdinaryButtonStyle}"
                 Width="120" MinWidth="0" HorizontalContentAlignment="Center" FontSize="12" />

@@ -49,7 +49,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
             LoadSourceDataButtonVm = new ButtonControlViewModel(LoadSourceDataButtonOnClickExecuteAsync, LoadSourceDataButtonOnClickCanExecute);
 
-            RefreshScreenButtonVm = new ButtonControlViewModel(RefreshScreenButtonOnClickExecuteAsync, RefreshScreenButtonOnClickCanExecute);
+            ApplyFiltersButtonVm = new ButtonControlViewModel(ApplyFiltersButtonOnClickExecuteAsync, ApplyFiltersButtonOnClickCanExecute);
 
             SavePopulationCohortsToDocumentsAsHtmlWebpageButtonVm = new ButtonControlViewModel(() => { }, () => false);
 
@@ -119,7 +119,6 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
         }
 
         #endregion
-
 
         #region fields
 
@@ -214,7 +213,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         public ButtonControlViewModel LoadSourceDataButtonVm { get; }
 
-        public ButtonControlViewModel RefreshScreenButtonVm { get; }
+        public ButtonControlViewModel ApplyFiltersButtonVm { get; }
 
         public ButtonControlViewModel SavePopulationCohortsToDocumentsAsHtmlWebpageButtonVm { get; }
 
@@ -438,7 +437,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
                 #endregion
 
 
-                var messageOk = await RefreshScreenButtonOnClickAsync(); // drill down
+                var messageOk = await ApplyFiltersButtonOnClickAsync(); // drill down
 
                 return messageOk;
             }
@@ -455,28 +454,28 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
 
         #endregion
 
-        #region RefreshScreenButtonOnClickAsync - heap powerful
+        #region ApplyFiltersButtonOnClickAsync - heap powerful
 
-        private bool RefreshScreenButtonOnClickCanExecute()
+        private bool ApplyFiltersButtonOnClickCanExecute()
         {
-            return RefreshScreenButtonVm.IsAuthorisedToOperate;
+            return ApplyFiltersButtonVm.IsAuthorisedToOperate;
         }
 
-        private async void RefreshScreenButtonOnClickExecuteAsync()
+        private async void ApplyFiltersButtonOnClickExecuteAsync()
         {
             const string failure = "Unable to complete ICommand Execute action.";
-            const string locus = "[RefreshScreenButtonOnClickExecuteAsync]";
+            const string locus = "[ApplyFiltersButtonOnClickExecuteAsync]";
 
             try
             {
-                if (!RefreshScreenButtonOnClickCanExecute())
+                if (!ApplyFiltersButtonOnClickCanExecute())
                     return;
 
                 GlobalProgressIndicatorVm.OpenProgressIndicator(Strings2017.Working_____formatting);
 
                 DeadenGui();
 
-                var messageOk = await RefreshScreenButtonOnClickAsync();
+                var messageOk = await ApplyFiltersButtonOnClickAsync();
 
                 EnlivenGui();
 
@@ -507,12 +506,12 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
             #endregion
         }
 
-        protected async Task<string> RefreshScreenButtonOnClickAsync()
+        protected async Task<string> ApplyFiltersButtonOnClickAsync()
         {
             // end of the line in the drill down sequence from series to event to race to filter results by selected category
 
             const string failure = "Unable to filter and display or redisplay list of results fully.";
-            const string locus = "[RefreshScreenButtonOnClickAsync]";
+            const string locus = "[ApplyFiltersButtonOnClickAsync]";
 
             try
             {
@@ -889,7 +888,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
         public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
         {
             LoadSourceDataButtonVm.IsAuthorisedToOperate = true;
-            RefreshScreenButtonVm.IsAuthorisedToOperate = true;
+            ApplyFiltersButtonVm.IsAuthorisedToOperate = true;
             SavePopulationCohortsToDocumentsAsHtmlWebpageButtonVm.IsAuthorisedToOperate = PopulationCohortsDataGridVm.ItemsSource.Any();
 
             CboLookupKindOfCohortVm.MakeAuthorisedToOperateIfItemsSourceIsAny();
@@ -906,7 +905,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModelBases
                 var answer = new List<object>();
 
                 AddToCollectionIfIHasIsVisible(answer, LoadSourceDataButtonVm);
-                AddToCollectionIfIHasIsVisible(answer, RefreshScreenButtonVm);
+                AddToCollectionIfIHasIsVisible(answer, ApplyFiltersButtonVm);
                 AddToCollectionIfIHasIsVisible(answer, SavePopulationCohortsToDocumentsAsHtmlWebpageButtonVm);
 
                 return answer;

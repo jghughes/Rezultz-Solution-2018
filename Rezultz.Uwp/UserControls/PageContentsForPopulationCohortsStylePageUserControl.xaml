@@ -54,12 +54,6 @@
         <StackPanel Grid.Row="2" Tag="All the menu buttons"
                     Orientation="Horizontal">
 
-            <Button Tag="BtnToggleVisibilityOfSplitViewPane"
-                    Content="Menu"
-                    Click="BtnToggleVisibilityOfSplitViewPane_OnClick" FontSize="12" />
-
-            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
-
             <Button
                 Tag="BtnRefreshPopulationCohorts"
                 Content="Restore"
@@ -68,6 +62,12 @@
                 Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
                 Command="{Binding Path=OnClickCommand}"
                 Style="{StaticResource HereRefreshOrFilterButtonStyle}" />
+
+            <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
+
+            <Button Tag="BtnToggleVisibilityOfSplitViewPane"
+                    Content="Menu"
+                    Click="BtnToggleVisibilityOfSplitViewPane_OnClick" FontSize="12" />
 
             <Rectangle Style="{StaticResource LibrarySkinnyHorizontalSpacerStyle}" />
 
@@ -80,7 +80,7 @@
                     x:Name="XamlElementShowPopulationCohortsBtn"
                     Content="Apply filters"
                     ToolTipService.ToolTip="display your selected table of cohorts"
-                    DataContext="{Binding Path=RefreshScreenButtonVm}"
+                    DataContext="{Binding Path=ApplyFiltersButtonVm}"
                     Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibility}}"
                     Command="{Binding Path=OnClickCommand}"
                     Style="{StaticResource HereRefreshOrFilterButtonStyle}" />

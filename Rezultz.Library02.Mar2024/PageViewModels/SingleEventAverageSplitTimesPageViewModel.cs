@@ -319,7 +319,7 @@ namespace Rezultz.Library02.Mar2024.PageViewModels
                 #endregion
 
 
-                var messageOk = await RefreshScreenButtonOnClickAsync();
+                var messageOk = await ApplyFiltersButtonOnClickAsync();
 
                 //var messageOk = !AllDataGridLineItemDisplayObjects.Any() ? "No results." : $"{AllDataGridLineItemDisplayObjects.Length} results.";
 

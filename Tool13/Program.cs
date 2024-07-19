@@ -13,16 +13,16 @@ internal class Program
     {
         #region intro
 
-        _console.WriteLineFollowedByOne("Welcome.");
-        _console.WriteLineFollowedByOne(Description);
-        _console.WriteLine($"{JghString.LeftAlign("Filename for SeriesProfile file:", LhsWidth)} {FileNameOfSeriesProfileDto}");
-        _console.WriteLine($"{JghString.LeftAlign("Folder for SeriesProfile file:", LhsWidth)} {FolderForSeriesProfile}");
-        _console.WriteLine($"{JghString.LeftAlign("Filename for Portal participants file:", LhsWidth)} {FileNameOfParticipantMasterListFromPortal}");
-        _console.WriteLine($"{JghString.LeftAlign("Folder for Portal participants file:", LhsWidth)} {FolderForParticipantMasterListFromPortal}");
-        _console.WriteLine($"{JghString.LeftAlign("Folder for series results:", LhsWidth)} {FolderForInputData}");
-        _console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FolderForDiagnosticReport}");
-        _console.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
-        _console.ReadLine();
+        console.WriteLineFollowedByOne("Welcome.");
+        console.WriteLineFollowedByOne(Description);
+        console.WriteLine($"{JghString.LeftAlign("Filename for SeriesProfile file:", LhsWidth)} {FileNameOfSeriesProfileDto}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for SeriesProfile file:", LhsWidth)} {FolderForSeriesProfile}");
+        console.WriteLine($"{JghString.LeftAlign("Filename for Portal participants file:", LhsWidth)} {FileNameOfParticipantMasterListFromPortal}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for Portal participants file:", LhsWidth)} {FolderForParticipantMasterListFromPortal}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for series results:", LhsWidth)} {FolderForInputData}");
+        console.WriteLine($"{JghString.LeftAlign("Folder for diagnostic report documents:", LhsWidth)} {FolderForDiagnosticReport}");
+        console.WriteLineWrappedByOne("Press enter to go. When you see FINISH you're done.");
+        console.ReadLine();
 
         #endregion
 
@@ -37,7 +37,7 @@ internal class Program
             }
             catch (DirectoryNotFoundException)
             {
-                _console.WriteLine("Directory not found: " + FolderForInputData);
+                console.WriteLine("Directory not found: " + FolderForInputData);
                 return;
             }
 
@@ -48,7 +48,7 @@ internal class Program
             }
             catch (DirectoryNotFoundException)
             {
-                _console.WriteLine("Directory not found: " + FolderForParticipantMasterListFromPortal);
+                console.WriteLine("Directory not found: " + FolderForParticipantMasterListFromPortal);
                 return;
             }
 
@@ -59,7 +59,7 @@ internal class Program
             }
             catch (DirectoryNotFoundException)
             {
-                _console.WriteLine("Directory not found: " + FolderForDiagnosticReport);
+                console.WriteLine("Directory not found: " + FolderForDiagnosticReport);
                 return;
             }
 
@@ -75,7 +75,7 @@ internal class Program
 
             if (!fi.Exists)
             {
-                _console.WriteLine($"Failed to locate designated series profile file. <{fi.Name}>");
+                console.WriteLine($"Failed to locate designated series profile file. <{fi.Name}>");
 
                 return;
             }
@@ -92,7 +92,7 @@ internal class Program
 
             if (!fi2.Exists)
             {
-                _console.WriteLine($"Failed to locate designated participant file. <{fi2.Name}>");
+                console.WriteLine($"Failed to locate designated participant file. <{fi2.Name}>");
 
                 return;
             }
@@ -109,11 +109,11 @@ internal class Program
             }
             catch (Exception ex)
             {
-                _console.WriteLine("Deserialization failure. ParticipantHubItems from portal hub not obtained: " + ex.Message);
+                console.WriteLine("Deserialization failure. ParticipantHubItems from portal hub not obtained: " + ex.Message);
                 return;
             }
 
-            _console.WriteLine();
+            console.WriteLine();
 
             #endregion
 
@@ -133,11 +133,11 @@ internal class Program
             }
             catch (Exception ex)
             {
-                _console.WriteLine("Deserialization failure. ParticipantHubItems from portal hub not obtained: " + ex.Message);
+                console.WriteLine("Deserialization failure. ParticipantHubItems from portal hub not obtained: " + ex.Message);
                 return;
             }
 
-            _console.WriteLine();
+            console.WriteLine();
 
             #endregion
 
@@ -149,7 +149,7 @@ internal class Program
 
             if (arrayOfInputFileInfo.Length == 0)
             {
-                _console.WriteLinePrecededByOne($"{JghString.LeftAlign($"Problem: No files found in published results folder. [{FolderForInputData}]", LhsWidth)}");
+                console.WriteLinePrecededByOne($"{JghString.LeftAlign($"Problem: No files found in published results folder. [{FolderForInputData}]", LhsWidth)}");
 
                 return;
             }
@@ -176,7 +176,7 @@ internal class Program
 
                 inputFileItem.ContentsAsText = fileContentsAsText;
 
-                _console.WriteLine($"Loaded {inputFileItem.FileInfo.Name}: {inputFileItem.ContentsAsText.Length} characters");
+                console.WriteLine($"Loaded {inputFileItem.FileInfo.Name}: {inputFileItem.ContentsAsText.Length} characters");
             }
 
             #endregion
@@ -205,11 +205,11 @@ internal class Program
                 }
                 catch (Exception ex)
                 {
-                    _console.WriteLine("Deserialization failure. Results from file exported from Portal not obtained: " + ex.Message);
+                    console.WriteLine("Deserialization failure. Results from file exported from Portal not obtained: " + ex.Message);
                     return;
                 }
 
-                _console.WriteLine($"Successfully(?) extracted .xml contents of {inputFileItem.FileInfo.Name}: {inputFileItem.ContentsAsCollectionOfPossiblySuspiciousFinishes.Count} line items");
+                console.WriteLine($"Successfully(?) extracted .xml contents of {inputFileItem.FileInfo.Name}: {inputFileItem.ContentsAsCollectionOfPossiblySuspiciousFinishes.Count} line items");
 
                 #endregion
             }
@@ -218,7 +218,7 @@ internal class Program
 
             #region convert lists of results in all files to dictionary of ResultDto keyed by Bib for easy analysis - exclude Dnx outcomes and non-series riders
 
-            JghListDictionary<string, PossiblySuspiciousFinish> dictionaryOfPublishedResultsKeyedByBib = new();
+            JghListDictionary<string, PossiblySuspiciousFinish> dictionaryOfPublishedResultsKeyedByBib = [];
 
             foreach (var inputFileItem in allInputFilesItems)
             foreach (var finish in inputFileItem.ContentsAsCollectionOfPossiblySuspiciousFinishes)
@@ -233,7 +233,6 @@ internal class Program
             }
 
             #endregion
-
 
             #region reduce to shortlist of series culprits who finished in more than one category during the series
 
@@ -253,7 +252,7 @@ internal class Program
 
             #region report people who raced in a more than one category during the series
 
-            _console.WriteLinePrecededByOne($"People who finished in more than one category during the series so far: {dictionaryOfCulpritsKeyedByBib.Count}");
+            console.WriteLinePrecededByOne($"People who finished in more than one category during the series so far: {dictionaryOfCulpritsKeyedByBib.Count}");
 
             foreach (var culprit in dictionaryOfCulpritsKeyedByBib)
             {
@@ -266,83 +265,146 @@ internal class Program
 
                 var xxList = string.Join(", ", xx.Select(z => z.ResultDto.RaceGroup));
 
-                _console.WriteLine($"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-25} {"Categories:",-10} {xx.Count(),3}  {xxList}");
+                console.WriteLine($"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-25} {"Categories:",-10} {xx.Count(),3}  {xxList}");
             }
 
             #endregion
 
-            #region report people who raced in a different RaceGroup in MyLaps compared to RaceGroup they are registered for in the Portal for the series
+            #region report more detail on people above
 
-            _console.WriteLinePrecededByOne("Finishes in more than one category during the series so far:");
+            console.WriteLinePrecededByOne("Finishes in more than one category during the series so far:");
 
             foreach (var culprit in dictionaryOfCulpritsKeyedByBib)
             {
-                var person = culprit.Value.FirstOrDefault();
+                PrintReportOnPerson(culprit);
 
-                if (person is null)
-                    continue;
-
-                foreach (var finish in culprit.Value)
-                {
-                    if (finish is null) continue;
-
-                    var participantHubItemDto = DictionaryOfParticipantsInPortalMasterListKeyedByBib[finish.ResultDto.Bib].FirstOrDefault();
-
-                    if (participantHubItemDto is null)
-                    {
-                        _console.WriteLine(
-                            $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} {"Series: unknown",-20} {finish.ResultDto.T01,12}");
-
-                        continue;
-                    };
-
-                    if (!DateTime.TryParse(finish.EventProfileDto.AdvertisedDateAsString, out var dateOfEvent))
-                    {
-                        _console.WriteLine(
-                            $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} {"Series: unknown",-20} {finish.ResultDto.T01,12}");
-   
-                        continue;
-
-                    }
-                    var officialRaceGroup = FigureOutRaceGroup(participantHubItemDto, dateOfEvent);
-
-                    if (officialRaceGroup == finish.ResultDto.RaceGroup)
-                    {
-                        _console.WriteLine(
-                            $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} Series: {officialRaceGroup,-13} {finish.ResultDto.T01,12}");
-
-                    }
-                    else
-                    {
-                        _console.WriteLine(
-                            $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} Series: {officialRaceGroup,-13} {finish.ResultDto.T01,12} Not in series category");
-
-                    }
-                }
-
-                _console.WriteLine();
+                console.WriteLine();
             }
 
+            #endregion
+
+            #region report more detail on anyone/everyone who recorded a finish out of series category during the series
+
+            console.WriteLinePrecededByOne("All finishes not in series category so far:");
+
+            foreach (var culprit in dictionaryOfPublishedResultsKeyedByBib)
+                if (IsFinisherOutOfCategory(culprit))
+                {
+                    PrintReportOnPerson(culprit);
+
+                    console.WriteLine();
+                }
 
             #endregion
 
-            #region wrap up
+            #region report more detail on arbitrary list of people selected for closer inspection for the series
 
-            _console.WriteLinePrecededByOne("Everything complete. No further action required.");
-            _console.WriteLineWrappedByOne("ooo0 - Goodbye - 0ooo");
+            if (ListOfBibsForCloserInspection.Count > 0)
+            {
+                console.WriteLinePrecededByOne("People selected for closer inspection:");
 
-            SaveWorkToHardDrive(_console.ToString(),
-                FolderForDiagnosticReport,
-                JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfDiagnosticReport));
+                foreach (var bib in ListOfBibsForCloserInspection)
+                {
+                    PrintReportOnPerson(new KeyValuePair<string, IList<PossiblySuspiciousFinish>>(bib, dictionaryOfPublishedResultsKeyedByBib[bib]));
 
-            _console.ReadLine();
+                    console.WriteLine();
+                }
 
-            #endregion
+                #endregion
+
+                #region wrap up
+
+                console.WriteLinePrecededByOne("Everything complete. No further action required.");
+                console.WriteLineWrappedByOne("ooo0 - Goodbye - 0ooo");
+
+                SaveWorkToHardDrive(console.ToString(),
+                    FolderForDiagnosticReport,
+                    JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfDiagnosticReport));
+
+                console.ReadLine();
+
+                #endregion
+            }
         }
         catch (Exception ex)
         {
-            _console.WriteLineFollowedByOne(ex.ToString());
-            _console.ReadLine();
+            console.WriteLineFollowedByOne(ex.ToString());
+            console.ReadLine();
+        }
+    }
+
+    private static bool IsFinisherOutOfCategory(KeyValuePair<string, IList<PossiblySuspiciousFinish>> culprit)
+    {
+        var person = culprit.Value.FirstOrDefault();
+
+        if (person is null)
+            return false;
+
+
+        foreach (var finish in culprit.Value)
+        {
+            var participantHubItemDto = DictionaryOfParticipantsInPortalMasterListKeyedByBib[finish.ResultDto.Bib].FirstOrDefault();
+
+            if (participantHubItemDto is null)
+                //console.WriteLine(
+                //    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} {"Series: unknown",-20} {finish.ResultDto.T01,12}");
+                return false;
+
+            if (!DateTime.TryParse(finish.EventProfileDto.AdvertisedDateAsString, out var dateOfEvent))
+                //console.WriteLine(
+                //    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} {"Series: unknown",-20} {finish.ResultDto.T01,12}");
+                continue;
+
+            var officialRaceGroup = FigureOutRaceGroup(participantHubItemDto, dateOfEvent);
+
+            if (officialRaceGroup == finish.ResultDto.RaceGroup)
+                continue;
+            //console.WriteLine(
+            //    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} Series: {officialRaceGroup,-13} {finish.ResultDto.T01,12}");
+            return true;
+            //console.WriteLine(
+            //    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} Series: {officialRaceGroup,-13} {finish.ResultDto.T01,12} Not in series category");
+        }
+
+        return false;
+    }
+
+    private static void PrintReportOnPerson(KeyValuePair<string, IList<PossiblySuspiciousFinish>> culprit)
+    {
+        var person = culprit.Value.FirstOrDefault();
+
+        if (person is null)
+            return;
+
+
+        foreach (var finish in culprit.Value)
+        {
+            var participantHubItemDto = DictionaryOfParticipantsInPortalMasterListKeyedByBib[finish.ResultDto.Bib].FirstOrDefault();
+
+            if (participantHubItemDto is null)
+            {
+                console.WriteLine(
+                    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} {"Series: unknown",-20} {finish.ResultDto.T01,12}");
+
+                continue;
+            }
+
+            if (!DateTime.TryParse(finish.EventProfileDto.AdvertisedDateAsString, out var dateOfEvent))
+            {
+                console.WriteLine(
+                    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} {"Series: unknown",-20} {finish.ResultDto.T01,12}");
+
+                continue;
+            }
+
+            var officialRaceGroup = FigureOutRaceGroup(participantHubItemDto, dateOfEvent);
+
+            if (officialRaceGroup == finish.ResultDto.RaceGroup)
+                console.WriteLine(
+                    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} Series: {officialRaceGroup,-13} {finish.ResultDto.T01,12}");
+            else
+                console.WriteLine(
+                    $"Bib: {$"{person.ResultDto.Bib}",4} {$"{person.ResultDto.First} {person.ResultDto.Last}",-22} {finish.EventProfileDto.Label,-23} {finish.EventProfileDto.AdvertisedDateAsString,-11} Raced: {finish.ResultDto.RaceGroup,-13} Series: {officialRaceGroup,-13} {finish.ResultDto.T01,12} Not in series category");
         }
     }
 
@@ -350,7 +412,7 @@ internal class Program
 
     #region variables
 
-    private static readonly JghConsoleHelperV2 _console = new();
+    private static readonly JghConsoleHelperV2 console = new();
 
     private static SeriesProfileDto _seriesProfileDto = new();
 
@@ -393,28 +455,31 @@ internal class Program
 
         File.WriteAllText(pathOfFile, text);
 
-        _console.WriteLine($"{JghString.LeftAlign("File saved:", 15)} {outPutFilename}");
-        _console.WriteLine($"{JghString.LeftAlign("Folder:", 15)} {outPutFolder}");
+        console.WriteLine($"{JghString.LeftAlign("File saved:", 15)} {outPutFilename}");
+        console.WriteLine($"{JghString.LeftAlign("Folder:", 15)} {outPutFolder}");
     }
 
     #endregion
 
     #region parameters
 
-    private const string Description = "This console program (Tool13) reads files of the publsihed results for all events in the series to date " +
+    private const string Description = "This console program (Tool13) reads files of the published results for all events in the series to date " +
                                        "and then determines which participants have raced on more than one category because they upgraded or " +
-                                       "downgraded, or were mis-categorised, or just rode as a bandit in an illegitimate category. ";
+                                       "downgraded, or were mis-categorised, or just rode as a bandit in an illegitimate category. If asked, it can " +
+                                       "also inspect an arbitrary list of bibs.";
 
     private const int LhsWidth = 40;
 
-    private const string FileNameOfDiagnosticReport = @"DiagnosticReport-Out-of-Category-Rides.txt";
+    private const string FileNameOfDiagnosticReport = @"DiagnosticReport-NotInCategoryRides.txt";
 
     private const string FileNameOfSeriesProfileDto = @"!seriesprofile-Kelso2024-mtb.json";
     private const string FolderForSeriesProfile = @"C:\Users\johng\holding pen\StuffByJohn\2024-SeriesProfile\";
     private const string FileNameOfParticipantMasterListFromPortal = @"2024-07-09T14-53-23+Participants.json";
     private const string FolderForParticipantMasterListFromPortal = @"C:\Users\johng\holding pen\StuffByJohn\ParticipantsFromPortal\";
     private const string FolderForInputData = @"C:\Users\johng\holding pen\StuffByJohn\2024-Published-Results-For-All-Events\";
-    private const string FolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffByJohn\2024-DiagnosticReport-OutOfCategoryRides\";
+    private const string FolderForDiagnosticReport = @"C:\Users\johng\holding pen\StuffByJohn\2024-DiagnosticReport-NotInCategoryRides\";
+
+    private static readonly List<string> ListOfBibsForCloserInspection = ["7", "8","218", "195", "34", "288", "271", "230", "109", "150", "160", "43", "230", "291", "210","294", "54", "148", "85", "16", "15", "200", "271", "188", "249", "181", "62", "198", "218", "113", "114", "48", "343", "160", "121", "85", "293", "371"];
 
     #endregion
 }
