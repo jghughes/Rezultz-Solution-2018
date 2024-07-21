@@ -86,13 +86,9 @@ namespace Rezultz.Uwp.UserControls
         }
 
         private void BtnToggleVisibilityOfSplitViewPane_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (XamlElementSplitView.IsPaneOpen)
-            XamlElementSplitView.IsPaneOpen = false;
-        else
-            XamlElementSplitView.IsPaneOpen = true;
-    }
-
+        {
+            XamlElementSplitView.IsPaneOpen = !XamlElementSplitView.IsPaneOpen;
+        }
 
         private async void MyAutoSuggestBox_OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {

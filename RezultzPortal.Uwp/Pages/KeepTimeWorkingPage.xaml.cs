@@ -190,5 +190,9 @@ namespace RezultzPortal.Uwp.Pages
             ButtonForEnteringIndividualIdForTimeStampOfTimingMat02.Content = $"Click {TextBoxForEnteringIndividualIdForTimeStampOfTimingMat02.Text} now!";
         }
 
+        private void BtnToggleVisibilityOfSplitViewPane_OnClick(object sender, RoutedEventArgs e)
+        {
+            XamlElementGridOfAllPageContents.IsPaneOpen = !XamlElementGridOfAllPageContents.IsPaneOpen;
+        }
     }
 }

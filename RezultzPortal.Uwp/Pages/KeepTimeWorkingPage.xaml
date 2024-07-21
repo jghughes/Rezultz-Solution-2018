@@ -156,8 +156,13 @@
         <SplitView Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
                    DisplayMode="Overlay"
                    OpenPaneLength="600"
-                   PanePlacement="Right"
-                   IsPaneOpen="{Binding Path=MustDisplayEditTemplateForRepositoryItemBeingEdited, Mode=TwoWay}">
+                   PanePlacement="Right">
+
+            <!--<SplitView Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
+                       DisplayMode="Overlay"
+                       OpenPaneLength="600"
+                       PanePlacement="Right"
+                       IsPaneOpen="{Binding Path=MustDisplayEditTemplateForRepositoryItemBeingEdited, Mode=TwoWay}">-->
 
             <SplitView.Pane>
                 <ScrollViewer>
@@ -334,13 +339,25 @@
                                 TabIndex="20"
                                 DataContext="{Binding Path=RefreshRepositoryDataGridButtonVm}"
                                 Command="{Binding Path=OnClickCommand}"
-                                Style="{StaticResource HereExportButtonStyle}" HorizontalContentAlignment="Center" />
+                                Style="{StaticResource HereExportButtonStyle}" />
 
                             <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+
+                            <Button Name="BtnToggleVisibilityOfSplitViewPane" Tag="BtnToggleVisibilityOfSplitViewPane"
+                                    ToolTipService.ToolTip="Open/close split view pane to edit a selected item."
+                                    Content="Edit timestamp"
+                                    IsEnabled="{Binding ElementName=BtnPullTimeStampsFromHub, Path=IsEnabled}"
+                                    Style="{StaticResource HereExportButtonStyle}"
+                                    Click="BtnToggleVisibilityOfSplitViewPane_OnClick"/>
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
 
                             <StackPanel Orientation="Horizontal">
 
                                 <Button
+                                    Name="BtnPullTimeStampsFromHub"
                                     Content="Pull timestamps from hub"
                                     ToolTipService.ToolTip="Pull copies of timestamps residing on the remote hub that have been pushed up there by this and all other machines. Pulled data does not overwrite pre-existing data on this machine, nor does it proliferate duplicates.  The data is merged."
                                     Command="{Binding Path=OnClickCommand}"
@@ -433,7 +450,7 @@
                                 <RadioButton Name="RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid"
                                              Grid.Row="0" Grid.Column="2"
                                              GroupName="AllRadioButtons"
-                                             Content="Menu opened"
+                                             Content="Menu open"
                                              Checked="RadioBtnDesiredControlPanelToBeDisplayed_OnChecked" />
 
                                 <RadioButton Name="RadioBtnShowPanelForDisplayingParticipantInfo"
@@ -596,7 +613,7 @@
 
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="0" Grid.Row="2">
+                                <StackPanel Grid.Column="2" Grid.Row="0">
 
                                     <TextBox Name="TextBoxForEnteringIndividualIdForTimeStampOfTimingMat02"
                                              PlaceholderText="Bib..."

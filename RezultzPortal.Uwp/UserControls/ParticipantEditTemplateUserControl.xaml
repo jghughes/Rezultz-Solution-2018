@@ -178,10 +178,12 @@
 
             <CheckBox IsChecked="{Binding Path=IsSeries,  Mode=TwoWay}"
                          Content="Full series"
+                         IsEnabled="{Binding ElementName=CboLookUpRaceGroupSpecificationItemsForBeforeTransition, Path=IsEnabled}"
                          Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />
 
             <CheckBox IsChecked="{Binding Path=IsSeries, Converter={StaticResource BooleanToNegation}, Mode=TwoWay}"
-                         Content="One-off event"
+                         Content="Single event"
+                         IsEnabled="{Binding ElementName=CboLookUpRaceGroupSpecificationItemsForBeforeTransition, Path=IsEnabled}"
                          Foreground="{StaticResource LibraryOnBackgroundMuted2Color}" />
 
         </StackPanel>
@@ -191,6 +193,7 @@
                    Style="{StaticResource HereBodyTextBlockStyle}" />
 
         <ComboBox Grid.Row="20" Grid.Column="2"
+                  Name="CboLookUpRaceGroupSpecificationItemsForBeforeTransition"
                   DisplayMemberPath="Label"
                   PlaceholderText="Choose..."
                   ToolTipService.ToolTip="Choose race to commence the series."

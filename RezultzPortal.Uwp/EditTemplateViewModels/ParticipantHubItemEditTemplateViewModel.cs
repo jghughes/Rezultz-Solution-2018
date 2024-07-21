@@ -11,6 +11,7 @@ using NetStd.ViewModels01.April2022.Collections;
 using NetStd.ViewModels01.April2022.UserControls;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using Rezultz.DataTypes.Nov2023.SeasonAndSeriesProfileItems;
+using Windows.UI.Xaml.Controls;
 
 // ReSharper disable UnusedMethodReturnValue.Local
 
@@ -350,72 +351,80 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
     {
         #region Step 1. copy across all the straightforward property values from itemBeingModified to this template
 
-        IsAuthorisedToOperate = false; // just to start with while we are working on it...
+        IsAuthorisedToOperate = false; // just to start with while we are populating the template...triggers SynchroniseIsAuthorisedToOperateValueOfConstituentControls() to disable all the controls
 
-        if (itemBeingModified is null) return true;
-
-        Bib = JghString.TmLr(itemBeingModified.Bib);
-        Rfid = JghString.TmLr(itemBeingModified.Rfid);
-        FirstName = itemBeingModified.FirstName;
-        MiddleInitial = itemBeingModified.MiddleInitial;
-        LastName = itemBeingModified.LastName;
-        BirthYear = itemBeingModified.BirthYear.ToString();
-        City = itemBeingModified.City;
-        Team = itemBeingModified.Team;
-        MiddleInitial = itemBeingModified.MiddleInitial;
-        DateOfRaceGroupTransitionCalendarPickerVm.Date = new DateTimeOffset(itemBeingModified.DateOfRaceGroupTransition.Date);
-        IsSeries = itemBeingModified.IsSeries;
-        SeriesIdentifier = itemBeingModified.Series;
-        EventIdentifiers = itemBeingModified.EventIdentifiers;
-        MustDitchOriginatingItem = itemBeingModified.MustDitchOriginatingItem;
-        WhenTouchedDateForDisplayOnly = JghDateTime.ToLongDate(itemBeingModified.WhenTouchedBinaryFormat); // for display only (titled "When added")
-
-        #endregion
-
-
-        #region Step 2. copy across Gender and Race - unfortunately this is what slows down this method. every time we populate an cbo or change its selectedindex we incur a 200ms penalty. no way to avoid this
-
-        if (IsFirstTimeThrough)
+        if (itemBeingModified is null)
         {
-            await CboLookUpGenderSpecificationItemsVm.RefillItemsSourceAsync(new CboLookupItemDisplayObject[]
-            {
-                new() { Label = Symbols.SymbolMale },
-                new() { Label = Symbols.SymbolFemale },
-                new() { Label = Symbols.SymbolNonBinary }
-            }); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+            await ZeroiseAsync();
+        }
+        else
+        {
 
-            if (raceSpecificationItems is not null)
-            {
-                var races = raceSpecificationItems.Select(z => new CboLookupItemDisplayObject { Label = z.Label }).ToArray();
+            Bib = JghString.TmLr(itemBeingModified.Bib);
+            Rfid = JghString.TmLr(itemBeingModified.Rfid);
+            FirstName = itemBeingModified.FirstName;
+            MiddleInitial = itemBeingModified.MiddleInitial;
+            LastName = itemBeingModified.LastName;
+            BirthYear = itemBeingModified.BirthYear.ToString();
+            City = itemBeingModified.City;
+            Team = itemBeingModified.Team;
+            MiddleInitial = itemBeingModified.MiddleInitial;
+            DateOfRaceGroupTransitionCalendarPickerVm.Date = new DateTimeOffset(itemBeingModified.DateOfRaceGroupTransition.Date);
+            IsSeries = itemBeingModified.IsSeries;
+            SeriesIdentifier = itemBeingModified.Series;
+            EventIdentifiers = itemBeingModified.EventIdentifiers;
+            MustDitchOriginatingItem = itemBeingModified.MustDitchOriginatingItem;
+            WhenTouchedDateForDisplayOnly = JghDateTime.ToLongDate(itemBeingModified.WhenTouchedBinaryFormat); // for display only (titled "When added")
 
-                await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.RefillItemsSourceAsync(races.ToArray()); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
-                await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.RefillItemsSourceAsync(races.ToArray()); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+            #endregion
+
+            #region Step 2. copy across Gender and Race - unfortunately this is what slows down this method. every time we populate an cbo or change its selectedindex we incur a 200ms penalty. no way to avoid this
+
+            if (IsFirstTimeThrough)
+            {
+                await CboLookUpGenderSpecificationItemsVm.RefillItemsSourceAsync(new CboLookupItemDisplayObject[]
+                {
+                    new() { Label = Symbols.SymbolMale },
+                    new() { Label = Symbols.SymbolFemale },
+                    new() { Label = Symbols.SymbolNonBinary }
+                }); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+
+                if (raceSpecificationItems is not null)
+                {
+                    var races = raceSpecificationItems.Select(z => new CboLookupItemDisplayObject { Label = z.Label }).ToArray();
+
+                    await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.RefillItemsSourceAsync(races.ToArray()); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+                    await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.RefillItemsSourceAsync(races.ToArray()); // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+                }
+
+                IsFirstTimeThrough = false;
             }
 
-            IsFirstTimeThrough = false;
+            await CboLookUpGenderSpecificationItemsVm.ChangeSelectedIndexToMatchItemLabelAsync(itemBeingModified.Gender); // will end up being -1 if no match can be obtained. // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+
+            await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm
+                .ChangeSelectedIndexToMatchItemLabelAsync(itemBeingModified.RaceGroupBeforeTransition); // will end up being -1 if no match can be obtained. // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+
+            await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm
+                .ChangeSelectedIndexToMatchItemLabelAsync(itemBeingModified.RaceGroupAfterTransition); // will end up being -1 if no match can be obtained. // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
+
+            #endregion
+
         }
 
-        await CboLookUpGenderSpecificationItemsVm.ChangeSelectedIndexToMatchItemLabelAsync(itemBeingModified.Gender); // will end up being -1 if no match can be obtained. // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
-
-        await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm
-            .ChangeSelectedIndexToMatchItemLabelAsync(itemBeingModified.RaceGroupBeforeTransition); // will end up being -1 if no match can be obtained. // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
-
-        await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm
-            .ChangeSelectedIndexToMatchItemLabelAsync(itemBeingModified.RaceGroupAfterTransition); // will end up being -1 if no match can be obtained. // slow - DangerouslyBriefSafetyMarginForBindingEngineMilliSec
-
-        #endregion
+        // the act of touching any of the above properties automatically causes answer.WasTouched to be
+        // set to True (see AnyEditTemplateEntryChanged() and maybe their setters for those properties that are not vms).
+        // so we must change it back finally here before presenting the populated template to the user.
+        WasTouched = false;
 
         AsInitiallyPopulatedSemanticValue = CurrentSemanticValue();
 
-        WasTouched = false;
-        // the act of touching any of the above properties automatically causes answer.WasTouched to be
-        // set to True (see AnyEditTemplateEntryChanged() and maybe their setters for those properties that are not vms). so we must change it back finally here below
+        IsAuthorisedToOperate = itemBeingModified is not null; // Note: triggers SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
 
         EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData();
 
         EvaluateVisibilityOfAllGuiControlsThatTouchData(true);
 
-        IsAuthorisedToOperate = true;
 
         return true;
     }
@@ -530,8 +539,6 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
     {
         await base.ZeroiseAsync();
 
-        Bib = string.Empty; // is this correct. or should we leave it untouched?
-        Rfid = string.Empty; // is this correct. or should we leave it untouched?
         FirstName = string.Empty;
         MiddleInitial = string.Empty;
         LastName = string.Empty;
@@ -542,9 +549,12 @@ public class ParticipantHubItemEditTemplateViewModel : HubItemEditTemplateViewMo
         EventIdentifiers = string.Empty;
         IsSeries = true; // default
 
-        SynchroniseIsAuthorisedToOperateValueOfConstituentControls();
+        await CboLookUpRaceGroupSpecificationItemsForBeforeTransitionVm.ChangeSelectedIndexToNullAsync();
+        await CboLookUpRaceGroupSpecificationItemsForAfterTransitionVm.ChangeSelectedIndexToNullAsync();
 
         AsInitiallyPopulatedSemanticValue = CurrentSemanticValue();
+
+        SynchroniseIsAuthorisedToOperateValueOfConstituentControls();
 
         return true;
     }

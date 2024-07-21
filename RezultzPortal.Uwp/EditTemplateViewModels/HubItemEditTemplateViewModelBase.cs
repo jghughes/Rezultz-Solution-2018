@@ -306,9 +306,11 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
 
         public virtual async Task<bool> ZeroiseAsync()
         {
-            IsAuthorisedToOperate = false;
-
+            Bib = string.Empty;
+            Rfid = string.Empty;
+            MustDitchOriginatingItem = false;
             KindOfTimeStampEnumText = string.Empty;
+            IsAuthorisedToOperate = false; // Note: triggers SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
 
             return await Task.FromResult(true);
         }

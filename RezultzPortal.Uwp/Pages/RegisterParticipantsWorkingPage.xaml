@@ -130,8 +130,13 @@
         <SplitView Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
                    DisplayMode="Overlay"
                    OpenPaneLength="700"
-                   PanePlacement="Right"
-                   IsPaneOpen="{Binding Path=MustDisplayEditTemplateForRepositoryItemBeingEdited, Mode=TwoWay}">
+                   PanePlacement="Right">
+
+            <!--<SplitView Grid.Row="4" x:Name="XamlElementGridOfAllPageContents"
+                       DisplayMode="Overlay"
+                       OpenPaneLength="700"
+                       PanePlacement="Right"
+                       IsPaneOpen="{Binding Path=MustDisplayEditTemplateForRepositoryItemBeingEdited, Mode=TwoWay}">-->
 
             <SplitView.Pane>
 
@@ -240,13 +245,24 @@
                                 TabIndex="20"
                                 DataContext="{Binding Path=RefreshRepositoryDataGridButtonVm}"
                                 Command="{Binding Path=OnClickCommand}"
-                                Style="{StaticResource HereExportButtonStyle}" HorizontalContentAlignment="Center" />
+                                Style="{StaticResource HereExportButtonStyle}" />
+
+
+                            <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
+
+                            <Button Name="BtnToggleVisibilityOfSplitViewPane" Tag="BtnToggleVisibilityOfSplitViewPane"
+                                    ToolTipService.ToolTip="Open/close split view pane to edit a selected item."
+                                    IsEnabled="{Binding ElementName=BtnPullParticipantsFromHub, Path=IsEnabled}"
+                                    Content="Edit participant"
+                                    Style="{StaticResource HereExportButtonStyle}"
+                                    Click="BtnToggleVisibilityOfSplitViewPane_OnClick" />
 
                             <Rectangle Style="{StaticResource LibrarySkinnyVerticalSpacerStyle}" />
 
                             <StackPanel Orientation="Horizontal">
 
                                 <Button
+                                    Name="BtnPullParticipantsFromHub"
                                     Content="Pull participants from hub"
                                     Command="{Binding Path=OnClickCommand}"
                                     DataContext="{Binding Path=PullAllItemsFromHubButtonVm}"
@@ -285,6 +301,7 @@
                                     DataContext="{Binding Path=PushDataIncrementallyFromMemoryToRemoteHubCancelButtonVm}" />
 
                             </StackPanel>
+
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Tag="All the radio buttons"
@@ -328,7 +345,7 @@
                                 <RadioButton Name="RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid"
                                              Grid.Row="0" Grid.Column="2"
                                              GroupName="AllRadioButtons"
-                                             Content="Menu opened"
+                                             Content="Menu open"
                                              Checked="RadioBtnSelectDesiredControlPanelToBeDisplayed_OnChecked"
                                              Margin="10,0,0,0" />
 

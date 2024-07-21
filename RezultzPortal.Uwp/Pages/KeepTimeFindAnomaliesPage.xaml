@@ -151,7 +151,7 @@
 
                         <RadioButton Name="RadioBtnShowPanelForCheckBoxesForFilteringRowsAndColumnsOfDataGrid"
                                      Grid.Row="0" Grid.Column="2"
-                                     Content="Menu opened"
+                                     Content="Menu open"
                                      GroupName="AllRadioButtons"
                                      Checked="RadioBtnSelectDesiredControlPanelToBeDisplayed_OnChecked" />
 

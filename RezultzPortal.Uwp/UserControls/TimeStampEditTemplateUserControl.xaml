@@ -76,7 +76,7 @@
         <TextBox Grid.Row="0" Grid.Column="2"
                  PlaceholderText="Bib for this timestamp .."
                  Text="{Binding Path=Bib,  Converter={StaticResource TextGuardAgainstNull}, Mode=TwoWay, FallbackValue=BindingIsNull}"
-                 IsEnabled="{Binding Path=IsIdentifierIsLiveForEditing}"
+                 IsEnabled="{Binding Path=IsBibEditable}"
                  Style="{StaticResource HereEntryStyle}" />
 
         <TextBlock Grid.Row="2" Grid.Column="0"

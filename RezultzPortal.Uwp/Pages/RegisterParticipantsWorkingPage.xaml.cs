@@ -120,5 +120,9 @@ namespace RezultzPortal.Uwp.Pages
             }
         }
 
+        private void BtnToggleVisibilityOfSplitViewPane_OnClick(object sender, RoutedEventArgs e)
+        {
+            XamlElementGridOfAllPageContents.IsPaneOpen = !XamlElementGridOfAllPageContents.IsPaneOpen;
+        }
     }
 }

@@ -409,13 +409,13 @@ namespace RezultzPortal.Uwp.PageViewModels
             set => SetProperty(ref _backingstoreMustDisplayModifiedEntriesAsWell, value);
         }
 
-        private bool _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
+        //private bool _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
 
-        public bool MustDisplayEditTemplateForRepositoryItemBeingEdited
-        {
-            get => _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
-            set => SetProperty(ref _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited, value);
-        }
+        //public bool MustDisplayEditTemplateForRepositoryItemBeingEdited
+        //{
+        //    get => _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited;
+        //    set => SetProperty(ref _backingstoreMustDisplayEditTemplateForRepositoryItemBeingEdited, value);
+        //}
 
         #endregion
 
@@ -1851,12 +1851,11 @@ namespace RezultzPortal.Uwp.PageViewModels
                 #endregion
 
                 if (!DeleteAllDataInMemoryProtectionButtonVm.IsChecked)
-                    throw new JghAlertMessageException(
-                        "Are you sure you wish to delete all data? Unlock if you wish to proceed.");
+                    throw new JghAlertMessageException("Are you sure you wish to delete all data? Unlock if you wish to proceed.");
+
+                await EditTemplateForRepositoryItemBeingEdited.ZeroiseAsync();
 
                 var clearedCount = RepositoryOfHubStyleEntries.ClearCache();
-
-                //await ZeroiseDisplayOfSimpleElementsOfGuiAsync();
 
                 await RepositoryOfHubStyleEntries.SaveMemoryCacheToLocalStorageBackupAsync(localDataLocation.Item1, localDataLocation.Item2);
 
@@ -2458,7 +2457,7 @@ namespace RezultzPortal.Uwp.PageViewModels
 
                 RejectRepositoryItemBeingEditedButtonVm.IsAuthorisedToOperate = true;
 
-                MustDisplayEditTemplateForRepositoryItemBeingEdited = true;
+                //MustDisplayEditTemplateForRepositoryItemBeingEdited = true;
             }
 
             #region try catch handling

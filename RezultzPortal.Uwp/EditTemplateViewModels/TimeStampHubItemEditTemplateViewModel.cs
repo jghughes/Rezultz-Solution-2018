@@ -11,155 +11,155 @@ using Rezultz.DataTypes.Nov2023.PortalHubItems;
 
 // ReSharper disable InconsistentNaming
 
-namespace RezultzPortal.Uwp.EditTemplateViewModels
+namespace RezultzPortal.Uwp.EditTemplateViewModels;
+
+public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewModelBase, IHasZeroiseAsync
 {
-    public class TimeStampHubItemEditTemplateViewModel : HubItemEditTemplateViewModelBase, IHasZeroiseAsync
-    {
-        #region fields
+    #region fields
 
-        private ClipBoardForTimeStamp _myClipBoardForTimeStamp;
+    private ClipBoardForTimeStamp _myClipBoardForTimeStamp;
 
-        #endregion
+    #endregion
 
-        #region ctor
+    #region ctor
 
-        public TimeStampHubItemEditTemplateViewModel()
+    public TimeStampHubItemEditTemplateViewModel()
     {
         _myClipBoardForTimeStamp = new ClipBoardForTimeStamp();
 
         TimeStampRadioButtonsVm = new ItemDrivenCollectionViewModelForRadioButtonsBase(string.Empty, TimeStampRadioButtonsVmOnSelectionChangedExecute, TimeStampRadioButtonsVmOnSelectionChangedCanExecute)
         {
             IsVisible = true,
-            IsAuthorisedToOperate = true,
-            ItemsSource = {LabelNone, LabelDnf, LabelTbd}
+            IsAuthorisedToOperate = false,
+            ItemsSource = { LabelNone, LabelDnf, LabelTbd }
         };
     }
 
-        #endregion
+    #endregion
 
-        #region local type
+    #region local type
 
-        private class ClipBoardForTimeStamp
-        {
-            public int SelectedDay;
-            public int SelectedHour;
-            public int SelectedMinute;
-            public int SelectedMonth;
-            public int SelectedSecond;
-            public int SelectedSecondTenth;
-            public int SelectedYear;
-        }
+    private class ClipBoardForTimeStamp
+    {
+        public int SelectedDay;
+        public int SelectedHour;
+        public int SelectedMinute;
+        public int SelectedMonth;
+        public int SelectedSecond;
+        public int SelectedSecondTenth;
+        public int SelectedYear;
+    }
 
-        #endregion
+    #endregion
 
-        #region strings
+    #region strings
 
-        private const string LabelNone = "Normal";
-        private const string LabelDnf = "Did not finish";
-        private const string LabelTbd = "To be decided";
+    private const string LabelNone = "Normal";
+    private const string LabelDnf = "Did not finish";
+    private const string LabelTbd = "To be decided";
 
-        #endregion
+    #endregion
 
-        #region props
+    #region props
 
-        #region EditTemplate entries - all setters invoke AnyEditTemplateEntryChanged
+    #region EditTemplate entries - all setters invoke AnyEditTemplateEntryChanged
 
-        private int _backingstoreSelectedYear;
+    private int _backingstoreSelectedYear;
 
-        public int SelectedYear
-        {
-            get => _backingstoreSelectedYear;
-            set => SetProperty(ref _backingstoreSelectedYear, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedYear
+    {
+        get => _backingstoreSelectedYear;
+        set => SetProperty(ref _backingstoreSelectedYear, value, AnyEditTemplateEntryChanged);
+    }
 
-        private int _backingstoreSelectedMonth;
+    private int _backingstoreSelectedMonth;
 
-        public int SelectedMonth
-        {
-            get => _backingstoreSelectedMonth;
-            set => SetProperty(ref _backingstoreSelectedMonth, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedMonth
+    {
+        get => _backingstoreSelectedMonth;
+        set => SetProperty(ref _backingstoreSelectedMonth, value, AnyEditTemplateEntryChanged);
+    }
 
-        private int _backingstoreSelectedDay;
+    private int _backingstoreSelectedDay;
 
-        public int SelectedDay
-        {
-            get => _backingstoreSelectedDay;
-            set => SetProperty(ref _backingstoreSelectedDay, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedDay
+    {
+        get => _backingstoreSelectedDay;
+        set => SetProperty(ref _backingstoreSelectedDay, value, AnyEditTemplateEntryChanged);
+    }
 
-        private int _backingstoreSelectedHour;
+    private int _backingstoreSelectedHour;
 
-        public int SelectedHour
-        {
-            get => _backingstoreSelectedHour;
-            set => SetProperty(ref _backingstoreSelectedHour, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedHour
+    {
+        get => _backingstoreSelectedHour;
+        set => SetProperty(ref _backingstoreSelectedHour, value, AnyEditTemplateEntryChanged);
+    }
 
-        private int _backingstoreSelectedMinute;
+    private int _backingstoreSelectedMinute;
 
-        public int SelectedMinute
-        {
-            get => _backingstoreSelectedMinute;
-            set => SetProperty(ref _backingstoreSelectedMinute, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedMinute
+    {
+        get => _backingstoreSelectedMinute;
+        set => SetProperty(ref _backingstoreSelectedMinute, value, AnyEditTemplateEntryChanged);
+    }
 
-        private int _backingstoreSelectedSecond;
+    private int _backingstoreSelectedSecond;
 
-        public int SelectedSecond
-        {
-            get => _backingstoreSelectedSecond;
-            set => SetProperty(ref _backingstoreSelectedSecond, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedSecond
+    {
+        get => _backingstoreSelectedSecond;
+        set => SetProperty(ref _backingstoreSelectedSecond, value, AnyEditTemplateEntryChanged);
+    }
 
-        private int _backingstoreSelectedSecondTenth;
+    private int _backingstoreSelectedSecondTenth;
 
-        public int SelectedSecondTenth
-        {
-            get => _backingstoreSelectedSecondTenth;
-            set => SetProperty(ref _backingstoreSelectedSecondTenth, value, AnyEditTemplateEntryChanged);
-        }
+    public int SelectedSecondTenth
+    {
+        get => _backingstoreSelectedSecondTenth;
+        set => SetProperty(ref _backingstoreSelectedSecondTenth, value, AnyEditTemplateEntryChanged);
+    }
 
 
-        public ItemDrivenCollectionViewModelForRadioButtonsBase TimeStampRadioButtonsVm { get; }
+    public ItemDrivenCollectionViewModelForRadioButtonsBase TimeStampRadioButtonsVm { get; }
 
-        #endregion
+    #endregion
 
-        #region sui generis IsEditable
+    #region sui generis IsEditable
 
-        #region IsIdentifierEditable
+    #region IsBibEditable
 
-        private bool _backingstoreIsIdentifierEditable;
+    private bool _backingstoreIsBibEditable;
 
-        public bool IsIdentifierEditable
-        {
-            get => _backingstoreIsIdentifierEditable;
-            set => SetProperty(ref _backingstoreIsIdentifierEditable, value);
-        }
+    public bool IsBibEditable
+    {
+        get => _backingstoreIsBibEditable;
+        set => SetProperty(ref _backingstoreIsBibEditable, value);
+    }
 
-        #endregion
+    #endregion
 
-        #region IsDnxEditable
+    #region IsDnxEditable
 
-        private bool _backingstoreIsDnxEditable;
+    private bool _backingstoreIsDnxEditable;
 
-        public bool IsDnxEditable
-        {
-            get => _backingstoreIsDnxEditable;
-            set => SetProperty(ref _backingstoreIsDnxEditable, value);
-        }
+    public bool IsDnxEditable
+    {
+        get => _backingstoreIsDnxEditable;
+        set => SetProperty(ref _backingstoreIsDnxEditable, value);
+    }
 
-        #endregion
+    #endregion
 
-        #endregion
+    #endregion
 
-        #endregion
+    #endregion
 
-        #region commands
+    #region commands
 
-        #region CopyHubItemButtonOnClickAsync
+    #region CopyHubItemButtonOnClickAsync
 
-        protected override async Task<string> CopyHubItemButtonOnClickAsync()
+    protected override async Task<string> CopyHubItemButtonOnClickAsync()
     {
         if (OneOrMoreEntriesAreInvalid(out var errorReason))
             return await Task.FromResult(errorReason);
@@ -179,11 +179,11 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return await Task.FromResult(Copied);
     }
 
-        #endregion
+    #endregion
 
-        #region PasteHubItemButtonOnClick
+    #region PasteHubItemButtonOnClick
 
-        protected override async Task<string> PasteHubItemButtonOnClickAsync()
+    protected override async Task<string> PasteHubItemButtonOnClickAsync()
     {
         _myClipBoardForTimeStamp ??= new ClipBoardForTimeStamp();
 
@@ -198,67 +198,82 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return await Task.FromResult(string.Empty);
     }
 
-        #endregion
+    #endregion
 
-        #region TimeStampRadioButtonsVmOnSelectionChanged - mickey mouse
+    #region TimeStampRadioButtonsVmOnSelectionChanged - mickey mouse
 
-        protected bool TimeStampRadioButtonsVmOnSelectionChangedCanExecute()
+    protected bool TimeStampRadioButtonsVmOnSelectionChangedCanExecute()
     {
         return TimeStampRadioButtonsVm.IsAuthorisedToOperate;
     }
 
-        private void TimeStampRadioButtonsVmOnSelectionChangedExecute()
+    private void TimeStampRadioButtonsVmOnSelectionChangedExecute()
     {
         AnyEditTemplateEntryChanged();
 
         EvaluateGui();
     }
 
-        #endregion
+    #endregion
 
-        #endregion
+    #endregion
 
-        #region methods
+    #region methods
 
-        public async Task<bool> PopulateWithItemBeingModifiedAsync(TimeStampHubItem itemBeingModified)
+    public async Task<bool> PopulateWithItemBeingModifiedAsync(TimeStampHubItem itemBeingModified)
     {
+        IsAuthorisedToOperate = false; // just to start with while we are populating the template...triggers SynchroniseIsAuthorisedToOperateValueOfConstituentControls() to disable all the controls
+
         if (itemBeingModified is null)
-            return true;
+        {
+            await ZeroiseAsync();
+        }
+        else
+        {
+            _kindOfTimeStampEnum = itemBeingModified.RecordingModeEnum;
+            KindOfTimeStampEnumText = _kindOfTimeStampEnum;
 
-        _kindOfTimeStampEnum = itemBeingModified.RecordingModeEnum;
-        KindOfTimeStampEnumText = _kindOfTimeStampEnum;
+            Bib = JghString.TmLr(itemBeingModified.Bib);
+            Rfid = JghString.TmLr(itemBeingModified.Rfid);
+            SelectedYear = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Year;
+            SelectedMonth = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Month;
+            SelectedDay = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Day;
+            SelectedHour = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Hour;
+            SelectedMinute = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).Minute;
+            SelectedSecond = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).Second;
+            SelectedSecondTenth = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).Millisecond / 100;
+            MustDitchOriginatingItem = itemBeingModified.MustDitchOriginatingItem;
+            if (string.IsNullOrWhiteSpace(itemBeingModified.DnxSymbol))
+                await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelNone);
+            else switch (itemBeingModified.DnxSymbol)
+            {
+                case Symbols.SymbolDnf:
+                    await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelDnf);
+                    break;
+                case Symbols.SymbolTbd:
+                    await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelTbd);
+                    break;
+            }
+        }
 
-        Bib = JghString.TmLr(itemBeingModified.Bib);
-        Rfid = JghString.TmLr(itemBeingModified.Rfid);
-        SelectedYear = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Year;
-        SelectedMonth = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Month;
-        SelectedDay = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Day;
-        SelectedHour = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).ToLocalTime().Hour;
-        SelectedMinute = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).Minute;
-        SelectedSecond = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).Second;
-        SelectedSecondTenth = DateTime.FromBinary(itemBeingModified.TimeStampBinaryFormat).Millisecond / 100;
-        MustDitchOriginatingItem = itemBeingModified.MustDitchOriginatingItem;
+
+        // the act of touching any of the above properties automatically causes answer.WasTouched to be
+        // set to True (see AnyEditTemplateEntryChanged() and maybe their setters for those properties that are not vms).
+        // so we must change it back finally here before presenting the populated template to the user.
         WasTouched = false;
 
-        //IsDnf = !string.IsNullOrWhiteSpace(itemBeingModified.DnxSymbol);
-
-
-        if (string.IsNullOrWhiteSpace(itemBeingModified.DnxSymbol))
-            await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelNone);
-        else if (itemBeingModified.DnxSymbol == Symbols.SymbolDnf)
-            await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelDnf);
-        else if (itemBeingModified.DnxSymbol == Symbols.SymbolTbd) await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelTbd);
-
-
-        // the act of setting all these properties automatically causes answer.WasTouched to be
-        // set to True, so we must change it back at the end
-
         AsInitiallyPopulatedSemanticValue = CurrentSemanticValue();
+
+        IsAuthorisedToOperate = itemBeingModified is not null; // Note: triggers SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
+
+        EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData();
+
+        EvaluateVisibilityOfAllGuiControlsThatTouchData(true);
 
         return true;
     }
 
-        public TimeStampHubItem MergeEditsBackIntoItemBeingModified(TimeStampHubItem itemBeingModified, string touchedBy)
+    public TimeStampHubItem MergeEditsBackIntoItemBeingModified(TimeStampHubItem itemBeingModified, string touchedBy)
     {
         if (itemBeingModified is null)
             return null;
@@ -320,7 +335,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return answer;
     }
 
-        public bool OneOrMoreEntriesAreInvalid(out string errorMessage)
+    public bool OneOrMoreEntriesAreInvalid(out string errorMessage)
     {
         var sb = new StringBuilder();
 
@@ -360,7 +375,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return true;
     }
 
-        public bool AllEntriesAreUnchangedSinceInitiallyPopulated()
+    public bool AllEntriesAreUnchangedSinceInitiallyPopulated()
     {
         var before = AsInitiallyPopulatedSemanticValue;
 
@@ -370,7 +385,7 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
     }
 
 
-        public bool IsEmpty()
+    public bool IsEmpty()
     {
         return SelectedYear == 0 &&
                SelectedMonth == 0 &&
@@ -381,15 +396,12 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
                SelectedSecondTenth == 0;
     }
 
-        public override async Task<bool> ZeroiseAsync()
+    public override async Task<bool> ZeroiseAsync()
     {
-        await base.ZeroiseAsync();
+        await base.ZeroiseAsync(); // Note: triggers SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
 
         _kindOfTimeStampEnum = string.Empty;
-
         KindOfTimeStampEnumText = string.Empty;
-
-        Bib = string.Empty;
 
         SelectedYear = 0;
         SelectedMonth = 0;
@@ -399,23 +411,22 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         SelectedSecond = 0;
         SelectedSecondTenth = 0;
         await TimeStampRadioButtonsVm.ChangeSelectedItemAsync(LabelNone);
-        MustDitchOriginatingItem = false;
-
-        SynchroniseIsAuthorisedToOperateValueOfConstituentControls();
 
         AsInitiallyPopulatedSemanticValue = CurrentSemanticValue();
+
+        SynchroniseIsAuthorisedToOperateValueOfConstituentControls();
 
         return true;
     }
 
-        protected override void SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
+    protected override void SynchroniseIsAuthorisedToOperateValueOfConstituentControls()
     {
         // see setter of editTemplateBase.IsAuthorisedToOperate in base class. thus we keep IsAuthorisedToOperate in sync
 
         CopyHubItemButtonVm.IsAuthorisedToOperate = IsAuthorisedToOperate;
         PasteHubItemButtonVm.IsAuthorisedToOperate = IsAuthorisedToOperate;
 
-        IsIdentifierEditable = IsAuthorisedToOperate
+        IsBibEditable = IsAuthorisedToOperate
                                && _kindOfTimeStampEnum != EnumStrings.KindOfEntryIsTimeStampForGunStartForEverybody
                                && _kindOfTimeStampEnum != EnumStrings.KindOfEntryIsTimeStampForGunStartForGroup;
 
@@ -426,19 +437,18 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         TimeStampRadioButtonsVm.IsAuthorisedToOperate = IsDnxEditable;
     }
 
-        #endregion
+    #endregion
 
-        #region helpers
+    #region helpers
 
-
-        public long GetBinaryTimeStamp()
+    public long GetBinaryTimeStamp()
     {
         var answer = new DateTime(SelectedYear, SelectedMonth, SelectedDay, SelectedHour, SelectedMinute, SelectedSecond, SelectedSecondTenth * 100, DateTimeKind.Local).ToBinary();
 
         return answer;
     }
 
-        private string CurrentSemanticValue()
+    private string CurrentSemanticValue()
     {
         var answer = JghString.Concat(
             ValueOrDummy(JghString.TmLr(Bib)),
@@ -460,16 +470,16 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return answer;
     }
 
-        private static string ValueOrDummy(string value)
+    private static string ValueOrDummy(string value)
     {
         return string.IsNullOrWhiteSpace(value) ? "dummy" : value;
     }
 
-        #endregion
+    #endregion
 
-        #region Gui stuff
+    #region Gui stuff
 
-        public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
+    public override void EvaluateIsAuthorisedToOperateValueOfAllGuiControlsThatTouchData()
     {
         CopyHubItemButtonVm.IsAuthorisedToOperate = !OneOrMoreEntriesAreInvalid(out var dummy);
         PasteHubItemButtonVm.IsAuthorisedToOperate = false;
@@ -477,13 +487,13 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         TimeStampRadioButtonsVm.IsAuthorisedToOperate = true;
     }
 
-        protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
+    protected override void EvaluateVisibilityOfAllGuiControlsThatTouchData(bool makeVisible)
     {
         CopyHubItemButtonVm.IsVisible = makeVisible;
         PasteHubItemButtonVm.IsVisible = makeVisible;
     }
 
-        protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
+    protected override List<object> MakeListOfAllObjectsSatisfyingIHasIsAuthorisedToOperate()
     {
         var answer = new List<object>();
 
@@ -494,11 +504,10 @@ namespace RezultzPortal.Uwp.EditTemplateViewModels
         return answer;
     }
 
-        public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
+    public override bool LastKnownGoodGenesisOfThisViewModelHasChanged()
     {
         return false;
     }
 
-        #endregion
-    }
+    #endregion
 }
