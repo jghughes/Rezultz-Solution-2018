@@ -183,6 +183,15 @@ public sealed class JghListDictionary<TKey, TValue> : IDictionary<TKey, IList<TV
     }
 
     /// <summary>
+    ///     Retrieves all the values.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<TValue> FindAllValues()
+    {
+        return from pair in this from value in pair.Value select value;
+    }
+
+    /// <summary>
     ///     Retrieves all the values that match the condition defined by the specified predicate.
     /// </summary>
     /// <param name="valueFilter">The filter with the condition to use to filter values.</param>
