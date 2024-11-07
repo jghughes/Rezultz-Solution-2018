@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NetStd.Exceptions.Mar2024.JghExceptions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // ReSharper disable FieldCanBeMadeReadOnly.Local
 // ReSharper disable PartialMethodWithSinglePart
@@ -75,6 +76,25 @@ namespace NetStd.HttpRequestService.Feb2019
 
         #endregion
 
+        #region type
+
+        public class TokenResponse
+        {
+            [JsonProperty("access_token")]
+            public string AccessToken { get; set; }
+
+            [JsonProperty("token_type")]
+            public string TokenType { get; set; }
+
+            [JsonProperty("expires_in")]
+            public int ExpiresIn { get; set; }
+
+            [JsonProperty("refresh_token")]
+            public string RefreshToken { get; set; }
+        }
+
+        #endregion
+
         #region serializer stuff
 
         protected JsonSerializerSettings JsonSerializerSettings => _settings.Value;
@@ -97,6 +117,36 @@ namespace NetStd.HttpRequestService.Feb2019
 
         #region THE MEAT - request service methods
 
+        public async Task<string> GetAccessTokenAsync(string clientId, string clientSecret, string tokenEndpoint, string scope)
+        {
+            using var singleUseHttpClient = new HttpClient();
+
+            var requestBody = new Dictionary<string, string>
+            {
+                { "grant_type", "client_credentials" },
+                { "client_id", clientId },
+                { "client_secret", clientSecret },
+                { "scope", scope }
+            };
+
+            var requestContent = new FormUrlEncodedContent(requestBody);
+
+            var response = await singleUseHttpClient.PostAsync(tokenEndpoint, requestContent);
+
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var tokenResponse = JsonConvert.DeserializeObject<HttpRequestService.TokenResponse>(responseContent);
+
+            if (tokenResponse == null)
+            {
+                throw new InvalidOperationException("Failed to deserialize OAuth token.");
+            }
+
+            return tokenResponse.AccessToken;
+        }
+
         public async Task<TReturn> GetObjectAsync<TReturn>(MvcRouteSegmentItem uri, string accessToken = "", CancellationToken cancellationToken = default)
         {
             var urlBuilder = BuildMvcRoute(BaseUrl, uri.Controller, uri.Action, uri.QueryParameters);
@@ -113,13 +163,15 @@ namespace NetStd.HttpRequestService.Feb2019
 
                 request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                PrepareRequest(client, request, urlBuilder); // currently empty
+                AddAuthorizationHeader(accessToken);
+
+                PrepareRequest(client, request, urlBuilder); // placeholder: currently empty partial method for future use if desired
 
                 var url = urlBuilder.ToString();
 
                 request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                PrepareRequest(client, request, url); // currently empty
+                PrepareRequest(client, request, url); // placeholder: currently empty partial method for future use if desired
 
                 var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
@@ -129,7 +181,7 @@ namespace NetStd.HttpRequestService.Feb2019
                 {
                     var allResponseHeaders = EnumerateAllResponseHeaders(response);
 
-                    ProcessResponse(client, response); // currently empty
+                    ProcessResponse(client, response); // placeholder: currently empty partial method for future use if desired
 
                     var answer = await HandleResponseAsync<TReturn>(response, allResponseHeaders, cancellationToken).ConfigureAwait(false); // throws exception if status code is not 200
 
@@ -174,6 +226,8 @@ namespace NetStd.HttpRequestService.Feb2019
                 request.Method = new HttpMethod("POST");
 
                 request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                AddAuthorizationHeader(accessToken);
 
                 PrepareRequest(client, request, urlBuilder);
 
@@ -237,6 +291,8 @@ namespace NetStd.HttpRequestService.Feb2019
 
                 request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
+                AddAuthorizationHeader(accessToken);
+
                 PrepareRequest(client, request, urlBuilder);
 
                 var url = urlBuilder.ToString();
@@ -276,6 +332,23 @@ namespace NetStd.HttpRequestService.Feb2019
         #endregion
 
         #region MORE MEAT - helper methods
+
+        private void AddAuthorizationHeader(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                httpClient.DefaultRequestHeaders.Authorization = null;
+
+                return;
+            }
+            // Remove any existing Authorization headers to avoid duplicates
+            if (httpClient.DefaultRequestHeaders.Contains("Authorization"))
+            {
+                httpClient.DefaultRequestHeaders.Remove("Authorization");
+            }
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
 
         /// <summary>
         /// </summary>
