@@ -64,27 +64,19 @@ namespace RezultzSvc.Library01.Mar2024
 
         }
 
-		#endregion
+        #endregion
 
-		private static Task<string[]> GetConnectionStringsOfAllRecognisedAccountsInDatabaseAsync()
+        /// <summary>
+        /// Fetches the connection strings from a named Secret stored in JGH's AzureKeyVault. The secret contains a JSON array of confidential account particulars
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<string[]> GetConnectionStringsOfAllRecognisedAccountsInDatabaseAsync()
         {
-            // todo we should obtain these from a secure xml file in the Rezultz system storage location
+            var answer = await AzureStorageConnectionStrings.GetAzureStorageAccountConnectionStringsForRezultzAsync();
 
-            var tcs = new TaskCompletionSource<string[]>(TaskCreationOptions.RunContinuationsAsynchronously);
-
-            try
-            {
-                var answer = AzureStorageConnectionStrings.GetAzureStorageAccountConnectionStrings();
-
-                tcs.TrySetResult(answer);
-            }
-            catch (Exception)
-            {
-                tcs.TrySetResult([]);
-            }
-
-            return tcs.Task;
+            return answer;
         }
+
 
     }
 

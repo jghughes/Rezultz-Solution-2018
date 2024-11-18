@@ -29,13 +29,14 @@ namespace RezultzSvc.WebApp02
             // Furthermore, I use Newtonsoft in my HTTP REST clients. System.Text.Json enforces camelCasing when it serialises, which is not what we want at all.
             // Adding NewtonSoft ensures that the intrinsic deserialisation of controller method requests and responses will be done by NewtonsSoft.
             // I have determined empirically that if you don't do this things will blow up sooner or later in .Net 6. Don't know about .Net 8.
+            
             builder.Services.AddControllers().AddNewtonsoftJson();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            // It says there that the following line, AddEndpointsApiExplorer, is required only if
-            // this is a Minimal API, which it is not. I am using good old MVC Controllers where
-            // AddEndpointsApiExplorer is called automatically inside AddControllers(). Therefore
-            // I have commented it out.
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle. It says there that the commented out line
+            // immediately beneath this comment namely [builder.Services.AddEndpointsApiExplorer()] is required only if this is a Minimal API, which
+            // it is not. I am using good old MVC Controllers where AddEndpointsApiExplorer is called automatically by the infrastructure
+            // inside AddControllers(). This is why it is commented out.
+            
             //builder.Services.AddEndpointsApiExplorer();
 
             // Register the Swagger generator, defining one or more Swagger documents
