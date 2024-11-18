@@ -20,7 +20,7 @@
         public const string ParticipantRegistrationControllerBaseUrl = "http://localhost:5196";
         public const string RaceResultsPublishingControllerBaseUrl = "http://localhost:5052"; // NB separate WebApp
 
-        //// localhost http for debugging
+        //// localhost https for debugging
         //public const string AzureStorageControllerBaseUrl = "https://localhost:7285";
         //public const string LeaderboardResultsControllerBaseUrl = "https://localhost:7285";
         //public const string TimeKeepingControllerBaseUrl = "https://localhost:7285";

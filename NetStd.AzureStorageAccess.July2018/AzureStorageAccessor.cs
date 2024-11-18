@@ -752,12 +752,8 @@ namespace NetStd.AzureStorageAccess.July2018
             }
             else
             {
-                // wild card
-                if (contains == "*")
-                    isMatch = true;
-
-                // matched
-                if (blobName.Contains(contains))
+                // wild card or match
+                if (contains == "*" || blobName.Contains(contains))
                     isMatch = true;
             }
 

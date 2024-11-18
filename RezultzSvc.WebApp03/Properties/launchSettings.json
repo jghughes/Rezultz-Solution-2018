@@ -22,12 +22,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "KEYVAULT_01": "AzureStorageConnections",
-        "SECRET_01": "coldstorage",
-        "SECRET_02": "customerkelso",
-        "SECRET_03": "customertester",
-        "SECRET_04": "systemrezultzlevel1"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   },
