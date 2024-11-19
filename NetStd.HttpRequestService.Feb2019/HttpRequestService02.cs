@@ -437,7 +437,7 @@ namespace NetStd.HttpRequestService.Feb2019
 
             const string deserialisationFailedMessage = "Error. An unknown/unexpected type was received that could not be deserialised. The type being expected was";
 
-            const string invisibleContentMessage = "(Sorry. Unable to show Http response content because it was processed with a StreamReader to economize on memory.)";
+            const string invisibleContentMessage = "(Sorry. Response content might or might not exist. Either way, it is not accessible for human readable display at this point.)";
 
             if (MustProcessResponseContentUsingReadAsStringAsync)
             {
