@@ -20,7 +20,12 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KEYVAULT_01": "AzureStorageConnections",
+        "SECRET_01": "coldstorage",
+        "SECRET_02": "customerkelso",
+        "SECRET_03": "customertester",
+        "SECRET_04": "systemrezultzlevel1"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7178;http://localhost:5052"
