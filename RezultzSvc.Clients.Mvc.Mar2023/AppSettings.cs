@@ -21,18 +21,18 @@
         //public const string RaceResultsPublishingControllerBaseUrl = "http://localhost:5052"; // NB separate WebApp
 
         //// localhost https for debugging
-        public const string AzureStorageControllerBaseUrl = "https://localhost:7285";
-        public const string LeaderboardResultsControllerBaseUrl = "https://localhost:7285";
-        public const string TimeKeepingControllerBaseUrl = "https://localhost:7285";
-        public const string ParticipantRegistrationControllerBaseUrl = "https://localhost:7285";
-        public const string RaceResultsPublishingControllerBaseUrl = "https://localhost:7178"; // NB separate WebApp
+        //public const string AzureStorageControllerBaseUrl = "https://localhost:7285";
+        //public const string LeaderboardResultsControllerBaseUrl = "https://localhost:7285";
+        //public const string TimeKeepingControllerBaseUrl = "https://localhost:7285";
+        //public const string ParticipantRegistrationControllerBaseUrl = "https://localhost:7285";
+        //public const string RaceResultsPublishingControllerBaseUrl = "https://localhost:7178"; // NB separate WebApp
 
         //// remote Kestrel host for production - .Net 8 WebApp  
-        //public const string AzureStorageControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
-        //public const string LeaderboardResultsControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
-        //public const string TimeKeepingControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
-        //public const string ParticipantRegistrationControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
-        //public const string RaceResultsPublishingControllerBaseUrl = "https://rezultzsvcmvc11.azurewebsites.net"; // NB separate WebApp
+        public const string AzureStorageControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
+        public const string LeaderboardResultsControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
+        public const string TimeKeepingControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
+        public const string ParticipantRegistrationControllerBaseUrl = "https://rezultzsvcmvc.azurewebsites.net";
+        public const string RaceResultsPublishingControllerBaseUrl = "https://rezultzsvcmvc11.azurewebsites.net"; // NB separate WebApp
 
     }
 }

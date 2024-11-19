@@ -2,6 +2,8 @@
 using Microsoft.OpenApi.Models;
 using NetStd.AzureStorageAccess.July2018;
 
+// https://learn.microsoft.com/en-us/aspnet/core/web-api/handle-errors?view=aspnetcore-8.0
+
 namespace RezultzSvc.WebApp04
 {
     public class Program
@@ -57,13 +59,20 @@ namespace RezultzSvc.WebApp04
 
             app.MapControllers();
 
-            // Configure the HTTP request pipeline.
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // uncomment the following line to disable Swagger in production
+            // if (!app.Environment.IsDevelopment()) return; 
+
+            // Configure the HTTP request pipeline. Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
+            //// Configure the HTTP request pipeline.
+            //// Enable middleware to serve generated Swagger as a JSON endpoint.
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
         }
 
     }
