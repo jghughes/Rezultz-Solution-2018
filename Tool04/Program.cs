@@ -10,10 +10,7 @@ namespace Tool04;
 internal class Program
 {
     private const string Description =
-        "This program reads one or more XML files of published results data from the Portal." +
-        " For every ResultItemDto in each of those files, it overwrites the T01 field" +
-        " with the corresponding field obtained from the three associated MyLaps data files (in CSV format)." +
-        " Then it exports tidied up file/s of XML.";
+        "This program (Tool04) reads one or more XML files of published results data from the Portal. For every ResultItemDto in each of those files, it overwrites the T01 field with the corresponding field obtained from the three associated MyLaps data files (in CSV format). Then it exports tidied up file/s of XML.";
 
     #region variables
 

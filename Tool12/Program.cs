@@ -14,10 +14,10 @@ namespace Tool12;
 internal class Program
 {
     private const string Description =
-        "This console program (Tool12) is intended to indentify discrepencies between the Kelso SeriesPoints-participant lists in Andrew's four-worksheet " +
-        "Excel spreadsheet and the ParticipantHubItems in the portal. To obtain the Kelso list, it reads (XML) files exported from Andrew's SERIES-POINTS " +
+        "This program (Tool12) is intended to indentify discrepencies between the Kelso SeriesPoints-participant lists in Andrew's four-worksheet " +
+        "Excel spreadsheet and the ParticipantHubItems in the portal. To obtain the Kelso list, it reads XML files exported from Andrew's SERIES-POINTS " +
         "spreadsheet (exported by JGH into four worksheets in Access named Expert, Intermediate, Novice, and Sport and then exported as XML). To obtain an " +
-        "up-to-date master list of the participants registered in the Portal, JGH exports the master list from the Particpant registration module as a Json file.";
+        "up-to-date master list of the participants registered in the Portal, JGH exports the master list from the Particpant registration module as a JSON file.";
 
     #region the MEAT
 

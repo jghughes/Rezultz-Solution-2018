@@ -7,7 +7,7 @@ namespace Tool02;
 
 internal class Program
 {
-    private const string Description = "This program (Tool02) de-serialises json files, then exports tidied up xml and json files.";
+    private const string Description = "This program (Tool02) de-serialises .JSON files, then exports tidied up XML and JSON files.";
 
     private static void Main()
     {

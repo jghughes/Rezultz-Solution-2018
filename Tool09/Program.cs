@@ -3,7 +3,6 @@ using Rezultz.DataTransferObjects.Nov2023.Results;
 using Rezultz.DataTransferObjects.Nov2023.TimekeepingSystem;
 using Rezultz.DataTypes.Nov2023.PortalHubItems;
 using RezultzSvc.Library02.Mar2024.PublisherModuleHelpers;
-using System;
 using Tool12;
 
 namespace Tool09;
@@ -14,10 +13,21 @@ internal class Program
 
     private static async Task Main()
     {
+        const string description = "This program (Tool09) reads files of MyLaps timing data and compares the electronic " +
+                                   "data from the timing mat to a (potentially totally different) set of timing data recorded in " +
+                                   "the timing tent using the Portal timing system. The purpose of doing this is to search for gaps " +
+                                   "in the data by means of comparison. Based on empirical experience, there are typically about ten " +
+                                   "anomalies each week because the electronic mat misses people. With a double-mat for redundancy, the anomalies are reduced " +
+                                   "The Portal timing team also misses people, but generally fewer. The pipeline for this tool is that data is exported from MyLaps in Excel " +
+                                   "format, then exported from Excel in .csv format, and then finally imported into this tool as .csv and " +
+                                   "deserialized and analysed. Portal data is exported effortlessly by clicking the export button on the " +
+                                   "Portal Timing Tools screen and exporting the data as timestamps consolidated into provisional results.";
+
+
         #region intro
 
         console.WriteLineFollowedByOne("Welcome.");
-        console.WriteLineFollowedByOne(Description);
+        console.WriteLineFollowedByOne(description);
         console.WriteLine($"{JghString.LeftAlign("Presumed date of event:", LhsWidth)} {DateOfThisEvent:D}");
         console.WriteLine($"{JghString.LeftAlign("Filename for Portal participants file:", LhsWidth)} {FileNameOfParticipantMasterListFromPortal}");
         console.WriteLine($"{JghString.LeftAlign("Folder for MyLaps data from Andrew:", LhsWidth)} {FolderForMyLapsTimingDataFilesFromAndrew}");
@@ -163,8 +173,8 @@ internal class Program
 
             var arrayOfInputFileInfo = di.GetFiles(); // Create an array representing all the files in the current directory of all types.
 
-            if (arrayOfInputFileInfo.Length == 0) {
-
+            if (arrayOfInputFileInfo.Length == 0)
+            {
                 console.WriteLinePrecededByOne($"{JghString.LeftAlign($"Problem: No files found in MyLaps timing data folder. [{FolderForMyLapsTimingDataFilesFromAndrew}]", LhsWidth)}");
 
                 return;
@@ -228,12 +238,8 @@ internal class Program
             JghListDictionary<string, MyLapsResultItem> dictionaryOfMyLapsTimingSystemResultsKeyedByBib = new();
 
             foreach (var myLapsFile in ResultsPortalTimingSystemFileBeingAnalysed.ListOfMyLapsFileObjects)
-            {
-                foreach (var myLapsResult in myLapsFile.MyLapsFileContentsAsMyLapsResultObjects)
-                {
-                    dictionaryOfMyLapsTimingSystemResultsKeyedByBib.Add(myLapsResult.Bib, myLapsResult);
-                }
-            }
+            foreach (var myLapsResult in myLapsFile.MyLapsFileContentsAsMyLapsResultObjects)
+                dictionaryOfMyLapsTimingSystemResultsKeyedByBib.Add(myLapsResult.Bib, myLapsResult);
 
             #endregion
 
@@ -251,23 +257,18 @@ internal class Program
                 dictionaryOfTopFinishersKeyedByRaceGroup.Add(myLapsResult.RaceGroup, myLapsResult);
             }
 
-            console.WriteLineWrappedByOne($"MYLAPS TIMING SYSTEM: Top finishers: ");
+            console.WriteLineWrappedByOne("MYLAPS TIMING SYSTEM: Top finishers: ");
 
             foreach (var kvp in dictionaryOfTopFinishersKeyedByRaceGroup)
             {
                 var myLapsResults = kvp.Value.OrderBy(z => z.DurationAsString).Take(5);
 
-                foreach (var myLapsResult in myLapsResults)
-                {
-                    console.WriteLine($"Bib:{$"{myLapsResult.Bib}",4} {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.RaceGroup}",-13} {$"{myLapsResult.DurationAsString}",15} ");
-
-                }
+                foreach (var myLapsResult in myLapsResults) console.WriteLine($"Bib:{$"{myLapsResult.Bib}",4} {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.RaceGroup}",-13} {$"{myLapsResult.DurationAsString}",15} ");
 
                 console.WriteLine();
             }
 
             #endregion
-
 
 
             #region report results missing in Mylaps i.e. that are listed in Results from Portal but not in MyLaps
@@ -280,10 +281,10 @@ internal class Program
 
             foreach (var kvp in dictionaryOfPortalTimingSystemResultsKeyedByBib)
             {
-                if (kvp.Value.Any(z => (!string.IsNullOrWhiteSpace(z.DnxString))))
+                if (kvp.Value.Any(z => !string.IsNullOrWhiteSpace(z.DnxString)))
                     continue; // skip people who have a DNF, DNS, etc.
 
-                if (dictionaryOfMyLapsTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue; 
+                if (dictionaryOfMyLapsTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue;
 
                 var portalResult = kvp.Value.FirstOrDefault();
 
@@ -294,20 +295,17 @@ internal class Program
                 sb.AppendLine($"Bib:{$"{kvp.Key}",4} {$"{portalResult.First} {portalResult.Last}",-25} IsSeries={$"{portalResult.IsSeries}",-5} {$"{portalResult.RaceGroup}",-13} {$"{portalResult.T01}",15} ");
 
                 i += 1;
-
             }
 
             console.WriteLineWrappedByOne($"MYLAPS TIMING SYSTEM: MISSING finishers: {i} (excluding Dnx outcomes in Portal)");
 
             console.WriteLine(sb.ToString());
 
-            var resultsForInclusionInMyLapsAsXml = JghSerialisation.ToXElementFromObject(resultsForInclusionInMyLaps, new Type[] { typeof(ResultDto) });
+            var resultsForInclusionInMyLapsAsXml = JghSerialisation.ToXElementFromObject(resultsForInclusionInMyLaps, new[] { typeof(ResultDto) });
 
             SaveWorkToHardDrive(resultsForInclusionInMyLapsAsXml.ToString(),
                 FolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfResultsForAdditionToMyLaps));
-
-
 
             #endregion
 
@@ -319,7 +317,6 @@ internal class Program
 
             foreach (var kvp in dictionaryOfMyLapsTimingSystemResultsKeyedByBib)
             {
-               
                 if (dictionaryOfPortalTimingSystemResultsKeyedByBib.ContainsKey(kvp.Key)) continue;
 
                 var myLapsResult = kvp.Value.FirstOrDefault();
@@ -331,7 +328,6 @@ internal class Program
                 //sb1.AppendLine($"Bib: Series={$"{kvp.Key}",4}  {$"{myLapsResult.FullName}",-25} {$"{myLapsResult.DurationAsString}",15}  RaceDayGroup: {myLapsResult.RaceGroup}");
 
                 j += 1;
-
             }
 
             console.WriteLineWrappedByOne($"PORTAL TIMING SYSTEM: MISSING finishers: {j}");
@@ -355,7 +351,7 @@ internal class Program
 
                 if (myLapsResult is null) continue;
 
-                var registeredSeriesParticipant = DictionaryOfParticipantsInPortalMasterListKeyedByBib[myLapsResult.Bib].FirstOrDefault(z => z.IsSeries == true);
+                var registeredSeriesParticipant = DictionaryOfParticipantsInPortalMasterListKeyedByBib[myLapsResult.Bib].FirstOrDefault(z => z.IsSeries);
 
                 if (registeredSeriesParticipant is null) continue;
 
@@ -366,19 +362,19 @@ internal class Program
                 sb2.AppendLine(
                     $"Bib: Raced/Series={$"{registeredSeriesParticipant.Bib}-{myLapsResult.Bib}",8} {$"{myLapsResult.FullName}",-25} Raced: {myLapsResult.RaceGroup,-13} Series: {registeredRaceGroupOfSeriesParticipantInPortal,-13} {myLapsResult.DurationAsString,12} Not in series category");
                 //sb2.AppendLine($"Bib: Series/RaceDay= {$"{registeredSeriesParticipant.Bib}-{myLapsResult.Bib}", 8} {$"{myLapsResult.FullName}",-25} Group: Series/RaceDay= {registeredRaceGroupOfSeriesParticipantInPortal}/{myLapsResult.RaceGroup}");
-                forExclusionFromAllSeriesPointsCalculationsForSpecialReasons.Add(new ResultDto(){Bib = myLapsResult.Bib, Last = myLapsResult.FullName, IsExcludedFromAllSeriesPointsCalculationsForSpecialReasons = true} );
+                forExclusionFromAllSeriesPointsCalculationsForSpecialReasons.Add(new ResultDto { Bib = myLapsResult.Bib, Last = myLapsResult.FullName, IsExcludedFromAllSeriesPointsCalculationsForSpecialReasons = true });
                 ii += 1;
             }
+
             console.WriteLineWrappedByOne($"CATEGORY CONFLICTS between SeriesGroup and RaceDayGroup: {ii}");
 
             console.WriteLine(sb2.ToString());
 
-            var resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml = JghSerialisation.ToXElementFromObject(forExclusionFromAllSeriesPointsCalculationsForSpecialReasons, new Type[] { typeof(ResultDto) });
+            var resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml = JghSerialisation.ToXElementFromObject(forExclusionFromAllSeriesPointsCalculationsForSpecialReasons, new[] { typeof(ResultDto) });
 
             SaveWorkToHardDrive(resultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasonsAsXml.ToString(),
                 FolderForDiagnosticReport,
                 JghFilePathValidator.MakeSimpleRezultzNtfsFileNameWithTimestampPrefix(FileNameOfMyLapsResultsForExclusionFromAllSeriesPointsCalculationsForSpecialReasons));
-
 
             #endregion
 
@@ -456,17 +452,6 @@ internal class Program
     #endregion
 
     #region parameters
-
-    private const string Description = "This console program (Tool09) reads files of MyLaps timing data and compares the electronic " +
-                                       "data from the timing mat to a (potentially totally different) set of timing data recorded in " +
-                                       "the timing tent using the Portal timing system. The purpose of doing this is to search for gaps " +
-                                       "in the data by means of comparison. Based on empirical experience, there are typically about ten " +
-                                       "anomalies each week because the electronic mat misses people. With a double-mat for redundancy, the anomalies are reduced " +
-                                       "The Portal timing team also misses " +
-                                       "people, but generallly fewer. The pipeline for this tool is that data is exported from MyLaps in Excel " +
-                                       "format, then exported from Excel in .csv format, and then finally imported into this tool as .csv and " +
-                                       "deserialised and analysed. Portal data is exported effortlessly by clicking the export button on the " +
-                                       "Portal Timing Tools screen and exporting the data as timestamps consolidated into provisional results.";
 
     private const int LhsWidth = 40;
 

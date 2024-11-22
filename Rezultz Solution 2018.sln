@@ -94,6 +94,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RezultzSvc", "RezultzSvc", "{4E33C4CB-7955-4ED1-B109-E17B9A168591}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{9934380D-4305-451A-BC52-BA38471CF915}"
+	ProjectSection(SolutionItems) = preProject
+		README - table of contents of Tools.txt = README - table of contents of Tools.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jgh.MvcParameters.Mar2024", "Jgh.MvcParameters.Mar2024\Jgh.MvcParameters.Mar2024.csproj", "{E0EBCE46-D27F-44E9-9CE7-255D40E0FF30}"
 EndProject

@@ -11,10 +11,7 @@ namespace Tool03;
 
 internal class Program
 {
-    private const string Description = "This program reads one or more files of MyLaps data (in problematic CSV format)." +
-                                       " It tediously converts the data into ResultDto items, relying on the participant master list" +
-                                       " from RezultzHub and parameters for the specified event from the SeriesProfile to plug gaps in the (incomplete) MyLaps data." +
-                                       " Finallly, it exports the manicured file/s of publishable XML results for the event for upload to Azure.";
+    private const string Description = "This program (Tool03 ) reads one or more files of MyLaps data (in problematic CSV format). It tediously converts the data into ResultDto items, relying on the participant master list from RezultzHub and parameters for the specified event from the SeriesProfile to plug gaps in the (incomplete) MyLaps data. Finaly, it exports the manicured file/s of publishable XML results for the event for upload to Azure.";
 
     #region variables
 

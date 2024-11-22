@@ -15,7 +15,7 @@ namespace Tool05;
 internal class Program
 {
     private const string Description =
-        "This program is used to do four things." +
+        "This program (Tool 05) is used to do four things." +
         " 1. be a test bed for new publisher-profile files authored in XML for future publisher modules." +
         " 2. ensure that the authored profile-files deserialise correctly using the system serialiser at the client end of the remote svc wire." +
         " 3. maintain a handwritten free-form deserialiser that can deserialise profile-files (used for exception fallback at the remote svc end). " +

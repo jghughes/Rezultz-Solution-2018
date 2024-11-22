@@ -7,7 +7,7 @@ namespace Tool07
 {
     internal class Program
     {
-        private const string Description = "This program reads a folder of files of published results and replaces all the XElement names to lower case.";
+        private const string Description = "This program (Tool07) reads a folder of files of published results and replaces all the XElement names to lower case.";
 
         private static void Main()
     {

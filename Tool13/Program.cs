@@ -13,8 +13,13 @@ internal class Program
     {
         #region intro
 
+        const string description = "This program (Tool13) reads files of the published results for all events in the series to date " +
+                                   "and then determines which participants have raced on more than one category because they upgraded or " +
+                                   "downgraded, or were mis-categorised, or just rode as a bandit in an illegitimate category. If asked, it can " +
+                                   "also inspect an arbitrary list of bibs.";
+
         console.WriteLineFollowedByOne("Welcome.");
-        console.WriteLineFollowedByOne(Description);
+        console.WriteLineFollowedByOne(description);
         console.WriteLine($"{JghString.LeftAlign("Filename for SeriesProfile file:", LhsWidth)} {FileNameOfSeriesProfileDto}");
         console.WriteLine($"{JghString.LeftAlign("Folder for SeriesProfile file:", LhsWidth)} {FolderForSeriesProfile}");
         console.WriteLine($"{JghString.LeftAlign("Filename for Portal participants file:", LhsWidth)} {FileNameOfParticipantMasterListFromPortal}");
@@ -463,10 +468,6 @@ internal class Program
 
     #region parameters
 
-    private const string Description = "This console program (Tool13) reads files of the published results for all events in the series to date " +
-                                       "and then determines which participants have raced on more than one category because they upgraded or " +
-                                       "downgraded, or were mis-categorised, or just rode as a bandit in an illegitimate category. If asked, it can " +
-                                       "also inspect an arbitrary list of bibs.";
 
     private const int LhsWidth = 40;
 

@@ -13,8 +13,7 @@ namespace Tool08
 {
     internal class Program
     {
-        private const string Description = "This console program (Tool08) is a scratchpad for testing RaceResultsPublishingSvcAgent, their injected Wcf or Mvc clients and services," +
-                                           " and the C# publisher profile and module [PublisherForRezultzPortalTimingSystem2021]";
+        private const string Description = "This program (Tool08) is a scratchpad for testing RaceResultsPublishingSvcAgent, their injected Wcf or Mvc clients and services, and the C# publisher profile and module [PublisherForRezultzPortalTimingSystem2021].";
 
         private static async Task Main()
     {

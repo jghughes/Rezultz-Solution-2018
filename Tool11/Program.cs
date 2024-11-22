@@ -9,7 +9,7 @@ namespace Tool11;
 internal class Program
 {
     private const string Description =
-        "This mickey mouse console program (Tool11) reads the Kelso participant master list/s and determines which partcipants have birthdays mid-season that would trigger a change in agegroup IF AGEGROUP WAS VARIABLE AND BASED ON ACTUAL AGE ON THE DAY OF AN EVENT.";
+        "This mickey-mouse program (Tool11) reads the Kelso participant master list/s and determines which participants have birthdays mid-season that would trigger a change in age-group if age-group was variable and based on actual age on the day of an event.";
 
     #region the MEAT
 

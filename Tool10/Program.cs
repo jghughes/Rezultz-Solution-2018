@@ -19,7 +19,7 @@ namespace Tool10;
 
 internal class Program
 {
-    private const string Description = "This console program (Tool10) reads the Kelso Master List of people registered before the start of the season for the series. It generates equivalent ParticipantHubItems for upload to the hub so that the Portal is ready to go from Day 1.";
+    private const string Description = "This program (Tool10) reads the Kelso Master List of people registered before the start of the season for the series. It generates equivalent ParticipantHubItems for upload to the hub so that the Portal is ready to go from Day one.";
 
     #region the MEAT
 

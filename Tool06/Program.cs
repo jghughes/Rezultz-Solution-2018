@@ -16,8 +16,7 @@ namespace Tool06;
 
 internal class Program
 {
-    private const string Description = "This program is a scratchpad for testing RaceResultsPublishingSvcAgent ...." +
-                                       " and the C# publisher module [PublisherForMyLapsElectronicTimingSystem2023]";
+    private const string Description = "This program (Tool06) is a scratchpad for testing RaceResultsPublishingSvcAgent and the C# publisher module [PublisherForMyLapsElectronicTimingSystem2023].";
 
     #region constants
 
