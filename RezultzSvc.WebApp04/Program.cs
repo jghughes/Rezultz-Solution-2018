@@ -65,14 +65,6 @@ namespace RezultzSvc.WebApp04
             // Configure the HTTP request pipeline. Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             app.UseSwaggerUI();
-
-            //// Configure the HTTP request pipeline.
-            //// Enable middleware to serve generated Swagger as a JSON endpoint.
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI();
-            //}
         }
 
     }

@@ -116,6 +116,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "+README", "+README", "{D4E1
 		README - how to design mvc svc for debugging.txt = README - how to design mvc svc for debugging.txt
 		README - how to design wcf svc for debugging.txt = README - how to design wcf svc for debugging.txt
 		README - how to reinitialise Git+Github repo.txt = README - how to reinitialise Git+Github repo.txt
+		README - how to relocate secrets to Azure KeyVault.txt = README - how to relocate secrets to Azure KeyVault.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tool07", "Tool07\Tool07.csproj", "{FC8D8CEC-B01E-4D8C-843E-0F542B3B0EB1}"
