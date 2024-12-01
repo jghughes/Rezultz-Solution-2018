@@ -362,7 +362,7 @@ namespace RezultzPortal.Uwp.Pages
             case EnumStrings.AsCsvFile:
             {
                 var itemsWrappedInAParentXe = JghSerialisation.ToXElementWithoutWhiteSpaceFromObject(dataTransferObjects, [typeof(T)]);
-                var csvDocumentAsString = JghXElementHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(itemsWrappedInAParentXe);
+                var csvDocumentAsString = JghCsvHelpers02.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(itemsWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }
@@ -399,7 +399,7 @@ namespace RezultzPortal.Uwp.Pages
             case EnumStrings.AsCsvFile:
             {
                 var childrenWrappedInAParentXe = await printer.GetParticipantHubItemArrayAsXmlFileContentsAsync(EnumForXmlDataExportFormat.SameAsGuiLayout);
-                var csvDocumentAsString = JghXElementHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(childrenWrappedInAParentXe);
+                var csvDocumentAsString = JghCsvHelpers02.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(childrenWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }
