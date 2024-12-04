@@ -1,5 +1,6 @@
 ﻿using NetStd.Exceptions.Mar2024.Helpers;
 using NetStd.Exceptions.Mar2024.JghExceptions;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,8 @@ namespace NetStd.Goodies.Mar2022
 
 
                         // because it is a string, the value must be enclosed in double quotes, but only if it is not already enclosed
+
+                        candidateValue = Encoding.UTF8.GetString(Encoding.Default.GetBytes(candidateValue)); // properly handle UTF8 characters - such as apostrophe for example
 
                         if (candidateValue.StartsWith("\"") && candidateValue.EndsWith("\""))
                         {
