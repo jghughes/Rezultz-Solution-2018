@@ -65,11 +65,14 @@ namespace NetStd.Goodies.Mar2022
                         }
                         if (isDate)
                         {
+                            // Note: to successfully interpret and display date and DateTime formats in Excel, you must apply the appropriate format through 
+                            // the Format Cells dialog. For DateTimes, in the Type field, enter the custom format: yyyy-mm-dd hh:mm:ss AM/PM
+
                             string formattedValue;
 
                             if (candidateDate.Hour == 0 && candidateDate.Minute == 0 && candidateDate.Second == 0 && candidateDate.Millisecond == 0)
                             {
-                                formattedValue = candidateDate.ToString("yyyy-MM-dd");
+                                formattedValue = candidateDate.ToString("yyyy-MM-dd"); // the only date format excel will reliably recognise as a date.
                             }
                             else
                             {
@@ -78,7 +81,6 @@ namespace NetStd.Goodies.Mar2022
                             listOfCsvFields.Add(JghString.Enclose(formattedValue, '"'));
                             continue;
                         }
-
 
                         // because it is a string, the value must be enclosed in double quotes, but only if it is not already enclosed
 
