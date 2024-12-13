@@ -259,13 +259,6 @@ public class MyLaps2024HelperCsv
 
     #region helpers
 
-    //private static string GetTextItemFromArrayByIndexOrStringEmpty(string[] arrayOfText, int indexOfDataItem)
-    //{
-    //    var textItem = JghArrayHelpers.SelectItemFromArrayByArrayIndex(arrayOfText, indexOfDataItem);
-
-    //    return JghString.TmLr(textItem ?? string.Empty);
-    //}
-
     public static string FigureOutRaceGroup(ParticipantHubItemDto participantItem, DateTime dateOfEvent)
     {
         var isTransitionalParticipant = participantItem.RaceGroupBeforeTransition != participantItem.RaceGroupAfterTransition;

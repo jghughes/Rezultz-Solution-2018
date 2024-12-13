@@ -9,9 +9,14 @@ using System.Xml.Linq;
 
 namespace NetStd.Goodies.Mar2022
 {
-    public class JghCsvHelpers02
+    /// The following classes all shed a light on the same problem: how to convert
+    ///     json/xml to csv and back again with varying degrees of success.
+    ///     Rezultz Solution 2018.NetStd.Goodies.Mar2022.JghCsvHelpers01.JghCsvHelpers01
+    ///     Tools Solution 2018.NetStd.Tool.Helpers.Nov2021.JghCsvHelpers02
+    ///     Zwift Solution 2024.NetStd.Tool.Helpers.Nov2021.JghCsvHelpers03
+    public class JghCsvHelpers01
     {
-        private const string Locus2 = nameof(JghCsvHelpers02);
+        private const string Locus2 = nameof(JghCsvHelpers01);
         private const string Locus3 = "[NetStd.Goodies.Mar2022]";
 
         public static string TransformXElementContainingSimpleChildrenToRowOfCsvForExcel(XElement inputXElement, bool mustTransformElementNamesNotValues)
