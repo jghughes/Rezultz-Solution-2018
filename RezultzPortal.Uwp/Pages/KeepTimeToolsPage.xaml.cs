@@ -476,7 +476,7 @@ public sealed partial class KeepTimeToolsPage
             case EnumStrings.AsCsvFile:
             {
                 var itemsWrappedInAParentXe = JghSerialisation.ToXElementFromObject(dataTransferObjects, [typeof(T)]);
-                var csvDocumentAsString = JghCsvHelpers01.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(itemsWrappedInAParentXe);
+                var csvDocumentAsString = JghXmlToCsvHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(itemsWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }
@@ -514,7 +514,7 @@ public sealed partial class KeepTimeToolsPage
             case EnumStrings.AsCsvFile:
             {
                 var childrenWrappedInAParentXe = await printer.GetTimeStampHubItemArrayAsXmlFileContentsAsync(EnumForXmlDataExportFormat.SameAsGuiLayout);
-                var csvDocumentAsString = JghCsvHelpers01.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(childrenWrappedInAParentXe);
+                var csvDocumentAsString = JghXmlToCsvHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(childrenWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }
@@ -552,7 +552,7 @@ public sealed partial class KeepTimeToolsPage
             case EnumStrings.AsCsvFile:
             {
                 var childrenWrappedInAParentXe = await printer.GetSplitIntervalsPerPersonItemArrayAsXmlFileContentsAsync(EnumForXmlDataExportFormat.SameAsGuiLayout);
-                var csvDocumentAsString = JghCsvHelpers01.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(childrenWrappedInAParentXe);
+                var csvDocumentAsString = JghXmlToCsvHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(childrenWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }

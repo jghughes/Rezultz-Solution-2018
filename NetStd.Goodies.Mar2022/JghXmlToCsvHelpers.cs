@@ -9,15 +9,48 @@ using System.Xml.Linq;
 
 namespace NetStd.Goodies.Mar2022
 {
-    /// The following classes all shed a light on the same problem: how to convert
-    ///     json/xml to csv and back again with varying degrees of success.
-    ///     Rezultz Solution 2018.NetStd.Goodies.Mar2022.JghCsvHelpers01.JghCsvHelpers01
-    ///     Tools Solution 2018.NetStd.Tool.Helpers.Nov2021.JghCsvHelpers02
-    ///     Zwift Solution 2024.NetStd.Tool.Helpers.Nov2021.JghCsvHelpers03
-    public class JghCsvHelpers01
+    /// The following classes all shed a light on how csv conversions for Excel:-
+    /// 1. Rezultz Solution 2018.NetStd.Goodies.Mar2022.JghXmlToCsvHelpers
+    /// 2. Tools Solution 2018.NetStd.Tool.Helpers.Nov2021.JghCsvToXmlHelpers
+    /// 3. Zwift Solution 2024.NetStd.Tool.Helpers.Nov2021.JghSomethingToCsvHelpers
+    
+    public class JghXmlToCsvHelpers
     {
-        private const string Locus2 = nameof(JghCsvHelpers01);
+        private const string Locus2 = nameof(JghXmlToCsvHelpers);
         private const string Locus3 = "[NetStd.Goodies.Mar2022]";
+
+        public static bool TryTransformXElementContainingFlatChildElementsToRowOfCsvForExcel(XElement xElement, out string resultingRowOfCsv, out string errorMessage)
+        {
+            if (xElement == null)
+            {
+                errorMessage = "Null argument. XElement is null.";
+                resultingRowOfCsv = string.Empty;
+                return false;
+            }
+
+            try
+            {
+                var listOfCsvFields = new List<string>();
+
+                foreach (var childElement in xElement.Elements())
+                    listOfCsvFields.Add(childElement.Value);
+
+                //if this blows up we have a problem.
+
+                errorMessage = null;
+
+                resultingRowOfCsv = string.Join(",", listOfCsvFields);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage =
+                    $"Exception occurred. Conversion of XElement containing flat elements to row of comma separated values failed. {ex.Message}";
+                resultingRowOfCsv = null;
+                return false;
+            }
+        }
 
         public static string TransformXElementContainingSimpleChildrenToRowOfCsvForExcel(XElement inputXElement, bool mustTransformElementNamesNotValues)
         {

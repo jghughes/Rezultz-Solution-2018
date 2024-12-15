@@ -431,7 +431,7 @@ namespace Rezultz.Uwp.UserControls
             case EnumStrings.AsCsvFile:
             {
                 var resultsItemsWrappedInAParentXe = await printer.GetLeaderboardStyleResultsArrayAsXmlFileContentsAsync(EnumForXmlDataExportFormat.SameAsGuiLayout);
-                var csvDocumentAsString = JghCsvHelpers01.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(resultsItemsWrappedInAParentXe);
+                var csvDocumentAsString = JghXmlToCsvHelpers.TransformXElementContainingArrayOfChildElementsToCsvFileContentsForExcel(resultsItemsWrappedInAParentXe);
                 answerAsBytes = JghConvert.ToBytesUtf8FromString(csvDocumentAsString);
                 break;
             }
